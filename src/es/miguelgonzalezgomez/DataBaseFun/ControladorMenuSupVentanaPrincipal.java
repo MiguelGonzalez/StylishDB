@@ -18,4 +18,8 @@ public class ControladorMenuSupVentanaPrincipal {
         return menuSuperior;
     }
     
+    public void salirAplicacion() {
+        DataBaseFun.salirAplicacion();
+    }
+    
 }

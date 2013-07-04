@@ -34,12 +34,8 @@ public class MenuSuperiorVentanaPrincipal extends QMenuBar {
 
         salirAction.setShortcut(new QKeySequence(tr("Ctrl+S")));
         salirAction.setStatusTip(tr("Salir de la aplicación"));
-        salirAction.triggered.connect(this, "salirAplicacion()");
+        salirAction.triggered.connect(controlador, "salirAplicacion()");
         
         fileMenu.addAction(salirAction);
-    }
-    
-    private void salirAplicacion() {
-        DataBaseFun.salirAplicacion();
     }
 }
