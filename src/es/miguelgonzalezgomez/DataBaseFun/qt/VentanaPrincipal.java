@@ -1,6 +1,8 @@
 package es.miguelgonzalezgomez.DataBaseFun.qt;
 
+import com.trolltech.qt.gui.QCloseEvent;
 import com.trolltech.qt.gui.QMainWindow;
+import es.miguelgonzalezgomez.DataBaseFun.Controladores.CVentanaPrincipal;
 
 /**
  *
@@ -8,12 +10,21 @@ import com.trolltech.qt.gui.QMainWindow;
  */
 public class VentanaPrincipal extends QMainWindow {
     
-    private es.miguelgonzalezgomez.DataBaseFun.Controladores.CVentanaPrincipal controlador;
+    private CVentanaPrincipal controlador;
     
     public VentanaPrincipal(String tituloVentana,
             es.miguelgonzalezgomez.DataBaseFun.Controladores.CVentanaPrincipal controlador) {
         setWindowTitle(tituloVentana);
-        
+                
         this.controlador = controlador;
     }
+
+    @Override
+    protected void closeEvent(QCloseEvent event) {
+        super.closeEvent(event);
+        
+        controlador.salirAplicacion();
+    }
+    
+    
 }
