@@ -4,8 +4,7 @@ import com.trolltech.qt.gui.QAction;
 import com.trolltech.qt.gui.QKeySequence;
 import com.trolltech.qt.gui.QMenu;
 import com.trolltech.qt.gui.QMenuBar;
-import es.miguelgonzalezgomez.DataBaseFun.ControladorMenuSupVentanaPrincipal;
-import es.miguelgonzalezgomez.DataBaseFun.DataBaseFun;
+import es.miguelgonzalezgomez.DataBaseFun.Controladores.CMenuSupVentanaPrincipal;
 
 /**
  *
@@ -13,11 +12,11 @@ import es.miguelgonzalezgomez.DataBaseFun.DataBaseFun;
  */
 public class MenuSuperiorVentanaPrincipal extends QMenuBar {
     
-    private ControladorMenuSupVentanaPrincipal controlador;
+    private CMenuSupVentanaPrincipal controlador;
     private QMenu fileMenu;
     
     public MenuSuperiorVentanaPrincipal(
-            ControladorMenuSupVentanaPrincipal controlador) {
+            CMenuSupVentanaPrincipal controlador) {
         this.controlador = controlador;
         
         crearOpcionesFichero();

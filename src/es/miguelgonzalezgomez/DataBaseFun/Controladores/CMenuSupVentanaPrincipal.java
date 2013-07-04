@@ -1,16 +1,17 @@
-package es.miguelgonzalezgomez.DataBaseFun;
+package es.miguelgonzalezgomez.DataBaseFun.Controladores;
 
+import es.miguelgonzalezgomez.DataBaseFun.DataBaseFun;
 import es.miguelgonzalezgomez.DataBaseFun.qt.MenuSuperiorVentanaPrincipal;
 
 /**
  *
  * @author Miguel González
  */
-public class ControladorMenuSupVentanaPrincipal {
+public class CMenuSupVentanaPrincipal {
     private MenuSuperiorVentanaPrincipal menuSuperior;
     
     
-    public ControladorMenuSupVentanaPrincipal() {
+    public CMenuSupVentanaPrincipal() {
         menuSuperior = new MenuSuperiorVentanaPrincipal(this);
     }
     

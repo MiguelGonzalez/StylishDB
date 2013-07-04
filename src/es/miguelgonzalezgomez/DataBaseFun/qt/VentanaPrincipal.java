@@ -1,7 +1,6 @@
 package es.miguelgonzalezgomez.DataBaseFun.qt;
 
 import com.trolltech.qt.gui.QMainWindow;
-import es.miguelgonzalezgomez.DataBaseFun.ControladorVentanaPrincipal;
 
 /**
  *
@@ -9,10 +8,10 @@ import es.miguelgonzalezgomez.DataBaseFun.ControladorVentanaPrincipal;
  */
 public class VentanaPrincipal extends QMainWindow {
     
-    private ControladorVentanaPrincipal controlador;
+    private es.miguelgonzalezgomez.DataBaseFun.Controladores.CVentanaPrincipal controlador;
     
     public VentanaPrincipal(String tituloVentana,
-            ControladorVentanaPrincipal controlador) {
+            es.miguelgonzalezgomez.DataBaseFun.Controladores.CVentanaPrincipal controlador) {
         setWindowTitle(tituloVentana);
         
         this.controlador = controlador;
