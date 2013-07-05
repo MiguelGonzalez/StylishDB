@@ -27,6 +27,7 @@ public class MenuSuperiorVentanaPrincipal extends QMenuBar {
     private void crearOpcionesFichero() {
         fileMenu = addMenu(tr("&File"));
 
+        fileMenu.addSeparator();
         crearOpcionSalir();
     }
 
@@ -43,6 +44,7 @@ public class MenuSuperiorVentanaPrincipal extends QMenuBar {
     private void crearOpcionesConexiones() {
         fileConexiones = addMenu(tr("&Conexiones"));
         
+        fileConexiones.addSeparator();
         crearOpcionNuevaConexion();
     }
     

@@ -31,6 +31,21 @@ public class CNuevaConexion {
     }
     
     public void mostrarVentanaModal() {
+        modalGestionConexiones.construirInterfaz();
+        
         modalGestionConexiones.show();
+    }
+    
+    
+    private void eventoCancelarCrearConexion() {
+        modalGestionConexiones.close();
+    }
+    
+    private void eventoProbarConexion() {
+        
+    }
+    
+    private void eventoCrearConexion() {
+        
     }
 }
