@@ -1,7 +1,7 @@
-package es.miguelgonzalezgomez.DataBaseFun;
+package es.miguelgonzalezgomez.dataBaseFun;
 
 import com.google.gson.Gson;
-import es.miguelgonzalezgomez.DataBaseFun.Configuracion.IConfiguracion;
+import es.miguelgonzalezgomez.dataBaseFun.Configuracion.IConfiguracion;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -62,6 +62,34 @@ public class Preferencias {
         File fichJson = new File(getAbsolutePathToFile(nombreConfiguracion));
         
         escribirTextoEnFichero(jsonData, fichJson);
+    }
+    
+    public String getPathToHomePreferencias() {
+        String userHome = System.getProperty("user.home")
+                .replace("\\", "/");
+        if(!userHome.endsWith("/")) {
+            userHome += "/";
+        }
+        String pathRelativeToHome = propertiesProyecto.getProperty(
+                "NOMBRE_CARPETA_HOME",
+                ".DataBaseFun").replace("\\", "/");
+        if(!pathRelativeToHome.endsWith("/")) {
+            pathRelativeToHome += "/";
+        }
+        return userHome + pathRelativeToHome;
+    }
+    
+    public String getPathToFolderPreferencias(String nombreCarpeta) {
+        nombreCarpeta = nombreCarpeta.replace("\\", "/");
+        if(!nombreCarpeta.endsWith("/")) {
+            nombreCarpeta += "/";
+        }
+        String pathToFolder = getPathToHomePreferencias() + nombreCarpeta;
+        File folder = new File(pathToFolder);
+        if(!folder.exists()) {
+            folder.mkdirs();
+        }
+        return getPathToHomePreferencias() + nombreCarpeta;
     }
     
     private void cargarPropertiesProyecto() {
@@ -183,20 +211,5 @@ public class Preferencias {
                 getPathToHomePreferencias()
         );
         fichPreferencias.mkdirs();
-    }
-    
-    private String getPathToHomePreferencias() {
-        String userHome = System.getProperty("user.home")
-                .replace("\\", "/");
-        if(!userHome.endsWith("/")) {
-            userHome += "/";
-        }
-        String pathRelativeToHome = propertiesProyecto.getProperty(
-                "NOMBRE_CARPETA_HOME",
-                ".DataBaseFun").replace("\\", "/");
-        if(!pathRelativeToHome.endsWith("/")) {
-            pathRelativeToHome += "/";
-        }
-        return userHome + pathRelativeToHome;
     }
 }

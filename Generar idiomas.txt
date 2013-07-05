@@ -1,0 +1,18 @@
+-- Generar fichero ts de un idioma --
+
+    lupdate-qt4 -cidecfirtr utf-8 -extensions java . -ts english.ts
+
+
+-- Compilar --
+
+    lrelease-qt4 *.ts
+
+
+-- Editor de un idioma --
+
+    linguist-qt4
+
+    /*
+     * El editor linguist-qt4 da problemas en ficheros UTF-8.
+     * Mejor editar a mano con un editor que soporte UTF-8.
+    */

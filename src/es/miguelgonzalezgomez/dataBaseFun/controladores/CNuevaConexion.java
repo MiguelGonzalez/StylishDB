@@ -1,6 +1,6 @@
-package es.miguelgonzalezgomez.DataBaseFun.Controladores;
+package es.miguelgonzalezgomez.dataBaseFun.controladores;
 
-import es.miguelgonzalezgomez.DataBaseFun.qt.modals.ModalNuevaConexion;
+import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalNuevaConexion;
 
 /**
  *
@@ -16,36 +16,35 @@ public class CNuevaConexion {
         posicionarVentanaModal();
     }
     
-    private void crearVentanaModal() {
-        modalGestionConexiones = new ModalNuevaConexion(
-                "Nueva conexión", this);
-    }
-    
-    private void posicionarVentanaModal() {
-        modalGestionConexiones.resize(
-                500, 300
-                );
-        modalGestionConexiones.move(
-                100,100
-                );
-    }
-    
     public void mostrarVentanaModal() {
         modalGestionConexiones.construirInterfaz();
         
         modalGestionConexiones.show();
     }
     
+    private void crearVentanaModal() {
+        modalGestionConexiones = new ModalNuevaConexion(
+                this);
+    }
     
-    private void eventoCancelarCrearConexion() {
+    private void posicionarVentanaModal() {
+        modalGestionConexiones.resize(
+                350, 300
+                );
+        modalGestionConexiones.move(
+                100,100
+                );
+    }
+    
+    protected void eventoCancelarCrearConexion() {
         modalGestionConexiones.close();
     }
     
-    private void eventoProbarConexion() {
+    protected void eventoProbarConexion() {
         
     }
     
-    private void eventoCrearConexion() {
+    protected void eventoCrearConexion() {
         
     }
 }

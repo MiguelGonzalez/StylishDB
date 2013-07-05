@@ -1,4 +1,4 @@
-package es.miguelgonzalezgomez.DataBaseFun.qt.modals;
+package es.miguelgonzalezgomez.dataBaseFun.qt.modals;
 
 import com.trolltech.qt.gui.QComboBox;
 import com.trolltech.qt.gui.QDialog;
@@ -8,7 +8,7 @@ import com.trolltech.qt.gui.QLabel;
 import com.trolltech.qt.gui.QLineEdit;
 import com.trolltech.qt.gui.QPushButton;
 import com.trolltech.qt.gui.QVBoxLayout;
-import es.miguelgonzalezgomez.DataBaseFun.Controladores.CNuevaConexion;
+import es.miguelgonzalezgomez.dataBaseFun.controladores.CNuevaConexion;
 
 /**
  *
@@ -38,18 +38,17 @@ public class ModalNuevaConexion extends QDialog {
     
     private CNuevaConexion controlador;
     
-    public ModalNuevaConexion(String tituloVentana,
+    public ModalNuevaConexion(
             CNuevaConexion controlador) {
         this.controlador = controlador;
         
-        setWindowTitle(tr(tituloVentana));
+        setWindowTitle(tr(tr("Nueva conexión")));
         setModal(true);
     }
     
     public void construirInterfaz() {
         crearComponentesInterfaz();
         establecerEventosInterfaz();
-        establecerBuddiesInterfaz();
         cargarDatosInterfaz();
         posicionarComponentesInterfaz();
     }
@@ -66,24 +65,13 @@ public class ModalNuevaConexion extends QDialog {
         gestorLabel = new QLabel(tr("Gestor BBDD"));
         sidLabel = new QLabel(tr("SID"));
         ipLabel = new QLabel(tr("Ip"));
-        puertoLabel = new QLabel("Puerto");
-        usuarioLabel = new QLabel("Usuario");
-        passwordLabel = new QLabel("Contraseña");
+        puertoLabel = new QLabel(tr("Puerto"));
+        usuarioLabel = new QLabel(tr("Usuario"));
+        passwordLabel = new QLabel(tr("Contraseña"));
         
         probarConexionButton = new QPushButton(tr("Probar conexión"));        
         cancelarButton = new QPushButton(tr("Cancelar"));
         crearButton = new QPushButton(tr("Crear"));
-    }
-    
-    public void establecerBuddiesInterfaz() {
-        passwordEdit = new QLineEdit();
-        nombreLabel.setBuddy(nombreEdit);
-        gestorLabel.setBuddy(gestorCombo);
-        sidLabel.setBuddy(sidEdit);
-        ipLabel.setBuddy(ipEdit);
-        puertoLabel.setBuddy(puertoEdit);
-        usuarioLabel.setBuddy(usuarioEdit);
-        passwordLabel.setBuddy(passwordEdit);
     }
     
     public void establecerEventosInterfaz() {
@@ -93,9 +81,9 @@ public class ModalNuevaConexion extends QDialog {
     }
     
     public void cargarDatosInterfaz() {
-        gestorCombo.addItem(tr("MySQL"));
-        gestorCombo.addItem(tr("Oracle"));
-        gestorCombo.addItem(tr("SQL"));
+        gestorCombo.addItem("MySQL");
+        gestorCombo.addItem("Oracle");
+        gestorCombo.addItem("SQL");
     }
     
     public void posicionarComponentesInterfaz() {

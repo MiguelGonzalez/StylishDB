@@ -1,0 +1,9 @@
+Colocación de los idiomas:
+
+    La aplicación intentará encontrar los idiomas compilados (*.qm) en la carpeta:
+
+        USER_HOME/.DataBaseFun/idiomas
+
+    Si no existe el directorio porque no se ha ejecutado la aplicación, se crea.
+
+    Se copian los idiomas a ese directorio.

@@ -1,4 +1,4 @@
-package es.miguelgonzalezgomez.DataBaseFun.Configuracion;
+package es.miguelgonzalezgomez.dataBaseFun.Configuracion;
 
 import com.trolltech.qt.core.Qt.WindowStates;
 

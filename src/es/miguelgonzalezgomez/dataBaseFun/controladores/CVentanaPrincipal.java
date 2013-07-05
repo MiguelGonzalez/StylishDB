@@ -2,14 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package es.miguelgonzalezgomez.DataBaseFun.Controladores;
+package es.miguelgonzalezgomez.dataBaseFun.controladores;
 
 import com.google.gson.reflect.TypeToken;
 import com.trolltech.qt.core.Qt.WindowStates;
-import es.miguelgonzalezgomez.DataBaseFun.Configuracion.ConfiguracionVentanaPrincipal;
-import es.miguelgonzalezgomez.DataBaseFun.Preferencias;
-import es.miguelgonzalezgomez.DataBaseFun.PreferenciasException;
-import es.miguelgonzalezgomez.DataBaseFun.qt.VentanaPrincipal;
+import es.miguelgonzalezgomez.dataBaseFun.Configuracion.ConfiguracionVentanaPrincipal;
+import es.miguelgonzalezgomez.dataBaseFun.Preferencias;
+import es.miguelgonzalezgomez.dataBaseFun.PreferenciasException;
+import es.miguelgonzalezgomez.dataBaseFun.qt.VentanaPrincipal;
 import java.lang.reflect.Type;
 
 /**
@@ -23,10 +23,10 @@ public class CVentanaPrincipal {
     private VentanaPrincipal ventanaPrincipal;
     private ConfiguracionVentanaPrincipal configuracionVentanaPrincipal;
     
-    private CMenuSupVentanaPrincipal controladorMenuSup;
+    private CMenuSuperior controladorMenuSup;
     
     public CVentanaPrincipal() {
-        controladorMenuSup = new CMenuSupVentanaPrincipal();
+        controladorMenuSup = new CMenuSuperior();
         
         cargarPropiedadesVentanaPrincipal();
         
