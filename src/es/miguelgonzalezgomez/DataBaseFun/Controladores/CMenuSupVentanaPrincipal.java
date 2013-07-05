@@ -10,7 +10,6 @@ import es.miguelgonzalezgomez.DataBaseFun.qt.MenuSuperiorVentanaPrincipal;
 public class CMenuSupVentanaPrincipal {
     private MenuSuperiorVentanaPrincipal menuSuperior;
     
-    
     public CMenuSupVentanaPrincipal() {
         menuSuperior = new MenuSuperiorVentanaPrincipal(this);
     }
@@ -23,4 +22,9 @@ public class CMenuSupVentanaPrincipal {
         DataBaseFun.salirAplicacion();
     }
     
+    public void nuevaConexion() {
+        CNuevaConexion nuevaConexion = new
+                CNuevaConexion();
+        nuevaConexion.mostrarVentanaModal();
+    }
 }

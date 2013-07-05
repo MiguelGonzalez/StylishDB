@@ -14,7 +14,7 @@ public class VentanaPrincipal extends QMainWindow {
     
     public VentanaPrincipal(String tituloVentana,
             es.miguelgonzalezgomez.DataBaseFun.Controladores.CVentanaPrincipal controlador) {
-        setWindowTitle(tituloVentana);
+        setWindowTitle(tr(tituloVentana));
                 
         this.controlador = controlador;
     }

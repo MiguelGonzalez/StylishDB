@@ -14,12 +14,14 @@ public class MenuSuperiorVentanaPrincipal extends QMenuBar {
     
     private CMenuSupVentanaPrincipal controlador;
     private QMenu fileMenu;
+    private QMenu fileConexiones;
     
     public MenuSuperiorVentanaPrincipal(
             CMenuSupVentanaPrincipal controlador) {
         this.controlador = controlador;
         
         crearOpcionesFichero();
+        crearOpcionesConexiones();
     }
         
     private void crearOpcionesFichero() {
@@ -27,7 +29,7 @@ public class MenuSuperiorVentanaPrincipal extends QMenuBar {
 
         crearOpcionSalir();
     }
-    
+
     private void crearOpcionSalir() {
         QAction salirAction = new QAction(tr("Salir"), this);
 
@@ -36,5 +38,21 @@ public class MenuSuperiorVentanaPrincipal extends QMenuBar {
         salirAction.triggered.connect(controlador, "salirAplicacion()");
         
         fileMenu.addAction(salirAction);
+    }
+    
+    private void crearOpcionesConexiones() {
+        fileConexiones = addMenu(tr("&Conexiones"));
+        
+        crearOpcionNuevaConexion();
+    }
+    
+    private void crearOpcionNuevaConexion() {
+        QAction gestionarConexiones = new QAction(tr("Nueva conexión"), this);
+
+        //gestionarConexiones.setShortcut(new QKeySequence(tr("Ctrl+G")));
+        gestionarConexiones.setStatusTip(tr("Crear nueva conexión"));
+        gestionarConexiones.triggered.connect(controlador, "nuevaConexion()");
+        
+        fileConexiones.addAction(gestionarConexiones);
     }
 }
