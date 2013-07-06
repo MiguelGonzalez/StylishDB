@@ -3,7 +3,7 @@ package es.miguelgonzalezgomez.dataBaseFun.idiomas;
 import com.google.gson.reflect.TypeToken;
 import com.trolltech.qt.core.QTranslator;
 import com.trolltech.qt.gui.QApplication;
-import es.miguelgonzalezgomez.dataBaseFun.Configuracion.ConfiguracionIdioma;
+import es.miguelgonzalezgomez.dataBaseFun.configuracion.ConfiguracionIdioma;
 import es.miguelgonzalezgomez.dataBaseFun.Preferencias;
 import es.miguelgonzalezgomez.dataBaseFun.PreferenciasException;
 import java.io.File;

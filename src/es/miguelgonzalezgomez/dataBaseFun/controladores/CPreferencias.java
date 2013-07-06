@@ -1,5 +1,6 @@
 package es.miguelgonzalezgomez.dataBaseFun.controladores;
 
+import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.idiomas.CargaIdioma;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalPreferencias;
 
@@ -15,6 +16,8 @@ public class CPreferencias {
         crearVentanaModal();
         
         posicionarVentanaModal();
+        
+        establecerEstiloVentana();
     }
     
     public void mostrarVentanaModal() {
@@ -37,6 +40,12 @@ public class CPreferencias {
         modalPreferencias.move(
                 100,100
                 );
+    }
+    
+    private void establecerEstiloVentana() {
+        modalPreferencias.setStyleSheet(
+                ObtencionEstilo.getEstiloVentana("preferencias.css")
+        );
     }
     
     protected void eventoGuardarCambios() {

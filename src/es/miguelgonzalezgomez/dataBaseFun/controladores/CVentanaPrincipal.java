@@ -6,7 +6,7 @@ package es.miguelgonzalezgomez.dataBaseFun.controladores;
 
 import com.google.gson.reflect.TypeToken;
 import com.trolltech.qt.core.Qt.WindowStates;
-import es.miguelgonzalezgomez.dataBaseFun.Configuracion.ConfiguracionVentanaPrincipal;
+import es.miguelgonzalezgomez.dataBaseFun.configuracion.ConfiguracionVentanaPrincipal;
 import es.miguelgonzalezgomez.dataBaseFun.Preferencias;
 import es.miguelgonzalezgomez.dataBaseFun.PreferenciasException;
 import es.miguelgonzalezgomez.dataBaseFun.qt.VentanaPrincipal;

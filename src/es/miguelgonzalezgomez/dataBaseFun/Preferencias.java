@@ -1,7 +1,7 @@
 package es.miguelgonzalezgomez.dataBaseFun;
 
 import com.google.gson.Gson;
-import es.miguelgonzalezgomez.dataBaseFun.Configuracion.IConfiguracion;
+import es.miguelgonzalezgomez.dataBaseFun.configuracion.IConfiguracion;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;

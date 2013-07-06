@@ -1,4 +1,4 @@
-package es.miguelgonzalezgomez.dataBaseFun.Configuracion;
+package es.miguelgonzalezgomez.dataBaseFun.configuracion;
 
 /**
  *
