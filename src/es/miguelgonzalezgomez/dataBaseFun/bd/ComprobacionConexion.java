@@ -42,7 +42,7 @@ public class ComprobacionConexion {
         try {
             connection = DriverManager.getConnection(
                     urlConexion,
-                    conexion.nombre,
+                    conexion.usuario,
                     conexion.password);
 
             if(connection != null) {
