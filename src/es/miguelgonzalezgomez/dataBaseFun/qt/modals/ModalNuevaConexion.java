@@ -8,6 +8,7 @@ import com.trolltech.qt.gui.QLabel;
 import com.trolltech.qt.gui.QLineEdit;
 import com.trolltech.qt.gui.QPushButton;
 import com.trolltech.qt.gui.QVBoxLayout;
+import es.miguelgonzalezgomez.dataBaseFun.bd.TiposBasesDeDatos;
 import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CNuevaConexion;
 
 /**
@@ -123,9 +124,10 @@ public class ModalNuevaConexion extends QDialog {
     }
     
     private void cargarDatosInterfaz() {
-        gestorCombo.addItem("MySQL");
-        gestorCombo.addItem("Oracle");
-        gestorCombo.addItem("SQL");
+        String []tiposBD = TiposBasesDeDatos.getNombresBasesDatos();
+        for(String tipoBD : tiposBD) {
+            gestorCombo.addItem(tipoBD);
+        }
     }
     
     private void posicionarComponentesInterfaz() {

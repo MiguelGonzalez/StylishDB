@@ -85,7 +85,7 @@ public class CNuevaConexion {
         mConexion.usuario = modalGestionConexiones.usuarioEdit.text();
         mConexion.password = modalGestionConexiones.passwordEdit.text();
         
-        return null;
+        return mConexion;
     }
     
     private boolean isRellenoModeloConexion() {

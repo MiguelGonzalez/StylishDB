@@ -50,8 +50,10 @@ public class ObtencionEstilo {
     }
 
     private static void escribirErrorIOException(IOException ex) {
+        ex.printStackTrace();
     }
 
-    private static void escribirErrorEncodingException(UnsupportedEncodingException x) {
+    private static void escribirErrorEncodingException(UnsupportedEncodingException ex) {
+        ex.printStackTrace();
     }
 }
