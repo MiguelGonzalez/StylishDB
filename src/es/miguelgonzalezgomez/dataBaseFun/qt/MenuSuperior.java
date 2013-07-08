@@ -24,13 +24,13 @@ public class MenuSuperior extends QMenuBar {
     private QAction nuevaConexion;
     private QAction preferencias;
     
-    private Map<String, QAction> conexiones;
+    private Map<String, QMenu> conexiones;
     
     public MenuSuperior(
             CMenuSuperior controlador) {
         this.controlador = controlador;
         
-        conexiones = new HashMap<String, QAction>();
+        conexiones = new HashMap<String, QMenu>();
         
         crearOpcionesFichero();
         crearOpcionesConexiones();
@@ -54,8 +54,8 @@ public class MenuSuperior extends QMenuBar {
     private void crearOpcionesConexiones() {
         conexionesMenu = addMenu(tr("&Conexiones"));
         
-        conexionesMenu.addSeparator();
         crearOpcionNuevaConexion();
+        conexionesMenu.addSeparator();
     }
     
     private void crearOpcionNuevaConexion() {
@@ -93,17 +93,34 @@ public class MenuSuperior extends QMenuBar {
     }
 
     public void pintarNuevaConexion(MConexion mConexion) {
-        QAction conexion = new QAction(mConexion.nombre, this);
-        //conexion.triggered.connect(controlador, "nuevaConexion()");
+        QMenu conexion = new QMenu(mConexion.nombre, this);
+        
+        pintarOpcionesNuevaConexion(conexion, mConexion);
         
         conexiones.put(mConexion.nombre, conexion);
+
+        conexionesMenu.addMenu(conexion);
+    }
+    
+    private void pintarOpcionesNuevaConexion(QMenu conexion, MConexion mConexion) {
+        QAction conexionAbrir = new QAction(tr("Abrir conexión"), this);
+        conexion.addAction(conexionAbrir);
         
-        conexionesMenu.addAction(conexion);
+        QAction conexionEditar = new QAction(tr("Editar conexión"), this);
+        conexion.addAction(conexionEditar);
+        
+        conexion.addSeparator();
+        
+        QAction conexionBorrar = new QAction(tr("Borrar conexión"), this);
+        conexionBorrar.setData(mConexion);
+        conexionBorrar.triggered.connect(controlador, "borrarConexion()");
+        
+        conexion.addAction(conexionBorrar);
     }
 
     public void despintarConexion(MConexion mConexion) {
-        QAction conexion = conexiones.get(mConexion.nombre);
+        QMenu conexionBorrar = conexiones.get(mConexion.nombre);
         
-        conexionesMenu.removeAction(conexion);
+        conexionesMenu.removeAction(conexionBorrar.menuAction());
     }
 }

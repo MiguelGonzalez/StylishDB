@@ -45,6 +45,8 @@ public class MAplicacion {
     
     public void removeConexion(MConexion conexion) {
         conexionesGuardadas.remove(conexion);
+        
+        notificarEliminadaConexion(conexion);
     }
     
     private void notificarNuevaConexion(MConexion conexion) {

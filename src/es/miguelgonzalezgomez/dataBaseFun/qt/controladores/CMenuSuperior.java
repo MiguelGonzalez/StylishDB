@@ -1,5 +1,7 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
+import com.trolltech.qt.QSignalEmitter;
+import com.trolltech.qt.gui.QAction;
 import es.miguelgonzalezgomez.dataBaseFun.DataBaseFun;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.ConexionListener;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MAplicacion;
@@ -53,5 +55,13 @@ public class CMenuSuperior {
         CPreferencias preferencias = new
                 CPreferencias();
         preferencias.mostrarVentanaModal();
+    }
+    
+    protected void borrarConexion() {
+        QAction actionBorrar = (QAction) QSignalEmitter.signalSender();
+        
+        MConexion mConexionBorrar = (MConexion) actionBorrar.data();
+        
+        MAplicacion.getInstance().removeConexion(mConexionBorrar);
     }
 }
