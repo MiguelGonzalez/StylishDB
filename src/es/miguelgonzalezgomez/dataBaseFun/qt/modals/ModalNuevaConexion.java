@@ -90,7 +90,7 @@ public class ModalNuevaConexion extends QDialog {
     private void establecerEventosInterfaz() {
         probarConexionButton.clicked.connect(controlador, "eventoProbarConexion()");
         cancelarButton.clicked.connect(controlador, "eventoCancelarCrearConexion()");
-        probarConexionButton.clicked.connect(controlador, "eventoCrearConexion()");
+        crearButton.clicked.connect(controlador, "eventoCrearConexion()");
         
         nombreEdit.textChanged.connect(this, "nombreCambiado()");
         gestorCombo.currentIndexChanged.connect(this, "gestorCambiado()");

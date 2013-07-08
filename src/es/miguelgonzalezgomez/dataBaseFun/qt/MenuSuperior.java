@@ -4,7 +4,10 @@ import com.trolltech.qt.core.QEvent;
 import com.trolltech.qt.gui.QAction;
 import com.trolltech.qt.gui.QMenu;
 import com.trolltech.qt.gui.QMenuBar;
+import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CMenuSuperior;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -21,9 +24,13 @@ public class MenuSuperior extends QMenuBar {
     private QAction nuevaConexion;
     private QAction preferencias;
     
+    private Map<String, QAction> conexiones;
+    
     public MenuSuperior(
             CMenuSuperior controlador) {
         this.controlador = controlador;
+        
+        conexiones = new HashMap<String, QAction>();
         
         crearOpcionesFichero();
         crearOpcionesConexiones();
@@ -83,5 +90,20 @@ public class MenuSuperior extends QMenuBar {
             nuevaConexion.setText(tr("Nueva conexión"));
             preferencias.setText(tr("Preferencias"));
         }
+    }
+
+    public void pintarNuevaConexion(MConexion mConexion) {
+        QAction conexion = new QAction(mConexion.nombre, this);
+        //conexion.triggered.connect(controlador, "nuevaConexion()");
+        
+        conexiones.put(mConexion.nombre, conexion);
+        
+        conexionesMenu.addAction(conexion);
+    }
+
+    public void despintarConexion(MConexion mConexion) {
+        QAction conexion = conexiones.get(mConexion.nombre);
+        
+        conexionesMenu.removeAction(conexion);
     }
 }

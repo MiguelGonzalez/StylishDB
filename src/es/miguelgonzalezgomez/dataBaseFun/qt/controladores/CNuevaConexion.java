@@ -1,6 +1,7 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
 import es.miguelgonzalezgomez.dataBaseFun.bd.ComprobacionConexion;
+import es.miguelgonzalezgomez.dataBaseFun.modelos.MAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalNuevaConexion;
 
@@ -39,7 +40,7 @@ public class CNuevaConexion {
     }
     
     protected void eventoCancelarCrearConexion() {
-        modalGestionConexiones.close();
+        cerrarVentanaModal();
     }
     
     protected void eventoProbarConexion() {
@@ -60,9 +61,16 @@ public class CNuevaConexion {
         if(isRellenoModeloConexion()) {
             MConexion mConexion = obtenerModeloConexion();
             
+            MAplicacion.getInstance().addNuevaConexion(mConexion);
+            
+            cerrarVentanaModal();
         } else {
             pintarErroresCampos();
         }
+    }
+    
+    private void cerrarVentanaModal() {
+        modalGestionConexiones.close();
     }
     
     private void mostrarConexionOk() {
