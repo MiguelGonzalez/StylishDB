@@ -4,7 +4,7 @@ import com.trolltech.qt.core.QEvent;
 import com.trolltech.qt.gui.QAction;
 import com.trolltech.qt.gui.QMenu;
 import com.trolltech.qt.gui.QMenuBar;
-import es.miguelgonzalezgomez.dataBaseFun.controladores.CMenuSuperior;
+import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CMenuSuperior;
 
 /**
  *

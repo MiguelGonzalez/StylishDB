@@ -1,4 +1,4 @@
-package es.miguelgonzalezgomez.dataBaseFun.controladores;
+package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
 import es.miguelgonzalezgomez.dataBaseFun.DataBaseFun;
 import es.miguelgonzalezgomez.dataBaseFun.qt.MenuSuperior;

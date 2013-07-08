@@ -8,7 +8,7 @@ import com.trolltech.qt.gui.QLabel;
 import com.trolltech.qt.gui.QLineEdit;
 import com.trolltech.qt.gui.QPushButton;
 import com.trolltech.qt.gui.QVBoxLayout;
-import es.miguelgonzalezgomez.dataBaseFun.controladores.CNuevaConexion;
+import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CNuevaConexion;
 
 /**
  *
@@ -16,13 +16,13 @@ import es.miguelgonzalezgomez.dataBaseFun.controladores.CNuevaConexion;
  */
 public class ModalNuevaConexion extends QDialog {
     
-    private QLineEdit nombreEdit;
-    private QComboBox gestorCombo;
-    private QLineEdit sidEdit;
-    private QLineEdit ipEdit;
-    private QLineEdit puertoEdit;
-    private QLineEdit usuarioEdit;
-    private QLineEdit passwordEdit;
+    public QLineEdit nombreEdit;
+    public QComboBox gestorCombo;
+    public QLineEdit sidEdit;
+    public QLineEdit ipEdit;
+    public QLineEdit puertoEdit;
+    public QLineEdit usuarioEdit;
+    public QLineEdit passwordEdit;
     
     private QLabel nombreLabel;
     private QLabel gestorLabel;
@@ -31,6 +31,7 @@ public class ModalNuevaConexion extends QDialog {
     private QLabel puertoLabel;
     private QLabel usuarioLabel;
     private QLabel passwordLabel;
+    private QLabel lblMensajeAviso;
     
     private QPushButton probarConexionButton;
     private QPushButton cancelarButton;
@@ -53,6 +54,14 @@ public class ModalNuevaConexion extends QDialog {
         posicionarComponentesInterfaz();
     }
     
+    public void mostrarHayConexion() {
+        lblMensajeAviso.setText(tr("Conexión establecida"));
+    }
+    
+    public void mostrarNoHayConexion() {
+        lblMensajeAviso.setText(tr("No se pudo establecer la conexión"));
+    }
+    
     private void crearComponentesInterfaz() {
         nombreEdit = new QLineEdit();
         gestorCombo = new QComboBox();
@@ -60,6 +69,7 @@ public class ModalNuevaConexion extends QDialog {
         ipEdit = new QLineEdit();
         puertoEdit = new QLineEdit();
         usuarioEdit = new QLineEdit();
+        passwordEdit = new QLineEdit();
         
         nombreLabel = new QLabel(tr("Nombre"));
         gestorLabel = new QLabel(tr("Gestor BBDD"));
@@ -69,24 +79,56 @@ public class ModalNuevaConexion extends QDialog {
         usuarioLabel = new QLabel(tr("Usuario"));
         passwordLabel = new QLabel(tr("Contraseña"));
         
+        lblMensajeAviso = new QLabel();
+        
         probarConexionButton = new QPushButton(tr("Probar conexión"));        
         cancelarButton = new QPushButton(tr("Cancelar"));
         crearButton = new QPushButton(tr("Crear"));
     }
     
-    public void establecerEventosInterfaz() {
+    private void establecerEventosInterfaz() {
         probarConexionButton.clicked.connect(controlador, "eventoProbarConexion()");
         cancelarButton.clicked.connect(controlador, "eventoCancelarCrearConexion()");
         probarConexionButton.clicked.connect(controlador, "eventoCrearConexion()");
+        
+        nombreEdit.textChanged.connect(this, "nombreCambiado()");
+        gestorCombo.currentIndexChanged.connect(this, "gestorCambiado()");
+        sidEdit.textChanged.connect(this, "sidCambiado()");
+        ipEdit.textChanged.connect(this, "ipCambiado()");
+        puertoEdit.textChanged.connect(this, "puertoCambiado()");
+        usuarioEdit.textChanged.connect(this, "usuarioCambiado()");
+        passwordEdit.textChanged.connect(this, "passwordCambiado()");
     }
     
-    public void cargarDatosInterfaz() {
+    private void nombreCambiado() {
+        nombreEdit.setStyleSheet("background-color: transparent");
+    }
+    private void gestorCambiado() {
+        gestorCombo.setStyleSheet("background-color: transparent");
+    }
+    private void sidCambiado() {
+        sidEdit.setStyleSheet("background-color: transparent");
+    }
+    private void ipCambiado() {
+        ipEdit.setStyleSheet("background-color: transparent");
+    }
+    private void puertoCambiado() {
+        puertoEdit.setStyleSheet("background-color: transparent");
+    }
+    private void usuarioCambiado() {
+        usuarioEdit.setStyleSheet("background-color: transparent");
+    }
+    private void passwordCambiado() {
+        passwordEdit.setStyleSheet("background-color: transparent");
+    }
+    
+    private void cargarDatosInterfaz() {
         gestorCombo.addItem("MySQL");
         gestorCombo.addItem("Oracle");
         gestorCombo.addItem("SQL");
     }
     
-    public void posicionarComponentesInterfaz() {
+    private void posicionarComponentesInterfaz() {
         QVBoxLayout ventanaLayout = new QVBoxLayout();
         ventanaLayout.setMargin(10);
         
@@ -124,6 +166,8 @@ public class ModalNuevaConexion extends QDialog {
         
         datosConexionGrid.addWidget(passwordLabel, 6, 0);
         datosConexionGrid.addWidget(passwordEdit, 6, 1);
+        
+        datosConexionGrid.addWidget(lblMensajeAviso, 7, 0, 1, 2);
         
         return datosConexionGrid;
     }

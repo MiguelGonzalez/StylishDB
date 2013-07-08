@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package es.miguelgonzalezgomez.dataBaseFun.controladores;
+package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
 import com.google.gson.reflect.TypeToken;
 import com.trolltech.qt.core.Qt.WindowStates;
