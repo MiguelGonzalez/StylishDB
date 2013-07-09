@@ -44,6 +44,14 @@ public class CMenuSuperior {
             public void eliminadaConexion(MConexion mConexion) {
                 menuSuperior.despintarConexion(mConexion);
             }
+
+            @Override
+            public void modificadaConexion(MConexion mConexionVieja, 
+                    MConexion mConexionEditada) {
+                menuSuperior.comprobarCambiarNombre(mConexionVieja.nombre,
+                        mConexionEditada.nombre);
+
+            }
         });
     }
     
@@ -76,5 +84,15 @@ public class CMenuSuperior {
         MConexion mConexionBorrar = (MConexion) actionBorrar.data();
         
         gestionadorConexiones.borrarConexion(mConexionBorrar);
+    }
+    
+    protected void editarConexion() {
+        QAction actionEditar = (QAction) QSignalEmitter.signalSender();
+        
+        MConexion mConexionEditar = (MConexion) actionEditar.data();
+        
+        CEditarConexion editarConexion = new CEditarConexion(
+                mConexionEditar);
+        editarConexion.mostrarVentanaModal();
     }
 }

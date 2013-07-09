@@ -18,7 +18,12 @@ public class MConexionesGuardadas {
     }
     
     public List<MConexion> getConexionesGuardadas() {
-        return conexionesGuardadas;
+        List<MConexion> conexionCopy = new ArrayList<>();
+        for(MConexion conexion : conexionesGuardadas) {
+            conexionCopy.add(conexion.clone());
+        }
+
+        return conexionCopy;
     }
     
     public void addConexionListener(ConexionListener conexionListener) {
@@ -30,7 +35,7 @@ public class MConexionesGuardadas {
     }
     
     public void addNuevaConexion(MConexion conexion) {
-        conexionesGuardadas.add(conexion);
+        conexionesGuardadas.add(conexion.clone());
         
         notificarNuevaConexion(conexion);
     }
@@ -39,6 +44,23 @@ public class MConexionesGuardadas {
         conexionesGuardadas.remove(conexion);
         
         notificarEliminadaConexion(conexion);
+    }
+    
+    public void editadaConexion(MConexion mConexionVieja,
+            MConexion mConexionNueva) {
+        for(MConexion conexion : conexionesGuardadas) {
+            if(conexion.nombre.equals(mConexionVieja.nombre)) {
+                conexion.nombre = mConexionNueva.nombre;
+                conexion.gestor = mConexionNueva.gestor;
+                conexion.sid = mConexionNueva.sid;
+                conexion.puerto = mConexionNueva.puerto;
+                conexion.usuario = mConexionNueva.usuario;
+                conexion.password = mConexionNueva.password;
+            }
+        }
+        
+        notificarModificadaConexion(mConexionVieja,
+                mConexionNueva);
     }
     
     private void notificarNuevaConexion(MConexion conexion) {
@@ -50,6 +72,13 @@ public class MConexionesGuardadas {
     private void notificarEliminadaConexion(MConexion conexion) {
         for(ConexionListener conexionListener : getCopiaConexionListeners()) {
             conexionListener.eliminadaConexion(conexion);
+        }
+    }
+    
+    private void notificarModificadaConexion(MConexion conexionVieja,
+            MConexion conexionEditada) {
+        for(ConexionListener conexionListener : getCopiaConexionListeners()) {
+            conexionListener.modificadaConexion(conexionVieja, conexionEditada);
         }
     }
     

@@ -4,7 +4,7 @@ import es.miguelgonzalezgomez.dataBaseFun.bd.ComprobacionConexion;
 import es.miguelgonzalezgomez.dataBaseFun.bd.GestionadorConexionesAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ValidadorModeloConexion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
-import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalNuevaConexion;
+import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalCrearEditarConexion;
 
 /**
  *
@@ -12,8 +12,8 @@ import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalNuevaConexion;
  */
 public class CNuevaConexion {
     
-    private ModalNuevaConexion modalGestionConexiones;
-    private GestionadorConexionesAplicacion gestionadorConexiones;
+    protected ModalCrearEditarConexion modalGestionConexiones;
+    protected GestionadorConexionesAplicacion gestionadorConexiones;
     
     public CNuevaConexion() {
         gestionadorConexiones = new GestionadorConexionesAplicacion();
@@ -30,7 +30,7 @@ public class CNuevaConexion {
     }
     
     private void crearVentanaModal() {
-        modalGestionConexiones = new ModalNuevaConexion(
+        modalGestionConexiones = new ModalCrearEditarConexion(
                 this);
     }
     
@@ -43,7 +43,7 @@ public class CNuevaConexion {
                 );
     }
     
-    protected void eventoCancelarCrearConexion() {
+    protected void eventoCancelarCrearEditarConexion() {
         cerrarVentanaModal();
     }
     
@@ -61,7 +61,7 @@ public class CNuevaConexion {
         }
     }
     
-    protected void eventoCrearConexion() {
+    protected void eventoCrearEditarConexion() {
         if(esValidoSinoMostrarErrores()) {
             MConexion mConexion = obtenerModeloConexion();
             if(gestionadorConexiones.existeNombreConexion(mConexion.nombre)) {
@@ -76,11 +76,11 @@ public class CNuevaConexion {
         }
     }
     
-    private void cerrarVentanaModal() {
+    protected void cerrarVentanaModal() {
         modalGestionConexiones.close();
     }
     
-    private MConexion obtenerModeloConexion() {
+    protected MConexion obtenerModeloConexion() {
         MConexion mConexion = new MConexion();
         
         mConexion.nombre = modalGestionConexiones.nombreEdit.text();
@@ -95,7 +95,7 @@ public class CNuevaConexion {
         return mConexion;
     }
     
-    private boolean esValidoSinoMostrarErrores() {
+    protected boolean esValidoSinoMostrarErrores() {
         MConexion conexion = obtenerModeloConexion();
         ValidadorModeloConexion validador = new ValidadorModeloConexion(conexion);
         

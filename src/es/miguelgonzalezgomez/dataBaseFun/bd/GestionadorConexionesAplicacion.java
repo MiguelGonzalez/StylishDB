@@ -40,4 +40,8 @@ public class GestionadorConexionesAplicacion {
         
         return false;
     }
+
+    public void editadaConexion(MConexion mConexionVieja, MConexion mConexionNueva) {
+        aplicacion.mConexionesGuardadas.editadaConexion(mConexionVieja, mConexionNueva);
+    }
 }

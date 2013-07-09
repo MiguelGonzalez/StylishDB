@@ -11,4 +11,5 @@ package es.miguelgonzalezgomez.dataBaseFun.modelos;
 public interface ConexionListener {
     public void nuevaConexion(MConexion mConexion);
     public void eliminadaConexion(MConexion mConexion);
+    public void modificadaConexion(MConexion mConexionVieja, MConexion mConexionEditada);
 }

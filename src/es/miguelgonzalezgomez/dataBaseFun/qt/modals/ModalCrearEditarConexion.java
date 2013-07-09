@@ -16,7 +16,7 @@ import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CNuevaConexion;
  *
  * @author Miguel González
  */
-public class ModalNuevaConexion extends QDialog {
+public class ModalCrearEditarConexion extends QDialog {
     
     public QLineEdit nombreEdit;
     public QComboBox gestorCombo;
@@ -35,12 +35,12 @@ public class ModalNuevaConexion extends QDialog {
     private QLabel passwordLabel;
     
     private QPushButton probarConexionButton;
-    private QPushButton cancelarButton;
-    private QPushButton crearButton;
+    private QPushButton cancelarEditarButton;
+    private QPushButton crearEditarButton;
     
     private CNuevaConexion controlador;
     
-    public ModalNuevaConexion(
+    public ModalCrearEditarConexion(
             CNuevaConexion controlador) {
         this.controlador = controlador;
         
@@ -53,6 +53,10 @@ public class ModalNuevaConexion extends QDialog {
         establecerEventosInterfaz();
         cargarDatosInterfaz();
         posicionarComponentesInterfaz();
+    }
+    
+    public void establecerTextoGuardarCambios() {
+        crearEditarButton.setText(tr("Guardar cambios"));
     }
         
     private void crearComponentesInterfaz() {
@@ -73,14 +77,14 @@ public class ModalNuevaConexion extends QDialog {
         passwordLabel = new QLabel(tr("Contraseña"));
         
         probarConexionButton = new QPushButton(tr("Probar conexión"));        
-        cancelarButton = new QPushButton(tr("Cancelar"));
-        crearButton = new QPushButton(tr("Crear"));
+        cancelarEditarButton = new QPushButton(tr("Cancelar"));
+        crearEditarButton = new QPushButton(tr("Crear"));
     }
     
     private void establecerEventosInterfaz() {
         probarConexionButton.clicked.connect(controlador, "eventoProbarConexion()");
-        cancelarButton.clicked.connect(controlador, "eventoCancelarCrearConexion()");
-        crearButton.clicked.connect(controlador, "eventoCrearConexion()");
+        cancelarEditarButton.clicked.connect(controlador, "eventoCancelarCrearEditarConexion()");
+        crearEditarButton.clicked.connect(controlador, "eventoCrearEditarConexion()");
         
         nombreEdit.textChanged.connect(this, "nombreCambiado()");
         gestorCombo.currentIndexChanged.connect(this, "gestorCambiado()");
@@ -166,8 +170,8 @@ public class ModalNuevaConexion extends QDialog {
         QHBoxLayout accionesConexionHorizontal = new QHBoxLayout();
         
         accionesConexionHorizontal.addWidget(probarConexionButton);
-        accionesConexionHorizontal.addWidget(cancelarButton);
-        accionesConexionHorizontal.addWidget(crearButton);
+        accionesConexionHorizontal.addWidget(cancelarEditarButton);
+        accionesConexionHorizontal.addWidget(crearEditarButton);
         
         return accionesConexionHorizontal;
     }
