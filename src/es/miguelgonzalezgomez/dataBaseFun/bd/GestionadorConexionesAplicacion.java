@@ -17,15 +17,16 @@ public class GestionadorConexionesAplicacion {
     }
     
     public void borrarConexion(MConexion mConexion) {
-        aplicacion.removeConexion(mConexion);
+        aplicacion.mConexionesGuardadas.removeConexion(mConexion);
     }
     
     public void addNuevaConexion(MConexion mConexion) {
-        aplicacion.addNuevaConexion(mConexion);
+        aplicacion.mConexionesGuardadas.addNuevaConexion(mConexion);
     }
     
     public boolean existeNombreConexion(String nombreConexion) {
-        List<MConexion> conexiones = aplicacion.getConexionesGuardadas();
+        List<MConexion> conexiones = aplicacion.mConexionesGuardadas.
+                getConexionesGuardadas();
         
         for(MConexion conexion : conexiones) {
             if(conexion.nombre.equals(nombreConexion)) {

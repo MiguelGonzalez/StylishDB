@@ -32,7 +32,7 @@ public class CMenuSuperior {
     }
     
     private void suscribirCambiosConexiones() {
-        aplicacion.addConexionListener(new ConexionListener() {
+        aplicacion.mConexionesGuardadas.addConexionListener(new ConexionListener() {
             @Override
             public void nuevaConexion(MConexion mConexion) {
                 menuSuperior.pintarNuevaConexion(mConexion);
