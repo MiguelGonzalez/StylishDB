@@ -5,6 +5,7 @@ import es.miguelgonzalezgomez.dataBaseFun.bd.GestionadorConexionesAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ValidadorModeloConexion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalCrearEditarConexion;
+import es.miguelgonzalezgomez.dataBaseFun.utilidadesEstaticas.CentroCoordenadas;
 
 /**
  *
@@ -35,11 +36,14 @@ public class CNuevaConexion {
     }
     
     private void posicionarVentanaModal() {
+        int width = 350;
+        int height = 300;
         modalGestionConexiones.resize(
-                350, 300
+                width, height
                 );
         modalGestionConexiones.move(
-                100,100
+                CentroCoordenadas.getXCentrada(width),
+                CentroCoordenadas.getYCentradaArriba()
                 );
     }
     

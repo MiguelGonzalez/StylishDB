@@ -32,4 +32,20 @@ public class DataBaseFun {
         
         controladorVentanaPrincipal.salirAplicacion();
     }
+    
+    public static int getLeftVentana() {
+        return controladorVentanaPrincipal.ventanaPrincipal.x();
+    }
+    
+    public static int getTopVentana() {
+        return controladorVentanaPrincipal.ventanaPrincipal.y();
+    }
+    
+    public static int getHeightVentana() {
+        return controladorVentanaPrincipal.ventanaPrincipal.height();
+    }
+    
+    public static int getWidthVentana() {
+        return controladorVentanaPrincipal.ventanaPrincipal.width();
+    }
 }

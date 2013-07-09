@@ -3,6 +3,7 @@ package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.idiomas.CargaIdioma;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalPreferencias;
+import es.miguelgonzalezgomez.dataBaseFun.utilidadesEstaticas.CentroCoordenadas;
 
 /**
  *
@@ -34,11 +35,14 @@ public class CPreferencias {
     }
     
     private void posicionarVentanaModal() {
+        int width = 275;
+        int height = 150;
         modalPreferencias.resize(
-                250, 150
+                width, height
                 );
         modalPreferencias.move(
-                100,100
+                CentroCoordenadas.getXCentrada(width),
+                CentroCoordenadas.getYCentradaArriba()
                 );
     }
     

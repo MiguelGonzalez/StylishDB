@@ -20,7 +20,7 @@ public class CVentanaPrincipal {
     
     private Preferencias prefs;
     private static String nombreFicheroPreferencias = "confVentanaPrincipal";
-    private VentanaPrincipal ventanaPrincipal;
+    public VentanaPrincipal ventanaPrincipal;
     private ConfiguracionVentanaPrincipal configuracionVentanaPrincipal;
     
     private CMenuSuperior controladorMenuSup;
