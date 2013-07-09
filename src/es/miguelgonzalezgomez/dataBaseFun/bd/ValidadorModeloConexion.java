@@ -1,6 +1,7 @@
 package es.miguelgonzalezgomez.dataBaseFun.bd;
 
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -45,8 +46,17 @@ public class ValidadorModeloConexion {
     }
     
     public boolean isIpValido() {
-        return !mConexion.ip.isEmpty() &&
-                esStringNumero(mConexion.ip);
+        boolean valido = !mConexion.ip.isEmpty();
+        
+        if(valido) {
+            if("localhost".equals(mConexion.ip)) {
+                return true;
+            }
+        }
+        if(valido) {
+            return esValidaIP(mConexion.ip);
+        }
+        return false;
     }
     
     public boolean isPuertoValido() {
@@ -61,5 +71,16 @@ public class ValidadorModeloConexion {
             return false;
         }
         return true;
+    }
+    
+    private boolean esValidaIP(String ip) {
+        String PATTERN = 
+        "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
+        "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
+        "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
+        "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
+        Pattern patronIp = Pattern.compile(PATTERN);
+        
+        return patronIp.matcher(ip).matches();
     }
 }
