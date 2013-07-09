@@ -1,7 +1,7 @@
-package es.miguelgonzalezgomez.dataBaseFun.bd;
+package es.miguelgonzalezgomez.dataBaseFun.bd.estaticos;
 
-import static es.miguelgonzalezgomez.dataBaseFun.bd.ClasesDrivers.*;
-import static es.miguelgonzalezgomez.dataBaseFun.bd.TiposBasesDeDatos.*;
+import static es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.ClasesDrivers.*;
+import static es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.TiposBasesDeDatos.*;
 
 /**
  *

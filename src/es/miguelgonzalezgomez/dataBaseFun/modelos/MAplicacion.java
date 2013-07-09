@@ -27,6 +27,10 @@ public class MAplicacion {
         return INSTANCE;
     }
     
+    public List<MConexion> getConexionesGuardadas() {
+        return conexionesGuardadas;
+    }
+    
     public void addConexionListener(ConexionListener conexionListener) {
         conexionListeners.add(conexionListener);
     }

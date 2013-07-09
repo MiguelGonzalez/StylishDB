@@ -3,6 +3,7 @@ package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 import com.trolltech.qt.QSignalEmitter;
 import com.trolltech.qt.gui.QAction;
 import es.miguelgonzalezgomez.dataBaseFun.DataBaseFun;
+import es.miguelgonzalezgomez.dataBaseFun.bd.GestionadorConexionesAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.ConexionListener;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
@@ -15,8 +16,11 @@ import es.miguelgonzalezgomez.dataBaseFun.qt.MenuSuperior;
 public class CMenuSuperior {
     private MenuSuperior menuSuperior;
     private MAplicacion aplicacion;
+    private GestionadorConexionesAplicacion gestionadorConexiones;
     
     public CMenuSuperior() {
+        gestionadorConexiones = new
+                GestionadorConexionesAplicacion();
         aplicacion = MAplicacion.getInstance();
         suscribirCambiosConexiones();
         
@@ -62,6 +66,6 @@ public class CMenuSuperior {
         
         MConexion mConexionBorrar = (MConexion) actionBorrar.data();
         
-        MAplicacion.getInstance().removeConexion(mConexionBorrar);
+        gestionadorConexiones.borrarConexion(mConexionBorrar);
     }
 }

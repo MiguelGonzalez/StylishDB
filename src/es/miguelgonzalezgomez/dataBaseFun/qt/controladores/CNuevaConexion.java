@@ -1,6 +1,8 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
+import com.trolltech.qt.gui.QMessageBox;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ComprobacionConexion;
+import es.miguelgonzalezgomez.dataBaseFun.bd.GestionadorConexionesAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalNuevaConexion;
@@ -12,8 +14,11 @@ import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalNuevaConexion;
 public class CNuevaConexion {
     
     private ModalNuevaConexion modalGestionConexiones;
+    private GestionadorConexionesAplicacion gestionadorConexiones;
     
     public CNuevaConexion() {
+        gestionadorConexiones = new GestionadorConexionesAplicacion();
+        
         crearVentanaModal();
         
         posicionarVentanaModal();
@@ -60,10 +65,14 @@ public class CNuevaConexion {
     protected void eventoCrearConexion() {
         if(isRellenoModeloConexion()) {
             MConexion mConexion = obtenerModeloConexion();
+            if(gestionadorConexiones.existeNombreConexion(
+                    mConexion.nombre)) {
+                pintarErrorNombreConexionDuplicado();
+            } else {
+                gestionadorConexiones.addNuevaConexion(mConexion);
             
-            MAplicacion.getInstance().addNuevaConexion(mConexion);
-            
-            cerrarVentanaModal();
+                cerrarVentanaModal();
+            }
         } else {
             pintarErroresCampos();
         }
@@ -128,5 +137,9 @@ public class CNuevaConexion {
         if(modalGestionConexiones.passwordEdit.text().isEmpty()) {
             modalGestionConexiones.passwordEdit.setStyleSheet("background: #FA8072");
         }
+    }
+    
+    private void pintarErrorNombreConexionDuplicado() {
+        modalGestionConexiones.pintarErrorNombreConexionDuplicado();
     }
 }

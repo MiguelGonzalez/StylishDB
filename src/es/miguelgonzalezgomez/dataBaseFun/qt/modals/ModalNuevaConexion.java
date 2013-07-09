@@ -2,13 +2,16 @@ package es.miguelgonzalezgomez.dataBaseFun.qt.modals;
 
 import com.trolltech.qt.gui.QComboBox;
 import com.trolltech.qt.gui.QDialog;
+import com.trolltech.qt.gui.QDialogButtonBox;
+import com.trolltech.qt.gui.QDialogButtonBox.StandardButton;
 import com.trolltech.qt.gui.QGridLayout;
 import com.trolltech.qt.gui.QHBoxLayout;
 import com.trolltech.qt.gui.QLabel;
 import com.trolltech.qt.gui.QLineEdit;
+import com.trolltech.qt.gui.QMessageBox;
 import com.trolltech.qt.gui.QPushButton;
 import com.trolltech.qt.gui.QVBoxLayout;
-import es.miguelgonzalezgomez.dataBaseFun.bd.TiposBasesDeDatos;
+import es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.TiposBasesDeDatos;
 import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CNuevaConexion;
 
 /**
@@ -182,6 +185,10 @@ public class ModalNuevaConexion extends QDialog {
         accionesConexionHorizontal.addWidget(crearButton);
         
         return accionesConexionHorizontal;
+    }
+
+    public void pintarErrorNombreConexionDuplicado() {
+        nombreEdit.setStyleSheet("background: #FA8072;");
     }
     
 }

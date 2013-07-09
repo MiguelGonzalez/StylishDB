@@ -1,4 +1,4 @@
-package es.miguelgonzalezgomez.dataBaseFun.bd;
+package es.miguelgonzalezgomez.dataBaseFun.bd.estaticos;
 
 /**
  *
