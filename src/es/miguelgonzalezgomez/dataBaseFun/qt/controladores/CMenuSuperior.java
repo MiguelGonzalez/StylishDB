@@ -62,6 +62,11 @@ public class CMenuSuperior {
         }
     }
     
+    protected void nuevoEditor() {
+        CNuevoEditor nuevoEditor = new CNuevoEditor();
+        nuevoEditor.lanzar();
+    }
+    
     protected void salirAplicacion() {
         DataBaseFun.salirAplicacion();
     }

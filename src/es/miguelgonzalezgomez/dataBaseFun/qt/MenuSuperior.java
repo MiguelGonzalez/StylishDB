@@ -21,6 +21,7 @@ public class MenuSuperior extends QMenuBar {
     private QMenu herramientasMenu;
     
     private QAction salirAction;
+    private QAction nuevoEditor;
     private QAction nuevaConexion;
     private QAction preferencias;
     
@@ -40,9 +41,19 @@ public class MenuSuperior extends QMenuBar {
     private void crearOpcionesFichero() {
         achivoMenu = addMenu(tr("&Archivo"));
 
+        crearOpcionNuevoEditor();
+        
         achivoMenu.addSeparator();
         crearOpcionSalir();
     }
+    
+    private void crearOpcionNuevoEditor() {
+        nuevoEditor = new QAction(tr("Nuevo editor"), this);
+        nuevoEditor.triggered.connect(controlador, "nuevoEditor()");
+        
+        achivoMenu.addAction(nuevoEditor);
+    }
+    
 
     private void crearOpcionSalir() {
         salirAction = new QAction(tr("Salir"), this);
@@ -103,10 +114,6 @@ public class MenuSuperior extends QMenuBar {
     }
     
     private void pintarOpcionesNuevaConexion(QMenu conexion, MConexion mConexion) {
-        QAction conexionAbrir = new QAction(tr("Abrir conexión"), this);
-        conexionAbrir.setData(mConexion);
-        conexion.addAction(conexionAbrir);
-        
         QAction conexionEditar = new QAction(tr("Editar conexión"), this);
         conexionEditar.setData(mConexion);
         conexion.addAction(conexionEditar);
