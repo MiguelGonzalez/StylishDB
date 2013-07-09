@@ -189,6 +189,9 @@ public class ModalNuevaConexion extends QDialog {
 
     public void pintarErrorNombreConexionDuplicado() {
         nombreEdit.setStyleSheet("background: #FA8072;");
+        
+        QMessageBox.critical(this, tr("Error al crear la conexión"),
+                  tr("Ya existe una conexión creada con el mismo nombre"));
     }
     
 }
