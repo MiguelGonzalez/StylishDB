@@ -2,6 +2,7 @@ package es.miguelgonzalezgomez.dataBaseFun.qt;
 
 import com.trolltech.qt.gui.QCloseEvent;
 import com.trolltech.qt.gui.QMainWindow;
+import es.miguelgonzalezgomez.dataBaseFun.DataBaseFun;
 import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CVentanaPrincipal;
 
 /**
@@ -23,8 +24,6 @@ public class VentanaPrincipal extends QMainWindow {
     protected void closeEvent(QCloseEvent event) {
         super.closeEvent(event);
         
-        controlador.salirAplicacion();
+        DataBaseFun.salirAplicacion();
     }
-    
-    
 }
