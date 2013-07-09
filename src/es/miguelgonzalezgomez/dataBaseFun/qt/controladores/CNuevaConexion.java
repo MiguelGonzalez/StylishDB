@@ -1,9 +1,8 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
-import com.trolltech.qt.gui.QMessageBox;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ComprobacionConexion;
 import es.miguelgonzalezgomez.dataBaseFun.bd.GestionadorConexionesAplicacion;
-import es.miguelgonzalezgomez.dataBaseFun.modelos.MAplicacion;
+import es.miguelgonzalezgomez.dataBaseFun.bd.ValidadorModeloConexion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalNuevaConexion;
 
@@ -49,45 +48,36 @@ public class CNuevaConexion {
     }
     
     protected void eventoProbarConexion() {
-        if(isRellenoModeloConexion()) {
+        if(esValidoSinoMostrarErrores()) {
             MConexion mConexion = obtenerModeloConexion();
             
             if(ComprobacionConexion.hayConexion(mConexion)) {
-                mostrarConexionOk();
+                modalGestionConexiones.
+                        mostrarAvisoConexionEstablecida();
             } else {
-                mostrarConexionError();
+                modalGestionConexiones.
+                        mostrarAvisoNoSePudoEstablecerConexion();
             }
-        } else {
-            pintarErroresCampos();
         }
     }
     
     protected void eventoCrearConexion() {
-        if(isRellenoModeloConexion()) {
+        if(esValidoSinoMostrarErrores()) {
             MConexion mConexion = obtenerModeloConexion();
-            if(gestionadorConexiones.existeNombreConexion(
-                    mConexion.nombre)) {
-                pintarErrorNombreConexionDuplicado();
+            if(gestionadorConexiones.existeNombreConexion(mConexion.nombre)) {
+                modalGestionConexiones.
+                        mostrarAvisoNombreConexionDuplicado();
             } else {
-                gestionadorConexiones.addNuevaConexion(mConexion);
+                gestionadorConexiones.
+                        addNuevaConexion(mConexion);
             
                 cerrarVentanaModal();
             }
-        } else {
-            pintarErroresCampos();
         }
     }
     
     private void cerrarVentanaModal() {
         modalGestionConexiones.close();
-    }
-    
-    private void mostrarConexionOk() {
-        modalGestionConexiones.mostrarHayConexion();
-    }
-    
-    private void mostrarConexionError() {
-        modalGestionConexiones.mostrarNoHayConexion();
     }
     
     private MConexion obtenerModeloConexion() {
@@ -105,41 +95,32 @@ public class CNuevaConexion {
         return mConexion;
     }
     
-    private boolean isRellenoModeloConexion() {
-        return !modalGestionConexiones.nombreEdit.text().isEmpty() &&
-                modalGestionConexiones.gestorCombo.currentIndex() >= 0 &&
-                !modalGestionConexiones.sidEdit.text().isEmpty() &&
-                !modalGestionConexiones.ipEdit.text().isEmpty() &&
-                !modalGestionConexiones.puertoEdit.text().isEmpty() &&
-                !modalGestionConexiones.usuarioEdit.text().isEmpty() &&
-                !modalGestionConexiones.passwordEdit.text().isEmpty();
-    }
-    
-    private void pintarErroresCampos() {
-        if(modalGestionConexiones.nombreEdit.text().isEmpty()) {
-            modalGestionConexiones.nombreEdit.setStyleSheet("background: #FA8072;");
+    private boolean esValidoSinoMostrarErrores() {
+        MConexion conexion = obtenerModeloConexion();
+        ValidadorModeloConexion validador = new ValidadorModeloConexion(conexion);
+        
+        if(!validador.isNombreValido()) {
+            modalGestionConexiones.pintarErrorNombre();
         }
-        if(modalGestionConexiones.gestorCombo.currentIndex() == -1) {
-            modalGestionConexiones.gestorCombo.setStyleSheet("background: #FA8072");
+        if(!validador.isGestorValido()) {
+            modalGestionConexiones.pintarErrorGestor();
         }
-        if(modalGestionConexiones.sidEdit.text().isEmpty()) {
-            modalGestionConexiones.sidEdit.setStyleSheet("background: #FA8072");
+        if(!validador.isSidValido()) {
+            modalGestionConexiones.pintarErrorSid();
         }
-        if(modalGestionConexiones.ipEdit.text().isEmpty()) {
-            modalGestionConexiones.ipEdit.setStyleSheet("background: #FA8072");
+        if(!validador.isIpValido()) {
+            modalGestionConexiones.pintarErrorIp();
         }
-        if(modalGestionConexiones.puertoEdit.text().isEmpty()) {
-            modalGestionConexiones.puertoEdit.setStyleSheet("background: #FA8072");
+        if(!validador.isPuertoValido()) {
+            modalGestionConexiones.pintarErrorPuerto();
         }
-        if(modalGestionConexiones.usuarioEdit.text().isEmpty()) {
-            modalGestionConexiones.usuarioEdit.setStyleSheet("background: #FA8072");
+        if(!validador.isUsuarioValido()) {
+            modalGestionConexiones.pintarErrorUsuario();
         }
-        if(modalGestionConexiones.passwordEdit.text().isEmpty()) {
-            modalGestionConexiones.passwordEdit.setStyleSheet("background: #FA8072");
+        if(!validador.isPasswordValido()) {
+            modalGestionConexiones.pintarErrorPassword();
         }
-    }
-    
-    private void pintarErrorNombreConexionDuplicado() {
-        modalGestionConexiones.pintarErrorNombreConexionDuplicado();
+        
+        return validador.isConexionValida();
     }
 }

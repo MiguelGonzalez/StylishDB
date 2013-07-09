@@ -2,8 +2,6 @@ package es.miguelgonzalezgomez.dataBaseFun.qt.modals;
 
 import com.trolltech.qt.gui.QComboBox;
 import com.trolltech.qt.gui.QDialog;
-import com.trolltech.qt.gui.QDialogButtonBox;
-import com.trolltech.qt.gui.QDialogButtonBox.StandardButton;
 import com.trolltech.qt.gui.QGridLayout;
 import com.trolltech.qt.gui.QHBoxLayout;
 import com.trolltech.qt.gui.QLabel;
@@ -35,7 +33,6 @@ public class ModalNuevaConexion extends QDialog {
     private QLabel puertoLabel;
     private QLabel usuarioLabel;
     private QLabel passwordLabel;
-    private QLabel lblMensajeAviso;
     
     private QPushButton probarConexionButton;
     private QPushButton cancelarButton;
@@ -57,15 +54,7 @@ public class ModalNuevaConexion extends QDialog {
         cargarDatosInterfaz();
         posicionarComponentesInterfaz();
     }
-    
-    public void mostrarHayConexion() {
-        lblMensajeAviso.setText(tr("Conexión establecida"));
-    }
-    
-    public void mostrarNoHayConexion() {
-        lblMensajeAviso.setText(tr("No se pudo establecer la conexión"));
-    }
-    
+        
     private void crearComponentesInterfaz() {
         nombreEdit = new QLineEdit();
         gestorCombo = new QComboBox();
@@ -82,8 +71,6 @@ public class ModalNuevaConexion extends QDialog {
         puertoLabel = new QLabel(tr("Puerto"));
         usuarioLabel = new QLabel(tr("Usuario"));
         passwordLabel = new QLabel(tr("Contraseña"));
-        
-        lblMensajeAviso = new QLabel();
         
         probarConexionButton = new QPushButton(tr("Probar conexión"));        
         cancelarButton = new QPushButton(tr("Cancelar"));
@@ -172,8 +159,6 @@ public class ModalNuevaConexion extends QDialog {
         datosConexionGrid.addWidget(passwordLabel, 6, 0);
         datosConexionGrid.addWidget(passwordEdit, 6, 1);
         
-        datosConexionGrid.addWidget(lblMensajeAviso, 7, 0, 1, 2);
-        
         return datosConexionGrid;
     }
     
@@ -186,10 +171,49 @@ public class ModalNuevaConexion extends QDialog {
         
         return accionesConexionHorizontal;
     }
+    
+    private String styleSheetError = "background: #FA8072;";
+    public void pintarErrorNombre() {
+        nombreEdit.setStyleSheet(styleSheetError);
+    }
+    
+    public void pintarErrorGestor() {
+        gestorCombo.setStyleSheet(styleSheetError);
+    }
+    
+    public void pintarErrorSid() {
+        sidEdit.setStyleSheet(styleSheetError);
+    }
+    
+    public void pintarErrorIp() {
+        ipEdit.setStyleSheet(styleSheetError);
+    }
+    
+    public void pintarErrorPuerto() {
+        puertoEdit.setStyleSheet(styleSheetError);
+    }
+    
+    public void pintarErrorUsuario() {
+        usuarioEdit.setStyleSheet(styleSheetError);
+    }
+    
+    public void pintarErrorPassword() {
+        passwordEdit.setStyleSheet(styleSheetError);
+    }
+    
+    public void mostrarAvisoConexionEstablecida() {
+        QMessageBox.information(this,
+                tr("Test conexión"),
+                tr("Conexión establecida"));
+    }
+    
+    public void mostrarAvisoNoSePudoEstablecerConexion() {
+        QMessageBox.warning(this,
+                tr("Test conexión"),
+                tr("No se pudo establecer la conexión"));
+    }
 
-    public void pintarErrorNombreConexionDuplicado() {
-        nombreEdit.setStyleSheet("background: #FA8072;");
-        
+    public void mostrarAvisoNombreConexionDuplicado() {
         QMessageBox.critical(this, tr("Error al crear la conexión"),
                   tr("Ya existe una conexión creada con el mismo nombre"));
     }
