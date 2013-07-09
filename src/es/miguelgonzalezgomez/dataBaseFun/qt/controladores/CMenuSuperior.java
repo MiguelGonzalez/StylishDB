@@ -25,6 +25,8 @@ public class CMenuSuperior {
         suscribirCambiosConexiones();
         
         menuSuperior = new MenuSuperior(this);
+        
+        cargarConexionesGuardadas();
     }
     
     public MenuSuperior getVistaMenuSuperior() {
@@ -43,6 +45,13 @@ public class CMenuSuperior {
                 menuSuperior.despintarConexion(mConexion);
             }
         });
+    }
+    
+    private void cargarConexionesGuardadas() {
+        for(MConexion conexion :aplicacion.mConexionesGuardadas.
+                getConexionesGuardadas()) {
+            menuSuperior.pintarNuevaConexion(conexion);
+        }
     }
     
     protected void salirAplicacion() {

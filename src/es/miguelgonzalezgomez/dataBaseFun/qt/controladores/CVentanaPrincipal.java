@@ -27,6 +27,7 @@ public class CVentanaPrincipal {
     
     public CVentanaPrincipal() {
         controladorMenuSup = new CMenuSuperior();
+        prefs = Preferencias.getInstance();
         
         cargarPropiedadesVentanaPrincipal();
         
@@ -36,8 +37,6 @@ public class CVentanaPrincipal {
     }
     
     private void cargarPropiedadesVentanaPrincipal() {
-        prefs = Preferencias.getInstance();
-        
         Type fooType = new TypeToken<ConfiguracionVentanaPrincipal>() {}.getType();
         try {
             configuracionVentanaPrincipal = prefs.getConfiguracion(
@@ -94,7 +93,6 @@ public class CVentanaPrincipal {
     public void salirAplicacion() {
         guardarEstadoVentana();
         guardarPreferencias();
-        
         
         ventanaPrincipal.close();
     }

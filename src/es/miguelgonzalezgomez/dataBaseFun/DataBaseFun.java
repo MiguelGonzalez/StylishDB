@@ -19,6 +19,7 @@ public class DataBaseFun {
         QTextCodec.setCodecForLocale(QTextCodec.codecForName("UTF-8"));
 
         CargaIdioma.cargarIdiomaDefecto();
+        CargaModeloAplicacion.cargarModeloAplicacion();
         
         controladorVentanaPrincipal = new
                 CVentanaPrincipal();
@@ -27,6 +28,8 @@ public class DataBaseFun {
     }
     
     public static void salirAplicacion() {
+        GuardaModeloAplicacion.guardarModeloAplicacion();
+        
         controladorVentanaPrincipal.salirAplicacion();
     }
 }

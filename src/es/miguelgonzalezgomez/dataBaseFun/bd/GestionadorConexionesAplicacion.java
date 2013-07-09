@@ -16,6 +16,10 @@ public class GestionadorConexionesAplicacion {
         aplicacion = MAplicacion.getInstance();
     }
     
+    public List<MConexion> getConexiones() {
+        return aplicacion.mConexionesGuardadas.getConexionesGuardadas();
+    }
+    
     public void borrarConexion(MConexion mConexion) {
         aplicacion.mConexionesGuardadas.removeConexion(mConexion);
     }
