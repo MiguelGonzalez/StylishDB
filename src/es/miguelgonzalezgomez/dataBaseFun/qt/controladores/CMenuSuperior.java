@@ -48,8 +48,8 @@ public class CMenuSuperior {
             @Override
             public void modificadaConexion(MConexion mConexionVieja, 
                     MConexion mConexionEditada) {
-                menuSuperior.comprobarCambiarNombre(mConexionVieja.nombre,
-                        mConexionEditada.nombre);
+                menuSuperior.comprobarCambiarNombre(mConexionVieja,
+                        mConexionEditada);
 
             }
         });

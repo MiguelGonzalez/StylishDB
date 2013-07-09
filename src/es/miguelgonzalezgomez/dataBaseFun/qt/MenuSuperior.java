@@ -104,6 +104,7 @@ public class MenuSuperior extends QMenuBar {
     
     private void pintarOpcionesNuevaConexion(QMenu conexion, MConexion mConexion) {
         QAction conexionAbrir = new QAction(tr("Abrir conexión"), this);
+        conexionAbrir.setData(mConexion);
         conexion.addAction(conexionAbrir);
         
         QAction conexionEditar = new QAction(tr("Editar conexión"), this);
@@ -126,11 +127,14 @@ public class MenuSuperior extends QMenuBar {
         conexionesMenu.removeAction(conexionBorrar.menuAction());
     }
 
-    public void comprobarCambiarNombre(String nombreViejo, String nombreNuevo) {
-        QMenu conexionNombreCambiado = conexiones.get(nombreViejo);
+    public void comprobarCambiarNombre(MConexion conexionVieja, MConexion conexionEditada) {
+        QMenu menuConexion = conexiones.remove(conexionVieja.nombre);
+        conexiones.put(conexionEditada.nombre, menuConexion);
         
-        
-        
-        conexionNombreCambiado.setTitle(nombreNuevo);
+        for(QAction action : menuConexion.actions()) {
+            action.setData(conexionEditada);
+        }
+
+        menuConexion.setTitle(conexionEditada.nombre);
     }
 }

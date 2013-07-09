@@ -42,6 +42,8 @@ public class GestionadorConexionesAplicacion {
     }
 
     public void editadaConexion(MConexion mConexionVieja, MConexion mConexionNueva) {
-        aplicacion.mConexionesGuardadas.editadaConexion(mConexionVieja, mConexionNueva);
+        aplicacion.mConexionesGuardadas.editadaConexion(
+                mConexionVieja,
+                mConexionNueva);
     }
 }
