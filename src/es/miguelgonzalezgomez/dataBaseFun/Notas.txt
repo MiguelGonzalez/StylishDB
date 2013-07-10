@@ -1,0 +1,3 @@
+Estudiar y replicar la manera de compartir ventanas, para mover pestañas entre ventanas, como se hace en este proyecto:
+
+https://projects.kde.org/projects/extragear/network/rekonq/repository/revisions/master/entry/src/tabwindow/rekonqwindow.cpp
