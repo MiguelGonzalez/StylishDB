@@ -1,3 +1,5 @@
 Estudiar y replicar la manera de compartir ventanas, para mover pestañas entre ventanas, como se hace en este proyecto:
 
 https://projects.kde.org/projects/extragear/network/rekonq/repository/revisions/master/entry/src/tabwindow/rekonqwindow.cpp
+
+Crear modelo de la ventana y modelo de un editor (controlador de pestañas pinte modelos de editor y escuche el modelo por si se le añaden, eliminan o editan editores).
