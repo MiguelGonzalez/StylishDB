@@ -24,9 +24,4 @@ public class WidgetPestanasEditores extends QTabWidget {
     public void setPestanasEditor(QTabBar tabBar) {
         setTabBar(tabBar);
     }
-    
-    public void moveTab(int posicionInicial, int posicionFinal) {
-        
-    }
-    
 }

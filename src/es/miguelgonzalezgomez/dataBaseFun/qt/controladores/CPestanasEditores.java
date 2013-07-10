@@ -10,19 +10,19 @@ import es.miguelgonzalezgomez.dataBaseFun.qt.PestanasEditores;
 public class CPestanasEditores {
     
     private PestanasEditores pestanasEditores;
+    private CWidgetPestanasEditores controlador;
     
-    public CPestanasEditores() {
+    public CPestanasEditores(CWidgetPestanasEditores controlador) {
+        this.controlador = controlador;
+        
         pestanasEditores = new PestanasEditores(this);
-
-        inicializarInterfazTabBar();
-    }
-    
-    private void inicializarInterfazTabBar() {
-        pestanasEditores.setAcceptDrops(true);
-        pestanasEditores.setVisible(true);
     }
     
     public QTabBar getTabBar() {
         return pestanasEditores;
+    }
+
+    public void tabMoveRequested(int fromIndex, int toIndex) {
+        controlador.tabMoveRequested(fromIndex, toIndex);
     }
 }
