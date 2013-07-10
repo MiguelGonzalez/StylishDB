@@ -1,14 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package es.miguelgonzalezgomez.dataBaseFun.utilidadesEstaticas;
 
 import es.miguelgonzalezgomez.dataBaseFun.DataBaseFun;
 
 /**
  *
- * @author paracaidista
+ * @author Miguel González
  */
 public class CentroCoordenadas {
     public static int getXCentrada(int widthVentanaModal) {

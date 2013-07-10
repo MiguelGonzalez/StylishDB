@@ -1,5 +1,6 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
+import es.miguelgonzalezgomez.dataBaseFun.DataBaseFun;
 import es.miguelgonzalezgomez.dataBaseFun.bd.GestionadorConexionesAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalCrearNuevoEditor;
@@ -55,6 +56,12 @@ public class CNuevoEditor {
     }
     
     protected void eventoCrearEditor() {
+        int index = modalCrearNuevoEditor.conexionCombo.currentIndex();
+        MConexion conexion = (MConexion) modalCrearNuevoEditor.
+                conexionCombo.itemData(index);
         
+        DataBaseFun.controladorPestanas().addTab(conexion);
+        
+        modalCrearNuevoEditor.close();
     }
 }

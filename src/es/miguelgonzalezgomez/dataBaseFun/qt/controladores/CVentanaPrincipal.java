@@ -24,15 +24,19 @@ public class CVentanaPrincipal {
     private ConfiguracionVentanaPrincipal configuracionVentanaPrincipal;
     
     private CMenuSuperior controladorMenuSup;
+    private CWidgetPestanasEditores controladorPestanasEditores;
     
     public CVentanaPrincipal() {
         controladorMenuSup = new CMenuSuperior();
+        controladorPestanasEditores = new CWidgetPestanasEditores();
         prefs = Preferencias.getInstance();
         
         cargarPropiedadesVentanaPrincipal();
-        
         crearYPosicionarVentana();
+        
         establecerMenuSuperior();
+        establecerPestanasEditores();
+        
         mostrarVentanaPrincipal();
     }
     
@@ -72,6 +76,17 @@ public class CVentanaPrincipal {
         ventanaPrincipal.setMenuBar(
                 controladorMenuSup.getVistaMenuSuperior()
         );
+    }
+    
+    private void establecerPestanasEditores() {
+        ventanaPrincipal.setCentralWidget(
+                controladorPestanasEditores.
+                        getVistaPestanasEditores()
+        );
+    }
+    
+    public CWidgetPestanasEditores controladorPestanas() {
+        return controladorPestanasEditores;
     }
     
     private void posicionarVentanaPrincipal() {
