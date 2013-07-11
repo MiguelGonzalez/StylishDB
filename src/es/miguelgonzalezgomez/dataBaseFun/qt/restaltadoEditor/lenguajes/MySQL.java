@@ -67,7 +67,9 @@ public class MySQL {
         "SYSDATE","TIME_FORMAT","TIME_TO_SEC","TIME","TIMEDIFF","TIMESTAMP",
         "TIMESTAMPADD","TIMESTAMPDIFF","TO_DAYS","UNIX_TIMESTAMP","WEEK",
         "WEEKDAY","WEEKOFYEAR","YEAR","YEARWEEK","CAST",
-        "GROUP_BY","UUID"
+        "GROUP_BY","UUID","MAX","MIN","AVG","BIT_AND","BIT_OR","BIT_XOR",
+        "COUNT","GROUP_CONCAT","STD","STDDEV_POP","STDDEV_SAMP","VAR_POP",
+        "VAR_SAMP","VARIANCE"
     };
     
     public static String[] encryptionCompressionFunctions = {
