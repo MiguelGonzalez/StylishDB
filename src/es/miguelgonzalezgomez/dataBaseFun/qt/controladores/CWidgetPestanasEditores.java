@@ -80,8 +80,9 @@ public class CWidgetPestanasEditores {
     }
     
     private void addTab(MPestanaEditor pestanaEditor) {
+        CEditor cEditor = new CEditor(pestanaEditor);
         widgetPestanasEditores.addTab(
-                new QTextEdit(pestanaEditor.contenidoTexto),
+                cEditor.getEditorTexto(),
                 pestanaEditor.mConexion.nombre
         );
     }
