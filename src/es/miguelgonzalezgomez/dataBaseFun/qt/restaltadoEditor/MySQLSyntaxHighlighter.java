@@ -10,6 +10,7 @@ import com.trolltech.qt.gui.QTextCharFormat;
 import com.trolltech.qt.gui.QTextDocument;
 import java.util.ArrayList;
 import java.util.List;
+import static es.miguelgonzalezgomez.dataBaseFun.qt.restaltadoEditor.lenguajes.MySQL.*;
 
 /**
  *
@@ -18,61 +19,32 @@ import java.util.List;
 public class MySQLSyntaxHighlighter extends QSyntaxHighlighter {
 
     private List<HighlightingRule> highlightingRules;
-    private QTextCharFormat mySQLFormat;
+    
+    private QTextCharFormat mySQLPalabrasReservadas;
+    private QTextCharFormat mySQLFuncionesFormat;
     private QTextCharFormat comentariosFormat;
+    private QTextCharFormat encryptionCompressionFormat;
+    private QTextCharFormat informationFormat;
     
     private QRegExp commentStartExpression;
     private QRegExp commentEndExpression;
-    
-    String[] palabrasClavesReservadasMySQL = {
-        "ADD","ALL","ALTER","ANALYZE","AND","AS","ASC","ASENSITIVE",
-        "BEFORE","BETWEEN","BIGINT","BINARY","BLOB","BOTH","BY","CALL",
-        "CASCADE","CASE","CHANGE","CHAR","CHARACTER","CHECK","COLLATE",
-        "COLUMN","CONDITION","CONSTRAINT","CONTINUE","CONVERT","CREATE",
-        "CROSS","CURRENT_DATE","CURRENT_TIME","CURRENT_TIMESTAMP",
-        "CURRENT_USER","CURSOR","DATABASE","DATABASES","DAY_HOUR",
-        "DAY_MICROSECOND","DAY_MINUTE","DAY_SECOND","DEC","DECIMAL",
-        "DECLARE","DEFAULT","DELAYED","DELETE","DESC","DESCRIBE",
-        "DETERMINISTIC","DISTINCT","DISTINCTROW","DIV","DOUBLE","DROP",
-        "DUAL","EACH","ELSE","ELSEIF","ENCLOSED","ESCAPED","EXISTS",
-        "EXIT","EXPLAIN","FALSE","FETCH","FLOAT","FLOAT4","FLOAT8",
-        "FOR","FORCE","FOREIGN","FROM","FULLTEXT","GRANT","GROUP",
-        "HAVING","HIGH_PRIORITY","HOUR_MICROSECOND","HOUR_MINUTE",
-        "HOUR_SECOND","IF","IGNORE","IN","INDEX","INFILE","INNER",
-        "INOUT","INSENSITIVE","INSERT","INT","INT1","INT2","INT3",
-        "INT4","INT8","INTEGER","INTERVAL","INTO","IS","ITERATE",
-        "JOIN","KEY","KEYS","KILL","LEADING","LEAVE","LEFT","LIKE",
-        "LIMIT","LINES","LOAD","LOCALTIME","LOCALTIMESTAMP","LOCK",
-        "LONG","LONGBLOB","LONGTEXT","LOOP","LOW_PRIORITY","MATCH",
-        "MEDIUMBLOB","MEDIUMINT","MEDIUMTEXT","MIDDLEINT",
-        "MINUTE_MICROSECOND","MINUTE_SECOND","MOD","MODIFIES",
-        "NATURAL","NOT","NO_WRITE_TO_BINLOG","NULL","NUMERIC","ON",
-        "OPTIMIZE","OPTION","OPTIONALLY","OR","ORDER","OUT","OUTER",
-        "OUTFILE","PRECISION","PRIMARY","PROCEDURE","PURGE","READ",
-        "READS","REAL","REFERENCES","REGEXP","RELEASE","RENAME",
-        "REPEAT","REPLACE","REQUIRE","RESTRICT","RETURN","REVOKE",
-        "RIGHT","RLIKE","SCHEMA","SCHEMAS","SECOND_MICROSECOND",
-        "SELECT","SENSITIVE","SEPARATOR","SET","SHOW","SMALLINT","SONAME",
-        "SPATIAL","SPECIFIC","SQL","SQLEXCEPTION","SQLSTATE","SQLWARNING",
-        "SQL_BIG_RESULT","SQL_CALC_FOUND_ROWS","SQL_SMALL_RESULT","SSL",
-        "STARTING","STRAIGHT_JOIN","TABLE","TERMINATED","THEN","TINYBLOB",
-        "TINYINT","TINYTEXT","TO","TRAILING","TRIGGER","TRUE","UNDO",
-        "UNION","UNIQUE","UNLOCK","UNSIGNED","UPDATE","USAGE","USE",
-        "USING","UTC_DATE","UTC_TIME","UTC_TIMESTAMP","VALUES","VARBINARY",
-        "VARCHAR","VARCHARACTER","VARYING","WHEN","WHERE","WHILE","WITH",
-        "WRITE","XOR","YEAR_MONTH","ZEROFILL",
-    };
     
     public MySQLSyntaxHighlighter(QTextDocument parent) {
         super(parent);
         
         highlightingRules = new ArrayList<>();
         
-        mySQLFormat= new QTextCharFormat();
+        mySQLPalabrasReservadas= new QTextCharFormat();
+        mySQLFuncionesFormat = new QTextCharFormat();
         comentariosFormat = new QTextCharFormat();
+        encryptionCompressionFormat = new QTextCharFormat();
+        informationFormat = new QTextCharFormat();
         
         construirResaltadoPalabrasClavesMySQL();
+        construirResaltadoFunciones();
+        construirResaltadoEncriptacionComprension();
         construirResaltadoComentarios();
+        construirRestaltadoInformacion();
     }
     
     @Override
@@ -110,16 +82,28 @@ public class MySQLSyntaxHighlighter extends QSyntaxHighlighter {
     
     private void construirResaltadoPalabrasClavesMySQL() {
         QBrush brush = new QBrush(QColor.darkRed);
-        mySQLFormat.setForeground(brush);
-        mySQLFormat.setFontWeight(QFont.Weight.Bold.value());
+        mySQLPalabrasReservadas.setForeground(brush);
+        mySQLPalabrasReservadas.setFontWeight(QFont.Weight.Bold.value());
         
         for (String keyword : palabrasClavesReservadasMySQL) {
             QRegExp pattern = new QRegExp("\\b" + keyword + "\\b",
                     CaseSensitivity.CaseInsensitive);
-            HighlightingRule rule = new HighlightingRule(pattern, mySQLFormat);
+            HighlightingRule rule = new HighlightingRule(pattern, mySQLPalabrasReservadas);
             highlightingRules.add(rule);
         }
-                
+    }
+    
+    private void construirResaltadoFunciones() {
+        QBrush brush = new QBrush(QColor.darkMagenta);
+        mySQLFuncionesFormat.setForeground(brush);
+        mySQLFuncionesFormat.setFontWeight(QFont.Weight.Bold.value());
+        
+        for (String keyword : funcionesMySQL) {
+            QRegExp pattern = new QRegExp("\\b" + keyword + "\\b",
+                    CaseSensitivity.CaseInsensitive);
+            HighlightingRule rule = new HighlightingRule(pattern, mySQLFuncionesFormat);
+            highlightingRules.add(rule);
+        }
     }
 
     private void construirResaltadoComentarios() {
@@ -142,5 +126,32 @@ public class MySQLSyntaxHighlighter extends QSyntaxHighlighter {
         
         commentStartExpression = new QRegExp("/\\*");
         commentEndExpression = new QRegExp("\\*/");
+    }
+
+    private void construirResaltadoEncriptacionComprension() {  
+        QBrush brush = new QBrush(QColor.red);
+        encryptionCompressionFormat.setForeground(brush);
+        encryptionCompressionFormat.setFontWeight(QFont.Weight.Bold.value());
+        
+        for (String keyword : encryptionCompressionFunctions) {
+            QRegExp pattern = new QRegExp("\\b" + keyword + "\\b",
+                    CaseSensitivity.CaseInsensitive);
+            HighlightingRule rule = new HighlightingRule(pattern, encryptionCompressionFormat);
+            highlightingRules.add(rule);
+        }     
+    }
+
+    private void construirRestaltadoInformacion() {
+        
+        QBrush brush = new QBrush(QColor.darkMagenta);
+        informationFormat.setForeground(brush);
+        informationFormat.setFontWeight(QFont.Weight.Bold.value());
+        
+        for (String keyword : informationFunctions) {
+            QRegExp pattern = new QRegExp("\\b" + keyword + "\\b",
+                    CaseSensitivity.CaseInsensitive);
+            HighlightingRule rule = new HighlightingRule(pattern, informationFormat);
+            highlightingRules.add(rule);
+        } 
     }
 }
