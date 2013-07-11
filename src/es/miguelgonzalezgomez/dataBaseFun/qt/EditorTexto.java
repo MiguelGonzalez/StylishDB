@@ -1,6 +1,7 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt;
 
 import com.trolltech.qt.gui.QTextEdit;
+import es.miguelgonzalezgomez.dataBaseFun.qt.restaltadoEditor.ConstruirSyntaxHighlighter;
 import es.miguelgonzalezgomez.dataBaseFun.qt.restaltadoEditor.MySQLSyntaxHighlighter;
 
 /**
@@ -12,7 +13,5 @@ public class EditorTexto extends QTextEdit {
         super();
         
         setLineWrapMode(QTextEdit.LineWrapMode.NoWrap);
-        
-        new MySQLSyntaxHighlighter(document());
     }
 }
