@@ -11,5 +11,6 @@ public class EditorTexto extends QTextEdit {
         super();
         
         setLineWrapMode(QTextEdit.LineWrapMode.NoWrap);
+        setAcceptRichText(false);
     }
 }
