@@ -2,6 +2,7 @@ package es.miguelgonzalezgomez.dataBaseFun.qt;
 
 import com.trolltech.qt.core.QEvent;
 import com.trolltech.qt.gui.QAction;
+import com.trolltech.qt.gui.QKeySequence.StandardKey;
 import com.trolltech.qt.gui.QMenu;
 import com.trolltech.qt.gui.QMenuBar;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
@@ -17,11 +18,16 @@ public class MenuSuperior extends QMenuBar {
     
     private CMenuSuperior controlador;
     private QMenu achivoMenu;
+    private QMenu edicionMenu;
     private QMenu conexionesMenu;
     private QMenu herramientasMenu;
     
-    private QAction salirAction;
     private QAction nuevoEditor;
+    private QAction salirAction;
+    
+    private QAction deshacer;
+    private QAction rehacer;
+    
     private QAction nuevaConexion;
     private QAction preferencias;
     
@@ -34,6 +40,7 @@ public class MenuSuperior extends QMenuBar {
         conexiones = new HashMap<String, QMenu>();
         
         crearOpcionesFichero();
+        crearOpcionesEdicion();
         crearOpcionesConexiones();
         crearOpcionesHerramientas();
     }
@@ -49,6 +56,7 @@ public class MenuSuperior extends QMenuBar {
     
     private void crearOpcionNuevoEditor() {
         nuevoEditor = new QAction(tr("Nuevo editor"), this);
+        nuevoEditor.setShortcut(StandardKey.New);
         nuevoEditor.triggered.connect(controlador, "nuevoEditor()");
         
         achivoMenu.addAction(nuevoEditor);
@@ -57,9 +65,29 @@ public class MenuSuperior extends QMenuBar {
 
     private void crearOpcionSalir() {
         salirAction = new QAction(tr("Salir"), this);
+        salirAction.setShortcut(StandardKey.Quit);
         salirAction.triggered.connect(controlador, "salirAplicacion()");
         
         achivoMenu.addAction(salirAction);
+    }
+    
+    private void crearOpcionesEdicion() {
+        edicionMenu = addMenu(tr("Edición"));
+        
+        crearOpcionDeshacer();
+        crearOpcionRehacer();
+    }
+    
+    private void crearOpcionDeshacer() {
+        deshacer = new QAction(tr("Deshacer"), this);
+        deshacer.setShortcut(StandardKey.Undo);
+        edicionMenu.addAction(deshacer);
+    }
+    
+    private void crearOpcionRehacer() {
+        rehacer = new QAction(tr("Rehacer"), this);
+        rehacer.setShortcut(StandardKey.Redo);
+        edicionMenu.addAction(rehacer);
     }
     
     private void crearOpcionesConexiones() {
