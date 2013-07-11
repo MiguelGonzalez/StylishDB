@@ -7,6 +7,8 @@ package es.miguelgonzalezgomez.dataBaseFun.modelos;
 public class MAplicacion {
     
     public MConexionesGuardadas mConexionesGuardadas;
+    public MPestanasEditorAbiertas mPestanasEditorAbiertas;
+    
     private static MAplicacion INSTANCE = null;
     
     private MAplicacion() {

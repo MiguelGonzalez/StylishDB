@@ -2,4 +2,8 @@ Estudiar y replicar la manera de compartir ventanas, para mover pestañas entre 
 
 https://projects.kde.org/projects/extragear/network/rekonq/repository/revisions/master/entry/src/tabwindow/rekonqwindow.cpp
 
+Implementación en Java de D-Bus
+
+    http://dbus.freedesktop.org/doc/dbus-java/dbus-java.pdf
+
 Crear modelo de la ventana y modelo de un editor (controlador de pestañas pinte modelos de editor y escuche el modelo por si se le añaden, eliminan o editan editores).
