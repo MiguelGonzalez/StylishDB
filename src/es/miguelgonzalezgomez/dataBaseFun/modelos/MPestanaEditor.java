@@ -46,11 +46,7 @@ public class MPestanaEditor {
 
     @Override
     public int hashCode() {
-        int hashCode = super.hashCode();
-        hashCode += contenidoTexto.hashCode();
-        hashCode += uuidPestana.hashCode();
-        hashCode += mConexion.hashCode();
-        return hashCode;
+        return uuidPestana.hashCode();
     }
     
 }
