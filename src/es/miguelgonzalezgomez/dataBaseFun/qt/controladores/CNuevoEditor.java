@@ -1,8 +1,9 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
-import es.miguelgonzalezgomez.dataBaseFun.DataBaseFun;
 import es.miguelgonzalezgomez.dataBaseFun.bd.GestionadorConexionesAplicacion;
+import es.miguelgonzalezgomez.dataBaseFun.bd.GestionadorEditoresAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
+import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalCrearNuevoEditor;
 import es.miguelgonzalezgomez.dataBaseFun.utilidadesEstaticas.CentroCoordenadas;
 import java.util.List;
@@ -57,10 +58,14 @@ public class CNuevoEditor {
     
     protected void eventoCrearEditor() {
         int index = modalCrearNuevoEditor.conexionCombo.currentIndex();
-        MConexion conexion = (MConexion) modalCrearNuevoEditor.
+        MConexion mConexion = (MConexion) modalCrearNuevoEditor.
                 conexionCombo.itemData(index);
         
-        DataBaseFun.controladorPestanas().addTab(conexion);
+        GestionadorEditoresAplicacion editoresAplicacion = new
+                GestionadorEditoresAplicacion();
+        
+        MPestanaEditor mPestanaEditor = new MPestanaEditor(mConexion);
+        editoresAplicacion.addNuevaConexion(mPestanaEditor);
         
         modalCrearNuevoEditor.close();
     }

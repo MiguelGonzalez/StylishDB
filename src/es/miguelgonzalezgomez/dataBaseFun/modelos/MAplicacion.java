@@ -13,6 +13,7 @@ public class MAplicacion {
     
     private MAplicacion() {
         mConexionesGuardadas = new MConexionesGuardadas();
+        mPestanasEditorAbiertas = new MPestanasEditorAbiertas();
     }
     
     public static MAplicacion getInstance() {

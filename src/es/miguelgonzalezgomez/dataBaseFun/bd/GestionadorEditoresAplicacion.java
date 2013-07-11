@@ -2,6 +2,7 @@ package es.miguelgonzalezgomez.dataBaseFun.bd;
 
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
+import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanasEditorAbiertas;
 import java.util.List;
 
 /**
@@ -14,6 +15,10 @@ public class GestionadorEditoresAplicacion {
     
     public GestionadorEditoresAplicacion() {
         aplicacion = MAplicacion.getInstance();
+    }
+    
+    public MPestanasEditorAbiertas getMPestanasEditorAbiertas() {
+        return aplicacion.mPestanasEditorAbiertas;
     }
     
     public List<MPestanaEditor> getPestanasEditores() {

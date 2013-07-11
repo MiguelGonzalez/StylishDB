@@ -33,11 +33,7 @@ public class DataBaseFun {
         
         controladorVentanaPrincipal.salirAplicacion();
     }
-    
-    public static CWidgetPestanasEditores controladorPestanas() {
-        return controladorVentanaPrincipal.controladorPestanas();
-    }
-    
+        
     public static int getLeftVentana() {
         return controladorVentanaPrincipal.ventanaPrincipal.x();
     }

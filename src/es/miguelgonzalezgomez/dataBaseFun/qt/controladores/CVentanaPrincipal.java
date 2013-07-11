@@ -84,11 +84,7 @@ public class CVentanaPrincipal {
                         getVistaPestanasEditores()
         );
     }
-    
-    public CWidgetPestanasEditores controladorPestanas() {
-        return controladorPestanasEditores;
-    }
-    
+     
     private void posicionarVentanaPrincipal() {
         ventanaPrincipal.resize(
                 configuracionVentanaPrincipal.width,

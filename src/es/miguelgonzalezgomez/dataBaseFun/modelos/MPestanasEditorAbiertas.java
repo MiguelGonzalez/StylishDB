@@ -21,6 +21,10 @@ public class MPestanasEditorAbiertas {
         pestanasListeners.add(listener);
     }
     
+    public void removePestanaEditorListener(PestanaEditorListener listener) {
+        pestanasListeners.remove(listener);
+    }
+    
     public List<MPestanaEditor> getPestanasEditoresAbiertas() {
         List<MPestanaEditor> pestanasAbiertas = new ArrayList<>();
         for(MPestanaEditor pestanaAbierta : pestanasAbiertas) {
@@ -28,10 +32,6 @@ public class MPestanasEditorAbiertas {
         }
 
         return pestanasAbiertas;
-    }
-    
-    public void removePestanaEditorListener(PestanaEditorListener listener) {
-        pestanasListeners.remove(listener);
     }
     
     public void addNuevaPestanaEditor(MPestanaEditor pestanaEditor) {
