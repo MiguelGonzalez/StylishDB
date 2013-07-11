@@ -1,5 +1,6 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
+import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
 import es.miguelgonzalezgomez.dataBaseFun.qt.EditorTexto;
 import es.miguelgonzalezgomez.dataBaseFun.qt.restaltadoEditor.ConstruirSyntaxHighlighter;
@@ -27,6 +28,9 @@ public class CEditor {
     
     private void construirEditorTexto() {
         editorTexto = new EditorTexto(mPestanaEditor);
+        editorTexto.setStyleSheet(
+                ObtencionEstilo.getEstiloVentana("editor.css")
+        );
     }
     
     private void establecerResaltadoSintaxis() {

@@ -81,7 +81,7 @@ public class MySQLSyntaxHighlighter extends QSyntaxHighlighter {
     }
     
     private void construirResaltadoPalabrasClavesMySQL() {
-        QBrush brush = new QBrush(QColor.darkRed);
+        QBrush brush = new QBrush(QColor.fromRgb(249, 38, 114));
         mySQLPalabrasReservadas.setForeground(brush);
         mySQLPalabrasReservadas.setFontWeight(QFont.Weight.Bold.value());
         
@@ -94,7 +94,7 @@ public class MySQLSyntaxHighlighter extends QSyntaxHighlighter {
     }
     
     private void construirResaltadoFunciones() {
-        QBrush brush = new QBrush(QColor.darkMagenta);
+        QBrush brush = new QBrush(QColor.magenta);
         mySQLFuncionesFormat.setForeground(brush);
         mySQLFuncionesFormat.setFontWeight(QFont.Weight.Bold.value());
         
@@ -107,7 +107,7 @@ public class MySQLSyntaxHighlighter extends QSyntaxHighlighter {
     }
 
     private void construirResaltadoComentarios() {
-        QBrush brush = new QBrush(QColor.lightGray);
+        QBrush brush = new QBrush(QColor.yellow);
         comentariosFormat.setForeground(brush);
         comentariosFormat.setFontWeight(QFont.Weight.Bold.value());
         
@@ -143,7 +143,7 @@ public class MySQLSyntaxHighlighter extends QSyntaxHighlighter {
 
     private void construirRestaltadoInformacion() {
         
-        QBrush brush = new QBrush(QColor.darkMagenta);
+        QBrush brush = new QBrush(QColor.magenta);
         informationFormat.setForeground(brush);
         informationFormat.setFontWeight(QFont.Weight.Bold.value());
         

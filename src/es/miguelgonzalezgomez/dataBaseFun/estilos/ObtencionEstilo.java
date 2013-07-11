@@ -32,6 +32,8 @@ public class ObtencionEstilo {
             escribirErrorEncodingException(ex);
         } catch (IOException ex) {
             escribirErrorIOException(ex);
+        } catch(NullPointerException ex) {
+            escribirErrorNullPointerException(ex);
         } finally {
             cerrarReader(in);
         }
@@ -54,6 +56,10 @@ public class ObtencionEstilo {
     }
 
     private static void escribirErrorEncodingException(UnsupportedEncodingException ex) {
+        ex.printStackTrace();
+    }
+
+    private static void escribirErrorNullPointerException(NullPointerException ex) {
         ex.printStackTrace();
     }
 }
