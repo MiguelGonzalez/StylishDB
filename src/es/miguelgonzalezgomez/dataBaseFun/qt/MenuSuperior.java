@@ -81,12 +81,14 @@ public class MenuSuperior extends QMenuBar {
     private void crearOpcionDeshacer() {
         deshacer = new QAction(tr("Deshacer"), this);
         deshacer.setShortcut(StandardKey.Undo);
+        deshacer.triggered.connect(controlador, "deshacer()");
         edicionMenu.addAction(deshacer);
     }
     
     private void crearOpcionRehacer() {
         rehacer = new QAction(tr("Rehacer"), this);
         rehacer.setShortcut(StandardKey.Redo);
+        rehacer.triggered.connect(controlador, "rehacer()");
         edicionMenu.addAction(rehacer);
     }
     

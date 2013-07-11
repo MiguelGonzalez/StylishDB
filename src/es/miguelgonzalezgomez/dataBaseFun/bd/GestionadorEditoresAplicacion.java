@@ -39,4 +39,12 @@ public class GestionadorEditoresAplicacion {
                 mPestanaEditorVieja,
                 mPestanaEditorNueva);
     }
+    
+    public void deshacerPestanaActiva() {
+        
+    }
+    
+    public void rehacerPestanaActiva() {
+        
+    }
 }

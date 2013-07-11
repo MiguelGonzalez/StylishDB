@@ -4,6 +4,7 @@ import com.trolltech.qt.QSignalEmitter;
 import com.trolltech.qt.gui.QAction;
 import es.miguelgonzalezgomez.dataBaseFun.DataBaseFun;
 import es.miguelgonzalezgomez.dataBaseFun.bd.GestionadorConexionesAplicacion;
+import es.miguelgonzalezgomez.dataBaseFun.bd.GestionadorEditoresAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.ConexionListener;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
@@ -16,11 +17,16 @@ import es.miguelgonzalezgomez.dataBaseFun.qt.MenuSuperior;
 public class CMenuSuperior {
     private MenuSuperior menuSuperior;
     private MAplicacion aplicacion;
+    
     private GestionadorConexionesAplicacion gestionadorConexiones;
+    private GestionadorEditoresAplicacion gestionadorEditores;
+    
     
     public CMenuSuperior() {
         gestionadorConexiones = new
                 GestionadorConexionesAplicacion();
+        gestionadorEditores = new GestionadorEditoresAplicacion();
+        
         aplicacion = MAplicacion.getInstance();
         suscribirCambiosConexiones();
         
@@ -99,5 +105,13 @@ public class CMenuSuperior {
         CEditarConexion editarConexion = new CEditarConexion(
                 mConexionEditar);
         editarConexion.mostrarVentanaModal();
+    }
+    
+    protected void deshacer() {
+        gestionadorEditores.deshacerPestanaActiva();
+    }
+    
+    protected void rehacer() {
+        gestionadorEditores.rehacerPestanaActiva();
     }
 }
