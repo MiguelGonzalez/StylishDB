@@ -8,13 +8,24 @@ import java.util.List;
  * @author Miguel González
  */
 public class MPestanasEditorAbiertas {
+    
     private List<MPestanaEditor> pestanasEditoresAbiertas;
+    private MPestanaEditor pestanaEditorActiva;
     
     private transient List<PestanaEditorListener> pestanasListeners;
     
     public MPestanasEditorAbiertas() {
         pestanasEditoresAbiertas = new ArrayList<>();
         pestanasListeners = new ArrayList<>();
+        pestanaEditorActiva = null;
+    }
+    
+    public void establecerEditorActivo(MPestanaEditor mPestanaEditor) {
+        for(MPestanaEditor mPestana : pestanasEditoresAbiertas) {
+            if(mPestana.equals(mPestanaEditor)) {
+                pestanaEditorActiva = mPestana;
+            }
+        }
     }
     
     public void addPestanaEditorListener(PestanaEditorListener listener) {
@@ -83,5 +94,33 @@ public class MPestanasEditorAbiertas {
         List<PestanaEditorListener> pestanasListenersCopy = new
                 ArrayList<>(pestanasListeners);
         return pestanasListenersCopy;
+    }
+
+    public void deshacerPestanaActiva() {
+        if(hayPestanaActiva()) {
+            notificarDeshacerPestana(pestanaEditorActiva);
+        }
+    }
+    
+    public void notificarDeshacerPestana(MPestanaEditor pestanaEditor) {
+        for(PestanaEditorListener pestanaEditorListener : getCopiaPestanasListeners()) {
+            pestanaEditorListener.deshacerPestana(pestanaEditor);
+        }
+    }
+    
+    public void rehacerPestanaActiva() {
+        if(hayPestanaActiva()) {
+            notificarRehacerPestana(pestanaEditorActiva);
+        }
+    }
+    
+    private void notificarRehacerPestana(MPestanaEditor pestanaEditor) {
+        for(PestanaEditorListener pestanaEditorListener : getCopiaPestanasListeners()) {
+            pestanaEditorListener.rehacerPestana(pestanaEditor);
+        }
+    }
+    
+    private boolean hayPestanaActiva() {
+        return pestanaEditorActiva != null;
     }
 }

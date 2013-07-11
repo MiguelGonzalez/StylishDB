@@ -40,11 +40,15 @@ public class GestionadorEditoresAplicacion {
                 mPestanaEditorNueva);
     }
     
+    public void establecerPestanaActiva(MPestanaEditor pestanaEditor) {
+        aplicacion.mPestanasEditorAbiertas.establecerEditorActivo(pestanaEditor);
+    }
+    
     public void deshacerPestanaActiva() {
-        
+        aplicacion.mPestanasEditorAbiertas.deshacerPestanaActiva();
     }
     
     public void rehacerPestanaActiva() {
-        
+        aplicacion.mPestanasEditorAbiertas.rehacerPestanaActiva();
     }
 }

@@ -26,7 +26,7 @@ public class CEditor {
             
     
     private void construirEditorTexto() {
-        editorTexto = new EditorTexto();
+        editorTexto = new EditorTexto(mPestanaEditor);
     }
     
     private void establecerResaltadoSintaxis() {
@@ -35,5 +35,12 @@ public class CEditor {
                 editorTexto.document()
         );
     }
-    
+
+    void deshacer() {
+        editorTexto.undo();
+    }
+
+    void rehacer() {
+        editorTexto.redo();
+    }
 }

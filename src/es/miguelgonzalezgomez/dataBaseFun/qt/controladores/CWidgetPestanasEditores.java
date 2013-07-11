@@ -2,14 +2,15 @@ package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
 import com.trolltech.qt.gui.QIcon;
 import com.trolltech.qt.gui.QTabWidget;
-import com.trolltech.qt.gui.QTextEdit;
 import com.trolltech.qt.gui.QWidget;
 import es.miguelgonzalezgomez.dataBaseFun.bd.GestionadorEditoresAplicacion;
-import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanasEditorAbiertas;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.PestanaEditorListener;
+import es.miguelgonzalezgomez.dataBaseFun.qt.EditorTexto;
 import es.miguelgonzalezgomez.dataBaseFun.qt.WidgetPestanasEditores;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -22,9 +23,12 @@ public class CWidgetPestanasEditores {
     private GestionadorEditoresAplicacion editoresAplicacion;
     private CPestanasEditores cPestanasEditores;
     
+    private Map<MPestanaEditor, CEditor> relacionPestanaEditor;
+    
     public CWidgetPestanasEditores() {
         editoresAplicacion = new GestionadorEditoresAplicacion();
         cPestanasEditores = new CPestanasEditores(this);
+        relacionPestanaEditor = new HashMap<>();
         
         inicializarWidget();
         establecerTabBar();
@@ -41,6 +45,9 @@ public class CWidgetPestanasEditores {
         widgetPestanasEditores.setPestanasEditor(
                 cPestanasEditores.getTabBar()
         );
+        
+        widgetPestanasEditores.currentChanged.connect(this, "cambiadaPestana()");
+
     }
     
     public QTabWidget getVistaPestanasEditores() {
@@ -76,14 +83,54 @@ public class CWidgetPestanasEditores {
             public void nuevaPestanaEditor(MPestanaEditor pestanaEditor) {
                 addTab(pestanaEditor);
             }
+
+            @Override
+            public void rehacerPestana(MPestanaEditor pestanaEditor) {
+                buscarYRehacerPestana(pestanaEditor);
+            }
+
+            @Override
+            public void deshacerPestana(MPestanaEditor pestanaEditor) {
+                buscarYDeshacerPestana(pestanaEditor);
+            }
         });
     }
     
     private void addTab(MPestanaEditor pestanaEditor) {
         CEditor cEditor = new CEditor(pestanaEditor);
+        
+        relacionPestanaEditor.put(pestanaEditor, cEditor);
+        
         widgetPestanasEditores.addTab(
                 cEditor.getEditorTexto(),
                 pestanaEditor.mConexion.nombre
         );
     }
+    
+    private void buscarYDeshacerPestana(MPestanaEditor pestanaEditor) {
+        CEditor cEditor = relacionPestanaEditor.get(pestanaEditor);
+        
+        if(cEditor != null) {
+            cEditor.deshacer();
+        }
+    }
+    
+    private void buscarYRehacerPestana(MPestanaEditor pestanaEditor) {
+        CEditor cEditor = relacionPestanaEditor.get(pestanaEditor);
+        
+        if(cEditor != null) {
+            cEditor.rehacer();
+        }
+    }
+    
+    private void cambiadaPestana() {
+        EditorTexto cEditor = (EditorTexto) widgetPestanasEditores.currentWidget();
+        if(cEditor != null) {
+            editoresAplicacion.establecerPestanaActiva(cEditor.getMPestanaEditor());
+        } else {
+            editoresAplicacion.establecerPestanaActiva(null);
+        }
+    }
+    
+    
 }

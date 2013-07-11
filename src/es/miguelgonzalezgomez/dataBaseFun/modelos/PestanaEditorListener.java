@@ -10,4 +10,7 @@ public interface PestanaEditorListener {
             MPestanaEditor pestanaEditorViejaNueva);
     public void eliminadaPestanaEditor(PestanaEditorListener pestanaEditorListener);
     public void nuevaPestanaEditor(MPestanaEditor pestanaEditor);
+
+    public void rehacerPestana(MPestanaEditor pestanaEditor);
+    public void deshacerPestana(MPestanaEditor pestanaEditor);
 }
