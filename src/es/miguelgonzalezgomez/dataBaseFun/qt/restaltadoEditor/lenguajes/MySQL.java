@@ -41,7 +41,9 @@ public class MySQL {
         "UNION","UNIQUE","UNLOCK","UNSIGNED","UPDATE","USAGE","USE",
         "USING","UTC_DATE","UTC_TIME","UTC_TIMESTAMP","VALUES","VARBINARY",
         "VARCHAR","VARCHARACTER","VARYING","WHEN","WHERE","WHILE","WITH",
-        "WRITE","XOR","YEAR_MONTH","ZEROFILL"
+        "WRITE","XOR","YEAR_MONTH","ZEROFILL",
+        "GET_LOCK","INET_ATON","INET_NTOA","IS_FREE_LOCK","IS_USED_LOCK",
+        "MASTER_POS_WAIT","NAME_CONST","RELEASE_LOCK","SLEEP"
     };
     
     public static String[] funcionesMySQL = {
@@ -64,7 +66,8 @@ public class MySQL {
         "QUARTER","SEC_TO_TIME","SECOND","STR_TO_DATE","SUBDATE","SUBTIME",
         "SYSDATE","TIME_FORMAT","TIME_TO_SEC","TIME","TIMEDIFF","TIMESTAMP",
         "TIMESTAMPADD","TIMESTAMPDIFF","TO_DAYS","UNIX_TIMESTAMP","WEEK",
-        "WEEKDAY","WEEKOFYEAR","YEAR","YEARWEEK","CAST"
+        "WEEKDAY","WEEKOFYEAR","YEAR","YEARWEEK","CAST",
+        "GROUP_BY","UUID"
     };
     
     public static String[] encryptionCompressionFunctions = {
