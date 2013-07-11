@@ -9,6 +9,7 @@ import com.trolltech.qt.core.Qt.WindowStates;
 import es.miguelgonzalezgomez.dataBaseFun.configuracion.ConfiguracionVentanaPrincipal;
 import es.miguelgonzalezgomez.dataBaseFun.Preferencias;
 import es.miguelgonzalezgomez.dataBaseFun.PreferenciasException;
+import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.qt.VentanaPrincipal;
 import java.lang.reflect.Type;
 
@@ -70,6 +71,9 @@ public class CVentanaPrincipal {
         ventanaPrincipal = new VentanaPrincipal(
                 "DataBaseFun",
                 this);
+        ventanaPrincipal.setStyleSheet(
+                ObtencionEstilo.getEstiloVentana("ventanaPrincipal.css")
+        );
     }
     
     private void establecerMenuSuperior() {

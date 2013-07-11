@@ -4,6 +4,7 @@ import com.trolltech.qt.gui.QIcon;
 import com.trolltech.qt.gui.QTabWidget;
 import com.trolltech.qt.gui.QWidget;
 import es.miguelgonzalezgomez.dataBaseFun.bd.GestionadorEditoresAplicacion;
+import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanasEditorAbiertas;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.PestanaEditorListener;
@@ -38,7 +39,6 @@ public class CWidgetPestanasEditores {
     
     private void inicializarWidget() {
         widgetPestanasEditores = new WidgetPestanasEditores(this);
-        
     }
     
     private void establecerTabBar() {
@@ -47,6 +47,10 @@ public class CWidgetPestanasEditores {
         );
         
         widgetPestanasEditores.currentChanged.connect(this, "cambiadaPestana()");
+        
+        widgetPestanasEditores.setStyleSheet(
+                ObtencionEstilo.getEstiloVentana("tabsEditoresWidget.css")
+        );
 
     }
     

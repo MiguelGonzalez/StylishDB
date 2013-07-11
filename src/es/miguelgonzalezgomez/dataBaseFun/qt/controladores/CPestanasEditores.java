@@ -1,6 +1,7 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
 import com.trolltech.qt.gui.QTabBar;
+import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.qt.PestanasEditores;
 
 /**
@@ -16,6 +17,9 @@ public class CPestanasEditores {
         this.controlador = controlador;
         
         pestanasEditores = new PestanasEditores(this);
+        pestanasEditores.setStyleSheet(
+                ObtencionEstilo.getEstiloVentana("tabsEditores.css")
+        );
     }
     
     public QTabBar getTabBar() {
