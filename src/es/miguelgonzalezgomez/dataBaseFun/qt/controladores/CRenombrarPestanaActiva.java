@@ -44,7 +44,7 @@ public class CRenombrarPestanaActiva {
     }
     
     public MPestanaEditor obtenerPestanaActiva() {
-        return gestionadorEditores.getmPestanaActiva();
+        return gestionadorEditores.getMPestanaActiva();
     }
     
     private void establecerDisenoInterfaz() {

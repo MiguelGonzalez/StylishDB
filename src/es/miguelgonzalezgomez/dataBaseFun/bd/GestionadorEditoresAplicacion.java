@@ -53,7 +53,7 @@ public class GestionadorEditoresAplicacion {
         return aplicacion.mPestanasEditorAbiertas.hayPestanaActiva();
     }
 
-    public MPestanaEditor getmPestanaActiva() {
+    public MPestanaEditor getMPestanaActiva() {
         return aplicacion.mPestanasEditorAbiertas.getPestanaActiva();
     }
 }
