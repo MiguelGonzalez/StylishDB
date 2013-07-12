@@ -6,6 +6,7 @@ import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
+import es.miguelgonzalezgomez.dataBaseFun.qt.EstiloSinFoco;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalCrearNuevoEditor;
 import es.miguelgonzalezgomez.dataBaseFun.utilidadesEstaticas.CentroCoordenadas;
 import java.util.List;
@@ -39,11 +40,8 @@ public class CNuevoEditor {
     }
     
     private void posicionarVentanaModal() {
-        int width = 350;
-        int height = 120;
-        modalCrearNuevoEditor.resize(
-                width, height
-                );
+        int width = 350; 
+        modalCrearNuevoEditor.setFixedWidth(width);
         modalCrearNuevoEditor.move(
                 CentroCoordenadas.getXCentrada(width),
                 CentroCoordenadas.getYCentradaArriba()
@@ -56,6 +54,7 @@ public class CNuevoEditor {
         for(MConexion conexion : conexiones) {
             modalCrearNuevoEditor.conexionListWidget.addItem(conexion.nombre);
         }
+        modalCrearNuevoEditor.conexionListWidget.setStyle(new EstiloSinFoco());
     }
     
     protected void eventoCrearEditor() {

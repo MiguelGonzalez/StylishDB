@@ -38,20 +38,28 @@ QComboBox QAbstractItemView:hover {
     color: #abb2b6;
 }
 
-
-
 /*
- * Fecha hacia abajo ComboBox
+ * QListWidget
 */
 
-QDialog QComboBox::drop-down {
-    
+QListWidget {
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 1px 5px;
+    color: #ffffff;
+    background-color: rgb(80, 80, 80);
 }
 
-QComboBox::down-arrow {
-
+QListWidget::item {
+    background-color: rgb(80, 80, 80);
+    color: #abb2b6;
+    padding: 10px;
+    border-radius: 10px;
+    border-bottom: 1px solid #abb2b6;
+    margin-bottom: 5px;
 }
-
-QComboBox::down-arrow:on { /* shift the arrow when popup is open */
-    
+ 
+QListWidget::item:focus  {
+    background-color: #272822;
+    color: #ffffff;
 }
