@@ -1,12 +1,8 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt;
 
-import com.trolltech.qt.core.QEvent;
-import com.trolltech.qt.core.QObject;
 import com.trolltech.qt.core.Qt;
-import com.trolltech.qt.core.Qt.Key;
 import com.trolltech.qt.core.Qt.KeyboardModifiers;
 import com.trolltech.qt.gui.QKeyEvent;
-import com.trolltech.qt.gui.QKeySequence;
 import com.trolltech.qt.gui.QTextEdit;
 import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CEditor;
 
