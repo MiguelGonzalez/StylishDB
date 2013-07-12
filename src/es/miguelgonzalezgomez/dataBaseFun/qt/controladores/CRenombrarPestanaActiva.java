@@ -71,10 +71,6 @@ public class CRenombrarPestanaActiva {
                 mPestana.nombrePestana.length());
     }
     
-    protected void eventoCancelar() {
-        modalRenombrar.close();
-    }
-    
     protected void eventoAceptar() {
         if(noTieneErroresFormulario()) {
             mPestana.nombrePestana = modalRenombrar.nombreEdit.text();
