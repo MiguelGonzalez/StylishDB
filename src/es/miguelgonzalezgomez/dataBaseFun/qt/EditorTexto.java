@@ -1,5 +1,12 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt;
 
+import com.trolltech.qt.core.QEvent;
+import com.trolltech.qt.core.QObject;
+import com.trolltech.qt.core.Qt;
+import com.trolltech.qt.core.Qt.Key;
+import com.trolltech.qt.core.Qt.KeyboardModifiers;
+import com.trolltech.qt.gui.QKeyEvent;
+import com.trolltech.qt.gui.QKeySequence;
 import com.trolltech.qt.gui.QTextEdit;
 import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CEditor;
 
@@ -22,5 +29,27 @@ public class EditorTexto extends QTextEdit {
    
     public void estaVisible() {
         controlador.estaVisible();
+    }
+    
+    @Override
+    protected void keyPressEvent(QKeyEvent event) {
+        if(suprimirRehacerNativo(event)) {
+            return;
+        }
+               
+        super.keyPressEvent(event);
+    }
+    
+    private boolean suprimirRehacerNativo(QKeyEvent e) {
+        KeyboardModifiers modifiers = e.modifiers();
+        if(
+                modifiers.isSet(Qt.KeyboardModifier.ControlModifier) &&
+                modifiers.isSet(Qt.KeyboardModifier.ShiftModifier)) {
+            if(e.key() == Qt.Key.Key_Z.value()) {
+                return true;
+            }
+        }
+        
+        return false;
     }
 }

@@ -2,6 +2,7 @@ package es.miguelgonzalezgomez.dataBaseFun.qt;
 
 import com.trolltech.qt.core.QEvent;
 import com.trolltech.qt.gui.QAction;
+import com.trolltech.qt.gui.QKeySequence;
 import com.trolltech.qt.gui.QKeySequence.StandardKey;
 import com.trolltech.qt.gui.QMenu;
 import com.trolltech.qt.gui.QMenuBar;
@@ -87,7 +88,7 @@ public class MenuSuperior extends QMenuBar {
     
     private void crearOpcionRehacer() {
         rehacer = new QAction(tr("Rehacer"), this);
-        rehacer.setShortcut(StandardKey.Redo);
+        rehacer.setShortcut(QKeySequence.fromString("Ctrl+Y"));
         rehacer.triggered.connect(controlador, "rehacer()");
         edicionMenu.addAction(rehacer);
     }
