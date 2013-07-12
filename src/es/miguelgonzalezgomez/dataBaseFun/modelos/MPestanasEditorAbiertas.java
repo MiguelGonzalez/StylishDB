@@ -57,16 +57,14 @@ public class MPestanasEditorAbiertas {
         notificarEliminadaPestanaEditor(pestanaEditor);
     }
     
-    public void editedPestanaEditor(MPestanaEditor pestanaEditorVieja,
-            MPestanaEditor pestanaEditorNueva) {
+    public void editadaPestanaEditor(MPestanaEditor pestanaEditorEditada) {
         for(MPestanaEditor pestanaEditor : pestanasEditoresAbiertas) {
-            if(pestanaEditor.equals(pestanaEditorVieja)) {
-                pestanaEditor.nombrePestana = pestanaEditorNueva.nombrePestana;
+            if(pestanaEditor.equals(pestanaEditorEditada)) {
+                pestanaEditor.nombrePestana = pestanaEditorEditada.nombrePestana;
             }
         }
         
-        notificarModificadaPestanaEditor(pestanaEditorVieja,
-                pestanaEditorNueva);
+        notificarModificadaPestanaEditor(pestanaEditorEditada);
     }
     
     private void notificarNuevaPestanaEditor(MPestanaEditor pestanaEditor) {
@@ -81,12 +79,9 @@ public class MPestanasEditorAbiertas {
         }
     }
     
-    private void notificarModificadaPestanaEditor(MPestanaEditor pestanaEditorVieja,
-            MPestanaEditor pestanaEditorViejaNueva) {
+    private void notificarModificadaPestanaEditor(MPestanaEditor pestanaEditorEditada) {
         for(PestanaEditorListener pestanaListener : getCopiaPestanasListeners()) {
-            pestanaListener.modificadaPestanaEditor(
-                    pestanaEditorVieja,
-                    pestanaEditorViejaNueva);
+            pestanaListener.modificadaPestanaEditor(pestanaEditorEditada);
         }
     }
     

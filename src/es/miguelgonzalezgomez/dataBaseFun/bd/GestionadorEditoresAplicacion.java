@@ -33,11 +33,8 @@ public class GestionadorEditoresAplicacion {
         aplicacion.mPestanasEditorAbiertas.addNuevaPestanaEditor(mPestanaEditor);
     }
     
-    public void editadaConexion(MPestanaEditor mPestanaEditorVieja,
-            MPestanaEditor mPestanaEditorNueva) {
-        aplicacion.mPestanasEditorAbiertas.editedPestanaEditor(
-                mPestanaEditorVieja,
-                mPestanaEditorNueva);
+    public void editadaPestanaEditor(MPestanaEditor pestanaEditorEditada) {
+        aplicacion.mPestanasEditorAbiertas.editadaPestanaEditor(pestanaEditorEditada);
     }
     
     public void establecerPestanaActiva(MPestanaEditor pestanaEditor) {

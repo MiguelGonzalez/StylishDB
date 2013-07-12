@@ -93,7 +93,4 @@ public class ModalRenombrarPestanaActiva extends QDialog {
     private void nombreCambiado() {
         nombreLabel.setProperty("pintarError", false);
     }
-    
-    
-    
 }

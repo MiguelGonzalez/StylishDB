@@ -49,9 +49,7 @@ public class CRenombrarPestanaActiva {
     
     private void establecerDisenoInterfaz() {
         modalRenombrar.setWindowFlags(Qt.WindowType.FramelessWindowHint);
-        modalRenombrar.setStyleSheet(
-                ObtencionEstilo.getEstiloVentana("dialogEstilo.css")
-        );
+        recargarEstiloModal();
     }
     
     private void posicionarVentanaModal() {
@@ -78,7 +76,30 @@ public class CRenombrarPestanaActiva {
     }
     
     protected void eventoAceptar() {
+        if(noTieneErroresFormulario()) {
+            mPestana.nombrePestana = modalRenombrar.nombreEdit.text();
+            gestionadorEditores.editadaPestanaEditor(mPestana);
+            
+            modalRenombrar.close();
+        }
+    }
+    
+    private boolean noTieneErroresFormulario() {
+        if(modalRenombrar.nombreEdit.text().isEmpty()) {
+            modalRenombrar.pintarErrorNombre();
+            
+            return false;
+        }
         
+        recargarEstiloModal();
+        
+        return true;
+    }
+    
+    protected void recargarEstiloModal() {
+        modalRenombrar.setStyleSheet(
+                ObtencionEstilo.getEstiloVentana("dialogEstilo.css")
+        );
     }
     
 }

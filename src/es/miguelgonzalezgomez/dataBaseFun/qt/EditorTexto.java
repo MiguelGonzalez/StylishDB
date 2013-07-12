@@ -4,6 +4,7 @@ import com.trolltech.qt.core.Qt;
 import com.trolltech.qt.core.Qt.KeyboardModifiers;
 import com.trolltech.qt.gui.QKeyEvent;
 import com.trolltech.qt.gui.QTextEdit;
+import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
 import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CEditor;
 
 /**
@@ -25,6 +26,10 @@ public class EditorTexto extends QTextEdit {
    
     public void estaVisible() {
         controlador.estaVisible();
+    }
+    
+    public MPestanaEditor getModeloEditor() {
+        return controlador.getModeloEditor();
     }
     
     @Override

@@ -73,9 +73,8 @@ public class CWidgetPestanasEditores {
                 editoresAplicacion.getMPestanasEditorAbiertas();
         mPestanasEditorAbiertas.addPestanaEditorListener(new PestanaEditorListener() {
             @Override
-            public void modificadaPestanaEditor(MPestanaEditor pestanaEditorVieja,
-                    MPestanaEditor pestanaEditorViejaNueva) {
-                
+            public void modificadaPestanaEditor(MPestanaEditor pestanaEditorEditada) {
+                comprobarYRenombrarPestanaEditor(pestanaEditorEditada);
             }
 
             @Override
@@ -99,7 +98,7 @@ public class CWidgetPestanasEditores {
             }
         });
     }
-    
+
     private void addTab(MPestanaEditor pestanaEditor) {
         CEditor cEditor = new CEditor(pestanaEditor);
         
@@ -134,5 +133,16 @@ public class CWidgetPestanasEditores {
         editorTexto.estaVisible();
     }
     
-    
+    private void comprobarYRenombrarPestanaEditor(MPestanaEditor pestanaEditorEditada) {
+        CEditor cEditor = relacionPestanaEditor.get(
+                pestanaEditorEditada);
+        
+        for(int i=0; i<relacionPestanaEditor.size(); i++) {
+            EditorTexto editorTexto = (EditorTexto) widgetPestanasEditores.widget(i);
+            
+            if(pestanaEditorEditada.equals(editorTexto.getModeloEditor())) {
+                widgetPestanasEditores.setTabText(i, pestanaEditorEditada.nombrePestana);
+            }
+        }
+    }
 }

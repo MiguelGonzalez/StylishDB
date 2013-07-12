@@ -55,4 +55,8 @@ public class CEditor {
         editoresAplicacion.establecerPestanaActiva(
                 mPestanaEditor);
     }
+
+    public MPestanaEditor getModeloEditor() {
+        return mPestanaEditor;
+    }
 }
