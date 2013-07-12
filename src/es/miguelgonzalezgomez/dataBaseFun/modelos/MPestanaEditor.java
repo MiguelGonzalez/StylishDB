@@ -48,5 +48,4 @@ public class MPestanaEditor {
     public int hashCode() {
         return uuidPestana.hashCode();
     }
-    
 }
