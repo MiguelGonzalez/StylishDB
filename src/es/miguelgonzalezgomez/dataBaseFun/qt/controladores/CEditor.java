@@ -22,6 +22,7 @@ public class CEditor {
         
         construirEditorTexto();
         establecerResaltadoSintaxis();
+        establecerTextoModeloPestana();
     }
     
     public EditorTexto getEditorTexto() {
@@ -63,5 +64,9 @@ public class CEditor {
         editoresAplicacion.textoCambiadoPestanaActiva(
                 editorTexto.document().toPlainText()
         );
+    }
+
+    private void establecerTextoModeloPestana() {
+        editorTexto.setText(mPestanaEditor.contenidoTexto);
     }
 }

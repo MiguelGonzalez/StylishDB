@@ -34,6 +34,7 @@ public class CWidgetPestanasEditores {
         
         inicializarWidget();
         establecerTabBar();
+        cargarPestanasAbiertas();
         
         escuchaEditoresAplicacion();
     }
@@ -55,6 +56,13 @@ public class CWidgetPestanasEditores {
 
     }
     
+    private void cargarPestanasAbiertas() {
+        for(MPestanaEditor pestanaEditor :
+                editoresAplicacion.getPestanasEditores()) {
+            addTab(pestanaEditor);
+        }
+    }
+    
     public QTabWidget getVistaPestanasEditores() {
         return widgetPestanasEditores;
     }
@@ -70,12 +78,9 @@ public class CWidgetPestanasEditores {
     }
     
     private void escuchaEditoresAplicacion() {
-        MPestanasEditorAbiertas mPestanasEditorAbiertas = 
-                editoresAplicacion.getMPestanasEditorAbiertas();
-        
         CWidgetPestanasEditoresEscuchaCambios escuchaCambiosPestana = new
                 CWidgetPestanasEditoresEscuchaCambios(this);
-        mPestanasEditorAbiertas.addPestanaEditorListener(escuchaCambiosPestana);
+        editoresAplicacion.addPestanasEditorListener(escuchaCambiosPestana);
     }
 
     public void addTab(MPestanaEditor pestanaEditor) {
