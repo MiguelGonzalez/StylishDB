@@ -1,5 +1,6 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
+import es.miguelgonzalezgomez.dataBaseFun.bd.GestionadorEditoresAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
 import es.miguelgonzalezgomez.dataBaseFun.qt.EditorTexto;
@@ -10,12 +11,14 @@ import es.miguelgonzalezgomez.dataBaseFun.qt.restaltadoEditor.ConstruirSyntaxHig
  * @author Miguel González
  */
 public class CEditor {
-
+    
+    private GestionadorEditoresAplicacion editoresAplicacion;
     private MPestanaEditor mPestanaEditor;
     private EditorTexto editorTexto;
     
     public CEditor(MPestanaEditor mPestanaEditor) {
         this.mPestanaEditor = mPestanaEditor;
+        editoresAplicacion = new GestionadorEditoresAplicacion();
         
         construirEditorTexto();
         establecerResaltadoSintaxis();
@@ -27,7 +30,7 @@ public class CEditor {
             
     
     private void construirEditorTexto() {
-        editorTexto = new EditorTexto(mPestanaEditor);
+        editorTexto = new EditorTexto(this);
         editorTexto.setStyleSheet(
                 ObtencionEstilo.getEstiloVentana("editor.css")
         );
@@ -40,11 +43,16 @@ public class CEditor {
         );
     }
 
-    void deshacer() {
+    public void deshacer() {
         editorTexto.undo();
     }
 
-    void rehacer() {
+    public void rehacer() {
         editorTexto.redo();
+    }
+
+    public void estaVisible() {
+        editoresAplicacion.establecerPestanaActiva(
+                mPestanaEditor);
     }
 }

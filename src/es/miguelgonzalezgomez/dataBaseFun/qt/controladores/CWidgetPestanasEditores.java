@@ -128,12 +128,10 @@ public class CWidgetPestanasEditores {
     }
     
     private void cambiadaPestana() {
-        EditorTexto cEditor = (EditorTexto) widgetPestanasEditores.currentWidget();
-        if(cEditor != null) {
-            editoresAplicacion.establecerPestanaActiva(cEditor.getMPestanaEditor());
-        } else {
-            editoresAplicacion.establecerPestanaActiva(null);
-        }
+        EditorTexto editorTexto = (EditorTexto) widgetPestanasEditores.
+                currentWidget();
+        
+        editorTexto.estaVisible();
     }
     
     

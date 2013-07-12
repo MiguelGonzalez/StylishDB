@@ -2,6 +2,7 @@ package es.miguelgonzalezgomez.dataBaseFun.qt;
 
 import com.trolltech.qt.gui.QTextEdit;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
+import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CEditor;
 
 /**
  *
@@ -9,18 +10,18 @@ import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
  */
 public class EditorTexto extends QTextEdit {
     
-    private MPestanaEditor mPestanaEditor;
+    private CEditor controlador;
     
-    public EditorTexto(MPestanaEditor mPestanaEditor) {
+    public EditorTexto(CEditor controlador) {
         super();
         
-        this.mPestanaEditor = mPestanaEditor;
+        this.controlador = controlador;
         
         setLineWrapMode(QTextEdit.LineWrapMode.NoWrap);
         setAcceptRichText(false);
     }
-    
-    public MPestanaEditor getMPestanaEditor() {
-        return mPestanaEditor;
+   
+    public void estaVisible() {
+        controlador.estaVisible();
     }
 }
