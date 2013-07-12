@@ -120,7 +120,15 @@ public class MPestanasEditorAbiertas {
         }
     }
     
-    private boolean hayPestanaActiva() {
+    public boolean hayPestanaActiva() {
         return pestanaEditorActiva != null;
+    }
+
+    public MPestanaEditor getPestanaActiva() {
+        if(hayPestanaActiva()) {
+            return pestanaEditorActiva.clone();
+        } else {
+            return null;
+        }
     }
 }

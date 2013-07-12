@@ -51,4 +51,12 @@ public class GestionadorEditoresAplicacion {
     public void rehacerPestanaActiva() {
         aplicacion.mPestanasEditorAbiertas.rehacerPestanaActiva();
     }
+
+    public boolean hayPestanaActiva() {
+        return aplicacion.mPestanasEditorAbiertas.hayPestanaActiva();
+    }
+
+    public MPestanaEditor getmPestanaActiva() {
+        return aplicacion.mPestanasEditorAbiertas.getPestanaActiva();
+    }
 }

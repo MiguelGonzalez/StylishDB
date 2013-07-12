@@ -28,6 +28,7 @@ public class MPestanaEditor {
     public MPestanaEditor clone() {
         MPestanaEditor mPestanaEditor = new MPestanaEditor(mConexion);
         mPestanaEditor.contenidoTexto = contenidoTexto;
+        mPestanaEditor.nombrePestana = nombrePestana;
         mPestanaEditor.uuidPestana = uuidPestana;
         
         return mPestanaEditor;

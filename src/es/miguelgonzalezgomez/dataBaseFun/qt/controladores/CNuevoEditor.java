@@ -42,7 +42,7 @@ public class CNuevoEditor {
         int width = 350;
         int height = 120;
         modalCrearNuevoEditor.resize(
-                350, 120
+                width, height
                 );
         modalCrearNuevoEditor.move(
                 CentroCoordenadas.getXCentrada(width),
