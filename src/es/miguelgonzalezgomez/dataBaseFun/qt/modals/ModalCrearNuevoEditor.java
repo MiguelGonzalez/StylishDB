@@ -1,11 +1,9 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.modals;
 
-import com.trolltech.qt.gui.QComboBox;
 import com.trolltech.qt.gui.QDialog;
 import com.trolltech.qt.gui.QGridLayout;
-import com.trolltech.qt.gui.QHBoxLayout;
 import com.trolltech.qt.gui.QLabel;
-import com.trolltech.qt.gui.QPushButton;
+import com.trolltech.qt.gui.QListWidget;
 import com.trolltech.qt.gui.QVBoxLayout;
 import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CNuevoEditor;
 
@@ -17,11 +15,8 @@ public class ModalCrearNuevoEditor extends QDialog {
     
     private QLabel conexionLabel;
     
-    public QComboBox conexionCombo;
-    
-    private QPushButton crearButton;
-    private QPushButton cancelarButton;
-    
+    public QListWidget conexionListWidget;
+
     private CNuevoEditor controlador;
     
     public ModalCrearNuevoEditor(CNuevoEditor controlador) {
@@ -38,16 +33,17 @@ public class ModalCrearNuevoEditor extends QDialog {
     }
     
     private void crearComponentesInterfaz() {
-        conexionLabel = new QLabel(tr("Conexión"));
-        conexionCombo = new QComboBox();
-        
-        cancelarButton = new QPushButton(tr("Cancelar"));
-        crearButton = new QPushButton(tr("Crear editor"));
+        conexionLabel = new QLabel(tr("Elegir conexión"));
+        conexionListWidget = new QListWidget();
     }
     
     private void establecerEventosInterfaz() {
-        cancelarButton.clicked.connect(controlador, "eventoCancelar()");
-        crearButton.clicked.connect(controlador, "eventoCrearEditor()");
+        conexionListWidget.itemActivated.connect(
+                controlador,
+                "eventoCrearEditor()");
+        conexionListWidget.itemPressed.connect(
+                controlador,
+                "eventoCrearEditor()");
     }
     
     private void posicionarComponentesInterfaz() {
@@ -58,10 +54,6 @@ public class ModalCrearNuevoEditor extends QDialog {
                 getLayoutConexion()
         );
         
-        ventanaLayout.addLayout(
-                getLayoutAccionesConexion()
-        );
-        
         setLayout(ventanaLayout);
     }
     
@@ -69,18 +61,8 @@ public class ModalCrearNuevoEditor extends QDialog {
         QGridLayout datosConexionGrid = new QGridLayout();
         
         datosConexionGrid.addWidget(conexionLabel, 0, 0);
-        datosConexionGrid.addWidget(conexionCombo, 0, 1);
+        datosConexionGrid.addWidget(conexionListWidget, 1, 0);
         
         return datosConexionGrid;
     }
-    
-    private QHBoxLayout getLayoutAccionesConexion() {
-        QHBoxLayout accionesConexionHorizontal = new QHBoxLayout();
-        
-        accionesConexionHorizontal.addWidget(cancelarButton);
-        accionesConexionHorizontal.addWidget(crearButton);
-        
-        return accionesConexionHorizontal;
-    }
-    
 }

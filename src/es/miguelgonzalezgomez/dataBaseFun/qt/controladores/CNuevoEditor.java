@@ -54,24 +54,25 @@ public class CNuevoEditor {
         List<MConexion> conexiones = gestionadorConexiones.getConexiones();
         
         for(MConexion conexion : conexiones) {
-            modalCrearNuevoEditor.conexionCombo.addItem(conexion.nombre, conexion);
+            modalCrearNuevoEditor.conexionListWidget.addItem(conexion.nombre);
         }
     }
     
-    protected void eventoCancelar() {
-        modalCrearNuevoEditor.close();
-    }
-    
     protected void eventoCrearEditor() {
-        int index = modalCrearNuevoEditor.conexionCombo.currentIndex();
-        MConexion mConexion = (MConexion) modalCrearNuevoEditor.
-                conexionCombo.itemData(index);
-        
         GEditoresAplicacion editoresAplicacion = new
                 GEditoresAplicacion();
         
-        MPestanaEditor mPestanaEditor = new MPestanaEditor(mConexion);
-        editoresAplicacion.addNuevaConexion(mPestanaEditor);
+        String nombreConexion = modalCrearNuevoEditor.conexionListWidget.
+                currentItem().text();
+        
+        List<MConexion> conexiones = gestionadorConexiones.getConexiones();
+        
+        for(MConexion conexion : conexiones) {
+            if(nombreConexion.equals(conexion.nombre)) {
+                MPestanaEditor mPestanaEditor = new MPestanaEditor(conexion);
+                editoresAplicacion.addNuevaConexion(mPestanaEditor);
+            }
+        }
         
         modalCrearNuevoEditor.close();
     }
