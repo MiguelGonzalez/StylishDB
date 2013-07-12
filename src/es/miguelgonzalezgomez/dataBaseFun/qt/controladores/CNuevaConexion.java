@@ -68,7 +68,7 @@ public class CNuevaConexion {
     protected void eventoCrearEditarConexion() {
         if(esValidoSinoMostrarErrores()) {
             MConexion mConexion = obtenerModeloConexion();
-            if(gestionadorConexiones.existeNombreConexion(mConexion.nombre)) {
+            if(nombreConexionRepetido(mConexion)) {
                 modalGestionConexiones.
                         mostrarAvisoNombreConexionDuplicado();
             } else {
@@ -78,6 +78,10 @@ public class CNuevaConexion {
                 cerrarVentanaModal();
             }
         }
+    }
+    
+    protected boolean nombreConexionRepetido(MConexion mConexion) {
+        return gestionadorConexiones.existeNombreConexion(mConexion.nombre);
     }
     
     protected void cerrarVentanaModal() {
