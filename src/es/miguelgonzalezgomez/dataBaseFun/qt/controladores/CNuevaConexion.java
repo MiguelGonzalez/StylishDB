@@ -1,8 +1,10 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
+import com.trolltech.qt.core.Qt;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ComprobacionConexion;
 import es.miguelgonzalezgomez.dataBaseFun.bd.GestionadorConexionesAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ValidadorModeloConexion;
+import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalCrearEditarConexion;
 import es.miguelgonzalezgomez.dataBaseFun.utilidadesEstaticas.CentroCoordenadas;
@@ -20,7 +22,7 @@ public class CNuevaConexion {
         gestionadorConexiones = new GestionadorConexionesAplicacion();
         
         crearVentanaModal();
-        
+        recargarEstiloModal();
         posicionarVentanaModal();
     }
     
@@ -33,6 +35,7 @@ public class CNuevaConexion {
     private void crearVentanaModal() {
         modalGestionConexiones = new ModalCrearEditarConexion(
                 this);
+        modalGestionConexiones.setWindowFlags(Qt.WindowType.FramelessWindowHint);
     }
     
     private void posicionarVentanaModal() {
@@ -129,6 +132,14 @@ public class CNuevaConexion {
             modalGestionConexiones.pintarErrorPassword();
         }
         
+        recargarEstiloModal();
+        
         return validador.isConexionValida();
+    }
+    
+    protected void recargarEstiloModal() {
+        modalGestionConexiones.setStyleSheet(
+                ObtencionEstilo.getEstiloVentana("dialogEstilo.css")
+        );
     }
 }

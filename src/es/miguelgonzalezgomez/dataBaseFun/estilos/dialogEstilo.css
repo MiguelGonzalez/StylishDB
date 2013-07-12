@@ -1,0 +1,57 @@
+QDialog {
+    background-color: #171814;
+    border: 2px solid #abb2b6;
+}
+
+QDialog QLabel {
+    color: #ffffff;
+}
+
+*[pintarError="true"] {
+    color: #fa8072 !important;
+}
+
+/*
+ * Combo box
+*/
+
+QDialog QComboBox {
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 1px 5px;
+    color: #ffffff;
+    background-color: #272822;
+}
+
+QComboBox:on * {
+    background-color: rgb(80, 80, 80);
+}
+ 
+ 
+QComboBox QAbstractItemView {
+    background-color: #272822;
+    color: #ffffff;
+}
+ 
+QComboBox QAbstractItemView:hover {
+    background-color: #3d3d3a;
+    color: #abb2b6;
+}
+
+
+
+/*
+ * Fecha hacia abajo ComboBox
+*/
+
+QDialog QComboBox::drop-down {
+    
+}
+
+QComboBox::down-arrow {
+
+}
+
+QComboBox::down-arrow:on { /* shift the arrow when popup is open */
+    
+}

@@ -95,28 +95,6 @@ public class ModalCrearEditarConexion extends QDialog {
         passwordEdit.textChanged.connect(this, "passwordCambiado()");
     }
     
-    private void nombreCambiado() {
-        nombreEdit.setStyleSheet("background-color: transparent");
-    }
-    private void gestorCambiado() {
-        gestorCombo.setStyleSheet("background-color: transparent");
-    }
-    private void sidCambiado() {
-        sidEdit.setStyleSheet("background-color: transparent");
-    }
-    private void ipCambiado() {
-        ipEdit.setStyleSheet("background-color: transparent");
-    }
-    private void puertoCambiado() {
-        puertoEdit.setStyleSheet("background-color: transparent");
-    }
-    private void usuarioCambiado() {
-        usuarioEdit.setStyleSheet("background-color: transparent");
-    }
-    private void passwordCambiado() {
-        passwordEdit.setStyleSheet("background-color: transparent");
-    }
-    
     private void cargarDatosInterfaz() {
         String []tiposBD = TiposBasesDeDatos.getNombresBasesDatos();
         for(String tipoBD : tiposBD) {
@@ -176,33 +154,54 @@ public class ModalCrearEditarConexion extends QDialog {
         return accionesConexionHorizontal;
     }
     
-    private String styleSheetError = "background: #FA8072;";
     public void pintarErrorNombre() {
-        nombreEdit.setStyleSheet(styleSheetError);
+        nombreLabel.setProperty("pintarError", true);
     }
     
     public void pintarErrorGestor() {
-        gestorCombo.setStyleSheet(styleSheetError);
+        gestorLabel.setProperty("pintarError", true);
     }
     
     public void pintarErrorSid() {
-        sidEdit.setStyleSheet(styleSheetError);
+        sidLabel.setProperty("pintarError", true);
     }
     
     public void pintarErrorIp() {
-        ipEdit.setStyleSheet(styleSheetError);
+        ipLabel.setProperty("pintarError", true);
     }
     
     public void pintarErrorPuerto() {
-        puertoEdit.setStyleSheet(styleSheetError);
+        puertoLabel.setProperty("pintarError", true);
     }
     
     public void pintarErrorUsuario() {
-        usuarioEdit.setStyleSheet(styleSheetError);
+        usuarioLabel.setProperty("pintarError", true);
     }
     
     public void pintarErrorPassword() {
-        passwordEdit.setStyleSheet(styleSheetError);
+        passwordLabel.setProperty("pintarError", true);
+    }
+    
+    private void nombreCambiado() {
+        nombreLabel.setProperty("pintarError", false);
+    }
+    private void gestorCambiado() {
+        gestorLabel.setProperty("pintarError", false);
+    }
+    private void sidCambiado() {
+        sidLabel.setProperty("pintarError", false);
+    }
+    private void ipCambiado() {
+        ipLabel.setProperty("pintarError", false);
+    }
+    private void puertoCambiado() {
+        puertoLabel.setProperty("pintarError", false);
+    }
+    private void usuarioCambiado() {
+        usuarioLabel.setProperty("pintarError", false);
+    }
+    private void passwordCambiado() {
+        passwordLabel.setProperty("pintarError", false);
     }
     
     public void mostrarAvisoConexionEstablecida() {

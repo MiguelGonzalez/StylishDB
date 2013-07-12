@@ -1,5 +1,6 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
+import com.trolltech.qt.core.Qt;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.idiomas.CargaIdioma;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalPreferencias;
@@ -32,6 +33,7 @@ public class CPreferencias {
     private void crearVentanaModal() {
         modalPreferencias = new ModalPreferencias(
                 this);
+        modalPreferencias.setWindowFlags(Qt.WindowType.FramelessWindowHint);
     }
     
     private void posicionarVentanaModal() {
@@ -48,7 +50,7 @@ public class CPreferencias {
     
     private void establecerEstiloVentana() {
         modalPreferencias.setStyleSheet(
-                ObtencionEstilo.getEstiloVentana("preferencias.css")
+                ObtencionEstilo.getEstiloVentana("dialogEstilo.css")
         );
     }
     
