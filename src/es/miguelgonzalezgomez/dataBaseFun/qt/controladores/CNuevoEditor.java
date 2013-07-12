@@ -69,7 +69,7 @@ public class CNuevoEditor {
         for(MConexion conexion : conexiones) {
             if(nombreConexion.equals(conexion.nombre)) {
                 MPestanaEditor mPestanaEditor = new MPestanaEditor(conexion);
-                editoresAplicacion.addNuevaConexion(mPestanaEditor);
+                editoresAplicacion.addNuevaPestanaEditor(mPestanaEditor);
             }
         }
         

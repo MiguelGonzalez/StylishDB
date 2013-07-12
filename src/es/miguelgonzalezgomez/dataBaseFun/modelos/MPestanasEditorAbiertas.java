@@ -37,12 +37,12 @@ public class MPestanasEditorAbiertas {
     }
     
     public List<MPestanaEditor> getPestanasEditoresAbiertas() {
-        List<MPestanaEditor> pestanasAbiertas = new ArrayList<>();
-        for(MPestanaEditor pestanaAbierta : pestanasAbiertas) {
-            pestanasAbiertas.add(pestanaAbierta.clone());
+        List<MPestanaEditor> pestanasAbiertasClone = new ArrayList<>();
+        for(MPestanaEditor pestanaAbierta : pestanasEditoresAbiertas) {
+            pestanasAbiertasClone.add(pestanaAbierta.clone());
         }
 
-        return pestanasAbiertas;
+        return pestanasAbiertasClone;
     }
     
     public void addNuevaPestanaEditor(MPestanaEditor pestanaEditor) {

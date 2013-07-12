@@ -29,7 +29,7 @@ public class GEditoresAplicacion {
         aplicacion.mPestanasEditorAbiertas.removePestanaEditor(mPestanaEditor);
     }
     
-    public void addNuevaConexion(MPestanaEditor mPestanaEditor) {
+    public void addNuevaPestanaEditor(MPestanaEditor mPestanaEditor) {
         aplicacion.mPestanasEditorAbiertas.addNuevaPestanaEditor(mPestanaEditor);
     }
     
