@@ -28,12 +28,15 @@ public class GestionadorConexionesAplicacion {
         aplicacion.mConexionesGuardadas.addNuevaConexion(mConexion);
     }
     
-    public boolean existeNombreConexion(String nombreConexion) {
+    public boolean existeNombreConexion(MConexion mConexion) {
         List<MConexion> conexiones = aplicacion.mConexionesGuardadas.
                 getConexionesGuardadas();
         
         for(MConexion conexion : conexiones) {
-            if(conexion.nombre.equals(nombreConexion)) {
+            if(
+                    !mConexion.equals(conexion) &&
+                    conexion.nombre.equals(mConexion.nombre)
+                    ) {
                 return true;
             }
         }

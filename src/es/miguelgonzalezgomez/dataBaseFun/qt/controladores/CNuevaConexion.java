@@ -81,7 +81,7 @@ public class CNuevaConexion {
     }
     
     protected boolean nombreConexionRepetido(MConexion mConexion) {
-        return gestionadorConexiones.existeNombreConexion(mConexion.nombre);
+        return gestionadorConexiones.existeNombreConexion(mConexion);
     }
     
     protected void cerrarVentanaModal() {

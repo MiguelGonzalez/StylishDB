@@ -42,7 +42,8 @@ public class CEditarConexion extends CNuevaConexion {
     protected void eventoCrearEditarConexion() {
         if(esValidoSinoMostrarErrores()) {
             MConexion mConexionEditada = obtenerModeloConexion();
-            if(gestionadorConexiones.existeNombreConexion(mConexionEditada.nombre)) {
+
+            if(nombreConexionRepetido(mConexionEditada)) {
                 modalGestionConexiones.
                         mostrarAvisoNombreConexionDuplicado();
             } else {
@@ -54,4 +55,11 @@ public class CEditarConexion extends CNuevaConexion {
         }
     }
     
+    @Override
+    protected MConexion obtenerModeloConexion() {
+        MConexion mConexionEditada = super.obtenerModeloConexion();
+        mConexionEditada.uuidConexion = mConexion.uuidConexion;
+        
+        return mConexionEditada;
+    }
 }

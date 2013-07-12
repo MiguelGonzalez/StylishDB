@@ -40,7 +40,7 @@ public class MConexion {
     public boolean equals(Object mConexion) {
         if(mConexion instanceof MConexion) {
             return uuidConexion.equals(
-                    ((MPestanaEditor) mConexion).uuidPestana
+                    ((MConexion) mConexion).uuidConexion
                 );
         } else {
             return false;
