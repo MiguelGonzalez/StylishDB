@@ -1,8 +1,3 @@
 QTabWidget::pane {
-    border: 0;
-    background-color: #171814;
-}
-
-QTabWidget::tab-bar {
-
+    border: none;
 }

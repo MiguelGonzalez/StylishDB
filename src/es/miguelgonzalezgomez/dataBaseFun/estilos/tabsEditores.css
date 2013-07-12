@@ -1,8 +1,5 @@
 QTabBar {
     background-color: #171714;
-    border: none;
-    margin: 0;
-    padding: 0;
 }
 
 QTabBar::tab {
