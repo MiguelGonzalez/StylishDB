@@ -46,17 +46,7 @@ public class ValidadorModeloConexion {
     }
     
     public boolean isIpValido() {
-        boolean valido = !mConexion.ip.isEmpty();
-        
-        if(valido) {
-            if("localhost".equals(mConexion.ip)) {
-                return true;
-            }
-        }
-        if(valido) {
-            return esValidaIP(mConexion.ip);
-        }
-        return false;
+        return !mConexion.ip.isEmpty();
     }
     
     public boolean isPuertoValido() {
