@@ -1,6 +1,6 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
-import es.miguelgonzalezgomez.dataBaseFun.bd.GestionadorEditoresAplicacion;
+import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
 import es.miguelgonzalezgomez.dataBaseFun.qt.EditorTexto;
@@ -12,13 +12,13 @@ import es.miguelgonzalezgomez.dataBaseFun.qt.restaltadoEditor.ConstruirSyntaxHig
  */
 public class CEditor {
     
-    private GestionadorEditoresAplicacion editoresAplicacion;
+    private GEditoresAplicacion editoresAplicacion;
     private MPestanaEditor mPestanaEditor;
     private EditorTexto editorTexto;
     
     public CEditor(MPestanaEditor mPestanaEditor) {
         this.mPestanaEditor = mPestanaEditor;
-        editoresAplicacion = new GestionadorEditoresAplicacion();
+        editoresAplicacion = new GEditoresAplicacion();
         
         construirEditorTexto();
         establecerResaltadoSintaxis();

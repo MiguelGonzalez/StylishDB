@@ -1,7 +1,7 @@
 package es.miguelgonzalezgomez.dataBaseFun;
 
 import com.google.gson.reflect.TypeToken;
-import es.miguelgonzalezgomez.dataBaseFun.bd.GestionadorConexionesAplicacion;
+import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GConexionesAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.configuracion.ConfiguracionAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import java.lang.reflect.Type;
@@ -43,8 +43,8 @@ public class CargaModeloAplicacion {
     }
     
     private static void cargarConfiguracionEnModelo() {
-        GestionadorConexionesAplicacion gestionador = new 
-                GestionadorConexionesAplicacion();
+        GConexionesAplicacion gestionador = new 
+                GConexionesAplicacion();
         for(MConexion conexion : configuracionAplicacion.conexiones) {
             gestionador.addNuevaConexion(conexion);
         }

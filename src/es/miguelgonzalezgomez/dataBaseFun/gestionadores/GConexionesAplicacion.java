@@ -1,4 +1,4 @@
-package es.miguelgonzalezgomez.dataBaseFun.bd;
+package es.miguelgonzalezgomez.dataBaseFun.gestionadores;
 
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
@@ -8,11 +8,11 @@ import java.util.List;
  *
  * @author Miguel González
  */
-public class GestionadorConexionesAplicacion {
+public class GConexionesAplicacion {
     
     private MAplicacion aplicacion;
     
-    public GestionadorConexionesAplicacion() {
+    public GConexionesAplicacion() {
         aplicacion = MAplicacion.getInstance();
     }
     

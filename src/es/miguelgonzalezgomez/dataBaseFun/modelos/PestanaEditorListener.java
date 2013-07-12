@@ -10,6 +10,5 @@ public interface PestanaEditorListener {
     public void eliminadaPestanaEditor(PestanaEditorListener pestanaEditorListener);
     public void nuevaPestanaEditor(MPestanaEditor pestanaEditor);
 
-    public void rehacerPestana(MPestanaEditor pestanaEditor);
-    public void deshacerPestana(MPestanaEditor pestanaEditor);
+    public void atajoTeclado(MPestanaEditor pestanaEditor, int atajo);
 }

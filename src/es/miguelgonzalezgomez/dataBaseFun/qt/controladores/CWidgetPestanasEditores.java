@@ -3,9 +3,10 @@ package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 import com.trolltech.qt.gui.QIcon;
 import com.trolltech.qt.gui.QTabWidget;
 import com.trolltech.qt.gui.QWidget;
-import es.miguelgonzalezgomez.dataBaseFun.bd.GestionadorEditoresAplicacion;
+import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
+import static es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditorAtajoEvento.*;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanasEditorAbiertas;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.PestanaEditorListener;
 import es.miguelgonzalezgomez.dataBaseFun.qt.EditorTexto;
@@ -21,13 +22,13 @@ public class CWidgetPestanasEditores {
 
     private WidgetPestanasEditores widgetPestanasEditores;
 
-    private GestionadorEditoresAplicacion editoresAplicacion;
+    private GEditoresAplicacion editoresAplicacion;
     private CPestanasEditores cPestanasEditores;
     
     private Map<MPestanaEditor, CEditor> relacionPestanaEditor;
     
     public CWidgetPestanasEditores() {
-        editoresAplicacion = new GestionadorEditoresAplicacion();
+        editoresAplicacion = new GEditoresAplicacion();
         cPestanasEditores = new CPestanasEditores(this);
         relacionPestanaEditor = new HashMap<>();
         
@@ -71,35 +72,13 @@ public class CWidgetPestanasEditores {
     private void escuchaEditoresAplicacion() {
         MPestanasEditorAbiertas mPestanasEditorAbiertas = 
                 editoresAplicacion.getMPestanasEditorAbiertas();
-        mPestanasEditorAbiertas.addPestanaEditorListener(new PestanaEditorListener() {
-            @Override
-            public void modificadaPestanaEditor(MPestanaEditor pestanaEditorEditada) {
-                comprobarYRenombrarPestanaEditor(pestanaEditorEditada);
-            }
-
-            @Override
-            public void eliminadaPestanaEditor(PestanaEditorListener pestanaEditorListener) {
-                
-            }
-
-            @Override
-            public void nuevaPestanaEditor(MPestanaEditor pestanaEditor) {
-                addTab(pestanaEditor);
-            }
-
-            @Override
-            public void rehacerPestana(MPestanaEditor pestanaEditor) {
-                buscarYRehacerPestana(pestanaEditor);
-            }
-
-            @Override
-            public void deshacerPestana(MPestanaEditor pestanaEditor) {
-                buscarYDeshacerPestana(pestanaEditor);
-            }
-        });
+        
+        CWidgetPestanasEditoresEscuchaCambios escuchaCambiosPestana = new
+                CWidgetPestanasEditoresEscuchaCambios(this);
+        mPestanasEditorAbiertas.addPestanaEditorListener(escuchaCambiosPestana);
     }
 
-    private void addTab(MPestanaEditor pestanaEditor) {
+    public void addTab(MPestanaEditor pestanaEditor) {
         CEditor cEditor = new CEditor(pestanaEditor);
         
         relacionPestanaEditor.put(pestanaEditor, cEditor);
@@ -110,7 +89,7 @@ public class CWidgetPestanasEditores {
         );
     }
     
-    private void buscarYDeshacerPestana(MPestanaEditor pestanaEditor) {
+    public void buscarYDeshacerPestana(MPestanaEditor pestanaEditor) {
         CEditor cEditor = relacionPestanaEditor.get(pestanaEditor);
         
         if(cEditor != null) {
@@ -118,7 +97,7 @@ public class CWidgetPestanasEditores {
         }
     }
     
-    private void buscarYRehacerPestana(MPestanaEditor pestanaEditor) {
+    public void buscarYRehacerPestana(MPestanaEditor pestanaEditor) {
         CEditor cEditor = relacionPestanaEditor.get(pestanaEditor);
         
         if(cEditor != null) {
@@ -133,10 +112,7 @@ public class CWidgetPestanasEditores {
         editorTexto.estaVisible();
     }
     
-    private void comprobarYRenombrarPestanaEditor(MPestanaEditor pestanaEditorEditada) {
-        CEditor cEditor = relacionPestanaEditor.get(
-                pestanaEditorEditada);
-        
+    public void comprobarYRenombrarPestanaEditor(MPestanaEditor pestanaEditorEditada) {
         for(int i=0; i<relacionPestanaEditor.size(); i++) {
             EditorTexto editorTexto = (EditorTexto) widgetPestanasEditores.widget(i);
             

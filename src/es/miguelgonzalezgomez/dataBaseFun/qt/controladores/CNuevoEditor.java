@@ -1,8 +1,8 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
 import com.trolltech.qt.core.Qt;
-import es.miguelgonzalezgomez.dataBaseFun.bd.GestionadorConexionesAplicacion;
-import es.miguelgonzalezgomez.dataBaseFun.bd.GestionadorEditoresAplicacion;
+import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GConexionesAplicacion;
+import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
@@ -17,10 +17,10 @@ import java.util.List;
 public class CNuevoEditor {
  
     private ModalCrearNuevoEditor modalCrearNuevoEditor;
-    private GestionadorConexionesAplicacion gestionadorConexiones;
+    private GConexionesAplicacion gestionadorConexiones;
     
     public CNuevoEditor() {
-        gestionadorConexiones = new GestionadorConexionesAplicacion();
+        gestionadorConexiones = new GConexionesAplicacion();
         modalCrearNuevoEditor = new ModalCrearNuevoEditor(this);
         
         posicionarVentanaModal();
@@ -67,8 +67,8 @@ public class CNuevoEditor {
         MConexion mConexion = (MConexion) modalCrearNuevoEditor.
                 conexionCombo.itemData(index);
         
-        GestionadorEditoresAplicacion editoresAplicacion = new
-                GestionadorEditoresAplicacion();
+        GEditoresAplicacion editoresAplicacion = new
+                GEditoresAplicacion();
         
         MPestanaEditor mPestanaEditor = new MPestanaEditor(mConexion);
         editoresAplicacion.addNuevaConexion(mPestanaEditor);

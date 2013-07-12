@@ -3,8 +3,8 @@ package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 import com.trolltech.qt.QSignalEmitter;
 import com.trolltech.qt.gui.QAction;
 import es.miguelgonzalezgomez.dataBaseFun.DataBaseFun;
-import es.miguelgonzalezgomez.dataBaseFun.bd.GestionadorConexionesAplicacion;
-import es.miguelgonzalezgomez.dataBaseFun.bd.GestionadorEditoresAplicacion;
+import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GConexionesAplicacion;
+import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.ConexionListener;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
@@ -18,14 +18,14 @@ public class CMenuSuperior {
     private MenuSuperior menuSuperior;
     private MAplicacion aplicacion;
     
-    private GestionadorConexionesAplicacion gestionadorConexiones;
-    private GestionadorEditoresAplicacion gestionadorEditores;
+    private GConexionesAplicacion gestionadorConexiones;
+    private GEditoresAplicacion gestionadorEditores;
     
     
     public CMenuSuperior() {
         gestionadorConexiones = new
-                GestionadorConexionesAplicacion();
-        gestionadorEditores = new GestionadorEditoresAplicacion();
+                GConexionesAplicacion();
+        gestionadorEditores = new GEditoresAplicacion();
         
         aplicacion = MAplicacion.getInstance();
         suscribirCambiosConexiones();

@@ -2,7 +2,7 @@ package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
 import com.trolltech.qt.core.Qt;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ComprobacionConexion;
-import es.miguelgonzalezgomez.dataBaseFun.bd.GestionadorConexionesAplicacion;
+import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GConexionesAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ValidadorModeloConexion;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
@@ -16,10 +16,10 @@ import es.miguelgonzalezgomez.dataBaseFun.utilidadesEstaticas.CentroCoordenadas;
 public class CNuevaConexion {
     
     protected ModalCrearEditarConexion modalGestionConexiones;
-    protected GestionadorConexionesAplicacion gestionadorConexiones;
+    protected GConexionesAplicacion gestionadorConexiones;
     
     public CNuevaConexion() {
-        gestionadorConexiones = new GestionadorConexionesAplicacion();
+        gestionadorConexiones = new GConexionesAplicacion();
         
         crearVentanaModal();
         recargarEstiloModal();

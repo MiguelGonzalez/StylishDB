@@ -1,7 +1,7 @@
 package es.miguelgonzalezgomez.dataBaseFun;
 
 import com.google.gson.reflect.TypeToken;
-import es.miguelgonzalezgomez.dataBaseFun.bd.GestionadorConexionesAplicacion;
+import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GConexionesAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.configuracion.ConfiguracionAplicacion;
 import java.lang.reflect.Type;
 
@@ -23,8 +23,8 @@ public class GuardaModeloAplicacion {
     }
     
     private static void guardarEstadoAplicacion() {
-        GestionadorConexionesAplicacion gestionador = new 
-                GestionadorConexionesAplicacion();
+        GConexionesAplicacion gestionador = new 
+                GConexionesAplicacion();
         configuracionAplicacion = new ConfiguracionAplicacion();
         configuracionAplicacion.conexiones = gestionador.getConexiones();
     }

@@ -1,4 +1,4 @@
-package es.miguelgonzalezgomez.dataBaseFun.bd;
+package es.miguelgonzalezgomez.dataBaseFun.gestionadores;
 
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
@@ -9,11 +9,11 @@ import java.util.List;
  *
  * @author Miguel González
  */
-public class GestionadorEditoresAplicacion {
+public class GEditoresAplicacion {
     
     private MAplicacion aplicacion;
     
-    public GestionadorEditoresAplicacion() {
+    public GEditoresAplicacion() {
         aplicacion = MAplicacion.getInstance();
     }
     

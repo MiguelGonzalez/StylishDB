@@ -93,25 +93,22 @@ public class MPestanasEditorAbiertas {
 
     public void deshacerPestanaActiva() {
         if(hayPestanaActiva()) {
-            notificarDeshacerPestana(pestanaEditorActiva);
-        }
-    }
-    
-    public void notificarDeshacerPestana(MPestanaEditor pestanaEditor) {
-        for(PestanaEditorListener pestanaEditorListener : getCopiaPestanasListeners()) {
-            pestanaEditorListener.deshacerPestana(pestanaEditor);
+            notificarAtajoPestana(pestanaEditorActiva,
+                    MPestanaEditorAtajoEvento.EVENT_DESHACER);
         }
     }
     
     public void rehacerPestanaActiva() {
         if(hayPestanaActiva()) {
-            notificarRehacerPestana(pestanaEditorActiva);
+            notificarAtajoPestana(pestanaEditorActiva,
+                    MPestanaEditorAtajoEvento.EVENT_REHACER);
         }
     }
     
-    private void notificarRehacerPestana(MPestanaEditor pestanaEditor) {
+    private void notificarAtajoPestana(MPestanaEditor pestanaEditor,
+            int atajo) {
         for(PestanaEditorListener pestanaEditorListener : getCopiaPestanasListeners()) {
-            pestanaEditorListener.rehacerPestana(pestanaEditor);
+            pestanaEditorListener.atajoTeclado(pestanaEditor, atajo);
         }
     }
     
