@@ -62,4 +62,8 @@ public class GEditoresAplicacion {
         aplicacion.mPestanasEditorAbiertas.addPestanaEditorListener(
                 escuchaCambiosPestana);
     }
+
+    public void cerrarPestanaActiva() {
+        aplicacion.mPestanasEditorAbiertas.cerrarPestanaActiva();
+    }
 }

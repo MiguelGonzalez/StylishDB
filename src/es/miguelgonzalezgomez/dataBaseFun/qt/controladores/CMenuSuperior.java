@@ -122,4 +122,8 @@ public class CMenuSuperior {
             renombrarPestanaActiva.mostrarRenombrarPestanaActiva();
         }
     }
+    
+    protected void cerrarPestana() {
+        gestionadorEditores.cerrarPestanaActiva();
+    }
 }

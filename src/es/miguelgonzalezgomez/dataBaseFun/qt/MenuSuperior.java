@@ -29,6 +29,7 @@ public class MenuSuperior extends QMenuBar {
     private QAction deshacer;
     private QAction rehacer;
     private QAction renombrarPestana;
+    private QAction cerrarPestana;
     
     private QAction nuevaConexion;
     private QAction preferencias;
@@ -81,6 +82,7 @@ public class MenuSuperior extends QMenuBar {
         
         edicionMenu.addSeparator();
         crearOpcionRenombrarPestana();
+        crearOpcionCerrarPestana();
     }
     
     private void crearOpcionDeshacer() {
@@ -102,6 +104,13 @@ public class MenuSuperior extends QMenuBar {
         renombrarPestana.setShortcut(QKeySequence.fromString("Ctrl+R"));
         renombrarPestana.triggered.connect(controlador, "renombrarPestana()");
         edicionMenu.addAction(renombrarPestana);
+    }
+    
+    private void crearOpcionCerrarPestana() {
+        cerrarPestana = new QAction(tr("Cerrar pestaña"), this);
+        cerrarPestana.setShortcut(QKeySequence.fromString("Ctrl+W"));
+        cerrarPestana.triggered.connect(controlador, "cerrarPestana()");
+        edicionMenu.addAction(cerrarPestana);
     }
     
     private void crearOpcionesConexiones() {

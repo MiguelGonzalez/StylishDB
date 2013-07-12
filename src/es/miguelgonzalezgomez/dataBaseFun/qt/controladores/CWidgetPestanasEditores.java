@@ -114,7 +114,11 @@ public class CWidgetPestanasEditores {
         EditorTexto editorTexto = (EditorTexto) widgetPestanasEditores.
                 currentWidget();
         
-        editorTexto.estaVisible();
+        if(editorTexto != null) {
+            editorTexto.estaVisible();
+        } else {
+            editoresAplicacion.establecerPestanaActiva(null);
+        }
     }
     
     public void comprobarYRenombrarPestanaEditor(MPestanaEditor pestanaEditorEditada) {
@@ -124,6 +128,20 @@ public class CWidgetPestanasEditores {
             if(pestanaEditorEditada.equals(editorTexto.getModeloEditor())) {
                 widgetPestanasEditores.setTabText(i, pestanaEditorEditada.nombrePestana);
             }
+        }
+    }
+
+    void buscarYCerrarPestana(MPestanaEditor pestanaEditor) {
+        int posicionPestana = -1;
+        for(int i=0; i<relacionPestanaEditor.size() && posicionPestana == -1; i++) {
+            EditorTexto editorTexto = (EditorTexto) widgetPestanasEditores.widget(i);
+            
+            if(pestanaEditor.equals(editorTexto.getModeloEditor())) {
+                posicionPestana= i;
+            }
+        }
+        if(posicionPestana != -1) {
+            widgetPestanasEditores.removeTab(posicionPestana);
         }
     }
 }

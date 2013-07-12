@@ -45,7 +45,10 @@ public class CWidgetPestanasEditoresEscuchaCambios implements PestanaEditorListe
         }
         if(atajo == EVENT_REHACER) {
             controlador.buscarYRehacerPestana(pestanaEditor);
-        }    
+        }
+        if(atajo == EVENT_CERRAR_PESTANA) {
+            controlador.buscarYCerrarPestana(pestanaEditor);
+        }
     }
     
     
