@@ -49,10 +49,11 @@ public class MConexionesGuardadas {
     public void editadaConexion(MConexion mConexionVieja,
             MConexion mConexionNueva) {
         for(MConexion conexion : conexionesGuardadas) {
-            if(conexion.nombre.equals(mConexionVieja.nombre)) {
+            if(conexion.equals(mConexionVieja)) {
                 conexion.nombre = mConexionNueva.nombre;
                 conexion.gestor = mConexionNueva.gestor;
                 conexion.sid = mConexionNueva.sid;
+                conexion.ip = mConexionNueva.ip;
                 conexion.puerto = mConexionNueva.puerto;
                 conexion.usuario = mConexionNueva.usuario;
                 conexion.password = mConexionNueva.password;
