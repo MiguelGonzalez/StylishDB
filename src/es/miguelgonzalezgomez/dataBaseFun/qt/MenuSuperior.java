@@ -38,7 +38,7 @@ public class MenuSuperior extends QMenuBar {
             CMenuSuperior controlador) {
         this.controlador = controlador;
         
-        conexiones = new HashMap<String, QMenu>();
+        conexiones = new HashMap<>();
         
         crearOpcionesFichero();
         crearOpcionesEdicion();
