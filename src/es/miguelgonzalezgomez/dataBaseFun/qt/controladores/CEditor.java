@@ -28,7 +28,6 @@ public class CEditor {
         return editorTexto;
     }
             
-    
     private void construirEditorTexto() {
         editorTexto = new EditorTexto(this);
         editorTexto.setStyleSheet(
@@ -58,5 +57,11 @@ public class CEditor {
 
     public MPestanaEditor getModeloEditor() {
         return mPestanaEditor;
+    }
+    
+    public void eventoTextoCambiado() {
+        editoresAplicacion.textoCambiadoPestanaActiva(
+                editorTexto.document().toPlainText()
+        );
     }
 }

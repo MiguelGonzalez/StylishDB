@@ -56,4 +56,8 @@ public class GEditoresAplicacion {
     public MPestanaEditor getMPestanaActiva() {
         return aplicacion.mPestanasEditorAbiertas.getPestanaActiva();
     }
+
+    public void textoCambiadoPestanaActiva(String texto) {
+        aplicacion.mPestanasEditorAbiertas.setTextoPestanaActiva(texto);
+    }
 }

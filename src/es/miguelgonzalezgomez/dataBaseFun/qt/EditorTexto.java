@@ -22,6 +22,12 @@ public class EditorTexto extends QTextEdit {
         
         setLineWrapMode(QTextEdit.LineWrapMode.NoWrap);
         setAcceptRichText(false);
+        
+        establecerEventos();
+    }
+    
+    private void establecerEventos() {
+        textChanged.connect(controlador, "eventoTextoCambiado()");
     }
    
     public void estaVisible() {

@@ -6,7 +6,7 @@ import com.trolltech.qt.gui.QWidget;
 import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
-import static es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditorAtajoEvento.*;
+import static es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditorEvento.*;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanasEditorAbiertas;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.PestanaEditorListener;
 import es.miguelgonzalezgomez.dataBaseFun.qt.EditorTexto;

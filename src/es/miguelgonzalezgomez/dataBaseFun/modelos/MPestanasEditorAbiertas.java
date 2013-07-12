@@ -64,7 +64,8 @@ public class MPestanasEditorAbiertas {
             }
         }
         
-        notificarModificadaPestanaEditor(pestanaEditorEditada);
+        notificarModificadaPestanaEditor(pestanaEditorEditada,
+                MPestanaEditorEvento.EVENT_RENOMBRADA);
     }
     
     private void notificarNuevaPestanaEditor(MPestanaEditor pestanaEditor) {
@@ -79,9 +80,10 @@ public class MPestanasEditorAbiertas {
         }
     }
     
-    private void notificarModificadaPestanaEditor(MPestanaEditor pestanaEditorEditada) {
+    private void notificarModificadaPestanaEditor(MPestanaEditor pestanaEditorEditada,
+            int evento) {
         for(PestanaEditorListener pestanaListener : getCopiaPestanasListeners()) {
-            pestanaListener.modificadaPestanaEditor(pestanaEditorEditada);
+            pestanaListener.modificadaPestanaEditor(pestanaEditorEditada, evento);
         }
     }
     
@@ -94,14 +96,14 @@ public class MPestanasEditorAbiertas {
     public void deshacerPestanaActiva() {
         if(hayPestanaActiva()) {
             notificarAtajoPestana(pestanaEditorActiva,
-                    MPestanaEditorAtajoEvento.EVENT_DESHACER);
+                    MPestanaEditorEvento.EVENT_DESHACER);
         }
     }
     
     public void rehacerPestanaActiva() {
         if(hayPestanaActiva()) {
             notificarAtajoPestana(pestanaEditorActiva,
-                    MPestanaEditorAtajoEvento.EVENT_REHACER);
+                    MPestanaEditorEvento.EVENT_REHACER);
         }
     }
     
@@ -121,6 +123,15 @@ public class MPestanasEditorAbiertas {
             return pestanaEditorActiva.clone();
         } else {
             return null;
+        }
+    }
+
+    public void setTextoPestanaActiva(String texto) {
+        if(hayPestanaActiva()) {
+            pestanaEditorActiva.contenidoTexto = texto;
+            
+            notificarModificadaPestanaEditor(pestanaEditorActiva,
+                    MPestanaEditorEvento.EVENT_TEXTO_CAMBIADO);
         }
     }
 }

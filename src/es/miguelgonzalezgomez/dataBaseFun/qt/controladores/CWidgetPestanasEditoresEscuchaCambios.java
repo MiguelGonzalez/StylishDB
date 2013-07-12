@@ -5,8 +5,7 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
-import static es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditorAtajoEvento.EVENT_DESHACER;
-import static es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditorAtajoEvento.EVENT_REHACER;
+import static es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditorEvento.*;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.PestanaEditorListener;
 
 /**
@@ -22,8 +21,11 @@ public class CWidgetPestanasEditoresEscuchaCambios implements PestanaEditorListe
     }
     
     @Override
-    public void modificadaPestanaEditor(MPestanaEditor pestanaEditorEditada) {
-        controlador.comprobarYRenombrarPestanaEditor(pestanaEditorEditada);
+    public void modificadaPestanaEditor(MPestanaEditor pestanaEditorEditada,
+            int evento) {
+        if(evento == EVENT_RENOMBRADA) {
+            controlador.comprobarYRenombrarPestanaEditor(pestanaEditorEditada);
+        }
     }
 
     @Override
