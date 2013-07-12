@@ -137,7 +137,7 @@ public class CNuevaConexion {
         return validador.isConexionValida();
     }
     
-    protected void recargarEstiloModal() {
+    protected final void recargarEstiloModal() {
         modalGestionConexiones.setStyleSheet(
                 ObtencionEstilo.getEstiloVentana("dialogEstilo.css")
         );
