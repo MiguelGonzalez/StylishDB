@@ -53,8 +53,8 @@ public class CRenombrarPestanaActiva {
     }
     
     private void posicionarVentanaModal() {
-        int width = 350;
-        int height = 120;
+        int width = 300;
+        int height = 60;
         modalRenombrar.resize(
                 width, height
                 );

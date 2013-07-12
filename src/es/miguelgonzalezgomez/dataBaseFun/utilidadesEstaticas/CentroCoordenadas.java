@@ -23,7 +23,7 @@ public class CentroCoordenadas {
     
     public static int getYCentradaArriba() {
         int top = DataBaseFun.getTopVentana();
-        int constanteTop = 75;
+        int constanteTop = 80;
         
         return top + constanteTop;
     }

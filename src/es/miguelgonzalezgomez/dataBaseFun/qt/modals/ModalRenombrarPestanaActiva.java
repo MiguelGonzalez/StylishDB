@@ -34,7 +34,7 @@ public class ModalRenombrarPestanaActiva extends QDialog {
     
     private void crearComponentesInterfaz() {
         nombreEdit = new QLineEdit();
-        nombreLabel = new QLabel(tr("Nombre"));
+        nombreLabel = new QLabel(tr("Cambiar nombre pestaña"));
     }
     
     private void establecerEventosInterfaz() {
@@ -57,7 +57,7 @@ public class ModalRenombrarPestanaActiva extends QDialog {
         QGridLayout datoNombrePestana = new QGridLayout();
      
         datoNombrePestana.addWidget(nombreLabel, 0, 0);
-        datoNombrePestana.addWidget(nombreEdit, 0, 1);
+        datoNombrePestana.addWidget(nombreEdit, 1, 0);
         
         return datoNombrePestana;
     }
