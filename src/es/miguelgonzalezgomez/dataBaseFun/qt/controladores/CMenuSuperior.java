@@ -115,6 +115,10 @@ public class CMenuSuperior {
         gestionadorEditores.rehacerPestanaActiva();
     }
     
+    protected void ejecutarConsulta() {
+        gestionadorEditores.ejecutarConsultaPestanaActiva();
+    }
+    
     protected void renombrarPestana() {
         if(gestionadorEditores.hayPestanaActiva()) {
             CRenombrarPestanaActiva renombrarPestanaActiva =

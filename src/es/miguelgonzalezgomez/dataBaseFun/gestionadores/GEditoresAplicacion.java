@@ -66,4 +66,8 @@ public class GEditoresAplicacion {
     public void cerrarPestanaActiva() {
         aplicacion.mPestanasEditorAbiertas.cerrarPestanaActiva();
     }
+
+    public void ejecutarConsultaPestanaActiva() {
+        aplicacion.mPestanasEditorAbiertas.ejecutarConsultaPestanaActiva();
+    }
 }

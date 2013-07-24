@@ -11,4 +11,6 @@ public interface PestanaEditorListener {
     public void nuevaPestanaEditor(MPestanaEditor pestanaEditor);
 
     public void atajoTeclado(MPestanaEditor pestanaEditor, int tipoEvento);
+
+    public void ejecutarConsultaPestanaEditor(MPestanaEditor pestanaEditorEditada);
 }

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
@@ -10,7 +6,7 @@ import es.miguelgonzalezgomez.dataBaseFun.modelos.PestanaEditorListener;
 
 /**
  *
- * @author paracaidista
+ * @author Miguel González Gómez
  */
 public class CWidgetPestanasEditoresEscuchaCambios implements PestanaEditorListener {
     
@@ -50,7 +46,10 @@ public class CWidgetPestanasEditoresEscuchaCambios implements PestanaEditorListe
             controlador.buscarYCerrarPestana(pestanaEditor);
         }
     }
-    
-    
-    
+
+    @Override
+    public void ejecutarConsultaPestanaEditor(MPestanaEditor pestanaEditorEditada) {
+        CEjecutarConsulta cEjecutarConsulta = new CEjecutarConsulta();
+        cEjecutarConsulta.lanzarConsulta(pestanaEditorEditada);
+    }
 }

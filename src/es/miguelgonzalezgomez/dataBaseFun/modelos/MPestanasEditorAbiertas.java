@@ -148,4 +148,19 @@ public class MPestanasEditorAbiertas {
             
         }
     }
+
+    public void ejecutarConsultaPestanaActiva() {
+        if(hayPestanaActiva()) {
+            MPestanaEditor pestanaEditorActivaClone =
+                    pestanaEditorActiva.clone();
+            notificarEjecutarConsulta(pestanaEditorActivaClone);
+           
+        }
+    }
+    
+    private void notificarEjecutarConsulta(MPestanaEditor pestanaEditorEditada) {
+        for(PestanaEditorListener pestanaListener : getCopiaPestanasListeners()) {
+            pestanaListener.ejecutarConsultaPestanaEditor(pestanaEditorEditada);
+        }
+    }
 }
