@@ -4,7 +4,6 @@ import com.trolltech.qt.core.QTextCodec;
 import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CVentanaPrincipal;
 import com.trolltech.qt.gui.QApplication;
 import es.miguelgonzalezgomez.dataBaseFun.idiomas.CargaIdioma;
-import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CWidgetPestanasEditores;
 
 /**
  *
