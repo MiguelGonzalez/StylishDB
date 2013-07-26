@@ -32,6 +32,8 @@ public class MPestanaEditor {
         mPestanaEditor.contenidoTexto = contenidoTexto;
         mPestanaEditor.nombrePestana = nombrePestana;
         mPestanaEditor.uuidPestana = uuidPestana;
+        mPestanaEditor.hayTextoSeleccionado = hayTextoSeleccionado;
+        mPestanaEditor.textoSeleccionado = textoSeleccionado;
         
         return mPestanaEditor;
     }
