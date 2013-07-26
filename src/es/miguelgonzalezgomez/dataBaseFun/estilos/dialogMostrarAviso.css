@@ -1,0 +1,16 @@
+QDialog {
+    background-color: #171814;
+    border: 2px solid #abb2b6;
+}
+
+QDialog QLabel {
+    color: #ffffff;
+}
+
+*[tituloMensaje="true"] {
+    font-size: 18px;
+}
+
+*[contenidoMensaje="true"] {
+    font-size: 14px;
+}

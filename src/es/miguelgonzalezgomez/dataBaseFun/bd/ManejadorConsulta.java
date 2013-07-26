@@ -30,17 +30,16 @@ public class ManejadorConsulta {
         this.conexion = conexion;
     }
     
-    public void ejecutarConsulta(String consultaSQL) {
+    public void ejecutarConsulta(String consultaSQL) throws
+            ManejadorConsultaErrorSQL,
+            ManejadorConsultaNoHayConexion {
         this.consultaSQL = consultaSQL;
         
-        if(ComprobacionConexion.hayConexion(conexion)) {
-            conectar();
-            
-            lanzarConsulta();
-        }
+        conectar();
+        lanzarConsulta();
     }
     
-    private void conectar() {
+    private void conectar() throws ManejadorConsultaNoHayConexion {
         String urlConexion = ObtenerUrlConexion.getUrlConexion(
                 conexion.gestor,
                 conexion.ip,
@@ -52,79 +51,76 @@ public class ManejadorConsulta {
                     conexion.usuario,
                     conexion.password);
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            throw new ManejadorConsultaNoHayConexion(ex);
         }
     }
     
-    private void lanzarConsulta() {
+    private void lanzarConsulta() throws ManejadorConsultaErrorSQL {
         try {
             statement = connection.createStatement();
             rsQuery = statement.executeQuery(consultaSQL);
         } catch (SQLException ex) {
-            Logger.getLogger(ManejadorConsulta.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ManejadorConsultaErrorSQL(ex);
         }
     }
     
-    public boolean haySiguienteFila() {
+    public boolean haySiguienteFila() throws ManejadorConsultaErrorSQL {
         try {
             return rsQuery.next();
         } catch (SQLException ex) {
-            Logger.getLogger(ManejadorConsulta.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ManejadorConsultaErrorSQL(ex);
         }
-        return false;
     }
     
-    public int getNumColumnas() {
+    public int getNumColumnas() throws ManejadorConsultaErrorSQL {
         try {
             return rsQuery.getMetaData().getColumnCount();
         } catch (SQLException ex) {
-            Logger.getLogger(ManejadorConsulta.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ManejadorConsultaErrorSQL(ex);
         }
-        return 0;
     }
     
-    public List<String> getNombresColumnas() {
+    public List<String> getNombresColumnas() throws ManejadorConsultaErrorSQL {
         List<String> nombresColumnas = new ArrayList<>();
         
-        int numColumnas = getNumColumnas();
-        for(int i=1; i<=numColumnas; i++) {
-            try {
+        try {
+            int numColumnas = getNumColumnas();
+            for(int i=1; i<=numColumnas; i++) {
                 nombresColumnas.add(rsQuery.getMetaData().getColumnName(i));
-            } catch (SQLException ex) {
-                nombresColumnas.add("");
-                Logger.getLogger(ManejadorConsulta.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } catch (SQLException ex) {
+            throw new ManejadorConsultaErrorSQL(ex);
         }
         
         return nombresColumnas;
     }
     
-    public List<String> getFila() {
+    public List<String> getFila() throws ManejadorConsultaErrorSQL {
         List<String> fila = new ArrayList<>();
         
-        int numColumnas = getNumColumnas();
-        for(int i=1; i<=numColumnas; i++) {
-            try {
+        try {
+            int numColumnas = getNumColumnas();
+            for(int i=1; i<=numColumnas; i++) {
                 int tipoColumna = rsQuery.getMetaData().getColumnType(i);
                 String datoColumna = getDatoColumna(i, tipoColumna);
                
                 fila.add(datoColumna);
-            } catch (SQLException ex) {
-                fila.add("");
-                Logger.getLogger(ManejadorConsulta.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } catch (SQLException ex) {
+            throw new ManejadorConsultaErrorSQL(ex);
         }
         
         return fila;
     }
     
-    private String getDatoColumna(int numColumna, int tipoColumna) {
+    private String getDatoColumna(int numColumna, int tipoColumna) throws
+                ManejadorConsultaErrorSQL {
         try {
             if(rsQuery.wasNull()) {
                 return "NULL";
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ManejadorConsulta.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ManejadorConsultaErrorSQL(ex);
         }
         try {
             switch(tipoColumna) {
@@ -202,7 +198,7 @@ public class ManejadorConsulta {
                     return rsQuery.getString(numColumna);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ManejadorConsulta.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ManejadorConsultaErrorSQL(ex);
         }
         return "";
     }
@@ -212,25 +208,23 @@ public class ManejadorConsulta {
             try {
                 rsQuery.close();
             } catch (SQLException ex) {
-                Logger.getLogger(ManejadorConsulta.class.getName()).log(Level.SEVERE, null, ex);
+                //No manejamos los errores al cerrar la conexión
             }
         }
         if(statement != null) {
             try {
                 statement.close();
             } catch (SQLException ex) {
-                Logger.getLogger(ManejadorConsulta.class.getName()).log(Level.SEVERE, null, ex);
+                //No manejamos los errores al cerrar la conexión
             }
         }
         if(connection != null) {
             try {
                 connection.close();
             } catch (SQLException ex) {
-                Logger.getLogger(ManejadorConsulta.class.getName()).log(Level.SEVERE, null, ex);
+                //No manejamos los errores al cerrar la conexión
             }
         }
         
     }
-    
-    
 }
