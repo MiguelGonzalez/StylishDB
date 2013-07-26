@@ -74,6 +74,10 @@ public class CEjecutarConsulta {
             consultaSQL = mPestanaEditor.contenidoTexto;
         }
         
+        consultaSQL= consultaSQL.replaceAll("\\r", "").
+                replaceAll("\\n", " ").
+                replaceAll("\\r\\n", " ").
+                replaceAll("" + (char)8233, "");
         consultaSQL = consultaSQL.trim();
         
         return consultaSQL;

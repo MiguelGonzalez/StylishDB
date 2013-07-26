@@ -71,7 +71,7 @@ public class ObtenerUrlConexion {
             case MIMER:
                 return "jdbc:mimer://" + ip.trim() + ((puerto.trim().length() > 0)?":" + puerto.trim():"") + ((sid.trim().length() > 0)?"/" + sid.trim():"");
             case MYSQL:
-                return "jdbc:mysql://" + ip.trim() + ":" + puerto.trim() + "/" + sid.trim();
+                return "jdbc:mysql://" + ip.trim() + ":" + puerto.trim() + "/" + sid.trim() + "?useUnicode=yes&characterEncoding=UTF-8";
             case ODBC:
                 return "jdbc:odbc:" + sid.trim();
             case ORACLE:

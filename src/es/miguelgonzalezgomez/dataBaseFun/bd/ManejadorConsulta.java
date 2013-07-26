@@ -120,6 +120,13 @@ public class ManejadorConsulta {
     
     private String getDatoColumna(int numColumna, int tipoColumna) {
         try {
+            if(rsQuery.wasNull()) {
+                return "NULL";
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ManejadorConsulta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
             switch(tipoColumna) {
                 case java.sql.Types.ARRAY:
                     return rsQuery.getArray(numColumna).getArray().toString();
