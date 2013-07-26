@@ -66,7 +66,13 @@ public class CEjecutarConsulta {
     }
     
     private String getConsultaFormateada() {
-        String consultaSQL = mPestanaEditor.contenidoTexto;
+        String consultaSQL;
+        
+        if(mPestanaEditor.hayTextoSeleccionado) {
+            consultaSQL = mPestanaEditor.textoSeleccionado;
+        } else {
+            consultaSQL = mPestanaEditor.contenidoTexto;
+        }
         
         consultaSQL = consultaSQL.trim();
         
