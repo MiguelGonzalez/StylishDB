@@ -65,6 +65,17 @@ public class CEditor {
                 editorTexto.document().toPlainText()
         );
     }
+    
+    public void eventoSeleccionCambiado() {
+        boolean hayTextoSeleccionado = editorTexto.textCursor().hasSelection();
+        String textoSeleccionado = "";
+        if(hayTextoSeleccionado) {
+            textoSeleccionado = editorTexto.textCursor().selectedText();
+        }
+        editoresAplicacion.establecerEstadoTextoSeleccionado(
+                hayTextoSeleccionado, textoSeleccionado
+        );
+    }
 
     private void establecerTextoModeloPestana() {
         editorTexto.setText(mPestanaEditor.contenidoTexto);

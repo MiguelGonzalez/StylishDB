@@ -28,6 +28,7 @@ public class EditorTexto extends QTextEdit {
     
     private void establecerEventos() {
         textChanged.connect(controlador, "eventoTextoCambiado()");
+        selectionChanged.connect(controlador, "eventoSeleccionCambiado()");
     }
    
     public void estaVisible() {

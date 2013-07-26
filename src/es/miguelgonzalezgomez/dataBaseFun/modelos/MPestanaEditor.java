@@ -14,6 +14,8 @@ public class MPestanaEditor {
     public String nombrePestana;
     public String contenidoTexto;
     
+    public boolean hayTextoSeleccionado;
+    public String textoSeleccionado;
     
     public MPestanaEditor(MConexion mConexion) {
         this.mConexion = mConexion;

@@ -70,4 +70,11 @@ public class GEditoresAplicacion {
     public void ejecutarConsultaPestanaActiva() {
         aplicacion.mPestanasEditorAbiertas.ejecutarConsultaPestanaActiva();
     }
+
+    public void establecerEstadoTextoSeleccionado(boolean hayTextoSeleccionado,
+            String textoSeleccionado) {
+        aplicacion.mPestanasEditorAbiertas.establecerEstadoTextoSeleccionado(
+                hayTextoSeleccionado,
+                textoSeleccionado);
+    }
 }

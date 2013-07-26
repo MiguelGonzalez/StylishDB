@@ -163,4 +163,12 @@ public class MPestanasEditorAbiertas {
             pestanaListener.ejecutarConsultaPestanaEditor(pestanaEditorEditada);
         }
     }
+
+    public void establecerEstadoTextoSeleccionado(boolean hayTextoSeleccionado,
+            String textoSeleccionado) {
+        if(hayPestanaActiva()) {
+            pestanaEditorActiva.hayTextoSeleccionado = hayTextoSeleccionado;
+            pestanaEditorActiva.textoSeleccionado = textoSeleccionado;
+        }
+    }
 }
