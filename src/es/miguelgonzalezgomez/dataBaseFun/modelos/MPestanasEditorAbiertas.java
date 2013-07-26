@@ -76,7 +76,7 @@ public class MPestanasEditorAbiertas {
     
     private void notificarEliminadaPestanaEditor(MPestanaEditor pestanaEditor) {
         for(PestanaEditorListener pestanaEditorListener : getCopiaPestanasListeners()) {
-            pestanaEditorListener.eliminadaPestanaEditor(pestanaEditorListener);
+            pestanaEditorListener.eliminadaPestanaEditor(pestanaEditor);
         }
     }
     

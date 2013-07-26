@@ -25,7 +25,7 @@ public class CWidgetPestanasEditoresEscuchaCambios implements PestanaEditorListe
     }
 
     @Override
-    public void eliminadaPestanaEditor(PestanaEditorListener pestanaEditorListener) {
+    public void eliminadaPestanaEditor(MPestanaEditor pestanaEditorBorrada) {
 
     }
 
