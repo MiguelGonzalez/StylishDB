@@ -44,7 +44,17 @@ public class EditorTexto extends QTextEdit {
         if(suprimirRehacerNativo(event)) {
             return;
         }
-               
+        
+        if(esCambiarSiguientePestana(event)) {
+            controlador.cambiarSiguientePestana();
+            return;
+        }
+        
+        if(esCambiarAnteriorPestana(event)) {
+            controlador.cambiarAnteriorPestana();
+            return;
+        }
+        
         super.keyPressEvent(event);
     }
     
@@ -54,6 +64,31 @@ public class EditorTexto extends QTextEdit {
                 modifiers.isSet(Qt.KeyboardModifier.ControlModifier) &&
                 modifiers.isSet(Qt.KeyboardModifier.ShiftModifier)) {
             if(e.key() == Qt.Key.Key_Z.value()) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    private boolean esCambiarSiguientePestana(QKeyEvent e) {
+        KeyboardModifiers modifiers = e.modifiers();
+        if(
+                modifiers.isSet(Qt.KeyboardModifier.ControlModifier)) {
+            if(e.key() == Qt.Key.Key_Tab.value()) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    private boolean esCambiarAnteriorPestana(QKeyEvent e) {
+        KeyboardModifiers modifiers = e.modifiers();
+        if(
+                modifiers.isSet(Qt.KeyboardModifier.ControlModifier) &&
+                modifiers.isSet(Qt.KeyboardModifier.ShiftModifier)) {
+            if(e.key() == Qt.Key.Key_Backtab.value()) {
                 return true;
             }
         }

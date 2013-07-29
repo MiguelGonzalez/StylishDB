@@ -52,4 +52,14 @@ public class CWidgetPestanasEditoresEscuchaCambios implements PestanaEditorListe
         CEjecutarConsulta cEjecutarConsulta = new CEjecutarConsulta();
         cEjecutarConsulta.lanzarConsulta(pestanaEditorEditada);
     }
+
+    @Override
+    public void cambiarSiguientePestana() {
+        controlador.cambiarSiguientePestana();
+    }
+
+    @Override
+    public void cambiarAnteriorPestana() {
+        controlador.cambiarAnteriorPestana();
+    }
 }

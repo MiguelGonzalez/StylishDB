@@ -79,4 +79,12 @@ public class GEditoresAplicacion {
                 mPestanaEditor,
                 textoEditor);
     }
+
+    public void cambiarAnteriorPestana() {
+        aplicacion.mPestanasEditorAbiertas.cambiarAnteriorPestana();
+    }
+
+    public void cambiarSiguientePestana() {
+        aplicacion.mPestanasEditorAbiertas.cambiarSiguientePestana();
+    }
 }

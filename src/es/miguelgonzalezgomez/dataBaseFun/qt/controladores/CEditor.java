@@ -80,4 +80,12 @@ public class CEditor {
     private void establecerTextoModeloPestana() {
         editorTexto.setText(mPestanaEditor.contenidoTexto);
     }
+
+    public void cambiarSiguientePestana() {
+        editoresAplicacion.cambiarSiguientePestana();
+    }
+
+    public void cambiarAnteriorPestana() {
+        editoresAplicacion.cambiarAnteriorPestana();
+    }
 }

@@ -142,4 +142,25 @@ public class CWidgetPestanasEditores {
             widgetPestanasEditores.removeTab(posicionPestana);
         }
     }
+
+    public void cambiarSiguientePestana() {
+        int index = widgetPestanasEditores.currentIndex();
+        int numPestanas = widgetPestanasEditores.count();
+        
+        int anteriorIndex = (index + 1) % numPestanas;
+        widgetPestanasEditores.setCurrentIndex(anteriorIndex);
+    }
+
+    public void cambiarAnteriorPestana() {
+        int index = widgetPestanasEditores.currentIndex();
+        int numPestanas = widgetPestanasEditores.count();
+        
+        int anteriorIndex = index - 1;
+        if(anteriorIndex < 0) {
+            anteriorIndex = numPestanas - 1;
+        }
+        
+        widgetPestanasEditores.setCurrentIndex(anteriorIndex);
+        
+    }
 }

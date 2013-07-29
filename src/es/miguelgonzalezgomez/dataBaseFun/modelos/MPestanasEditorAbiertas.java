@@ -173,4 +173,16 @@ public class MPestanasEditorAbiertas {
             }
         }
     }
+
+    public void cambiarAnteriorPestana() {
+        for(PestanaEditorListener pestanaEditorListener : getCopiaPestanasListeners()) {
+            pestanaEditorListener.cambiarAnteriorPestana();
+        }
+    }
+
+    public void cambiarSiguientePestana() {
+        for(PestanaEditorListener pestanaEditorListener : getCopiaPestanasListeners()) {
+            pestanaEditorListener.cambiarSiguientePestana();
+        }
+    }
 }
