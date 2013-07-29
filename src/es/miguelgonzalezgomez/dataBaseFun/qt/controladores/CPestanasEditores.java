@@ -1,5 +1,6 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
+import com.trolltech.qt.core.Qt;
 import com.trolltech.qt.gui.QTabBar;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.qt.EstiloSinFoco;
@@ -22,6 +23,7 @@ public class CPestanasEditores {
                 ObtencionEstilo.getEstiloVentana("tabsEditores.css")
         );
         pestanasEditores.setStyle(new EstiloSinFoco());
+        pestanasEditores.setFocusPolicy(Qt.FocusPolicy.NoFocus);
     }
     
     public QTabBar getTabBar() {
