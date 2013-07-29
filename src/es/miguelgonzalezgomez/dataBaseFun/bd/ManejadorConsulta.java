@@ -155,11 +155,11 @@ public class ManejadorConsulta {
                 case java.sql.Types.JAVA_OBJECT: 
                     return "JAVA_OBJECT";
                 case java.sql.Types.LONGNVARCHAR: 
-                    return Long.toString(rsQuery.getLong(numColumna));
+                    return rsQuery.getString(numColumna);
                 case java.sql.Types.LONGVARBINARY: 
-                    return Long.toString(rsQuery.getLong(numColumna));
+                    return rsQuery.getString(numColumna);
                 case java.sql.Types.LONGVARCHAR: 
-                    return Long.toString(rsQuery.getLong(numColumna));
+                    return rsQuery.getString(numColumna);
                 case java.sql.Types.NCHAR: 
                     return rsQuery.getNString(numColumna);
                 case java.sql.Types.NCLOB: 
