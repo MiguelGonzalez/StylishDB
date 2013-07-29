@@ -4,6 +4,7 @@ import com.trolltech.qt.core.Qt;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ManejadorConsulta;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ManejadorConsultaErrorSQL;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ManejadorConsultaNoHayConexion;
+import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalMostrarAviso;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalResultadoConsulta;
@@ -22,9 +23,18 @@ public class CEjecutarConsulta {
     
     public CEjecutarConsulta() {
         vistaResultadoConsulta = new ModalResultadoConsulta(this);
+        
+        decorarVentanModal();
     }
     
-    void lanzarConsulta(MPestanaEditor pestanaEditor) {
+    private void decorarVentanModal() {
+        vistaResultadoConsulta.setStyleSheet(
+                ObtencionEstilo.getEstiloVentana("dialogEstilo.css")
+        );
+        vistaResultadoConsulta.construirInterfaz();
+    }
+    
+    public void lanzarConsulta(MPestanaEditor pestanaEditor) {
         this.mPestanaEditor = pestanaEditor;
         manejadorConsulta = new ManejadorConsulta(
                     pestanaEditor.mConexion);
@@ -57,8 +67,6 @@ public class CEjecutarConsulta {
     }
     
     private void pintarResultadoConsulta() throws ManejadorConsultaErrorSQL {
-        vistaResultadoConsulta.construirInterfaz();
-        
         List<String> columnas = manejadorConsulta.getNombresColumnas();
         vistaResultadoConsulta.establecerColumnas(columnas);
         
