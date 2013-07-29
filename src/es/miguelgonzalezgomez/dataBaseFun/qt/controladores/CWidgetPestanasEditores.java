@@ -88,10 +88,11 @@ public class CWidgetPestanasEditores {
         
         relacionPestanaEditor.put(pestanaEditor, cEditor);
         
-        widgetPestanasEditores.addTab(
+        int index = widgetPestanasEditores.addTab(
                 cEditor.getEditorTexto(),
                 pestanaEditor.mConexion.nombre
         );
+        widgetPestanasEditores.setCurrentIndex(index);
     }
     
     public void buscarYDeshacerPestana(MPestanaEditor pestanaEditor) {
