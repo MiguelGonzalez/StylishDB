@@ -126,15 +126,6 @@ public class MPestanasEditorAbiertas {
         }
     }
 
-    public void setTextoPestanaActiva(String texto) {
-        if(hayPestanaActiva()) {
-            pestanaEditorActiva.contenidoTexto = texto;
-             
-            notificarModificadaPestanaEditor(pestanaEditorActiva.clone(),
-                    MPestanaEditorEvento.EVENT_TEXTO_CAMBIADO);
-        }
-    }
-
     public void cerrarPestanaActiva() {
         if(hayPestanaActiva()) {
             pestanasEditoresAbiertas.remove(pestanaEditorActiva);
@@ -169,6 +160,17 @@ public class MPestanasEditorAbiertas {
         if(hayPestanaActiva()) {
             pestanaEditorActiva.hayTextoSeleccionado = hayTextoSeleccionado;
             pestanaEditorActiva.textoSeleccionado = textoSeleccionado;
+        }
+    }
+
+    public void textoCambiadoPestana(MPestanaEditor mPestanaEditor, String textoEditor) {
+        for(MPestanaEditor pestanaEditor : pestanasEditoresAbiertas) {
+            if(pestanaEditor.equals(mPestanaEditor)) {
+                pestanaEditor.contenidoTexto = textoEditor;
+                
+                notificarModificadaPestanaEditor(pestanaEditor.clone(),
+                    MPestanaEditorEvento.EVENT_TEXTO_CAMBIADO);
+            }
         }
     }
 }

@@ -53,10 +53,6 @@ public class GEditoresAplicacion {
         return aplicacion.mPestanasEditorAbiertas.getPestanaActiva();
     }
 
-    public void textoCambiadoPestanaActiva(String texto) {
-        aplicacion.mPestanasEditorAbiertas.setTextoPestanaActiva(texto);
-    }
-
     public void addPestanasEditorListener(CWidgetPestanasEditoresEscuchaCambios
             escuchaCambiosPestana) {
         aplicacion.mPestanasEditorAbiertas.addPestanaEditorListener(
@@ -76,5 +72,11 @@ public class GEditoresAplicacion {
         aplicacion.mPestanasEditorAbiertas.establecerEstadoTextoSeleccionado(
                 hayTextoSeleccionado,
                 textoSeleccionado);
+    }
+
+    public void textoCambiadoPestana(MPestanaEditor mPestanaEditor, String textoEditor) {
+        aplicacion.mPestanasEditorAbiertas.textoCambiadoPestana(
+                mPestanaEditor,
+                textoEditor);
     }
 }

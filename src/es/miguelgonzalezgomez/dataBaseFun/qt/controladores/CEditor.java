@@ -61,7 +61,7 @@ public class CEditor {
     }
     
     public void eventoTextoCambiado() {
-        editoresAplicacion.textoCambiadoPestanaActiva(
+        editoresAplicacion.textoCambiadoPestana(mPestanaEditor,
                 editorTexto.document().toPlainText()
         );
     }
