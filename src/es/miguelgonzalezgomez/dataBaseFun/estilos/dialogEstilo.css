@@ -63,3 +63,32 @@ QListWidget::item:focus  {
     background-color: #272822;
     color: #ffffff;
 }
+
+/*
+ * QTableWidget
+*/
+
+QTableWidget {
+    background-color: #eee;
+    color: #666666;
+}
+
+QTableWidget QHeaderView, QTableWidget QHeaderView::section {
+    background-color: #272822;
+    color: #ffffff;
+    text-align: left;
+}
+
+QTableWidget QHeaderView::section:focus {
+    background-color: none;
+}
+
+QTableWidget::item {
+    background-color: #eee;
+    color: #666666;
+}
+
+QTableWidget::item:selected {
+    background-color: #272822;
+    color: #ffffff;
+}
