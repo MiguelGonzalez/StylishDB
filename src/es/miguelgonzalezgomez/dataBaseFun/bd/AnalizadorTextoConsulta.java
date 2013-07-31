@@ -86,7 +86,22 @@ public class AnalizadorTextoConsulta {
     }
     
     private int encontrarDelimitadorFinalConsulta(String textoConsulta) {
-        return textoConsulta.indexOf(datosBaseDatos.getDelimitadorConsulta());
+        boolean abiertoComentarioSimple = false;
+        boolean abiertoComentarioDoble = false;
+        //ToDo: Mirar si el comentario está escapado o no
+        for(int i=0; i<textoConsulta.length(); i++) {
+            if(textoConsulta.charAt(i) == '"') {
+                abiertoComentarioDoble = !abiertoComentarioDoble;
+            } else if(textoConsulta.charAt(i) == '\'') {
+                abiertoComentarioSimple = !abiertoComentarioSimple;
+            } else if(textoConsulta.charAt(i) == 
+                    datosBaseDatos.getDelimitadorConsulta().charAt(0) ) {
+                if(!abiertoComentarioSimple && !abiertoComentarioDoble) {
+                    return i;
+                }
+            }
+        }
+        return -1;
     }
     
 }
