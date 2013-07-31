@@ -13,8 +13,9 @@ import es.miguelgonzalezgomez.dataBaseFun.qt.restaltadoEditor.ConstruirSyntaxHig
 public class CEditor {
     
     private GEditoresAplicacion editoresAplicacion;
-    private MPestanaEditor mPestanaEditor;
     private EditorTexto editorTexto;
+    
+    private MPestanaEditor mPestanaEditor;
     
     public CEditor(MPestanaEditor mPestanaEditor) {
         this.mPestanaEditor = mPestanaEditor;
@@ -25,10 +26,6 @@ public class CEditor {
         establecerTextoModeloPestana();
     }
     
-    public EditorTexto getEditorTexto() {
-        return editorTexto;
-    }
-            
     private void construirEditorTexto() {
         editorTexto = new EditorTexto(this);
         editorTexto.setStyleSheet(
@@ -42,6 +39,14 @@ public class CEditor {
                 editorTexto.document()
         );
     }
+    
+    private void establecerTextoModeloPestana() {
+        editorTexto.setText(mPestanaEditor.contenidoTexto);
+    }
+    
+    public EditorTexto getEditorTexto() {
+        return editorTexto;
+    }
 
     public void deshacer() {
         editorTexto.undo();
@@ -49,11 +54,6 @@ public class CEditor {
 
     public void rehacer() {
         editorTexto.redo();
-    }
-
-    public void estaVisible() {
-        editoresAplicacion.establecerPestanaActiva(
-                mPestanaEditor);
     }
 
     public MPestanaEditor getModeloEditor() {
@@ -75,10 +75,6 @@ public class CEditor {
         editoresAplicacion.establecerEstadoTextoSeleccionado(
                 hayTextoSeleccionado, textoSeleccionado
         );
-    }
-
-    private void establecerTextoModeloPestana() {
-        editorTexto.setText(mPestanaEditor.contenidoTexto);
     }
 
     public void cambiarSiguientePestana() {

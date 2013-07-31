@@ -15,26 +15,31 @@ import java.util.List;
  * @author Miguel González
  */
 public class ManejadorConsulta {
-    
-    
+
     private MConexion conexion;
-    private String consultaSQL;
     
     private Connection connection = null;
     private Statement statement = null;
     private ResultSet rsQuery = null;
     
-    public ManejadorConsulta(MConexion conexion) {
+    private int numConsultaLanzando;
+    private AnalizadorTextoConsulta analizadorTextoConsulta;
+    
+    public ManejadorConsulta(
+            MConexion conexion,
+            String consultaSQL) {
         this.conexion = conexion;
+        
+        numConsultaLanzando = 0;
+        analizadorTextoConsulta = new AnalizadorTextoConsulta(
+                consultaSQL,
+                conexion.tipoDeBaseDeDatos);
     }
     
-    public void ejecutarTextoConsulta(String consultaSQL) throws
+    public void conectarContraBaseDeDatos(String consultaSQL) throws
             ManejadorConsultaErrorSQL,
             ManejadorConsultaNoHayConexion {
-        this.consultaSQL = consultaSQL;
-        
         conectar();
-        lanzarTextoConsulta();
     }
     
     private void conectar() throws ManejadorConsultaNoHayConexion {
@@ -53,17 +58,28 @@ public class ManejadorConsulta {
         }
     }
     
-    private void lanzarTextoConsulta() throws ManejadorConsultaErrorSQL {
-        AnalizadorTextoConsulta analizadorTextoConsulta = new AnalizadorTextoConsulta(
-                consultaSQL,
-                conexion.tipoDeBaseDeDatos);
-        
+    public boolean next() {
+        if(analizadorTextoConsulta.numConsultasExistentes() > numConsultaLanzando) {
+            numConsultaLanzando++;
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean isEjecutarQuery() {
+        return analizadorTextoConsulta.isEjecutarQuery(numConsultaLanzando);
+    }
+    
+    public void lanzarConsultaActual() throws ManejadorConsultaErrorSQL {
         try {
-            int numConsultas = analizadorTextoConsulta.numConsultasExistentes();
-            System.out.println(numConsultas);
-            
-            statement = connection.createStatement();
-            rsQuery = statement.executeQuery(consultaSQL);
+            if(analizadorTextoConsulta.isEjecutarQuery(numConsultaLanzando)) {
+                statement = connection.createStatement();
+                rsQuery = statement.executeQuery(
+                        analizadorTextoConsulta.getConsulta(
+                                numConsultaLanzando - 1
+                        )
+                );
+            }
         } catch (SQLException ex) {
             throw new ManejadorConsultaErrorSQL(ex);
         }

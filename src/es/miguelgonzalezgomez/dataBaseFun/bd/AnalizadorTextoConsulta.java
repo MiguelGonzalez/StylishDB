@@ -19,26 +19,24 @@ public class AnalizadorTextoConsulta {
     public AnalizadorTextoConsulta(
             String textoConsulta,
             TIPO_BASE_DATOS tipoBaseDeDatos) {
-        
         this.textoConsulta = textoConsulta;
         this.datosBaseDatos = tipoBaseDeDatos.getDatosBaseDatos();
-        
         
         consultasSQL = new ArrayList<>();
 
         trocearTextoConsulta();
     }
     
-
-    
     public boolean isEjecutarQuery(int numeroQuery) {
-        return isEjecutarQuery(consultasSQL.get(numeroQuery));
+        return isEjecutarQuery(
+                consultasSQL.get(numeroQuery - 1)
+        );
     }
     
     public boolean isEjecutarQuery(String consultaSQL) {
         for(String palabraEjecutarConsulta :
                 datosBaseDatos.getPalabrasClaveEjecutarConsulta()) {
-            if(consultaSQL.toLowerCase().equals(
+            if(consultaSQL.toLowerCase().startsWith(
                     palabraEjecutarConsulta.toLowerCase())) {
                 return true;
             }
@@ -77,7 +75,6 @@ public class AnalizadorTextoConsulta {
     
     private boolean empiezaConsultaPalabraClave(String textoConsulta) {
         for(String palabraClave : datosBaseDatos.getPalabrasClaveComienzoConsulta()) {
-            System.out.println(palabraClave);
             if(textoConsulta.toLowerCase().startsWith(palabraClave.toLowerCase())) {
                 return true;
             }
@@ -103,5 +100,8 @@ public class AnalizadorTextoConsulta {
         }
         return -1;
     }
-    
+
+    public String getConsulta(int numConsultaLanzando) {
+        return consultasSQL.get(numConsultaLanzando);
+    }
 }

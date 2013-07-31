@@ -31,10 +31,6 @@ public class EditorTexto extends QTextEdit {
         selectionChanged.connect(controlador, "eventoSeleccionCambiado()");
     }
    
-    public void estaVisible() {
-        controlador.estaVisible();
-    }
-    
     public MPestanaEditor getModeloEditor() {
         return controlador.getModeloEditor();
     }

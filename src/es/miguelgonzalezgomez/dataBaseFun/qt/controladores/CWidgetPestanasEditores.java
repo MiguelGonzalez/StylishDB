@@ -6,7 +6,7 @@ import com.trolltech.qt.gui.QWidget;
 import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
-import es.miguelgonzalezgomez.dataBaseFun.qt.EditorTexto;
+import es.miguelgonzalezgomez.dataBaseFun.qt.PestanaEditor;
 import es.miguelgonzalezgomez.dataBaseFun.qt.WidgetPestanasEditores;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +22,7 @@ public class CWidgetPestanasEditores {
     private GEditoresAplicacion editoresAplicacion;
     private CPestanasEditores cPestanasEditores;
     
-    private Map<MPestanaEditor, CEditor> relacionPestanaEditor;
+    private Map<MPestanaEditor, CPestanaEditor> relacionPestanaEditor;
     
     public CWidgetPestanasEditores() {
         editoresAplicacion = new GEditoresAplicacion();
@@ -81,39 +81,39 @@ public class CWidgetPestanasEditores {
     }
 
     public void addTab(MPestanaEditor pestanaEditor) {
-        CEditor cEditor = new CEditor(pestanaEditor);
+        CPestanaEditor cPestanaEditor = new CPestanaEditor(pestanaEditor);
         
-        relacionPestanaEditor.put(pestanaEditor, cEditor);
+        relacionPestanaEditor.put(pestanaEditor, cPestanaEditor);
         
         int index = widgetPestanasEditores.addTab(
-                cEditor.getEditorTexto(),
+                cPestanaEditor.getPestanaEditor(),
                 pestanaEditor.mConexion.nombre
         );
         widgetPestanasEditores.setCurrentIndex(index);
     }
     
     public void buscarYDeshacerPestana(MPestanaEditor pestanaEditor) {
-        CEditor cEditor = relacionPestanaEditor.get(pestanaEditor);
+        CPestanaEditor cPestanaEditor = relacionPestanaEditor.get(pestanaEditor);
         
-        if(cEditor != null) {
-            cEditor.deshacer();
+        if(cPestanaEditor != null) {
+            cPestanaEditor.deshacer();
         }
     }
     
     public void buscarYRehacerPestana(MPestanaEditor pestanaEditor) {
-        CEditor cEditor = relacionPestanaEditor.get(pestanaEditor);
+        CPestanaEditor cPestanaEditor = relacionPestanaEditor.get(pestanaEditor);
         
-        if(cEditor != null) {
-            cEditor.rehacer();
+        if(cPestanaEditor != null) {
+            cPestanaEditor.rehacer();
         }
     }
     
     private void cambiadaPestana() {
-        EditorTexto editorTexto = (EditorTexto) widgetPestanasEditores.
+        PestanaEditor pestanaEditorTexto = (PestanaEditor) widgetPestanasEditores.
                 currentWidget();
         
-        if(editorTexto != null) {
-            editorTexto.estaVisible();
+        if(pestanaEditorTexto != null) {
+            pestanaEditorTexto.estaVisible();
         } else {
             editoresAplicacion.establecerPestanaActiva(null);
         }
@@ -121,9 +121,9 @@ public class CWidgetPestanasEditores {
     
     public void comprobarYRenombrarPestanaEditor(MPestanaEditor pestanaEditorEditada) {
         for(int i=0; i<relacionPestanaEditor.size(); i++) {
-            EditorTexto editorTexto = (EditorTexto) widgetPestanasEditores.widget(i);
+            PestanaEditor pestanaEditorTexto = (PestanaEditor) widgetPestanasEditores.widget(i);
             
-            if(pestanaEditorEditada.equals(editorTexto.getModeloEditor())) {
+            if(pestanaEditorEditada.equals(pestanaEditorTexto.getModeloEditor())) {
                 widgetPestanasEditores.setTabText(i, pestanaEditorEditada.nombrePestana);
             }
         }
@@ -132,10 +132,10 @@ public class CWidgetPestanasEditores {
     void buscarYCerrarPestana(MPestanaEditor pestanaEditor) {
         int posicionPestana = -1;
         for(int i=0; i<relacionPestanaEditor.size() && posicionPestana == -1; i++) {
-            EditorTexto editorTexto = (EditorTexto) widgetPestanasEditores.widget(i);
+            PestanaEditor pestanaEditorTexto = (PestanaEditor) widgetPestanasEditores.widget(i);
             
-            if(pestanaEditor.equals(editorTexto.getModeloEditor())) {
-                posicionPestana= i;
+            if(pestanaEditor.equals(pestanaEditorTexto.getModeloEditor())) {
+                posicionPestana = i;
             }
         }
         if(posicionPestana != -1) {
@@ -162,5 +162,13 @@ public class CWidgetPestanasEditores {
         
         widgetPestanasEditores.setCurrentIndex(anteriorIndex);
         
+    }
+
+    void ejecutarConsultaPestanaEditor(MPestanaEditor pestanaEditorEditada) {
+        CPestanaEditor pestanaEditor = relacionPestanaEditor.get(pestanaEditorEditada);
+        
+        if(pestanaEditor != null) {
+            pestanaEditor.ejecutarConsulta();
+        }
     }
 }
