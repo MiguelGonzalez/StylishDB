@@ -1,6 +1,6 @@
 package es.miguelgonzalezgomez.dataBaseFun.modelos;
 
-import es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.TiposBasesDeDatos.TIPO_BASE_DATOS;
+import es.miguelgonzalezgomez.dataBaseFun.bd.domain.TiposBasesDeDatos.TIPO_BASE_DATOS;
 import java.util.UUID;
 
 /**

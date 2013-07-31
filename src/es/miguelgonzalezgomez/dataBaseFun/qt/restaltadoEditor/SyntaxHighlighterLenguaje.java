@@ -8,43 +8,45 @@ import com.trolltech.qt.gui.QFont;
 import com.trolltech.qt.gui.QSyntaxHighlighter;
 import com.trolltech.qt.gui.QTextCharFormat;
 import com.trolltech.qt.gui.QTextDocument;
+import es.miguelgonzalezgomez.dataBaseFun.bd.domain.TiposBasesDeDatos.TIPO_BASE_DATOS;
 import java.util.ArrayList;
 import java.util.List;
-import static es.miguelgonzalezgomez.dataBaseFun.qt.restaltadoEditor.lenguajes.MySQL.*;
 
 /**
  *
  * @author Miguel González
  */
-public class MySQLSyntaxHighlighter extends QSyntaxHighlighter {
+public class SyntaxHighlighterLenguaje extends QSyntaxHighlighter {
 
     private List<HighlightingRule> highlightingRules;
     
-    private QTextCharFormat mySQLPalabrasReservadas;
-    private QTextCharFormat mySQLFuncionesFormat;
+    private QTextCharFormat palabrasReservadasFormat;
+    private QTextCharFormat funcionesReservadasFormat;
     private QTextCharFormat comentariosFormat;
-    private QTextCharFormat encryptionCompressionFormat;
-    private QTextCharFormat informationFormat;
+    private QTextCharFormat funcionesEspecialesReservadasFormat;
     
     private QRegExp commentStartExpression;
     private QRegExp commentEndExpression;
     
-    public MySQLSyntaxHighlighter(QTextDocument parent) {
+    private TIPO_BASE_DATOS tipoBaseDeDatos;
+    
+    public SyntaxHighlighterLenguaje(QTextDocument parent,
+            TIPO_BASE_DATOS tipoBaseDeDatos) {
         super(parent);
+        
+        this.tipoBaseDeDatos = tipoBaseDeDatos;
         
         highlightingRules = new ArrayList<>();
         
-        mySQLPalabrasReservadas= new QTextCharFormat();
-        mySQLFuncionesFormat = new QTextCharFormat();
+        palabrasReservadasFormat= new QTextCharFormat();
+        funcionesReservadasFormat = new QTextCharFormat();
         comentariosFormat = new QTextCharFormat();
-        encryptionCompressionFormat = new QTextCharFormat();
-        informationFormat = new QTextCharFormat();
+        funcionesEspecialesReservadasFormat = new QTextCharFormat();
         
         construirResaltadoPalabrasClavesMySQL();
         construirResaltadoFunciones();
-        construirResaltadoEncriptacionComprension();
+        construirResaltadoFuncionesEspeciales();
         construirResaltadoComentarios();
-        construirRestaltadoInformacion();
     }
     
     @Override
@@ -82,26 +84,26 @@ public class MySQLSyntaxHighlighter extends QSyntaxHighlighter {
     
     private void construirResaltadoPalabrasClavesMySQL() {
         QBrush brush = new QBrush(QColor.fromRgb(249, 38, 114));
-        mySQLPalabrasReservadas.setForeground(brush);
-        mySQLPalabrasReservadas.setFontWeight(QFont.Weight.Bold.value());
+        palabrasReservadasFormat.setForeground(brush);
+        palabrasReservadasFormat.setFontWeight(QFont.Weight.Bold.value());
         
-        for (String keyword : palabrasClavesReservadasMySQL) {
+        for (String keyword : tipoBaseDeDatos.getPalabrasReservadas()) {
             QRegExp pattern = new QRegExp("\\b" + keyword + "\\b",
                     CaseSensitivity.CaseInsensitive);
-            HighlightingRule rule = new HighlightingRule(pattern, mySQLPalabrasReservadas);
+            HighlightingRule rule = new HighlightingRule(pattern, palabrasReservadasFormat);
             highlightingRules.add(rule);
         }
     }
     
     private void construirResaltadoFunciones() {
         QBrush brush = new QBrush(QColor.magenta);
-        mySQLFuncionesFormat.setForeground(brush);
-        mySQLFuncionesFormat.setFontWeight(QFont.Weight.Bold.value());
+        funcionesReservadasFormat.setForeground(brush);
+        funcionesReservadasFormat.setFontWeight(QFont.Weight.Bold.value());
         
-        for (String keyword : funcionesMySQL) {
+        for (String keyword : tipoBaseDeDatos.getFuncionesReservadas()) {
             QRegExp pattern = new QRegExp("\\b" + keyword + "\\b",
                     CaseSensitivity.CaseInsensitive);
-            HighlightingRule rule = new HighlightingRule(pattern, mySQLFuncionesFormat);
+            HighlightingRule rule = new HighlightingRule(pattern, funcionesReservadasFormat);
             highlightingRules.add(rule);
         }
     }
@@ -128,30 +130,16 @@ public class MySQLSyntaxHighlighter extends QSyntaxHighlighter {
         commentEndExpression = new QRegExp("\\*/");
     }
 
-    private void construirResaltadoEncriptacionComprension() {  
+    private void construirResaltadoFuncionesEspeciales() {  
         QBrush brush = new QBrush(QColor.red);
-        encryptionCompressionFormat.setForeground(brush);
-        encryptionCompressionFormat.setFontWeight(QFont.Weight.Bold.value());
+        funcionesEspecialesReservadasFormat.setForeground(brush);
+        funcionesEspecialesReservadasFormat.setFontWeight(QFont.Weight.Bold.value());
         
-        for (String keyword : encryptionCompressionFunctions) {
+        for (String keyword : tipoBaseDeDatos.getFuncionesEspecialesReservadas()) {
             QRegExp pattern = new QRegExp("\\b" + keyword + "\\b",
                     CaseSensitivity.CaseInsensitive);
-            HighlightingRule rule = new HighlightingRule(pattern, encryptionCompressionFormat);
+            HighlightingRule rule = new HighlightingRule(pattern, funcionesEspecialesReservadasFormat);
             highlightingRules.add(rule);
         }     
-    }
-
-    private void construirRestaltadoInformacion() {
-        
-        QBrush brush = new QBrush(QColor.magenta);
-        informationFormat.setForeground(brush);
-        informationFormat.setFontWeight(QFont.Weight.Bold.value());
-        
-        for (String keyword : informationFunctions) {
-            QRegExp pattern = new QRegExp("\\b" + keyword + "\\b",
-                    CaseSensitivity.CaseInsensitive);
-            HighlightingRule rule = new HighlightingRule(pattern, informationFormat);
-            highlightingRules.add(rule);
-        } 
     }
 }

@@ -1,6 +1,6 @@
-package es.miguelgonzalezgomez.dataBaseFun.bd.estaticos;
+package es.miguelgonzalezgomez.dataBaseFun.bd.domain;
 
-import static es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.TiposBasesDeDatos.*;
+import static es.miguelgonzalezgomez.dataBaseFun.bd.domain.TiposBasesDeDatos.*;
 
 /**
  *

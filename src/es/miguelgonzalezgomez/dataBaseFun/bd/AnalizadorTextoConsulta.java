@@ -1,7 +1,7 @@
 package es.miguelgonzalezgomez.dataBaseFun.bd;
 
-import es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.TiposBasesDeDatos.TIPO_BASE_DATOS;
-import es.miguelgonzalezgomez.dataBaseFun.qt.restaltadoEditor.lenguajes.MySQL;
+import es.miguelgonzalezgomez.dataBaseFun.bd.domain.TiposBasesDeDatos.TIPO_BASE_DATOS;
+import es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.lenguajes.MySQL;
 import java.util.ArrayList;
 import java.util.List;
 

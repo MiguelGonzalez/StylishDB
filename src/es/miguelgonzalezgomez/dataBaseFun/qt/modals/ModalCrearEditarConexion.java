@@ -9,7 +9,7 @@ import com.trolltech.qt.gui.QLineEdit;
 import com.trolltech.qt.gui.QMessageBox;
 import com.trolltech.qt.gui.QPushButton;
 import com.trolltech.qt.gui.QVBoxLayout;
-import es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.TiposBasesDeDatos;
+import es.miguelgonzalezgomez.dataBaseFun.bd.domain.TiposBasesDeDatos;
 import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CNuevaConexion;
 
 /**

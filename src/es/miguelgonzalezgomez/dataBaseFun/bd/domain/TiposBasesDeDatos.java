@@ -1,4 +1,6 @@
-package es.miguelgonzalezgomez.dataBaseFun.bd.estaticos;
+package es.miguelgonzalezgomez.dataBaseFun.bd.domain;
+
+import es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.lenguajes.MySQL;
 
 /**
  *
@@ -6,8 +8,12 @@ package es.miguelgonzalezgomez.dataBaseFun.bd.estaticos;
  */
 public class TiposBasesDeDatos {
     public static enum TIPO_BASE_DATOS {
-        MYSQL(1, "MySQL","com.mysql.jdbc.Driver","3306"),
-        ORACLE(2, "Oracle","oracle.jdbc.driver.OracleDriver","PUERTO_ORACLE");
+        MYSQL(1,
+                "MySQL","com.mysql.jdbc.Driver",
+                "3306"),
+        ORACLE(2,
+                "Oracle","oracle.jdbc.driver.OracleDriver",
+                "PUERTO_ORACLE");
         
         private int identificadorUnico;
         private String nombrePresentable;
@@ -23,6 +29,18 @@ public class TiposBasesDeDatos {
             this.nombrePresentable = nombrePresentable;
             this.claseDriver = claseDriver;
             this.puertoDriver = puertoDriver;
+        }
+        
+        public String[] getPalabrasReservadas() {
+            return MySQL.palabrasClavesReservadas;
+        }
+        
+        public String[] getFuncionesReservadas() {
+            return MySQL.funcionesReservadas;
+        }
+        
+        public String[] getFuncionesEspecialesReservadas() {
+            return MySQL.funcionesEspecialesReservadas;
         }
         
         public String getClaseDriver() {

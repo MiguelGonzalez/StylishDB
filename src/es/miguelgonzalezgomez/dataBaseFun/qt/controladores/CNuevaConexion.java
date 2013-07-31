@@ -8,7 +8,7 @@ import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalCrearEditarConexion;
 import es.miguelgonzalezgomez.dataBaseFun.utilidadesEstaticas.CentroCoordenadas;
-import static es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.TiposBasesDeDatos.devolverTipoBaseDatos;
+import static es.miguelgonzalezgomez.dataBaseFun.bd.domain.TiposBasesDeDatos.devolverTipoBaseDatos;
 
 /**
  *

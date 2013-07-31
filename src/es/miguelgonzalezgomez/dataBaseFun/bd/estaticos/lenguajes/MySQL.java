@@ -1,4 +1,4 @@
-package es.miguelgonzalezgomez.dataBaseFun.qt.restaltadoEditor.lenguajes;
+package es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.lenguajes;
 
 /**
  *
@@ -16,7 +16,7 @@ public class MySQL {
         "DELETE"
     };
     
-    public static String[] palabrasClavesReservadasMySQL = {
+    public static String[] palabrasClavesReservadas = {
         "ADD","ALL","ALTER","ANALYZE","AND","AS","ASC","ASENSITIVE",
         "BEFORE","BETWEEN","BIGINT","BINARY","BLOB","BOTH","BY","CALL",
         "CASCADE","CASE","CHANGE","CHARACTER","CHECK","COLLATE",
@@ -57,7 +57,7 @@ public class MySQL {
         "MASTER_POS_WAIT","NAME_CONST","RELEASE_LOCK","SLEEP"
     };
     
-    public static String[] funcionesMySQL = {
+    public static String[] funcionesReservadas = {
         "ASCII","BIN","BIT_LENGTH","CHAR_LENGTH","CHAR","CHARACTER_LENGTH",
         "CONCAT_WS","CONCAT","ELT","EXPORT_SET","FIELD","FIND_IN_SET","FORMAT",
         "HEX","INSTR","LCASE","LEFT","LENGTH","LIKE","LOAD_FILE","LOCATE",
@@ -83,13 +83,10 @@ public class MySQL {
         "VAR_SAMP","VARIANCE"
     };
     
-    public static String[] encryptionCompressionFunctions = {
+    public static String[] funcionesEspecialesReservadas = {
         "AES_DECRYPT","AES_ENCRYPT","COMPRESS","DECODE","DES_DECRYPT",
         "DES_ENCRYPT","ENCODE","ENCRYPT","MD5","OLD_PASSWORD","PASSWORD",
-        "SHA1","SHA","UNCOMPRESS","UNCOMPRESSED_LENGTH"
-    };
-    
-    public static String[] informationFunctions = {
+        "SHA1","SHA","UNCOMPRESS","UNCOMPRESSED_LENGTH",
         "BENCHMARK","CHARSET","COERCIBILITY","COLLATION","CONNECTION_ID",
         "CURRENT_USER","DATABASE","FOUND_ROWS","LAST_INSERT_ID","ROW_COUNT",
         "SCHEMA","SCHEMAS","SESSION_USER","SYSTEM_USER","USER","VERSION"
