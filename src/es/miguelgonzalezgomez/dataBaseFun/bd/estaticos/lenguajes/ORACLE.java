@@ -124,4 +124,14 @@ public class ORACLE implements DatosBaseDatos {
     public String toString() {
         return nombrePresentable;
     }
+    
+    @Override
+    public boolean tieneComentarioDeLinea() {
+        return true;
+    }
+
+    @Override
+    public boolean tieneComentarioDeBloque() {
+        return true;
+    }
 }

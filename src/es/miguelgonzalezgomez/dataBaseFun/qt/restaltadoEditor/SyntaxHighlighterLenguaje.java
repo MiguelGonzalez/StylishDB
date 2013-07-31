@@ -37,19 +37,11 @@ public class SyntaxHighlighterLenguaje extends QSyntaxHighlighter {
         
         datosBaseDatos = tipoBaseDeDatos.getDatosBaseDatos();
         
-        highlightingRules = new ArrayList<>();
+        iniciarDatos();
         
-        palabrasReservadasFormat= new QTextCharFormat();
-        funcionesReservadasFormat = new QTextCharFormat();
-        comentariosFormat = new QTextCharFormat();
-        funcionesEspecialesReservadasFormat = new QTextCharFormat();
-        
-        construirResaltadoPalabrasClavesMySQL();
-        construirResaltadoFunciones();
-        construirResaltadoFuncionesEspeciales();
-        construirResaltadoComentarios();
+        construirDatos();
     }
-    
+
     @Override
     protected void highlightBlock(String text) {
         for (HighlightingRule rule : highlightingRules) {
@@ -61,26 +53,56 @@ public class SyntaxHighlighterLenguaje extends QSyntaxHighlighter {
                 index = expression.indexIn(text, index + length);
             }
         }
-
-        setCurrentBlockState(0);
         
+        if(datosBaseDatos.tieneComentarioDeBloque()) {
+            resaltarBloquesTexto(text);
+        }
+    }
+    
+    private void resaltarBloquesTexto(String text) {
+        setCurrentBlockState(0);
+
         int startIndex = 0;
-            if (previousBlockState() != 1)
-                startIndex = commentStartExpression.indexIn(text);
+        if (previousBlockState() != 1)
+            startIndex = commentStartExpression.indexIn(text);
 
 
-            while (startIndex >= 0) {
-                int endIndex = commentEndExpression.indexIn(text, startIndex);
-                int commentLength;
-                if (endIndex == -1) {
-                    setCurrentBlockState(1);
-                    commentLength = text.length() - startIndex;
-                } else {
-                    commentLength = endIndex - startIndex + commentEndExpression.matchedLength();
-                }
-                setFormat(startIndex, commentLength, comentariosFormat);
-                startIndex = commentStartExpression.indexIn(text, startIndex + commentLength);
+        while (startIndex >= 0) {
+            int endIndex = commentEndExpression.indexIn(text, startIndex);
+            int commentLength;
+            if (endIndex == -1) {
+                setCurrentBlockState(1);
+                commentLength = text.length() - startIndex;
+            } else {
+                commentLength = endIndex - startIndex + commentEndExpression.matchedLength();
             }
+            setFormat(startIndex, commentLength, comentariosFormat);
+            startIndex = commentStartExpression.indexIn(text, startIndex + commentLength);
+        }
+    }
+    
+    private void iniciarDatos() {
+        commentStartExpression = new QRegExp("/\\*");
+        commentEndExpression = new QRegExp("\\*/");
+        
+        highlightingRules = new ArrayList<>();
+        
+        palabrasReservadasFormat= new QTextCharFormat();
+        funcionesReservadasFormat = new QTextCharFormat();
+        comentariosFormat = new QTextCharFormat();
+        funcionesEspecialesReservadasFormat = new QTextCharFormat();
+    }
+    
+    private void construirDatos() {
+        construirResaltadoPalabrasClavesMySQL();
+        construirResaltadoFunciones();
+        construirResaltadoFuncionesEspeciales();
+        if(datosBaseDatos.tieneComentarioDeLinea()) {
+            construirResaltadoComentariosLinea();
+        }
+        if(datosBaseDatos.tieneComentarioDeBloque()) {
+            construirResaltadoComentarioBloque();
+        }
     }
     
     private void construirResaltadoPalabrasClavesMySQL() {
@@ -109,26 +131,27 @@ public class SyntaxHighlighterLenguaje extends QSyntaxHighlighter {
         }
     }
 
-    private void construirResaltadoComentarios() {
-        QBrush brush = new QBrush(QColor.yellow);
+    private void construirResaltadoComentariosLinea() {
+        QBrush brush = new QBrush(QColor.gray);
         comentariosFormat.setForeground(brush);
         comentariosFormat.setFontWeight(QFont.Weight.Bold.value());
         
         QRegExp patronDobleLinea = new QRegExp("--[^\n]*");
-        QRegExp patronComentarioLinea = new QRegExp("/\\*[^\n]*\\*/");
+        
         
         HighlightingRule reglaComentarioDobleLinea = new HighlightingRule(
                 patronDobleLinea,
                 comentariosFormat);
         highlightingRules.add(reglaComentarioDobleLinea);
+    }
+    
+    private void construirResaltadoComentarioBloque() {
+        QRegExp patronComentarioLinea = new QRegExp("/\\*[^\n]*\\*/");
         
         HighlightingRule reglaComentarioLinea = new HighlightingRule(
                 patronComentarioLinea,
                 comentariosFormat);
         highlightingRules.add(reglaComentarioLinea);
-        
-        commentStartExpression = new QRegExp("/\\*");
-        commentEndExpression = new QRegExp("\\*/");
     }
 
     private void construirResaltadoFuncionesEspeciales() {  
