@@ -8,6 +8,7 @@ import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalCrearEditarConexion;
 import es.miguelgonzalezgomez.dataBaseFun.utilidadesEstaticas.CentroCoordenadas;
+import static es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.TiposBasesDeDatos.devolverTipoBaseDatos;
 
 /**
  *
@@ -96,7 +97,8 @@ public class CNuevaConexion {
         
         mConexion.nombre = modalGestionConexiones.nombreEdit.text();
         int indexGestor = modalGestionConexiones.gestorCombo.currentIndex();
-        mConexion.gestor = modalGestionConexiones.gestorCombo.itemText(indexGestor);
+        String nombreGestor = modalGestionConexiones.gestorCombo.itemText(indexGestor);
+        mConexion.tipoDeBaseDeDatos = devolverTipoBaseDatos(nombreGestor);
         mConexion.sid = modalGestionConexiones.sidEdit.text();
         mConexion.ip = modalGestionConexiones.ipEdit.text();
         mConexion.puerto = modalGestionConexiones.puertoEdit.text();

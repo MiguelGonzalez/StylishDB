@@ -28,18 +28,18 @@ public class ManejadorConsulta {
         this.conexion = conexion;
     }
     
-    public void ejecutarConsulta(String consultaSQL) throws
+    public void ejecutarTextoConsulta(String consultaSQL) throws
             ManejadorConsultaErrorSQL,
             ManejadorConsultaNoHayConexion {
         this.consultaSQL = consultaSQL;
         
         conectar();
-        lanzarConsulta();
+        lanzarTextoConsulta();
     }
     
     private void conectar() throws ManejadorConsultaNoHayConexion {
         String urlConexion = ObtenerUrlConexion.getUrlConexion(
-                conexion.gestor,
+                conexion.tipoDeBaseDeDatos,
                 conexion.ip,
                 conexion.puerto,
                 conexion.sid);
@@ -53,8 +53,15 @@ public class ManejadorConsulta {
         }
     }
     
-    private void lanzarConsulta() throws ManejadorConsultaErrorSQL {
+    private void lanzarTextoConsulta() throws ManejadorConsultaErrorSQL {
+        AnalizadorTextoConsulta analizadorTextoConsulta = new AnalizadorTextoConsulta(
+                consultaSQL,
+                conexion.tipoDeBaseDeDatos);
+        
         try {
+            int numConsultas = analizadorTextoConsulta.numConsultasExistentes();
+            System.out.println(numConsultas);
+            
             statement = connection.createStatement();
             rsQuery = statement.executeQuery(consultaSQL);
         } catch (SQLException ex) {

@@ -51,7 +51,7 @@ public class MConexionesGuardadas {
         for(MConexion conexion : conexionesGuardadas) {
             if(conexion.equals(mConexionVieja)) {
                 conexion.nombre = mConexionNueva.nombre;
-                conexion.gestor = mConexionNueva.gestor;
+                conexion.tipoDeBaseDeDatos = mConexionNueva.tipoDeBaseDeDatos;
                 conexion.sid = mConexionNueva.sid;
                 conexion.ip = mConexionNueva.ip;
                 conexion.puerto = mConexionNueva.puerto;

@@ -44,7 +44,7 @@ public class CEjecutarConsulta {
     
     private void ejecutarConsultaYMostrarResultados() {
         try {
-            manejadorConsulta.ejecutarConsulta(getConsultaFormateada());
+            manejadorConsulta.ejecutarTextoConsulta(getConsultaFormateada());
             
             pintarResultadoConsulta();
             mostrarResultadosConsulta();

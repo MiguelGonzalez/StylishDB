@@ -29,7 +29,7 @@ public class ValidadorModeloConexion {
     }
     
     public boolean isGestorValido() {
-        return !mConexion.gestor.isEmpty();
+        return mConexion != null;
     }
     
     public boolean isSidValido() {

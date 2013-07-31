@@ -5,6 +5,17 @@ package es.miguelgonzalezgomez.dataBaseFun.qt.restaltadoEditor.lenguajes;
  * @author Miguel González
  */
 public class MySQL {
+    
+    public static String delimitador = ";";
+    
+    public static String palabraClaveEjecutarConsulta = "SELECT";
+    public static String[] palabrasClaveComienzoConsulta = {
+        "SELECT",
+        "UPDATE",
+        "INSERT",
+        "DELETE"
+    };
+    
     public static String[] palabrasClavesReservadasMySQL = {
         "ADD","ALL","ALTER","ANALYZE","AND","AS","ASC","ASENSITIVE",
         "BEFORE","BETWEEN","BIGINT","BINARY","BLOB","BOTH","BY","CALL",

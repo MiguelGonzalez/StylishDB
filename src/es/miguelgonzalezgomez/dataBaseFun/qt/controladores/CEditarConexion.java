@@ -25,7 +25,8 @@ public class CEditarConexion extends CNuevaConexion {
     
     private void establecerDatosConexionAEditar() {
         modalGestionConexiones.nombreEdit.setText(mConexion.nombre);
-        int posGestor = modalGestionConexiones.gestorCombo.findText(mConexion.gestor);
+        int posGestor = modalGestionConexiones.gestorCombo.findText(
+                mConexion.tipoDeBaseDeDatos.toString());
         if(posGestor != -1) {
             modalGestionConexiones.gestorCombo.setCurrentIndex(posGestor);
         }

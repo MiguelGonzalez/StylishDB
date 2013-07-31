@@ -1,5 +1,6 @@
 package es.miguelgonzalezgomez.dataBaseFun.modelos;
 
+import es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.TiposBasesDeDatos.TIPO_BASE_DATOS;
 import java.util.UUID;
 
 /**
@@ -9,8 +10,9 @@ import java.util.UUID;
 public class MConexion {
     
     public UUID uuidConexion;
+    
+    public TIPO_BASE_DATOS tipoDeBaseDeDatos;
     public String nombre;
-    public String gestor;
     public String sid;
     public String ip;
     public String puerto;
@@ -26,7 +28,7 @@ public class MConexion {
         MConexion mConexion = new MConexion();
         mConexion.uuidConexion = uuidConexion;
         mConexion.nombre = nombre;
-        mConexion.gestor = gestor;
+        mConexion.tipoDeBaseDeDatos = tipoDeBaseDeDatos;
         mConexion.sid = sid;
         mConexion.ip = ip;
         mConexion.puerto = puerto;

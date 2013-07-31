@@ -1,7 +1,6 @@
 package es.miguelgonzalezgomez.dataBaseFun.bd;
 
 import es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.ObtenerUrlConexion;
-import es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.ObtenerClaseDriver;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,8 +14,7 @@ public class ComprobacionConexion {
 
     public static boolean hayConexion(MConexion conexion) {
         try {
-            cargarDriver(ObtenerClaseDriver.obtenerClaseDriver(
-                    conexion.gestor));
+            cargarDriver(conexion.tipoDeBaseDeDatos.getClaseDriver());
         } catch(ClassNotFoundException ex) {
             ex.printStackTrace();
             return false;
@@ -34,7 +32,7 @@ public class ComprobacionConexion {
         Connection connection = null;
 
         String urlConexion = ObtenerUrlConexion.getUrlConexion(
-                conexion.gestor,
+                conexion.tipoDeBaseDeDatos,
                 conexion.ip,
                 conexion.puerto,
                 conexion.sid);

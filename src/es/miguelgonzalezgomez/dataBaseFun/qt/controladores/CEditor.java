@@ -38,7 +38,7 @@ public class CEditor {
     
     private void establecerResaltadoSintaxis() {
         ConstruirSyntaxHighlighter.establecerSyntaxHighlighter(
-                mPestanaEditor.mConexion.gestor,
+                mPestanaEditor.mConexion.tipoDeBaseDeDatos,
                 editorTexto.document()
         );
     }

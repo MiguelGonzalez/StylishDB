@@ -10,15 +10,13 @@ import com.trolltech.qt.gui.QTextDocument;
 public class ConstruirSyntaxHighlighter {
     
     public static void establecerSyntaxHighlighter(
-            String nombreGestor,
+            TIPO_BASE_DATOS tipoBaseDatos,
             QTextDocument parent) {
-        switch(nombreGestor) {
-            case MYSQL:
-                new MySQLSyntaxHighlighter(parent);
-                break;
-            default:
-                
-                break;
+        
+        if(TIPO_BASE_DATOS.MYSQL.equals(tipoBaseDatos)) {
+            new MySQLSyntaxHighlighter(parent);
+        } else if(TIPO_BASE_DATOS.ORACLE.equals(tipoBaseDatos)) {
+            
         }
     }
     
