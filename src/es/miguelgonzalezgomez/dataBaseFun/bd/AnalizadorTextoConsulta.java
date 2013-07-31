@@ -1,7 +1,7 @@
 package es.miguelgonzalezgomez.dataBaseFun.bd;
 
 import es.miguelgonzalezgomez.dataBaseFun.bd.domain.TiposBasesDeDatos.TIPO_BASE_DATOS;
-import es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.lenguajes.MySQL;
+import es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.lenguajes.DatosBaseDatos;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,44 +11,39 @@ import java.util.List;
  */
 public class AnalizadorTextoConsulta {
 
-    private String DELIMITADOR_CONSULTAS = ";";
-    private String[] palabrasClaveComienzoConsulta;
-    private String palabraClaveEjecutarConsulta = "SELECT";
-    
     private String textoConsulta;
-    private TIPO_BASE_DATOS tipoBaseDeDatos;
+    private DatosBaseDatos datosBaseDatos;
     
     private List<String> consultasSQL;
     
     public AnalizadorTextoConsulta(
             String textoConsulta,
             TIPO_BASE_DATOS tipoBaseDeDatos) {
+        
         this.textoConsulta = textoConsulta;
-        this.tipoBaseDeDatos = tipoBaseDeDatos;
+        this.datosBaseDatos = tipoBaseDeDatos.getDatosBaseDatos();
+        
         
         consultasSQL = new ArrayList<>();
-        
-        inicializarDatosGestor();
+
         trocearTextoConsulta();
     }
     
-    private void inicializarDatosGestor() {
-        if(tipoBaseDeDatos == TIPO_BASE_DATOS.MYSQL) {
-            DELIMITADOR_CONSULTAS = MySQL.delimitador;
-            palabrasClaveComienzoConsulta = MySQL.palabrasClaveComienzoConsulta;
-            palabraClaveEjecutarConsulta = MySQL.palabraClaveEjecutarConsulta;
-        } else if(tipoBaseDeDatos == TIPO_BASE_DATOS.ORACLE) {
-            
-        }
-    }
+
     
     public boolean isEjecutarQuery(int numeroQuery) {
         return isEjecutarQuery(consultasSQL.get(numeroQuery));
     }
     
     public boolean isEjecutarQuery(String consultaSQL) {
-        return consultaSQL.toLowerCase().startsWith(
-                palabraClaveEjecutarConsulta.toLowerCase());
+        for(String palabraEjecutarConsulta :
+                datosBaseDatos.getPalabrasClaveEjecutarConsulta()) {
+            if(consultaSQL.toLowerCase().equals(
+                    palabraEjecutarConsulta.toLowerCase())) {
+                return true;
+            }
+        }
+        return false;
     }
     
     public int numConsultasExistentes() {
@@ -81,7 +76,7 @@ public class AnalizadorTextoConsulta {
     }
     
     private boolean empiezaConsultaPalabraClave(String textoConsulta) {
-        for(String palabraClave : palabrasClaveComienzoConsulta) {
+        for(String palabraClave : datosBaseDatos.getPalabrasClaveComienzoConsulta()) {
             System.out.println(palabraClave);
             if(textoConsulta.toLowerCase().startsWith(palabraClave.toLowerCase())) {
                 return true;
@@ -91,7 +86,7 @@ public class AnalizadorTextoConsulta {
     }
     
     private int encontrarDelimitadorFinalConsulta(String textoConsulta) {
-        return textoConsulta.indexOf(DELIMITADOR_CONSULTAS);
+        return textoConsulta.indexOf(datosBaseDatos.getDelimitadorConsulta());
     }
     
 }
