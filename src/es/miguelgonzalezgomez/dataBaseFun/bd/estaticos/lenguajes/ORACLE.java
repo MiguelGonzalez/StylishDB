@@ -1,15 +1,35 @@
 package es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.lenguajes;
 
 import es.miguelgonzalezgomez.dataBaseFun.bd.domain.TiposBasesDeDatos;
+import static es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.lenguajes.MySQL.delimitadorConsulta;
+import static es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.lenguajes.MySQL.palabrasClaveComienzoConsulta;
+import static es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.lenguajes.MySQL.palabrasClaveEjecutarConsulta;
 
 /**
  *
  * @author Miguel González
  */
 public class ORACLE implements DatosBaseDatos {
+    
     public static String nombrePresentable = "Oracle";
     public static String claseDriver = "oracle.jdbc.driver.OracleDriver";
     public static String puertoDriver = "1521";
+    
+    public static String delimitadorConsulta = ";";
+
+    public static String[] palabrasClaveEjecutarConsulta = {
+        "SELECT"
+    };
+
+    public static String[] palabrasClaveComienzoConsulta = {
+        "SELECT",
+        "UPDATE",
+        "INSERT",
+        "DELETE",
+        "DROP",
+        "TRUNCATE",
+        "MERGE"
+    };
     
     public static String[] palabrasClavesReservadas = {
         "ACCESS","ACCOUNT","ACTIVATE","ADD","ADMIN","ADVISE","AFTER",
@@ -137,5 +157,20 @@ public class ORACLE implements DatosBaseDatos {
     @Override
     public boolean tieneComentarioDeBloque() {
         return true;
+    }
+    
+    @Override
+    public String getDelimitadorConsulta() {
+        return delimitadorConsulta;
+    }
+    
+    @Override
+    public String[] getPalabrasClaveEjecutarConsulta() {
+        return palabrasClaveEjecutarConsulta;
+    }
+    
+    @Override
+    public String[] getPalabrasClaveComienzoConsulta() {
+        return palabrasClaveComienzoConsulta;
     }
 }

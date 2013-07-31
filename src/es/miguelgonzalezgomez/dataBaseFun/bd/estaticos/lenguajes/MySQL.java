@@ -13,16 +13,21 @@ public class MySQL implements DatosBaseDatos {
     public static String claseDriver = "com.mysql.jdbc.Driver";
     public static String puertoDriver = "3306";
     
-    public static String delimitador = ";";
-    
-    public static String palabraClaveEjecutarConsulta = "SELECT";
+    public static String delimitadorConsulta = ";";
+
+    public static String[] palabrasClaveEjecutarConsulta = {
+        "SELECT"
+    };
+
     public static String[] palabrasClaveComienzoConsulta = {
         "SELECT",
         "UPDATE",
         "INSERT",
-        "DELETE"
+        "DELETE",
+        "DROP",
+        "TRUNCATE"
     };
-    
+        
     public static String[] palabrasClavesReservadas = {
         "ADD","ALL","ALTER","ANALYZE","AND","AS","ASC","ASENSITIVE",
         "BEFORE","BETWEEN","BIGINT","BINARY","BLOB","BOTH","BY","CALL",
@@ -142,5 +147,20 @@ public class MySQL implements DatosBaseDatos {
     @Override
     public boolean tieneComentarioDeBloque() {
         return true;
+    }
+    
+    @Override
+    public String getDelimitadorConsulta() {
+        return delimitadorConsulta;
+    }
+    
+    @Override
+    public String[] getPalabrasClaveEjecutarConsulta() {
+        return palabrasClaveEjecutarConsulta;
+    }
+    
+    @Override
+    public String[] getPalabrasClaveComienzoConsulta() {
+        return palabrasClaveComienzoConsulta;
     }
 }
