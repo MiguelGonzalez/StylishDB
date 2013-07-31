@@ -1,27 +1,17 @@
 package es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.lenguajes;
 
 import es.miguelgonzalezgomez.dataBaseFun.bd.domain.TiposBasesDeDatos;
-import es.miguelgonzalezgomez.dataBaseFun.bd.domain.TiposBasesDeDatos.TIPO_BASE_DATOS;
+import static es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.lenguajes.MySQL.nombrePresentable;
+import static es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.lenguajes.MySQL.puertoDriver;
 
 /**
  *
  * @author Miguel González
  */
-public class MySQL implements DatosBaseDatos {
-    
-    public static String nombrePresentable = "MySQL";
-    public static String claseDriver = "com.mysql.jdbc.Driver";
-    public static String puertoDriver = "3306";
-    
-    public static String delimitador = ";";
-    
-    public static String palabraClaveEjecutarConsulta = "SELECT";
-    public static String[] palabrasClaveComienzoConsulta = {
-        "SELECT",
-        "UPDATE",
-        "INSERT",
-        "DELETE"
-    };
+public class ORACLE implements DatosBaseDatos {
+    public static String nombrePresentable = "Oracle";
+    public static String claseDriver = "oracle.jdbc.driver.OracleDriver";
+    public static String urlDriver = "1521";
     
     public static String[] palabrasClavesReservadas = {
         "ADD","ALL","ALTER","ANALYZE","AND","AS","ASC","ASENSITIVE",
@@ -98,7 +88,8 @@ public class MySQL implements DatosBaseDatos {
         "CURRENT_USER","DATABASE","FOUND_ROWS","LAST_INSERT_ID","ROW_COUNT",
         "SCHEMA","SCHEMAS","SESSION_USER","SYSTEM_USER","USER","VERSION"
     };
-
+    
+    
     @Override
     public String[] getPalabrasReservadas() {
         return palabrasClavesReservadas;
@@ -126,7 +117,7 @@ public class MySQL implements DatosBaseDatos {
 
     @Override
     public boolean equals(TiposBasesDeDatos.TIPO_BASE_DATOS tipoBaseDatos) {
-        return tipoBaseDatos.equals(TIPO_BASE_DATOS.MYSQL);
+        return tipoBaseDatos.equals(TiposBasesDeDatos.TIPO_BASE_DATOS.MYSQL);
     }
     
     @Override

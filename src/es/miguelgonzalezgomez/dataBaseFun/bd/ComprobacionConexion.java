@@ -14,7 +14,8 @@ public class ComprobacionConexion {
 
     public static boolean hayConexion(MConexion conexion) {
         try {
-            cargarDriver(conexion.tipoDeBaseDeDatos.getClaseDriver());
+            cargarDriver(conexion.tipoDeBaseDeDatos.
+                    getDatosBaseDatos().getClaseDriver());
         } catch(ClassNotFoundException ex) {
             ex.printStackTrace();
             return false;

@@ -9,6 +9,7 @@ import com.trolltech.qt.gui.QSyntaxHighlighter;
 import com.trolltech.qt.gui.QTextCharFormat;
 import com.trolltech.qt.gui.QTextDocument;
 import es.miguelgonzalezgomez.dataBaseFun.bd.domain.TiposBasesDeDatos.TIPO_BASE_DATOS;
+import es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.lenguajes.DatosBaseDatos;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,13 +29,13 @@ public class SyntaxHighlighterLenguaje extends QSyntaxHighlighter {
     private QRegExp commentStartExpression;
     private QRegExp commentEndExpression;
     
-    private TIPO_BASE_DATOS tipoBaseDeDatos;
+    private DatosBaseDatos datosBaseDatos;
     
     public SyntaxHighlighterLenguaje(QTextDocument parent,
             TIPO_BASE_DATOS tipoBaseDeDatos) {
         super(parent);
         
-        this.tipoBaseDeDatos = tipoBaseDeDatos;
+        datosBaseDatos = tipoBaseDeDatos.getDatosBaseDatos();
         
         highlightingRules = new ArrayList<>();
         
@@ -87,7 +88,7 @@ public class SyntaxHighlighterLenguaje extends QSyntaxHighlighter {
         palabrasReservadasFormat.setForeground(brush);
         palabrasReservadasFormat.setFontWeight(QFont.Weight.Bold.value());
         
-        for (String keyword : tipoBaseDeDatos.getPalabrasReservadas()) {
+        for (String keyword : datosBaseDatos.getPalabrasReservadas()) {
             QRegExp pattern = new QRegExp("\\b" + keyword + "\\b",
                     CaseSensitivity.CaseInsensitive);
             HighlightingRule rule = new HighlightingRule(pattern, palabrasReservadasFormat);
@@ -100,7 +101,7 @@ public class SyntaxHighlighterLenguaje extends QSyntaxHighlighter {
         funcionesReservadasFormat.setForeground(brush);
         funcionesReservadasFormat.setFontWeight(QFont.Weight.Bold.value());
         
-        for (String keyword : tipoBaseDeDatos.getFuncionesReservadas()) {
+        for (String keyword : datosBaseDatos.getFuncionesReservadas()) {
             QRegExp pattern = new QRegExp("\\b" + keyword + "\\b",
                     CaseSensitivity.CaseInsensitive);
             HighlightingRule rule = new HighlightingRule(pattern, funcionesReservadasFormat);
@@ -135,7 +136,7 @@ public class SyntaxHighlighterLenguaje extends QSyntaxHighlighter {
         funcionesEspecialesReservadasFormat.setForeground(brush);
         funcionesEspecialesReservadasFormat.setFontWeight(QFont.Weight.Bold.value());
         
-        for (String keyword : tipoBaseDeDatos.getFuncionesEspecialesReservadas()) {
+        for (String keyword : datosBaseDatos.getFuncionesEspecialesReservadas()) {
             QRegExp pattern = new QRegExp("\\b" + keyword + "\\b",
                     CaseSensitivity.CaseInsensitive);
             HighlightingRule rule = new HighlightingRule(pattern, funcionesEspecialesReservadasFormat);
