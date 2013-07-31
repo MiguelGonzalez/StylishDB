@@ -36,7 +36,7 @@ public class AnalizadorTextoConsulta {
     public boolean isEjecutarQuery(String consultaSQL) {
         for(String palabraEjecutarConsulta :
                 datosBaseDatos.getPalabrasClaveEjecutarConsulta()) {
-            if(consultaSQL.toLowerCase().startsWith(
+            if(consultaSQL.trim().toLowerCase().startsWith(
                     palabraEjecutarConsulta.toLowerCase())) {
                 return true;
             }
