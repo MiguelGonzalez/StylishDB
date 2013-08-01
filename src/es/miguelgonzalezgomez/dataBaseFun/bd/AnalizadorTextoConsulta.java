@@ -65,7 +65,6 @@ public class AnalizadorTextoConsulta {
                 consultasSQL.add(textoConsultaCopia);
                 textoConsultaCopia = "";
             }
-            System.out.println(textoConsultaCopia);
         }
         
         if(textoConsultaCopia.length() > 0) {
