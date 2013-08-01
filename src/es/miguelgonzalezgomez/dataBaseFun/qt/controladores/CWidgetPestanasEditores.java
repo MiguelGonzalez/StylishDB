@@ -6,7 +6,7 @@ import com.trolltech.qt.gui.QWidget;
 import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
-import es.miguelgonzalezgomez.dataBaseFun.qt.PestanaEditor;
+import es.miguelgonzalezgomez.dataBaseFun.qt.EditorTexto;
 import es.miguelgonzalezgomez.dataBaseFun.qt.WidgetPestanasEditores;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +19,7 @@ public class CWidgetPestanasEditores {
 
     private WidgetPestanasEditores widgetPestanasEditores;
 
+    private CWidgetPestanasEditoresEscuchaCambios escuchaCambiosPestana;
     private GEditoresAplicacion editoresAplicacion;
     private CPestanasEditores cPestanasEditores;
     
@@ -75,7 +76,7 @@ public class CWidgetPestanasEditores {
     }
     
     private void escuchaEditoresAplicacion() {
-        CWidgetPestanasEditoresEscuchaCambios escuchaCambiosPestana = new
+        escuchaCambiosPestana = new
                 CWidgetPestanasEditoresEscuchaCambios(this);
         editoresAplicacion.addPestanasEditorListener(escuchaCambiosPestana);
     }
@@ -109,11 +110,11 @@ public class CWidgetPestanasEditores {
     }
     
     private void cambiadaPestana() {
-        PestanaEditor pestanaEditorTexto = (PestanaEditor) widgetPestanasEditores.
+        EditorTexto pestanaEditorTexto = (EditorTexto) widgetPestanasEditores.
                 currentWidget();
         
         if(pestanaEditorTexto != null) {
-            pestanaEditorTexto.estaVisible();
+            pestanaEditorTexto.establecerEditorVisible();
         } else {
             editoresAplicacion.establecerPestanaActiva(null);
         }
@@ -121,7 +122,7 @@ public class CWidgetPestanasEditores {
     
     public void comprobarYRenombrarPestanaEditor(MPestanaEditor pestanaEditorEditada) {
         for(int i=0; i<relacionPestanaEditor.size(); i++) {
-            PestanaEditor pestanaEditorTexto = (PestanaEditor) widgetPestanasEditores.widget(i);
+            EditorTexto pestanaEditorTexto = (EditorTexto) widgetPestanasEditores.widget(i);
             
             if(pestanaEditorEditada.equals(pestanaEditorTexto.getModeloEditor())) {
                 widgetPestanasEditores.setTabText(i, pestanaEditorEditada.nombrePestana);
@@ -132,7 +133,7 @@ public class CWidgetPestanasEditores {
     void buscarYCerrarPestana(MPestanaEditor pestanaEditor) {
         int posicionPestana = -1;
         for(int i=0; i<relacionPestanaEditor.size() && posicionPestana == -1; i++) {
-            PestanaEditor pestanaEditorTexto = (PestanaEditor) widgetPestanasEditores.widget(i);
+            EditorTexto pestanaEditorTexto = (EditorTexto) widgetPestanasEditores.widget(i);
             
             if(pestanaEditor.equals(pestanaEditorTexto.getModeloEditor())) {
                 posicionPestana = i;
@@ -162,13 +163,5 @@ public class CWidgetPestanasEditores {
         
         widgetPestanasEditores.setCurrentIndex(anteriorIndex);
         
-    }
-
-    void ejecutarConsultaPestanaEditor(MPestanaEditor pestanaEditorEditada) {
-        CPestanaEditor pestanaEditor = relacionPestanaEditor.get(pestanaEditorEditada);
-        
-        if(pestanaEditor != null) {
-            pestanaEditor.ejecutarConsulta();
-        }
     }
 }

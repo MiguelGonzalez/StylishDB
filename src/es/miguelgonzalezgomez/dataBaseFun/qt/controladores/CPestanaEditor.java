@@ -1,8 +1,8 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
+import com.trolltech.qt.gui.QTextEdit;
 import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
-import es.miguelgonzalezgomez.dataBaseFun.qt.PestanaEditor;
 
 /**
  *
@@ -11,36 +11,19 @@ import es.miguelgonzalezgomez.dataBaseFun.qt.PestanaEditor;
 public class CPestanaEditor {
     
     private GEditoresAplicacion editoresAplicacion;
-    private PestanaEditor pestanaEditor;
-    
     private CEditor controladorEditor;
-    private CEjecutarConsultas controladorEjecutarConsultas;
     
     private MPestanaEditor mPestanaEditor;
     
     public CPestanaEditor(MPestanaEditor mPestanaEditor) {
         this.mPestanaEditor = mPestanaEditor;
+        
         editoresAplicacion = new GEditoresAplicacion();
-        
-        pestanaEditor = new PestanaEditor(this);
-        
         controladorEditor = new CEditor(mPestanaEditor);
-        controladorEjecutarConsultas = new CEjecutarConsultas();
-        
-        construirInterfaz();
     }
     
-    private void construirInterfaz() {
-        pestanaEditor.establecerEditorTexto(
-                controladorEditor.getEditorTexto()
-        );
-        pestanaEditor.establecerPanelConsultas(
-                controladorEjecutarConsultas.getPanelConsultas()
-        );
-    }
-    
-    public PestanaEditor getPestanaEditor() {
-        return pestanaEditor;
+    public QTextEdit getPestanaEditor() {
+        return controladorEditor.getEditorTexto();
     }
 
     public void deshacer() {
@@ -49,13 +32,6 @@ public class CPestanaEditor {
 
     public void rehacer() {
         controladorEditor.rehacer();
-    }
-
-    public void ejecutarConsulta() {
-        controladorEjecutarConsultas.lanzarConsultaTexto(
-            mPestanaEditor,
-            controladorEditor
-        );
     }
 
     public MPestanaEditor getModeloEditor() {

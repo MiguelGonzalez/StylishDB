@@ -5,7 +5,10 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
 import com.google.gson.reflect.TypeToken;
+import com.trolltech.qt.core.Qt;
 import com.trolltech.qt.core.Qt.WindowStates;
+import com.trolltech.qt.gui.QDockWidget;
+import com.trolltech.qt.gui.QDockWidget.DockWidgetFeatures;
 import es.miguelgonzalezgomez.dataBaseFun.configuracion.ConfiguracionVentanaPrincipal;
 import es.miguelgonzalezgomez.dataBaseFun.Preferencias;
 import es.miguelgonzalezgomez.dataBaseFun.PreferenciasException;
@@ -26,10 +29,13 @@ public class CVentanaPrincipal {
     
     private CMenuSuperior controladorMenuSup;
     private CWidgetPestanasEditores controladorPestanasEditores;
+    private CEjecutarConsultas controladorEjecutarConsultas;
     
     public CVentanaPrincipal() {
         controladorMenuSup = new CMenuSuperior();
         controladorPestanasEditores = new CWidgetPestanasEditores();
+        controladorEjecutarConsultas = new CEjecutarConsultas();
+        
         prefs = Preferencias.getInstance();
         
         cargarPropiedadesVentanaPrincipal();
@@ -37,6 +43,7 @@ public class CVentanaPrincipal {
         
         establecerMenuSuperior();
         establecerPestanasEditores();
+        establecerWidgets();
         
         mostrarVentanaPrincipal();
     }
@@ -87,6 +94,30 @@ public class CVentanaPrincipal {
                 controladorPestanasEditores.
                         getVistaPestanasEditores()
         );
+    }
+    
+    private void establecerWidgets() {
+        QDockWidget dockWidget = new QDockWidget(ventanaPrincipal);
+        Qt.DockWidgetAreas qtAreas = new Qt.DockWidgetAreas();
+        qtAreas.set(Qt.DockWidgetArea.TopDockWidgetArea);
+        qtAreas.set(Qt.DockWidgetArea.BottomDockWidgetArea);
+        
+        dockWidget.setAllowedAreas(qtAreas);
+        dockWidget.setWidget(
+                controladorEjecutarConsultas.getPanelConsultas()
+        );
+        
+        DockWidgetFeatures qtFeatures = new DockWidgetFeatures();
+        qtFeatures.set(QDockWidget.DockWidgetFeature.DockWidgetFloatable);
+        qtFeatures.set(QDockWidget.DockWidgetFeature.DockWidgetMovable);
+        dockWidget.setFeatures(qtFeatures);
+        
+        dockWidget.setMinimumHeight(100);
+        
+        ventanaPrincipal.addDockWidget(
+                Qt.DockWidgetArea.BottomDockWidgetArea,
+                dockWidget,
+                Qt.Orientation.Horizontal);
     }
      
     private void posicionarVentanaPrincipal() {
