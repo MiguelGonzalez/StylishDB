@@ -14,6 +14,7 @@ import es.miguelgonzalezgomez.dataBaseFun.Preferencias;
 import es.miguelgonzalezgomez.dataBaseFun.PreferenciasException;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.qt.VentanaPrincipal;
+import es.miguelgonzalezgomez.dataBaseFun.qt.WidgetConsultas;
 import java.lang.reflect.Type;
 
 /**
@@ -97,26 +98,14 @@ public class CVentanaPrincipal {
     }
     
     private void establecerWidgets() {
-        QDockWidget dockWidget = new QDockWidget(ventanaPrincipal);
-        Qt.DockWidgetAreas qtAreas = new Qt.DockWidgetAreas();
-        qtAreas.set(Qt.DockWidgetArea.TopDockWidgetArea);
-        qtAreas.set(Qt.DockWidgetArea.BottomDockWidgetArea);
-        
-        dockWidget.setAllowedAreas(qtAreas);
-        dockWidget.setWidget(
+        WidgetConsultas widgetConsultas = new WidgetConsultas(ventanaPrincipal);
+        widgetConsultas.setWidget(
                 controladorEjecutarConsultas.getPanelConsultas()
         );
         
-        DockWidgetFeatures qtFeatures = new DockWidgetFeatures();
-        qtFeatures.set(QDockWidget.DockWidgetFeature.DockWidgetFloatable);
-        qtFeatures.set(QDockWidget.DockWidgetFeature.DockWidgetMovable);
-        dockWidget.setFeatures(qtFeatures);
-        
-        dockWidget.setMinimumHeight(100);
-        
         ventanaPrincipal.addDockWidget(
                 Qt.DockWidgetArea.BottomDockWidgetArea,
-                dockWidget,
+                widgetConsultas,
                 Qt.Orientation.Horizontal);
     }
      
