@@ -18,6 +18,7 @@ import java.util.List;
  */
 public class CEjecutarConsultas {
 
+    private CEjecutarConsultasEscuchaCambios escuchaCambiosConsultas;
     private GEditoresAplicacion editoresAplicacion;
     private PanelConsultas panelConsultas;
     
@@ -26,55 +27,19 @@ public class CEjecutarConsultas {
     
     public CEjecutarConsultas() {
         panelConsultas = new PanelConsultas(this);
-        
+        escuchaCambiosConsultas = new CEjecutarConsultasEscuchaCambios(this);
         editoresAplicacion = new GEditoresAplicacion();
-        editoresAplicacion.addPestanasEditorListener(new PestanaEditorListener() {
-
-            @Override
-            public void modificadaPestanaEditor(MPestanaEditor pestanaEditorEditada, int tipoEvento) {
-                
-            }
-
-            @Override
-            public void eliminadaPestanaEditor(MPestanaEditor pestanaEditorEliminada) {
-                
-            }
-
-            @Override
-            public void nuevaPestanaEditor(MPestanaEditor pestanaEditor) {
-                
-            }
-
-            @Override
-            public void atajoTeclado(MPestanaEditor pestanaEditor, int tipoEvento) {
-                
-            }
-
-            @Override
-            public void ejecutarConsultaPestanaEditor(MPestanaEditor pestanaEditor) {
-                System.out.println("Ejecutar");
-                lanzarConsultaTexto(pestanaEditor);
-            }
-
-            @Override
-            public void cambiarSiguientePestana() {
-                
-            }
-
-            @Override
-            public void cambiarAnteriorPestana() {
-                
-            }
-            
-        });
+        
+        inicializarEscuchaCambios();
+    }
+    
+    private void inicializarEscuchaCambios() {
+        editoresAplicacion.addPestanasEditorListener(escuchaCambiosConsultas);
     }
 
-    
-    private void lanzarConsultaTexto(MPestanaEditor mPestanaEditor) {
+    public void lanzarConsultaTexto(MPestanaEditor mPestanaEditor) {
         this.mPestanaEditor = mPestanaEditor;
-        
-        
-        
+
         manejadorConsultas = new ManejadorConsulta(
                 mPestanaEditor.mConexion,
                 getConsultaFormateada()
