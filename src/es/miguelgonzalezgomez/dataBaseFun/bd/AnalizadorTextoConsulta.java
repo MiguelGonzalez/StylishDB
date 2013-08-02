@@ -1,5 +1,6 @@
 package es.miguelgonzalezgomez.dataBaseFun.bd;
 
+import com.trolltech.qt.core.QRegExp;
 import es.miguelgonzalezgomez.dataBaseFun.bd.domain.TiposBasesDeDatos.TIPO_BASE_DATOS;
 import es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.lenguajes.DatosBaseDatos;
 import java.util.ArrayList;
@@ -16,11 +17,20 @@ public class AnalizadorTextoConsulta {
     
     private List<String> consultasSQL;
     
+    private QRegExp commentStartExpression;
+    private QRegExp commentEndExpression;
+    private QRegExp patronDobleLinea;
+    
     public AnalizadorTextoConsulta(TIPO_BASE_DATOS tipoBaseDatos, String textoConsultaLanzar) {
         this.tipoBaseDatos = tipoBaseDatos;
-        this.textoConsultaLanzar = getConsultaFormateada(textoConsultaLanzar);
         
+        commentStartExpression = new QRegExp("/\\*");
+        commentEndExpression = new QRegExp("\\*/");
+        patronDobleLinea = new QRegExp("--[^\n]*");
+
         consultasSQL = new ArrayList<>();
+
+        this.textoConsultaLanzar = getConsultaFormateada(textoConsultaLanzar);
         
         trocearTextoConsulta();
     }
@@ -118,6 +128,8 @@ public class AnalizadorTextoConsulta {
     }
     
     private String getConsultaFormateada(String consultaSQL) {
+        consultaSQL = quitarComentarios(consultaSQL);
+        
         consultaSQL = consultaSQL.replaceAll("\\r", "").
                 replaceAll("\\n", " ").
                 replaceAll("\\r\\n", " ").
@@ -125,5 +137,63 @@ public class AnalizadorTextoConsulta {
         consultaSQL = consultaSQL.trim();
         
         return consultaSQL;
+    }
+    
+    private String quitarComentarios(String consultaSQL) {
+        DatosBaseDatos datosBaseDatos = tipoBaseDatos.getDatosBaseDatos();
+        
+        if(datosBaseDatos.tieneComentarioDeBloque()) {
+            consultaSQL = quitarComentariosBloques(consultaSQL);
+        }
+        
+        if(datosBaseDatos.tieneComentarioDeLinea()) {
+            consultaSQL = quitarComentariosLinea(consultaSQL);
+        }
+        
+        return consultaSQL;
+    }
+    
+    private String quitarComentariosBloques(String consultaSQL) {
+        StringBuilder strTextoLimpio = new StringBuilder(consultaSQL);
+        int startIndex = commentStartExpression.indexIn(consultaSQL);
+
+        while (startIndex >= 0) {
+            int endIndex = commentEndExpression.indexIn(
+                    strTextoLimpio.toString()
+            );
+            int commentLength;
+            if (endIndex == -1) {
+                commentLength = strTextoLimpio.length() - startIndex;
+            } else {
+                commentLength = endIndex - startIndex + commentEndExpression.matchedLength();
+            }
+            strTextoLimpio.delete(startIndex, startIndex + commentLength);
+            
+            startIndex = commentStartExpression.indexIn(
+                    strTextoLimpio.toString()
+            );
+        }
+        
+        return strTextoLimpio.toString();
+    }
+    
+    private String quitarComentariosLinea(String consultaSQL) {
+        StringBuilder strTextoLimpio = new StringBuilder(consultaSQL);
+        
+        int index = patronDobleLinea.indexIn(
+                strTextoLimpio.toString()
+        );
+        
+        while (index >= 0) {
+            int length = patronDobleLinea.matchedLength();
+            System.out.println(length);
+            strTextoLimpio.delete(index, index + length);
+            
+            index = patronDobleLinea.indexIn(
+                    strTextoLimpio.toString()
+            );
+        }
+
+        return strTextoLimpio.toString();
     }
 }
