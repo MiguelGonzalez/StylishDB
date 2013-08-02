@@ -10,18 +10,10 @@ import es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.lenguajes.ORACLE;
  */
 public class TiposBasesDeDatos {
     public static enum TIPO_BASE_DATOS {
-        MYSQL(1),
-        ORACLE(2);
+        MYSQL,
+        ORACLE;
 
-        private int identificadorUnico;
         private DatosBaseDatos datosBaseDatos = null;
-        
-        private TIPO_BASE_DATOS(
-                int identificadorUnico) {
-            this.identificadorUnico = identificadorUnico;
-            inicializarDatosBaseDatos();
-        }
-        
         
         public DatosBaseDatos getDatosBaseDatos() {
             inicializarDatosBaseDatos();
