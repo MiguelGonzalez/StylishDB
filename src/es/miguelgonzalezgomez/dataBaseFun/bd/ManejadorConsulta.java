@@ -2,6 +2,7 @@ package es.miguelgonzalezgomez.dataBaseFun.bd;
 
 import es.miguelgonzalezgomez.dataBaseFun.bd.domain.ObtenerUrlConexion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -87,7 +88,7 @@ public class ManejadorConsulta {
     
     public boolean haySiguienteFila() throws ManejadorConsultaErrorSQL {
         try {
-            return rsQuery.next();
+            return rsQuery.next();            
         } catch (SQLException ex) {
             throw new ManejadorConsultaErrorSQL(ex);
         }
@@ -120,7 +121,7 @@ public class ManejadorConsulta {
         List<String> fila = new ArrayList<>();
         
         try {
-            int numColumnas = getNumColumnas();
+            int numColumnas = getNumColumnas(); 
             for(int i=1; i<=numColumnas; i++) {
                 int tipoColumna = rsQuery.getMetaData().getColumnType(i);
                 String datoColumna = getDatoColumna(i, tipoColumna);
@@ -137,17 +138,14 @@ public class ManejadorConsulta {
     private String getDatoColumna(int numColumna, int tipoColumna) throws
                 ManejadorConsultaErrorSQL {
         try {
-            if(rsQuery.wasNull()) {
-                return "NULL";
-            }
-        } catch (SQLException ex) {
-            throw new ManejadorConsultaErrorSQL(ex);
-        }
-        try {
             switch(tipoColumna) {
                 case java.sql.Types.ARRAY:
-                    return rsQuery.getArray(numColumna).getArray().toString();
-                case java.sql.Types.BIGINT: 
+                    Array array = rsQuery.getArray(numColumna);
+                    if(array == null) {
+                        return "NULL";
+                    }
+                    return array.getArray().toString();
+                case java.sql.Types.BIGINT:
                     return Long.toString(rsQuery.getLong(numColumna));
                 case java.sql.Types.BINARY: 
                     return "BINARY";

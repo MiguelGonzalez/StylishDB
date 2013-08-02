@@ -6,7 +6,6 @@ import es.miguelgonzalezgomez.dataBaseFun.bd.ManejadorConsultaErrorSQL;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ManejadorConsultaNoHayConexion;
 import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
-import es.miguelgonzalezgomez.dataBaseFun.modelos.PestanaEditorListener;
 import es.miguelgonzalezgomez.dataBaseFun.qt.PanelConsultas;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalMostrarAviso;
 import es.miguelgonzalezgomez.dataBaseFun.qt.TablaResultadoConsulta;
