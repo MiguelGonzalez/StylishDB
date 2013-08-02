@@ -87,10 +87,12 @@ public class CEjecutarConsultas {
         List<String> columnas = manejadorConsultas.getNombresColumnas();
         tablaResultado.establecerColumnas(columnas);
         
-        while(manejadorConsultas.haySiguienteFila()) {
+        int numFilas = 0;
+        while(manejadorConsultas.haySiguienteFila() && numFilas < 100) {
             List<String> datosFila = manejadorConsultas.getFila();
             
             tablaResultado.anadirDatosFila(datosFila);
+            numFilas++;
         }
 
         panelConsultas.addTab(
