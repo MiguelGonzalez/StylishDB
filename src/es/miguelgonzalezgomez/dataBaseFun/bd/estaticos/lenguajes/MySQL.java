@@ -25,7 +25,8 @@ public class MySQL implements DatosBaseDatos {
         "INSERT",
         "DELETE",
         "DROP",
-        "TRUNCATE"
+        "TRUNCATE",
+        "SHOW"
     };
         
     public static String[] palabrasClavesReservadas = {
