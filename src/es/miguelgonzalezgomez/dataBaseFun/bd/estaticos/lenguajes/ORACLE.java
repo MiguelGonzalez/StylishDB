@@ -138,7 +138,7 @@ public class ORACLE implements DatosBaseDatos {
 
     @Override
     public boolean equals(TiposBasesDeDatos.TIPO_BASE_DATOS tipoBaseDatos) {
-        return tipoBaseDatos.equals(TiposBasesDeDatos.TIPO_BASE_DATOS.MYSQL);
+        return tipoBaseDatos.equals(TiposBasesDeDatos.TIPO_BASE_DATOS.ORACLE);
     }
     
     @Override

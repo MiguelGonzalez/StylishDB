@@ -1,7 +1,6 @@
 package es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.lenguajes;
 
 import es.miguelgonzalezgomez.dataBaseFun.bd.domain.TiposBasesDeDatos;
-import es.miguelgonzalezgomez.dataBaseFun.bd.domain.TiposBasesDeDatos.TIPO_BASE_DATOS;
 
 /**
  *
@@ -131,7 +130,7 @@ public class MySQL implements DatosBaseDatos {
 
     @Override
     public boolean equals(TiposBasesDeDatos.TIPO_BASE_DATOS tipoBaseDatos) {
-        return tipoBaseDatos.equals(TIPO_BASE_DATOS.MYSQL);
+        return tipoBaseDatos.equals(TiposBasesDeDatos.TIPO_BASE_DATOS.MYSQL);
     }
     
     @Override
