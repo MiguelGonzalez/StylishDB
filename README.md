@@ -31,6 +31,6 @@ Programación
 Capturas de pantalla
 ===========
 
-![My image](miguelgonzalez.github.com/DataBaseFun/imgReadme/User_MySQL.png)
+![ScreenShot](https://raw.github.com/miguelgonzalez/DataBaseFun/master/imgReadme/User_MySQL.png)
 
-![My image](miguelgonzalez.github.com/DataBaseFun/imgReadme/Version_MySQL.png)
+![ScreenShot](https://raw.github.com/miguelgonzalez/DataBaseFun/master/imgReadme/Version_MySQL.png)
