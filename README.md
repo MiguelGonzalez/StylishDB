@@ -27,3 +27,10 @@ Programación
 
 * JDK Java 7 (http://www.java.com/es/download/)
 * QT Jambi 4.7 (http://qt-jambi.org/downloads)
+
+Capturas de pantalla
+===========
+
+![My image](miguelgonzalez.github.com/DataBaseFun/imgReadme/User_MySQL.png)
+
+![My image](miguelgonzalez.github.com/DataBaseFun/imgReadme/Version_MySQL.png)
