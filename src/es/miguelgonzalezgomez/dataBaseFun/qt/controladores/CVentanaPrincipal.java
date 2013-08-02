@@ -8,7 +8,6 @@ import es.miguelgonzalezgomez.dataBaseFun.Preferencias;
 import es.miguelgonzalezgomez.dataBaseFun.PreferenciasException;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.qt.VentanaPrincipal;
-import es.miguelgonzalezgomez.dataBaseFun.qt.PanelMostrarConsultasRealizadas;
 import java.lang.reflect.Type;
 
 /**
@@ -50,7 +49,6 @@ public class CVentanaPrincipal {
                     fooType,
                     nombreFicheroPreferencias);
         } catch (PreferenciasException ex) {
-            ex.printStackTrace();
             cargarPropiedadesDefectoVentanaPrincipal();
         }
     }
