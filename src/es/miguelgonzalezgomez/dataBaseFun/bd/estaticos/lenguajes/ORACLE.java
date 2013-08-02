@@ -1,9 +1,6 @@
 package es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.lenguajes;
 
 import es.miguelgonzalezgomez.dataBaseFun.bd.domain.TiposBasesDeDatos;
-import static es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.lenguajes.MySQL.delimitadorConsulta;
-import static es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.lenguajes.MySQL.palabrasClaveComienzoConsulta;
-import static es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.lenguajes.MySQL.palabrasClaveEjecutarConsulta;
 
 /**
  *
