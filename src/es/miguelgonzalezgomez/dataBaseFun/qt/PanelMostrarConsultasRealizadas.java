@@ -15,7 +15,7 @@ public class PanelMostrarConsultasRealizadas extends QDockWidget {
     
     public PanelMostrarConsultasRealizadas(CPanelMostrarConsultasRealizadas controlador) {
         this.controlador = controlador;
-
+        
         establecerAreasPermitidas();
         establecerFuncionalidades();
     }
@@ -35,5 +35,5 @@ public class PanelMostrarConsultasRealizadas extends QDockWidget {
         setFeatures(qtFeatures);
     }
     
-    
+
 }

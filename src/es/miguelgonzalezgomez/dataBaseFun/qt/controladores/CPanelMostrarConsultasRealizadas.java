@@ -10,23 +10,21 @@ import es.miguelgonzalezgomez.dataBaseFun.qt.PanelMostrarConsultasRealizadas;
  */
 public class CPanelMostrarConsultasRealizadas {
     
-    private CEjecutarConsultas controladorEjecutarConsultas;
+    private CPanelPestanasMostrarConsultas controladorEjecutarConsultas;
     private PanelMostrarConsultasRealizadas panelConsultas;
     
     public CPanelMostrarConsultasRealizadas() {
         panelConsultas = new PanelMostrarConsultasRealizadas(this);
-        controladorEjecutarConsultas = new CEjecutarConsultas();
+        controladorEjecutarConsultas = new CPanelPestanasMostrarConsultas();
         
-        establecerPanelConsultas();
+        decorarPanelMostrarConsultas();
     }
     
-    private void establecerPanelConsultas() {
-        panelConsultas.setWidget(
-                controladorEjecutarConsultas.getPanelConsultas()
-        );
+    private void decorarPanelMostrarConsultas() {
         panelConsultas.setStyleSheet(
                 ObtencionEstilo.getEstiloVentana("widgetConsultas.css")
         );
+        panelConsultas.setWidget(controladorEjecutarConsultas.getPanelConsultas());
     }
     
     public QDockWidget getPanelMostrarConsultasRealizadas() {

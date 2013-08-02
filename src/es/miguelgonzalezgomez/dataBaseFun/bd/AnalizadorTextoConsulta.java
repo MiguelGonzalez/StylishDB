@@ -11,31 +11,35 @@ import java.util.List;
  */
 public class AnalizadorTextoConsulta {
 
-    private String textoConsulta;
-    private DatosBaseDatos datosBaseDatos;
+    private TIPO_BASE_DATOS tipoBaseDatos;
+    private String textoConsultaLanzar;
     
     private List<String> consultasSQL;
     
-    public AnalizadorTextoConsulta(
-            String textoConsulta,
-            TIPO_BASE_DATOS tipoBaseDeDatos) {
-        this.textoConsulta = textoConsulta;
-        this.datosBaseDatos = tipoBaseDeDatos.getDatosBaseDatos();
+    public AnalizadorTextoConsulta(TIPO_BASE_DATOS tipoBaseDatos, String textoConsultaLanzar) {
+        this.tipoBaseDatos = tipoBaseDatos;
+        this.textoConsultaLanzar = getConsultaFormateada(textoConsultaLanzar);
         
         consultasSQL = new ArrayList<>();
-
+        
         trocearTextoConsulta();
     }
     
-    public boolean isEjecutarQuery(int numeroQuery) {
+    public boolean isEjecutarQuery(TIPO_BASE_DATOS tipoBaseDeDatos,
+            int numeroQuery) {
         return isEjecutarQuery(
+                tipoBaseDeDatos,
                 consultasSQL.get(numeroQuery - 1)
         );
     }
     
-    public boolean isEjecutarQuery(String consultaSQL) {
-        for(String palabraEjecutarConsulta :
-                datosBaseDatos.getPalabrasClaveEjecutarConsulta()) {
+    public boolean isEjecutarQuery(TIPO_BASE_DATOS tipoBaseDeDatos,
+            String consultaSQL) {
+        DatosBaseDatos datosBaseDatos = tipoBaseDeDatos.getDatosBaseDatos();
+        String[] palabrasClaveEjecutarConsulta = datosBaseDatos.
+                getPalabrasClaveEjecutarConsulta();
+        
+        for(String palabraEjecutarConsulta : palabrasClaveEjecutarConsulta) {
             if(consultaSQL.trim().toLowerCase().startsWith(
                     palabraEjecutarConsulta.toLowerCase())) {
                 return true;
@@ -49,10 +53,18 @@ public class AnalizadorTextoConsulta {
     }
     
     private void trocearTextoConsulta() {
-        String textoConsultaCopia = textoConsulta;
+        String textoConsultaCopia = textoConsultaLanzar;
+        DatosBaseDatos datosBaseDatos = tipoBaseDatos.getDatosBaseDatos();
         
-        while(empiezaConsultaPalabraClave(textoConsultaCopia)) {
-            int delimitadorFinal = encontrarDelimitadorFinalConsulta(textoConsultaCopia);
+        String[] palabrasClaveComienzoConsulta = 
+                datosBaseDatos.getPalabrasClaveComienzoConsulta();
+        char delimitadorConsulta = datosBaseDatos.getDelimitadorConsulta();
+        
+        while(empiezaConsultaPalabraClave(palabrasClaveComienzoConsulta,
+                textoConsultaCopia)) {
+            int delimitadorFinal = encontrarDelimitadorFinalConsulta(
+                    delimitadorConsulta,
+                    textoConsultaCopia);
             
             if(delimitadorFinal != -1) {
                 String sqlEncontrada = textoConsultaCopia.substring(
@@ -72,8 +84,9 @@ public class AnalizadorTextoConsulta {
         }
     }
     
-    private boolean empiezaConsultaPalabraClave(String textoConsulta) {
-        for(String palabraClave : datosBaseDatos.getPalabrasClaveComienzoConsulta()) {
+    private boolean empiezaConsultaPalabraClave(String[] palabrasClaveComienzoConsulta,
+            String textoConsulta) {
+        for(String palabraClave : palabrasClaveComienzoConsulta) {
             if(textoConsulta.toLowerCase().startsWith(palabraClave.toLowerCase())) {
                 return true;
             }
@@ -81,7 +94,8 @@ public class AnalizadorTextoConsulta {
         return false;
     }
     
-    private int encontrarDelimitadorFinalConsulta(String textoConsulta) {
+    private int encontrarDelimitadorFinalConsulta(char delimitadorConsulta
+            ,String textoConsulta) {
         boolean abiertoComentarioSimple = false;
         boolean abiertoComentarioDoble = false;
         //ToDo: Mirar si el comentario está escapado o no
@@ -90,8 +104,7 @@ public class AnalizadorTextoConsulta {
                 abiertoComentarioDoble = !abiertoComentarioDoble;
             } else if(textoConsulta.charAt(i) == '\'') {
                 abiertoComentarioSimple = !abiertoComentarioSimple;
-            } else if(textoConsulta.charAt(i) == 
-                    datosBaseDatos.getDelimitadorConsulta().charAt(0) ) {
+            } else if(textoConsulta.charAt(i) == delimitadorConsulta ) {
                 if(!abiertoComentarioSimple && !abiertoComentarioDoble) {
                     return i;
                 }
@@ -102,5 +115,15 @@ public class AnalizadorTextoConsulta {
 
     public String getConsulta(int numConsultaLanzando) {
         return consultasSQL.get(numConsultaLanzando);
+    }
+    
+    private String getConsultaFormateada(String consultaSQL) {
+        consultaSQL = consultaSQL.replaceAll("\\r", "").
+                replaceAll("\\n", " ").
+                replaceAll("\\r\\n", " ").
+                replaceAll("" + (char)8233, "");
+        consultaSQL = consultaSQL.trim();
+        
+        return consultaSQL;
     }
 }

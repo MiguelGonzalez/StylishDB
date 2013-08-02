@@ -12,7 +12,7 @@ public class ORACLE implements DatosBaseDatos {
     public static String claseDriver = "oracle.jdbc.driver.OracleDriver";
     public static String puertoDriver = "1521";
     
-    public static String delimitadorConsulta = ";";
+    public static char delimitadorConsulta = ';';
 
     public static String[] palabrasClaveEjecutarConsulta = {
         "SELECT"
@@ -157,7 +157,7 @@ public class ORACLE implements DatosBaseDatos {
     }
     
     @Override
-    public String getDelimitadorConsulta() {
+    public char getDelimitadorConsulta() {
         return delimitadorConsulta;
     }
     

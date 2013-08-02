@@ -22,35 +22,17 @@ import java.util.List;
  */
 public class ManejadorConsulta {
 
-    private MConexion conexion;
-    
     private Connection connection = null;
     private Statement statement = null;
     private ResultSet rsQuery = null;
     
-    private int numConsultaLanzando;
-    private AnalizadorTextoConsulta analizadorTextoConsulta;
-    
     private List<Integer> tiposColumnaConsultaActual;
     
-    public ManejadorConsulta(
-            MConexion conexion,
-            String consultaSQL) {
-        this.conexion = conexion;
-        
-        numConsultaLanzando = 0;
-        analizadorTextoConsulta = new AnalizadorTextoConsulta(
-                consultaSQL,
-                conexion.tipoDeBaseDeDatos);
+    public ManejadorConsulta() {
     }
-    
-    public void conectarContraBaseDeDatos(String consultaSQL) throws
-            ManejadorConsultaErrorSQL,
-            ManejadorConsultaNoHayConexion {
-        conectar();
-    }
-    
-    private void conectar() throws ManejadorConsultaNoHayConexion {
+
+    public void conectarContraBaseDeDatos(MConexion conexion)
+            throws ManejadorConsultaNoHayConexion {
         String urlConexion = ObtenerUrlConexion.getUrlConexion(
                 conexion.tipoDeBaseDeDatos,
                 conexion.ip,
@@ -66,29 +48,13 @@ public class ManejadorConsulta {
         }
     }
     
-    public boolean next() {
-        if(analizadorTextoConsulta.numConsultasExistentes() > numConsultaLanzando) {
-            numConsultaLanzando++;
-            return true;
-        }
-        return false;
-    }
-    
-    public boolean isEjecutarQuery() {
-        return analizadorTextoConsulta.isEjecutarQuery(numConsultaLanzando);
-    }
-    
-    public void lanzarConsultaActual() throws ManejadorConsultaErrorSQL {
+    public void lanzarConsulta(String consultaSQL) throws ManejadorConsultaErrorSQL {
         try {
-            if(analizadorTextoConsulta.isEjecutarQuery(numConsultaLanzando)) {
-                statement = connection.createStatement();
-                rsQuery = statement.executeQuery(
-                        analizadorTextoConsulta.getConsulta(
-                                numConsultaLanzando - 1
-                        )
-                );
-                tiposColumnaConsultaActual = getTiposColumnas();
-            }
+            statement = connection.createStatement();
+            rsQuery = statement.executeQuery(
+                    consultaSQL
+            );
+            tiposColumnaConsultaActual = getTiposColumnas();
         } catch (SQLException ex) {
             throw new ManejadorConsultaErrorSQL(ex);
         }
@@ -252,7 +218,7 @@ public class ManejadorConsulta {
         return "";
     }
     
-    public void cerrarConsultaSQL() {
+    public void cerrarConexion() {
         if(rsQuery != null) {
             try {
                 rsQuery.close();

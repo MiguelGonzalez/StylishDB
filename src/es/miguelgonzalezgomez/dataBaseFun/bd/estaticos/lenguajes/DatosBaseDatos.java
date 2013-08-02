@@ -17,7 +17,7 @@ public interface DatosBaseDatos {
     public boolean tieneComentarioDeBloque();
     @Override
     public String toString();
-    public String getDelimitadorConsulta();
+    public char getDelimitadorConsulta();
     public String[] getPalabrasClaveEjecutarConsulta();
     public String[] getPalabrasClaveComienzoConsulta();
 }

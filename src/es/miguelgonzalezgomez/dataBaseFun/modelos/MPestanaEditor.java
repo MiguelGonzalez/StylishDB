@@ -53,4 +53,11 @@ public class MPestanaEditor {
     public int hashCode() {
         return uuidPestana.hashCode();
     }
+    
+    public String getTextoConsultaLanzar() {
+        if(hayTextoSeleccionado) {
+            return textoSeleccionado;
+        }
+        return contenidoTexto;
+    }
 }

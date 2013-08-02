@@ -9,9 +9,9 @@ import es.miguelgonzalezgomez.dataBaseFun.modelos.PestanaEditorListener;
  */
 public class CEjecutarConsultasEscuchaCambios implements PestanaEditorListener {
     
-    private CEjecutarConsultas controlador;
+    private CPanelPestanasMostrarConsultas controlador;
     
-    public CEjecutarConsultasEscuchaCambios(CEjecutarConsultas controlador) {
+    public CEjecutarConsultasEscuchaCambios(CPanelPestanasMostrarConsultas controlador) {
         this.controlador = controlador;
     }
     

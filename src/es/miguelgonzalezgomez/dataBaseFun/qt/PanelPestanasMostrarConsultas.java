@@ -2,17 +2,17 @@ package es.miguelgonzalezgomez.dataBaseFun.qt;
 
 import com.trolltech.qt.gui.QTabWidget;
 import com.trolltech.qt.gui.QWidget;
-import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CEjecutarConsultas;
+import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CPanelPestanasMostrarConsultas;
 
 /**
  *
  * @author Miguel González
  */
-public class PanelConsultas extends QTabWidget {
+public class PanelPestanasMostrarConsultas extends QTabWidget {
     
-    private CEjecutarConsultas controlador;
+    private CPanelPestanasMostrarConsultas controlador;
     
-    public PanelConsultas(CEjecutarConsultas controlador) {
+    public PanelPestanasMostrarConsultas(CPanelPestanasMostrarConsultas controlador) {
         this.controlador = controlador;
     }
     

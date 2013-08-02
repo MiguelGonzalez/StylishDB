@@ -12,7 +12,7 @@ public class MySQL implements DatosBaseDatos {
     public static String claseDriver = "com.mysql.jdbc.Driver";
     public static String puertoDriver = "3306";
     
-    public static String delimitadorConsulta = ";";
+    public static char delimitadorConsulta = ';';
 
     public static String[] palabrasClaveEjecutarConsulta = {
         "SELECT"
@@ -149,7 +149,7 @@ public class MySQL implements DatosBaseDatos {
     }
     
     @Override
-    public String getDelimitadorConsulta() {
+    public char getDelimitadorConsulta() {
         return delimitadorConsulta;
     }
     
