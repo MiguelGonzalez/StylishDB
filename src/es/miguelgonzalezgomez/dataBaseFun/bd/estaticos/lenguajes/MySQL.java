@@ -15,7 +15,8 @@ public class MySQL implements DatosBaseDatos {
     public static char delimitadorConsulta = ';';
 
     public static String[] palabrasClaveEjecutarConsulta = {
-        "SELECT"
+        "SELECT",
+        "SHOW"
     };
 
     public static String[] palabrasClaveComienzoConsulta = {
