@@ -31,6 +31,8 @@ public class ManejadorConsulta {
     private int numConsultaLanzando;
     private AnalizadorTextoConsulta analizadorTextoConsulta;
     
+    private List<Integer> tiposColumnaConsultaActual;
+    
     public ManejadorConsulta(
             MConexion conexion,
             String consultaSQL) {
@@ -85,6 +87,7 @@ public class ManejadorConsulta {
                                 numConsultaLanzando - 1
                         )
                 );
+                tiposColumnaConsultaActual = getTiposColumnas();
             }
         } catch (SQLException ex) {
             throw new ManejadorConsultaErrorSQL(ex);
@@ -93,7 +96,7 @@ public class ManejadorConsulta {
     
     public boolean haySiguienteFila() throws ManejadorConsultaErrorSQL {
         try {
-            return rsQuery.next();            
+            return rsQuery.next();
         } catch (SQLException ex) {
             throw new ManejadorConsultaErrorSQL(ex);
         }
@@ -122,13 +125,30 @@ public class ManejadorConsulta {
         return nombresColumnas;
     }
     
+    public List<Integer> getTiposColumnas() throws ManejadorConsultaErrorSQL {
+        List<Integer> tiposColumna = new ArrayList<>();
+        
+        try {
+            int numColumnas = getNumColumnas(); 
+            for(int i=1; i<=numColumnas; i++) {
+                int tipoColumna = rsQuery.getMetaData().getColumnType(i);
+                tiposColumna.add(tipoColumna);
+            }
+        } catch (SQLException ex) {
+            throw new ManejadorConsultaErrorSQL(ex);
+        }
+        
+        return tiposColumna;
+    }
+    
     public List<String> getFila() throws ManejadorConsultaErrorSQL {
         List<String> fila = new ArrayList<>();
         
         try {
             int numColumnas = getNumColumnas(); 
             for(int i=1; i<=numColumnas; i++) {
-                int tipoColumna = rsQuery.getMetaData().getColumnType(i);
+                int tipoColumna = tiposColumnaConsultaActual.get(i - 1).intValue();
+                
                 String datoColumna = getDatoColumna(i, tipoColumna);
                
                 fila.add(datoColumna);
