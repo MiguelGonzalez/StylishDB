@@ -14,7 +14,7 @@ public class ObtenerUrlConexion {
             String puerto,
             String sid) {
         if(TIPO_BASE_DATOS.MYSQL.equals(tipoBaseDeDatos)) {
-            return "jdbc:mysql://" + ip.trim() + ":" + puerto.trim() + "/" + sid.trim() + "?useUnicode=yes&characterEncoding=UTF-8";
+            return "jdbc:mysql://" + ip.trim() + ":" + puerto.trim() + "/" + sid.trim();
         } else if(TIPO_BASE_DATOS.ORACLE.equals(tipoBaseDeDatos)) {
             return "jdbc:oracle:thin:@" + ip.trim() + ":" + puerto.trim() + ":" + sid.trim();
         }
