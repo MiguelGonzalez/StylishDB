@@ -84,4 +84,9 @@ public class CEditor {
     public void cambiarAnteriorPestana() {
         editoresAplicacion.cambiarAnteriorPestana();
     }
+
+    public void establecerEditorVisible() {
+        editoresAplicacion.establecerPestanaActiva(
+                mPestanaEditor);
+    }
 }

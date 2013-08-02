@@ -1,16 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
 import com.google.gson.reflect.TypeToken;
+import com.trolltech.qt.core.Qt;
 import com.trolltech.qt.core.Qt.WindowStates;
 import es.miguelgonzalezgomez.dataBaseFun.configuracion.ConfiguracionVentanaPrincipal;
 import es.miguelgonzalezgomez.dataBaseFun.Preferencias;
 import es.miguelgonzalezgomez.dataBaseFun.PreferenciasException;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.qt.VentanaPrincipal;
+import es.miguelgonzalezgomez.dataBaseFun.qt.WidgetConsultas;
 import java.lang.reflect.Type;
 
 /**
@@ -26,10 +24,13 @@ public class CVentanaPrincipal {
     
     private CMenuSuperior controladorMenuSup;
     private CWidgetPestanasEditores controladorPestanasEditores;
+    private CEjecutarConsultas controladorEjecutarConsultas;
     
     public CVentanaPrincipal() {
         controladorMenuSup = new CMenuSuperior();
         controladorPestanasEditores = new CWidgetPestanasEditores();
+        controladorEjecutarConsultas = new CEjecutarConsultas();
+        
         prefs = Preferencias.getInstance();
         
         cargarPropiedadesVentanaPrincipal();
@@ -37,6 +38,7 @@ public class CVentanaPrincipal {
         
         establecerMenuSuperior();
         establecerPestanasEditores();
+        establecerWidgets();
         
         mostrarVentanaPrincipal();
     }
@@ -87,6 +89,18 @@ public class CVentanaPrincipal {
                 controladorPestanasEditores.
                         getVistaPestanasEditores()
         );
+    }
+    
+    private void establecerWidgets() {
+        WidgetConsultas widgetConsultas = new WidgetConsultas(ventanaPrincipal);
+        widgetConsultas.setWidget(
+                controladorEjecutarConsultas.getPanelConsultas()
+        );
+        
+        ventanaPrincipal.addDockWidget(
+                Qt.DockWidgetArea.BottomDockWidgetArea,
+                widgetConsultas,
+                Qt.Orientation.Horizontal);
     }
      
     private void posicionarVentanaPrincipal() {

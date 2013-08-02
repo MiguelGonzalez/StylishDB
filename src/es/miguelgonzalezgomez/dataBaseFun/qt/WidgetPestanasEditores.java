@@ -42,10 +42,8 @@ public class WidgetPestanasEditores extends QTabWidget {
     
     private boolean esCambiarSiguientePestana(QKeyEvent e) {
         Qt.KeyboardModifiers modifiers = e.modifiers();
-        if(
-                modifiers.isSet(Qt.KeyboardModifier.ControlModifier)) {
+        if(modifiers.isSet(Qt.KeyboardModifier.ControlModifier)) {
             if(e.key() == Qt.Key.Key_Tab.value()) {
-                System.out.println("TRUE");
                 return true;
             }
         }
@@ -56,8 +54,7 @@ public class WidgetPestanasEditores extends QTabWidget {
     private boolean esCambiarAnteriorPestana(QKeyEvent e) {
         Qt.KeyboardModifiers modifiers = e.modifiers();
         
-        if(
-                modifiers.isSet(Qt.KeyboardModifier.ControlModifier) &&
+        if(modifiers.isSet(Qt.KeyboardModifier.ControlModifier) &&
                 modifiers.isSet(Qt.KeyboardModifier.ShiftModifier)) {
             if(e.key() == Qt.Key.Key_Backtab.value()) {
                 return true;

@@ -91,4 +91,8 @@ public class EditorTexto extends QTextEdit {
         
         return false;
     }
+
+    public void establecerEditorVisible() {
+        controlador.establecerEditorVisible();
+    }
 }

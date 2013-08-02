@@ -4,7 +4,9 @@ import com.trolltech.qt.gui.QTabWidget;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ManejadorConsulta;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ManejadorConsultaErrorSQL;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ManejadorConsultaNoHayConexion;
+import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
+import es.miguelgonzalezgomez.dataBaseFun.modelos.PestanaEditorListener;
 import es.miguelgonzalezgomez.dataBaseFun.qt.PanelConsultas;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalMostrarAviso;
 import es.miguelgonzalezgomez.dataBaseFun.qt.TablaResultadoConsulta;
@@ -16,22 +18,28 @@ import java.util.List;
  */
 public class CEjecutarConsultas {
 
+    private CEjecutarConsultasEscuchaCambios escuchaCambiosConsultas;
+    private GEditoresAplicacion editoresAplicacion;
     private PanelConsultas panelConsultas;
     
     private MPestanaEditor mPestanaEditor;
     private ManejadorConsulta manejadorConsultas;
-    private CEditor controladorEditor;
     
     public CEjecutarConsultas() {
         panelConsultas = new PanelConsultas(this);
+        escuchaCambiosConsultas = new CEjecutarConsultasEscuchaCambios(this);
+        editoresAplicacion = new GEditoresAplicacion();
+        
+        inicializarEscuchaCambios();
+    }
+    
+    private void inicializarEscuchaCambios() {
+        editoresAplicacion.addPestanasEditorListener(escuchaCambiosConsultas);
     }
 
-    
-    public void lanzarConsultaTexto(MPestanaEditor mPestanaEditor,
-            CEditor controladorEditor) {
-        this.controladorEditor = controladorEditor;
-        
+    public void lanzarConsultaTexto(MPestanaEditor mPestanaEditor) {
         this.mPestanaEditor = mPestanaEditor;
+
         manejadorConsultas = new ManejadorConsulta(
                 mPestanaEditor.mConexion,
                 getConsultaFormateada()

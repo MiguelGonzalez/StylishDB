@@ -2,7 +2,7 @@ package es.miguelgonzalezgomez.dataBaseFun.gestionadores;
 
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
-import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CWidgetPestanasEditoresEscuchaCambios;
+import es.miguelgonzalezgomez.dataBaseFun.modelos.PestanaEditorListener;
 import java.util.List;
 
 /**
@@ -53,7 +53,7 @@ public class GEditoresAplicacion {
         return aplicacion.mPestanasEditorAbiertas.getPestanaActiva();
     }
 
-    public void addPestanasEditorListener(CWidgetPestanasEditoresEscuchaCambios
+    public void addPestanasEditorListener(PestanaEditorListener
             escuchaCambiosPestana) {
         aplicacion.mPestanasEditorAbiertas.addPestanaEditorListener(
                 escuchaCambiosPestana);

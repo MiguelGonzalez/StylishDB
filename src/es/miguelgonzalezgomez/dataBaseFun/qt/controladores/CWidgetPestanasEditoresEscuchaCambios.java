@@ -49,7 +49,6 @@ public class CWidgetPestanasEditoresEscuchaCambios implements PestanaEditorListe
 
     @Override
     public void ejecutarConsultaPestanaEditor(MPestanaEditor pestanaEditorEditada) {
-        controlador.ejecutarConsultaPestanaEditor(pestanaEditorEditada);
     }
 
     @Override
