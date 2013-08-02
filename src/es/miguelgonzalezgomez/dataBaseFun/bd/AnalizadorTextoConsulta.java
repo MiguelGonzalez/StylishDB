@@ -60,7 +60,7 @@ public class AnalizadorTextoConsulta {
                 consultasSQL.add(sqlEncontrada);
                 
                 textoConsultaCopia = textoConsultaCopia.substring(
-                        delimitadorFinal + 1).toString();
+                        delimitadorFinal + 1).trim();
             } else {
                 consultasSQL.add(textoConsultaCopia.trim());
                 textoConsultaCopia = "";

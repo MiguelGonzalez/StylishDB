@@ -3,11 +3,16 @@ package es.miguelgonzalezgomez.dataBaseFun.bd;
 import es.miguelgonzalezgomez.dataBaseFun.bd.domain.ObtenerUrlConexion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import java.sql.Array;
+import java.sql.Blob;
+import java.sql.Clob;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.NClob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -152,17 +157,20 @@ public class ManejadorConsulta {
                 case java.sql.Types.BIT: 
                     return "BIT";
                 case java.sql.Types.BLOB: 
-                    return rsQuery.getBlob(numColumna).toString();
+                    Blob blob = rsQuery.getBlob(numColumna);
+                    return blob == null ? "NULL" : blob.toString();
                 case java.sql.Types.BOOLEAN:
                     return Boolean.toString(rsQuery.getBoolean(numColumna));
                 case java.sql.Types.CHAR: 
                     return rsQuery.getString(numColumna);
                 case java.sql.Types.CLOB: 
-                    return rsQuery.getClob(numColumna).toString();
+                    Clob clob = rsQuery.getClob(numColumna);
+                    return clob == null ? "NULL" : clob.toString();
                 case java.sql.Types.DATALINK: 
                     return "DATALINK";
                 case java.sql.Types.DATE: 
-                    return rsQuery.getDate(numColumna).toString();
+                    Date date = rsQuery.getDate(numColumna);
+                    return date == null ? "NULL" : date.toString();
                 case java.sql.Types.DECIMAL: 
                     return Double.toString(rsQuery.getDouble(numColumna));
                 case java.sql.Types.DISTINCT: 
@@ -184,7 +192,8 @@ public class ManejadorConsulta {
                 case java.sql.Types.NCHAR: 
                     return rsQuery.getNString(numColumna);
                 case java.sql.Types.NCLOB: 
-                    return rsQuery.getNClob(numColumna).toString();
+                    NClob nClob = rsQuery.getNClob(numColumna);
+                    return nClob == null? "NULL" : nClob.toString();
                 case java.sql.Types.NULL: 
                     return "NULL";
                 case java.sql.Types.NUMERIC: 
@@ -208,7 +217,8 @@ public class ManejadorConsulta {
                 case java.sql.Types.TIME: 
                     return rsQuery.getTime(numColumna).toString();
                 case java.sql.Types.TIMESTAMP: 
-                    return rsQuery.getTimestamp(numColumna).toString();
+                    Timestamp timestamp = rsQuery.getTimestamp(numColumna);
+                    return timestamp == null? "NULL" : timestamp.toString();
                 case java.sql.Types.TINYINT: 
                     return Integer.toString(rsQuery.getInt(numColumna));
                 case java.sql.Types.VARBINARY: 
