@@ -96,7 +96,9 @@ public class CVentanaPrincipal {
         widgetConsultas.setWidget(
                 controladorEjecutarConsultas.getPanelConsultas()
         );
-        
+        widgetConsultas.setStyleSheet(
+                ObtencionEstilo.getEstiloVentana("widgetConsultas.css")
+        );
         ventanaPrincipal.addDockWidget(
                 Qt.DockWidgetArea.BottomDockWidgetArea,
                 widgetConsultas,
