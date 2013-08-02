@@ -8,7 +8,7 @@ import es.miguelgonzalezgomez.dataBaseFun.Preferencias;
 import es.miguelgonzalezgomez.dataBaseFun.PreferenciasException;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.qt.VentanaPrincipal;
-import es.miguelgonzalezgomez.dataBaseFun.qt.WidgetConsultas;
+import es.miguelgonzalezgomez.dataBaseFun.qt.PanelMostrarConsultasRealizadas;
 import java.lang.reflect.Type;
 
 /**
@@ -24,12 +24,12 @@ public class CVentanaPrincipal {
     
     private CMenuSuperior controladorMenuSup;
     private CWidgetPestanasEditores controladorPestanasEditores;
-    private CEjecutarConsultas controladorEjecutarConsultas;
+    private CPanelMostrarConsultasRealizadas controladorConsultasRealizadas;
     
     public CVentanaPrincipal() {
         controladorMenuSup = new CMenuSuperior();
         controladorPestanasEditores = new CWidgetPestanasEditores();
-        controladorEjecutarConsultas = new CEjecutarConsultas();
+        controladorConsultasRealizadas = new CPanelMostrarConsultasRealizadas();
         
         prefs = Preferencias.getInstance();
         
@@ -92,16 +92,9 @@ public class CVentanaPrincipal {
     }
     
     private void establecerWidgets() {
-        WidgetConsultas widgetConsultas = new WidgetConsultas(ventanaPrincipal);
-        widgetConsultas.setWidget(
-                controladorEjecutarConsultas.getPanelConsultas()
-        );
-        widgetConsultas.setStyleSheet(
-                ObtencionEstilo.getEstiloVentana("widgetConsultas.css")
-        );
         ventanaPrincipal.addDockWidget(
                 Qt.DockWidgetArea.BottomDockWidgetArea,
-                widgetConsultas,
+                controladorConsultasRealizadas.getPanelMostrarConsultasRealizadas(),
                 Qt.Orientation.Horizontal);
     }
      
