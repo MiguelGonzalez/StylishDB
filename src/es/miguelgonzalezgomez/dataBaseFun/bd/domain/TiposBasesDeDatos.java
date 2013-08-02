@@ -35,15 +35,10 @@ public class TiposBasesDeDatos {
         }
         
         private void inicializarDatosBaseDatos() {
-            if(datosBaseDatos == null) {
-                switch(identificadorUnico) {
-                    case 1:
-                        datosBaseDatos = new MySQL();
-                        break;
-                    case 2:
-                        datosBaseDatos = new ORACLE();
-                        break;
-                }
+            if(this == TIPO_BASE_DATOS.MYSQL) {
+                datosBaseDatos = new MySQL();
+            } else if (this == TIPO_BASE_DATOS.ORACLE) {
+                datosBaseDatos = new ORACLE();
             }
         }
     };
