@@ -43,10 +43,10 @@ public class TiposBasesDeDatos {
     }
     
     public static TIPO_BASE_DATOS devolverTipoBaseDatos(String nombreBaseDatos) {
-        if(nombreBaseDatos.equals(TIPO_BASE_DATOS.MYSQL)) {
+        if(nombreBaseDatos.equals(TIPO_BASE_DATOS.MYSQL.toString())) {
             return TIPO_BASE_DATOS.MYSQL;
         }
-        if(nombreBaseDatos.equals(TIPO_BASE_DATOS.ORACLE)) {
+        if(nombreBaseDatos.equals(TIPO_BASE_DATOS.ORACLE.toString())) {
             return TIPO_BASE_DATOS.ORACLE;
         }
         
