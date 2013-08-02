@@ -1,5 +1,6 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
+import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.pestanaVistaResultado.CPestanaMostrarConsulta;
 import com.trolltech.qt.gui.QTabWidget;
 import es.miguelgonzalezgomez.dataBaseFun.bd.AnalizadorTextoConsulta;
 import es.miguelgonzalezgomez.dataBaseFun.bd.domain.TiposBasesDeDatos.TIPO_BASE_DATOS;

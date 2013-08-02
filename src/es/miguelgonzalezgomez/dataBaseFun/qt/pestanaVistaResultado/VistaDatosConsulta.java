@@ -1,34 +1,54 @@
-package es.miguelgonzalezgomez.dataBaseFun.qt;
+package es.miguelgonzalezgomez.dataBaseFun.qt.pestanaVistaResultado;
 
+import com.trolltech.qt.gui.QGridLayout;
 import com.trolltech.qt.gui.QTableWidget;
 import com.trolltech.qt.gui.QTableWidgetItem;
 import com.trolltech.qt.gui.QVBoxLayout;
 import com.trolltech.qt.gui.QWidget;
-import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CPestanaMostrarConsulta;
+import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.pestanaVistaResultado.CVistaDatosConsulta;
 import java.util.List;
 
 /**
  *
  * @author Miguel González
  */
-public class PestanaMostrarResultadoConsulta extends QWidget {
-    
-    private QTableWidget tablaResultadoConsulta;
-    private CPestanaMostrarConsulta controlador;
-    
-    public PestanaMostrarResultadoConsulta(CPestanaMostrarConsulta controlador) {
-        this.controlador = controlador;
-        tablaResultadoConsulta = new QTableWidget();
-        
-        establecerLayout();
-    }
-    
-    private void establecerLayout() {
-        QVBoxLayout widgetLayout = new QVBoxLayout();
-        widgetLayout.addWidget(tablaResultadoConsulta);
-        setLayout(widgetLayout);
-    }
+public class VistaDatosConsulta extends QWidget {
 
+    private QTableWidget tablaResultadoConsulta;
+    
+    private CVistaDatosConsulta controlador;
+    
+    public VistaDatosConsulta(CVistaDatosConsulta controlador) {
+        this.controlador = controlador;
+        
+        crearComponentesInterfaz();
+        
+        posicionarComponentesInterfaz();
+    }
+    
+    private void crearComponentesInterfaz() {
+        tablaResultadoConsulta = new QTableWidget();
+    }
+    
+    
+    private void posicionarComponentesInterfaz() {
+        QVBoxLayout ventanaLayout = new QVBoxLayout();
+        
+        ventanaLayout.addLayout(
+                getLayoutDatosConsulta()
+        );
+        
+        setLayout(ventanaLayout);
+    }
+    
+    private QGridLayout getLayoutDatosConsulta() {
+        QGridLayout datosGridConsulta = new QGridLayout();
+        
+        datosGridConsulta.addWidget(tablaResultadoConsulta, 0, 0);
+        
+        return datosGridConsulta;
+    }
+    
     public void establecerColumnas(List<String> columnas) {
         tablaResultadoConsulta.setColumnCount(columnas.size());
         tablaResultadoConsulta.setHorizontalHeaderLabels(columnas);
@@ -52,4 +72,6 @@ public class PestanaMostrarResultadoConsulta extends QWidget {
 
         tablaResultadoConsulta.resizeColumnsToContents();
     }
+    
+    
 }
