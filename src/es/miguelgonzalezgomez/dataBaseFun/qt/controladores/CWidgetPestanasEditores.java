@@ -88,7 +88,7 @@ public class CWidgetPestanasEditores {
         
         int index = widgetPestanasEditores.addTab(
                 cPestanaEditor.getPestanaEditor(),
-                pestanaEditor.mConexion.nombre
+                pestanaEditor.nombrePestana
         );
         widgetPestanasEditores.setCurrentIndex(index);
     }

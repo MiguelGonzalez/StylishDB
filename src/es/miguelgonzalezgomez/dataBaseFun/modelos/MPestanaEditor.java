@@ -29,12 +29,12 @@ public class MPestanaEditor {
     @Override
     public MPestanaEditor clone() {
         MPestanaEditor mPestanaEditor = new MPestanaEditor(mConexion);
-        mPestanaEditor.contenidoTexto = contenidoTexto;
-        mPestanaEditor.nombrePestana = nombrePestana;
         mPestanaEditor.uuidPestana = uuidPestana;
+        mPestanaEditor.nombrePestana = nombrePestana;
+        mPestanaEditor.contenidoTexto = contenidoTexto;
         mPestanaEditor.hayTextoSeleccionado = hayTextoSeleccionado;
         mPestanaEditor.textoSeleccionado = textoSeleccionado;
-        
+
         return mPestanaEditor;
     }
     
