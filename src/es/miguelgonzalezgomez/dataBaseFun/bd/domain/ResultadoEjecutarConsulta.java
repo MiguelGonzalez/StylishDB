@@ -10,12 +10,12 @@ import java.util.List;
 public class ResultadoEjecutarConsulta {
     
     public int numColumnas;
-    public List<Integer> tipoColumnas;
+    public List<DatosColumna> datosColumnas;
     public List<String> nombresColumnas;
     public List<String[]> datosFila;
     
     public ResultadoEjecutarConsulta() {
-        tipoColumnas = new ArrayList<>();
+        datosColumnas = new ArrayList<>();
         nombresColumnas = new ArrayList<>();
         datosFila = new ArrayList<>();
     }

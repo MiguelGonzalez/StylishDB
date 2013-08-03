@@ -1,5 +1,6 @@
 package es.miguelgonzalezgomez.dataBaseFun.bd;
 
+import es.miguelgonzalezgomez.dataBaseFun.bd.domain.DatosColumna;
 import es.miguelgonzalezgomez.dataBaseFun.bd.domain.ObtenerUrlConexion;
 import es.miguelgonzalezgomez.dataBaseFun.bd.domain.ResultadoEjecutarConsulta;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
@@ -11,6 +12,7 @@ import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.NClob;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
@@ -74,7 +76,7 @@ public class ManejadorConsulta {
     }
     
     private void rellenarDatosConsultaEjecutada() throws ManejadorConsultaErrorSQL {
-        resultadoEjecutar.tipoColumnas = getTiposColumnas();
+        resultadoEjecutar.datosColumnas = getTiposColumnas();
         resultadoEjecutar.numColumnas = getNumColumnas();
         resultadoEjecutar.nombresColumnas = getNombresColumnas();
 
@@ -116,14 +118,15 @@ public class ManejadorConsulta {
         return nombresColumnas;
     }
     
-    private List<Integer> getTiposColumnas() throws ManejadorConsultaErrorSQL {
-        List<Integer> tiposColumna = new ArrayList<>();
+    private List<DatosColumna> getTiposColumnas() throws ManejadorConsultaErrorSQL {
+        List<DatosColumna> tiposColumna = new ArrayList<>();
         
         try {
             int numColumnas = getNumColumnas(); 
             for(int i=1; i<=numColumnas; i++) {
-                int tipoColumna = rsQuery.getMetaData().getColumnType(i);
-                tiposColumna.add(tipoColumna);
+                tiposColumna.add(
+                        getDatosColumna(i)
+                );
             }
         } catch (SQLException ex) {
             throw new ManejadorConsultaErrorSQL(ex);
@@ -132,15 +135,37 @@ public class ManejadorConsulta {
         return tiposColumna;
     }
     
+    private DatosColumna getDatosColumna(int numColumna) throws SQLException {
+        DatosColumna datosColumna = new DatosColumna();
+        ResultSetMetaData rsMetaData = rsQuery.getMetaData();
+        
+        datosColumna.columnLabel = rsMetaData.getColumnLabel(numColumna);
+        datosColumna.columnName = rsMetaData.getColumnName(numColumna);
+        datosColumna.catalogName = rsMetaData.getCatalogName(numColumna);
+        datosColumna.schemaName = rsMetaData.getSchemaName(numColumna);
+        datosColumna.tableName = rsMetaData.getTableName(numColumna);
+        datosColumna.columnType = rsMetaData.getColumnType(numColumna);
+        datosColumna.columnTypeName = rsMetaData.getColumnTypeName(numColumna);
+        datosColumna.columnClassName = rsMetaData.getColumnClassName(numColumna);
+        datosColumna.isReadOnly = rsMetaData.isReadOnly(numColumna);
+        datosColumna.isAutoIncrement = rsMetaData.isAutoIncrement(numColumna);
+        datosColumna.isNullable = rsMetaData.isNullable(numColumna);
+        datosColumna.precission = rsMetaData.getPrecision(numColumna);
+        datosColumna.scale = rsMetaData.getScale(numColumna);
+        
+        return datosColumna;
+        
+    }
+    
     private String[] getFila(ResultadoEjecutarConsulta resultado)
             throws ManejadorConsultaErrorSQL {
         String[] datosFila = new String[resultado.numColumnas];
         
         try {
             for(int i=1; i<=resultado.numColumnas; i++) {
-                int tipoColumna = resultado.tipoColumnas.get(i - 1).intValue();
+                DatosColumna datosColumna = resultado.datosColumnas.get(i - 1);
                 
-                String datoColumna = getDatoColumna(i, tipoColumna);
+                String datoColumna = getDatoColumna(i, datosColumna.columnType);
                
                 datosFila[i-1] = datoColumna;
             }
