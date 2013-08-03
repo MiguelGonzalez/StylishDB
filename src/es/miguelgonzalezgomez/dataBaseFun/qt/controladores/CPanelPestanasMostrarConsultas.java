@@ -1,12 +1,15 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
+import com.trolltech.qt.QSignalEmitter;
 import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.pestanaVistaResultado.CPestanaMostrarConsulta;
 import com.trolltech.qt.gui.QTabWidget;
+import com.trolltech.qt.gui.QWidget;
 import es.miguelgonzalezgomez.dataBaseFun.bd.AnalizadorTextoConsulta;
 import es.miguelgonzalezgomez.dataBaseFun.bd.domain.TiposBasesDeDatos.TIPO_BASE_DATOS;
 import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
 import es.miguelgonzalezgomez.dataBaseFun.qt.PanelPestanasMostrarConsultas;
+import es.miguelgonzalezgomez.dataBaseFun.qt.pestanaVistaResultado.PestanaMostrarResultadoConsulta;
 
 /**
  *
@@ -51,7 +54,7 @@ public class CPanelPestanasMostrarConsultas {
                                 mPestanaEditor.mConexion,
                                 trozoConsultaSQL);
                 panelConsultas.addTab(
-                        "Consulta",
+                        "Ejecutar consulta",
                         cPestanaMostrarConsulta.getPestanaResultado()
                 );
                 
@@ -65,5 +68,7 @@ public class CPanelPestanasMostrarConsultas {
         
     }
     
-    
+    protected void cerrarPestana(int indexPestana) {
+        panelConsultas.removeTab(indexPestana);
+    }
 }

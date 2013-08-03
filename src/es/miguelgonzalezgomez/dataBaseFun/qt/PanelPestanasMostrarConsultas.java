@@ -14,6 +14,14 @@ public class PanelPestanasMostrarConsultas extends QTabWidget {
     
     public PanelPestanasMostrarConsultas(CPanelPestanasMostrarConsultas controlador) {
         this.controlador = controlador;
+        
+        setTabsClosable(true);
+        
+        iniciarEventos();
+    }
+    
+    private void iniciarEventos() {
+        tabCloseRequested.connect(controlador, "cerrarPestana(int)");
     }
     
     public void addTab(String name, QWidget widget) {
