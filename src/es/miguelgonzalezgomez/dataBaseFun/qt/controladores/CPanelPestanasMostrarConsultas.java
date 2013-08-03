@@ -1,15 +1,13 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
-import com.trolltech.qt.QSignalEmitter;
 import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.pestanaVistaResultado.CPestanaMostrarConsulta;
 import com.trolltech.qt.gui.QTabWidget;
-import com.trolltech.qt.gui.QWidget;
 import es.miguelgonzalezgomez.dataBaseFun.bd.AnalizadorTextoConsulta;
 import es.miguelgonzalezgomez.dataBaseFun.bd.domain.TiposBasesDeDatos.TIPO_BASE_DATOS;
 import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
+import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
 import es.miguelgonzalezgomez.dataBaseFun.qt.PanelPestanasMostrarConsultas;
-import es.miguelgonzalezgomez.dataBaseFun.qt.pestanaVistaResultado.PestanaMostrarResultadoConsulta;
 
 /**
  *
@@ -34,33 +32,55 @@ public class CPanelPestanasMostrarConsultas {
     }
 
     public void lanzarConsultaTexto(MPestanaEditor mPestanaEditor) {
-        TIPO_BASE_DATOS tipoBaseDatos = mPestanaEditor.mConexion.tipoDeBaseDeDatos;
+        MConexion mConexion = mPestanaEditor.mConexion;
         String textoConsultaLanzar = mPestanaEditor.getTextoConsultaLanzar();
         
         AnalizadorTextoConsulta analizarTextoConsulta = new AnalizadorTextoConsulta(
-                tipoBaseDatos,
-                textoConsultaLanzar
+                mConexion.tipoDeBaseDeDatos, textoConsultaLanzar
         );
         
-        for(int i=0; i<analizarTextoConsulta.numConsultasExistentes(); i++) {
+        int numeroConsultasAnalizadas = analizarTextoConsulta.numConsultasExistentes();
+        for(int i=0; i<numeroConsultasAnalizadas; i++) {
             String trozoConsultaSQL = analizarTextoConsulta.getConsulta(i);
             
-            if(analizarTextoConsulta.isEjecutarQuery(
-                    tipoBaseDatos,
-                    trozoConsultaSQL)) {
-                
-                CPestanaMostrarConsulta cPestanaMostrarConsulta = new
-                        CPestanaMostrarConsulta(
-                                mPestanaEditor.mConexion,
-                                trozoConsultaSQL);
-                panelConsultas.addTab(
-                        "Ejecutar consulta",
-                        cPestanaMostrarConsulta.getPestanaResultado()
-                );
-                
-            }
-            //ToDo: Agregar ejecutar updates
+            lanzarConsulta(
+                    mPestanaEditor.mConexion,
+                    analizarTextoConsulta,
+                    trozoConsultaSQL
+            );
         }
+    }
+    
+    private void lanzarConsulta(
+            MConexion mConexion,
+            AnalizadorTextoConsulta analizarTextoConsulta,
+            String consultaSQL) {
+        
+        
+        if(analizarTextoConsulta.isEjecutarQuery(consultaSQL)) {
+            lanzarEjecutarQuery(
+                    mConexion, consultaSQL
+            );
+        } else {
+            lanzarUpdateQuery(
+                    mConexion, consultaSQL
+            );
+        }
+    }
+    
+    private void lanzarEjecutarQuery(MConexion mConexion, String consultaSQL) {
+        CPestanaMostrarConsulta cPestanaMostrarConsulta = new
+                CPestanaMostrarConsulta(
+                        mConexion,
+                        consultaSQL);
+        panelConsultas.addTab(
+                "Ejecutar consulta",
+                cPestanaMostrarConsulta.getPestanaResultado()
+        );
+    }
+    
+    private void lanzarUpdateQuery(MConexion mConexion, String consultaSQL) {
+        //ToDo: Hacer Upadte query
     }
     
     public QTabWidget getPanelConsultas() {

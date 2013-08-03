@@ -21,7 +21,9 @@ public class AnalizadorTextoConsulta {
     private QRegExp commentEndExpression;
     private QRegExp patronDobleLinea;
     
-    public AnalizadorTextoConsulta(TIPO_BASE_DATOS tipoBaseDatos, String textoConsultaLanzar) {
+    public AnalizadorTextoConsulta(
+            TIPO_BASE_DATOS tipoBaseDatos,
+            String textoConsultaLanzar) {
         this.tipoBaseDatos = tipoBaseDatos;
         
         commentStartExpression = new QRegExp("/\\*");
@@ -35,17 +37,14 @@ public class AnalizadorTextoConsulta {
         trocearTextoConsulta();
     }
     
-    public boolean isEjecutarQuery(TIPO_BASE_DATOS tipoBaseDeDatos,
-            int numeroQuery) {
+    public boolean isEjecutarQuery(int numeroQuery) {
         return isEjecutarQuery(
-                tipoBaseDeDatos,
                 consultasSQL.get(numeroQuery - 1)
         );
     }
     
-    public boolean isEjecutarQuery(TIPO_BASE_DATOS tipoBaseDeDatos,
-            String consultaSQL) {
-        DatosBaseDatos datosBaseDatos = tipoBaseDeDatos.getDatosBaseDatos();
+    public boolean isEjecutarQuery(String consultaSQL) {
+        DatosBaseDatos datosBaseDatos = tipoBaseDatos.getDatosBaseDatos();
         String[] palabrasClaveEjecutarConsulta = datosBaseDatos.
                 getPalabrasClaveEjecutarConsulta();
         
