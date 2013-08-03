@@ -1,5 +1,6 @@
 package es.miguelgonzalezgomez.dataBaseFun.modelos;
 
+import es.miguelgonzalezgomez.dataBaseFun.bd.domain.ObtenerUrlConexion;
 import es.miguelgonzalezgomez.dataBaseFun.bd.domain.TiposBasesDeDatos.TIPO_BASE_DATOS;
 import java.util.UUID;
 
@@ -52,5 +53,13 @@ public class MConexion {
     @Override
     public int hashCode() {
         return uuidConexion.hashCode();
+    }
+    
+    public String getUrlConexion() {
+        return ObtenerUrlConexion.getUrlConexion(
+                tipoDeBaseDeDatos,
+                ip,
+                puerto,
+                sid);
     }
 }

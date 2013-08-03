@@ -24,7 +24,8 @@ public class CPestanaMostrarConsulta {
     private MConexion mConexion;
     private ResultadoEjecutarConsulta resultado;
     
-    public CPestanaMostrarConsulta(MConexion mConexion,
+    public CPestanaMostrarConsulta(
+            MConexion mConexion,
             String consultaSQL) {
         this.consultaSQL = consultaSQL;
         this.mConexion = mConexion;
@@ -34,7 +35,10 @@ public class CPestanaMostrarConsulta {
     }
     
     private void crearControladoresYComponentes() {
-        manejadorConsulta = new ManejadorConsulta();
+        manejadorConsulta = new ManejadorConsulta(
+                mConexion,
+                consultaSQL
+        );
         controladorVistaDatosConsulta = new CVistaDatosConsulta();
         
         pestanaResultado = new PestanaMostrarResultadoConsulta(this);
@@ -58,7 +62,7 @@ public class CPestanaMostrarConsulta {
     
     private boolean conectarContraBaseDeDatos() {
         try {
-            manejadorConsulta.conectarContraBaseDeDatos(mConexion);
+            manejadorConsulta.conectarContraBaseDeDatos();
             return true;
         } catch (ManejadorConsultaNoHayConexion ex) {
             mostrarErrorEnPantalla(
@@ -71,8 +75,7 @@ public class CPestanaMostrarConsulta {
     
     private boolean ejecutarConsulta() {
         try {
-            resultado = 
-                    manejadorConsulta.ejecutarConsulta(mConexion, consultaSQL);
+            manejadorConsulta.ejecutarConsulta();
             return true;
         } catch (ManejadorConsultaErrorSQL ex) {
             mostrarErrorEnPantalla(
@@ -84,7 +87,9 @@ public class CPestanaMostrarConsulta {
     }
     
     private void pintarRespuestaConsulta() {
-        controladorVistaDatosConsulta.pintarDatosConsulta(resultado);
+        controladorVistaDatosConsulta.pintarDatosConsulta(
+                manejadorConsulta.getDatosConsultaEjecutada()
+        );
     }
 
     

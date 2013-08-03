@@ -27,49 +27,62 @@ public class ManejadorConsulta {
     private Statement statement = null;
     private ResultSet rsQuery = null;
     
-    public ManejadorConsulta() {
+    private MConexion mConexion;
+    private String consultaSQL;
+    private ResultadoEjecutarConsulta resultadoEjecutar;
+
+    public ManejadorConsulta(MConexion mConexion, String consultaSQL) {
+        this.mConexion = mConexion;
+        this.consultaSQL = consultaSQL;
+        
+        resultadoEjecutar= new ResultadoEjecutarConsulta();
     }
 
-    public void conectarContraBaseDeDatos(MConexion conexion)
+    public void conectarContraBaseDeDatos()
             throws ManejadorConsultaNoHayConexion {
-        String urlConexion = ObtenerUrlConexion.getUrlConexion(
-                conexion.tipoDeBaseDeDatos,
-                conexion.ip,
-                conexion.puerto,
-                conexion.sid);
         try {
+            String urlConexion = mConexion.getUrlConexion();
             connection = DriverManager.getConnection(
                     urlConexion,
-                    conexion.usuario,
-                    conexion.password);
+                    mConexion.usuario,
+                    mConexion.password
+            );
         } catch (SQLException ex) {
             throw new ManejadorConsultaNoHayConexion(ex);
         }
     }
     
-    public ResultadoEjecutarConsulta ejecutarConsulta(
-            MConexion conexion,
-            String consultaSQL)
+    public void ejecutarConsulta()
             throws ManejadorConsultaErrorSQL {
-        ResultadoEjecutarConsulta resultado = new ResultadoEjecutarConsulta();
+        
         try {
             statement = connection.createStatement();
             rsQuery = statement.executeQuery(
                     consultaSQL
             );
-            resultado.tipoColumnas = getTiposColumnas();
-            resultado.numColumnas = getNumColumnas();
-            resultado.nombresColumnas = getNombresColumnas();
-            
-            while(haySiguienteFila()) {
-                resultado.datosFila.add(getFila(resultado));
-            }
+
+            rellenarDatosConsultaEjecutada();
         } catch (SQLException ex) {
             throw new ManejadorConsultaErrorSQL(ex);
         } finally {
             cerrarConexion();
         }
-        return resultado;
+    }
+    
+    public ResultadoEjecutarConsulta getDatosConsultaEjecutada() {
+        return resultadoEjecutar;
+    }
+    
+    private void rellenarDatosConsultaEjecutada() throws ManejadorConsultaErrorSQL {
+        resultadoEjecutar.tipoColumnas = getTiposColumnas();
+        resultadoEjecutar.numColumnas = getNumColumnas();
+        resultadoEjecutar.nombresColumnas = getNombresColumnas();
+
+        while(haySiguienteFila()) {
+            resultadoEjecutar.datosFila.add(
+                    getFila(resultadoEjecutar)
+            );
+        }
     }
     
     private boolean haySiguienteFila() throws ManejadorConsultaErrorSQL {
@@ -136,6 +149,31 @@ public class ManejadorConsulta {
         }
         
         return datosFila;
+    }
+    
+    private void cerrarConexion() {
+        if(rsQuery != null) {
+            try {
+                rsQuery.close();
+            } catch (SQLException ex) {
+                //No manejamos los errores al cerrar la conexión
+            }
+        }
+        if(statement != null) {
+            try {
+                statement.close();
+            } catch (SQLException ex) {
+                //No manejamos los errores al cerrar la conexión
+            }
+        }
+        if(connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                //No manejamos los errores al cerrar la conexión
+            }
+        }
+        
     }
     
     private String getDatoColumna(int numColumna, int tipoColumna) throws
@@ -228,30 +266,5 @@ public class ManejadorConsulta {
             throw new ManejadorConsultaErrorSQL(ex);
         }
         return "";
-    }
-    
-    private void cerrarConexion() {
-        if(rsQuery != null) {
-            try {
-                rsQuery.close();
-            } catch (SQLException ex) {
-                //No manejamos los errores al cerrar la conexión
-            }
-        }
-        if(statement != null) {
-            try {
-                statement.close();
-            } catch (SQLException ex) {
-                //No manejamos los errores al cerrar la conexión
-            }
-        }
-        if(connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException ex) {
-                //No manejamos los errores al cerrar la conexión
-            }
-        }
-        
     }
 }

@@ -32,11 +32,7 @@ public class ComprobacionConexion {
     private static boolean validarConexion(MConexion conexion) {
         Connection connection = null;
 
-        String urlConexion = ObtenerUrlConexion.getUrlConexion(
-                conexion.tipoDeBaseDeDatos,
-                conexion.ip,
-                conexion.puerto,
-                conexion.sid);
+        String urlConexion = conexion.getUrlConexion();
             
         boolean seHaPodidoConectar = false;
         
