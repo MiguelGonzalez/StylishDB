@@ -9,6 +9,7 @@ import java.util.List;
  */
 public class ResultadoEjecutarConsulta {
     
+    public String consultaSQL;
     public int numColumnas;
     public List<DatosColumna> datosColumnas;
     public List<String> nombresColumnas;

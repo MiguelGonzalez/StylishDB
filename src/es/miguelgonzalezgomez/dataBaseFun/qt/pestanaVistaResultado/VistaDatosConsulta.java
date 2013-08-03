@@ -1,6 +1,6 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.pestanaVistaResultado;
 
-import com.trolltech.qt.gui.QGridLayout;
+import com.trolltech.qt.gui.QLineEdit;
 import com.trolltech.qt.gui.QTableWidget;
 import com.trolltech.qt.gui.QTableWidgetItem;
 import com.trolltech.qt.gui.QVBoxLayout;
@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class VistaDatosConsulta extends QWidget {
 
+    private QLineEdit textConsultaSQL;
     private QTableWidget tablaResultadoConsulta;
     
     private CVistaDatosConsulta controlador;
@@ -27,26 +28,26 @@ public class VistaDatosConsulta extends QWidget {
     }
     
     private void crearComponentesInterfaz() {
+        textConsultaSQL = new QLineEdit();
+        textConsultaSQL.setReadOnly(true);
+        textConsultaSQL.setTextMargins(3, 6, 3, 6);
+        
         tablaResultadoConsulta = new QTableWidget();
     }
-    
     
     private void posicionarComponentesInterfaz() {
         QVBoxLayout ventanaLayout = new QVBoxLayout();
         
-        ventanaLayout.addLayout(
-                getLayoutDatosConsulta()
-        );
+        ventanaLayout.addWidget(textConsultaSQL);
+        ventanaLayout.addWidget(tablaResultadoConsulta);
         
         setLayout(ventanaLayout);
     }
     
-    private QGridLayout getLayoutDatosConsulta() {
-        QGridLayout datosGridConsulta = new QGridLayout();
+    public void pintarConsultaSQL(String consultaSQL) {
+        textConsultaSQL.setText(consultaSQL);
+        textConsultaSQL.adjustSize();
         
-        datosGridConsulta.addWidget(tablaResultadoConsulta, 0, 0);
-        
-        return datosGridConsulta;
     }
     
     public void establecerColumnas(List<String> columnas) {

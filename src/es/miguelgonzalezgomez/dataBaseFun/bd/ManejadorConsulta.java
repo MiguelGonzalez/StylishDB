@@ -76,6 +76,7 @@ public class ManejadorConsulta {
     }
     
     private void rellenarDatosConsultaEjecutada() throws ManejadorConsultaErrorSQL {
+        resultadoEjecutar.consultaSQL = consultaSQL;
         resultadoEjecutar.datosColumnas = getTiposColumnas();
         resultadoEjecutar.numColumnas = getNumColumnas();
         resultadoEjecutar.nombresColumnas = getNombresColumnas();

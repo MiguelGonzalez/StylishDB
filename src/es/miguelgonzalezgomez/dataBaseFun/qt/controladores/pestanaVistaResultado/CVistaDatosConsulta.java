@@ -21,6 +21,8 @@ public class CVistaDatosConsulta {
     }
 
     public void pintarDatosConsulta(ResultadoEjecutarConsulta resultado) {
+        pintarConsultaSQL(resultado.consultaSQL);
+        
         establecerColumnas(resultado.nombresColumnas);
 
         anadirDatosConsulta(resultado.datosFila);
@@ -32,5 +34,9 @@ public class CVistaDatosConsulta {
 
     private void anadirDatosConsulta(List<String[]> datosConsulta) {
         vistaDatos.anadirDatosConsulta(datosConsulta);
+    }
+
+    private void pintarConsultaSQL(String consultaSQL) {
+        vistaDatos.pintarConsultaSQL(consultaSQL);
     }
 }
