@@ -3,7 +3,6 @@ package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.pestanaVistaResultado.CPestanaMostrarConsulta;
 import com.trolltech.qt.gui.QTabWidget;
 import es.miguelgonzalezgomez.dataBaseFun.bd.AnalizadorTextoConsulta;
-import es.miguelgonzalezgomez.dataBaseFun.bd.domain.TiposBasesDeDatos.TIPO_BASE_DATOS;
 import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
@@ -70,11 +69,11 @@ public class CPanelPestanasMostrarConsultas {
     
     private void lanzarEjecutarQuery(MConexion mConexion, String consultaSQL) {
         CPestanaMostrarConsulta cPestanaMostrarConsulta = new
-                CPestanaMostrarConsulta(
-                        mConexion,
-                        consultaSQL);
+                CPestanaMostrarConsulta(mConexion,consultaSQL);
+        MPestanaEditor pestana = editoresAplicacion.getMPestanaActiva();
+        
         panelConsultas.addTab(
-                "Ejecutar consulta",
+                pestana.nombrePestana,
                 cPestanaMostrarConsulta.getPestanaResultado()
         );
     }
