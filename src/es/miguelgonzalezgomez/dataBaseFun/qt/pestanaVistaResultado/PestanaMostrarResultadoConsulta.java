@@ -34,6 +34,13 @@ public class PestanaMostrarResultadoConsulta extends QWidget {
         );
     }
     
+    public void pintarVistaDatosTabla(VistaDatosTabla vistaDatos) {
+        pestanasTiposVistas.addTab(
+                vistaDatos,
+                "Datos columnas"
+        );
+    }
+    
     private void posicionarComponentesInterfaz() {
         widgetLayout.addWidget(pestanasTiposVistas);
         setLayout(widgetLayout);

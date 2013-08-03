@@ -20,4 +20,15 @@ public class ResultadoEjecutarConsulta {
         datosFila = new ArrayList<>();
     }
     
+    public String[] nombreDatosColumnaMostrar = {
+        "Column label",
+        "Column name",
+        "Table name",
+        "Column Type",
+        "Precission",
+        "Scale",
+        "ReadOnly",
+        "AutoIncrement",
+        "Nullable"
+    };
 }
