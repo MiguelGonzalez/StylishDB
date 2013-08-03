@@ -54,7 +54,19 @@ public class VistaDatosConsulta extends QWidget {
         tablaResultadoConsulta.setHorizontalHeaderLabels(columnas);
     }
     
-    public void anadirDatosFila(List<String> datosFila) {
+    public void anadirDatosConsulta(List<String[]> datosConsulta) {
+        for(String[] datosFila : datosConsulta) {
+            anadirDatosFila(datosFila);
+        }
+        
+        if (tablaResultadoConsulta.selectedItems().isEmpty()) {
+            tablaResultadoConsulta.selectRow(0);
+        }
+        
+        tablaResultadoConsulta.resizeColumnsToContents();
+    }
+    
+    private void anadirDatosFila(String[] datosFila) {
         int filaActual = tablaResultadoConsulta.rowCount();
         int numColumna = -1;
         
@@ -65,13 +77,5 @@ public class VistaDatosConsulta extends QWidget {
             
             tablaResultadoConsulta.setItem(filaActual, numColumna, columnaFilaWidget);
         }
-        
-        if (tablaResultadoConsulta.selectedItems().isEmpty()) {
-            tablaResultadoConsulta.selectRow(0);
-        }
-
-        tablaResultadoConsulta.resizeColumnsToContents();
     }
-    
-    
 }

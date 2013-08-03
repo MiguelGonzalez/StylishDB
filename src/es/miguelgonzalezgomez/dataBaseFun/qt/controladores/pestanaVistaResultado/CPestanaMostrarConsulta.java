@@ -4,10 +4,10 @@ import com.trolltech.qt.gui.QWidget;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ManejadorConsulta;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ManejadorConsultaErrorSQL;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ManejadorConsultaNoHayConexion;
+import es.miguelgonzalezgomez.dataBaseFun.bd.domain.ResultadoEjecutarConsulta;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.qt.pestanaVistaResultado.PestanaMostrarResultadoConsulta;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalMostrarAviso;
-import java.util.List;
 
 /**
  *
@@ -22,6 +22,7 @@ public class CPestanaMostrarConsulta {
     
     private String consultaSQL;
     private MConexion mConexion;
+    private ResultadoEjecutarConsulta resultado;
     
     public CPestanaMostrarConsulta(MConexion mConexion,
             String consultaSQL) {
@@ -45,10 +46,8 @@ public class CPestanaMostrarConsulta {
     
     private void ejecutarPasosLanzarQuery() {
         if(conectarContraBaseDeDatos()) {
-            if(lanzarConsulta()) {
+            if(ejecutarConsulta()) {
                 pintarRespuestaConsulta();
-                
-                cerrarConexionContraBaseDeDatos();
             }
         }
     }
@@ -70,9 +69,10 @@ public class CPestanaMostrarConsulta {
         return false;
     }
     
-    private boolean lanzarConsulta() {
+    private boolean ejecutarConsulta() {
         try {
-            manejadorConsulta.lanzarConsulta(consultaSQL);
+            resultado = 
+                    manejadorConsulta.ejecutarConsulta(mConexion, consultaSQL);
             return true;
         } catch (ManejadorConsultaErrorSQL ex) {
             mostrarErrorEnPantalla(
@@ -84,28 +84,9 @@ public class CPestanaMostrarConsulta {
     }
     
     private void pintarRespuestaConsulta() {
-        try {
-            List<String> columnas = manejadorConsulta.getNombresColumnas();
-            controladorVistaDatosConsulta.establecerColumnas(columnas);
-            
-            int numFilas = 0;
-            while(manejadorConsulta.haySiguienteFila() && numFilas < 100) {
-                List<String> datosFila = manejadorConsulta.getFila();
-                
-                controladorVistaDatosConsulta.anadirDatosFila(datosFila);
-                numFilas++;
-            }
-        } catch (ManejadorConsultaErrorSQL ex) {
-            mostrarErrorEnPantalla(
-                    "Error al recuperar los datos de la tabla",
-                    ex.getMessage()
-            );
-        }
+        controladorVistaDatosConsulta.pintarDatosConsulta(resultado);
     }
-    
-    private void cerrarConexionContraBaseDeDatos() {
-        manejadorConsulta.cerrarConexion();
-    }
+
     
     private void mostrarErrorEnPantalla(String tituloError, String mensajeError) {
         ModalMostrarAviso.mostrarErrorEnPantalla(tituloError,

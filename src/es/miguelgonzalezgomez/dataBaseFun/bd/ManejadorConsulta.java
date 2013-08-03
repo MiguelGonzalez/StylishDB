@@ -1,6 +1,7 @@
 package es.miguelgonzalezgomez.dataBaseFun.bd;
 
 import es.miguelgonzalezgomez.dataBaseFun.bd.domain.ObtenerUrlConexion;
+import es.miguelgonzalezgomez.dataBaseFun.bd.domain.ResultadoEjecutarConsulta;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import java.sql.Array;
 import java.sql.Blob;
@@ -26,8 +27,6 @@ public class ManejadorConsulta {
     private Statement statement = null;
     private ResultSet rsQuery = null;
     
-    private List<Integer> tiposColumnaConsultaActual;
-    
     public ManejadorConsulta() {
     }
 
@@ -48,19 +47,32 @@ public class ManejadorConsulta {
         }
     }
     
-    public void lanzarConsulta(String consultaSQL) throws ManejadorConsultaErrorSQL {
+    public ResultadoEjecutarConsulta ejecutarConsulta(
+            MConexion conexion,
+            String consultaSQL)
+            throws ManejadorConsultaErrorSQL {
+        ResultadoEjecutarConsulta resultado = new ResultadoEjecutarConsulta();
         try {
             statement = connection.createStatement();
             rsQuery = statement.executeQuery(
                     consultaSQL
             );
-            tiposColumnaConsultaActual = getTiposColumnas();
+            resultado.tipoColumnas = getTiposColumnas();
+            resultado.numColumnas = getNumColumnas();
+            resultado.nombresColumnas = getNombresColumnas();
+            
+            while(haySiguienteFila()) {
+                resultado.datosFila.add(getFila(resultado));
+            }
         } catch (SQLException ex) {
             throw new ManejadorConsultaErrorSQL(ex);
+        } finally {
+            cerrarConexion();
         }
+        return resultado;
     }
     
-    public boolean haySiguienteFila() throws ManejadorConsultaErrorSQL {
+    private boolean haySiguienteFila() throws ManejadorConsultaErrorSQL {
         try {
             return rsQuery.next();
         } catch (SQLException ex) {
@@ -68,7 +80,7 @@ public class ManejadorConsulta {
         }
     }
     
-    public int getNumColumnas() throws ManejadorConsultaErrorSQL {
+    private int getNumColumnas() throws ManejadorConsultaErrorSQL {
         try {
             return rsQuery.getMetaData().getColumnCount();
         } catch (SQLException ex) {
@@ -76,7 +88,7 @@ public class ManejadorConsulta {
         }
     }
     
-    public List<String> getNombresColumnas() throws ManejadorConsultaErrorSQL {
+    private List<String> getNombresColumnas() throws ManejadorConsultaErrorSQL {
         List<String> nombresColumnas = new ArrayList<>();
         
         try {
@@ -91,7 +103,7 @@ public class ManejadorConsulta {
         return nombresColumnas;
     }
     
-    public List<Integer> getTiposColumnas() throws ManejadorConsultaErrorSQL {
+    private List<Integer> getTiposColumnas() throws ManejadorConsultaErrorSQL {
         List<Integer> tiposColumna = new ArrayList<>();
         
         try {
@@ -107,23 +119,23 @@ public class ManejadorConsulta {
         return tiposColumna;
     }
     
-    public List<String> getFila() throws ManejadorConsultaErrorSQL {
-        List<String> fila = new ArrayList<>();
+    private String[] getFila(ResultadoEjecutarConsulta resultado)
+            throws ManejadorConsultaErrorSQL {
+        String[] datosFila = new String[resultado.numColumnas];
         
         try {
-            int numColumnas = getNumColumnas(); 
-            for(int i=1; i<=numColumnas; i++) {
-                int tipoColumna = tiposColumnaConsultaActual.get(i - 1).intValue();
+            for(int i=1; i<=resultado.numColumnas; i++) {
+                int tipoColumna = resultado.tipoColumnas.get(i - 1).intValue();
                 
                 String datoColumna = getDatoColumna(i, tipoColumna);
                
-                fila.add(datoColumna);
+                datosFila[i-1] = datoColumna;
             }
         } catch (SQLException ex) {
             throw new ManejadorConsultaErrorSQL(ex);
         }
         
-        return fila;
+        return datosFila;
     }
     
     private String getDatoColumna(int numColumna, int tipoColumna) throws
@@ -218,7 +230,7 @@ public class ManejadorConsulta {
         return "";
     }
     
-    public void cerrarConexion() {
+    private void cerrarConexion() {
         if(rsQuery != null) {
             try {
                 rsQuery.close();
