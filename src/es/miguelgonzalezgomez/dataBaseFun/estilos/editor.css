@@ -1,4 +1,4 @@
-QTextEdit {
+QPlainTextEdit {
    background-color: #272822;
    color: #ffffff;
    font-size: 12px;
@@ -88,9 +88,9 @@ QScrollBar:left-arrow:horizontal, QScrollBar::right-arrow:horizontal {
     background: none;
 }
 
- QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
     padding: 0;
     width: 0;
     height: 0;
     background: none;
- }
+}

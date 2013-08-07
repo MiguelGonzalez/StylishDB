@@ -1,6 +1,6 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
-import com.trolltech.qt.gui.QTextEdit;
+import com.trolltech.qt.gui.QPlainTextEdit;
 import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
 
@@ -22,7 +22,7 @@ public class CPestanaEditor {
         controladorEditor = new CEditor(mPestanaEditor);
     }
     
-    public QTextEdit getPestanaEditor() {
+    public QPlainTextEdit getPestanaEditor() {
         return controladorEditor.getEditorTexto();
     }
 

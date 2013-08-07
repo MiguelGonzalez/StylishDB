@@ -41,7 +41,7 @@ public class CEditor {
     }
     
     private void establecerTextoModeloPestana() {
-        editorTexto.setText(mPestanaEditor.contenidoTexto);
+        editorTexto.setPlainText(mPestanaEditor.contenidoTexto);
     }
     
     public EditorTexto getEditorTexto() {

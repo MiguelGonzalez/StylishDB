@@ -3,7 +3,7 @@ package es.miguelgonzalezgomez.dataBaseFun.qt;
 import com.trolltech.qt.core.Qt;
 import com.trolltech.qt.core.Qt.KeyboardModifiers;
 import com.trolltech.qt.gui.QKeyEvent;
-import com.trolltech.qt.gui.QTextEdit;
+import com.trolltech.qt.gui.QPlainTextEdit;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
 import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CEditor;
 
@@ -11,7 +11,7 @@ import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CEditor;
  *
  * @author Miguel González
  */
-public class EditorTexto extends QTextEdit {
+public class EditorTexto extends QPlainTextEdit {
     
     private CEditor controlador;
     
@@ -19,9 +19,9 @@ public class EditorTexto extends QTextEdit {
         super();
         
         this.controlador = controlador;
-        
-        setLineWrapMode(QTextEdit.LineWrapMode.NoWrap);
-        setAcceptRichText(false);
+        setLineWrapMode(LineWrapMode.NoWrap);
+        //setLineWrapMode(QTextEdit.LineWrapMode.NoWrap);
+        //setAcceptRichText(false);
         
         establecerEventos();
     }
