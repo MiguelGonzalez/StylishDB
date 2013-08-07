@@ -21,7 +21,7 @@ public class VistaDatosTabla extends QWidget {
     
     private CVistaDatosTabla controlador;
     
-    public VistaDatosTabla(CVistaDatosTabla aThis) {
+    public VistaDatosTabla(CVistaDatosTabla controlador) {
         this.controlador = controlador;
         
         crearComponentesInterfaz();

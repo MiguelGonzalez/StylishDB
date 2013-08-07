@@ -160,12 +160,25 @@ public class ManejadorConsulta {
     private String[] getFila(ResultadoEjecutarConsulta resultado)
             throws ManejadorConsultaErrorSQL {
         String[] datosFila = new String[resultado.numColumnas];
-        
+        ManejadorDatoConsulta datoConsulta = new
+                ManejadorDatoConsulta(rsQuery);
         try {
             for(int i=1; i<=resultado.numColumnas; i++) {
                 DatosColumna datosColumna = resultado.datosColumnas.get(i - 1);
                 
-                String datoColumna = getDatoColumna(i, datosColumna.columnType);
+                String datoColumna = datoConsulta.getDatoColumna(
+                        i,
+                        datosColumna.columnType,
+                        datosColumna
+                );
+                if(datosColumna.scale == 0 && datoColumna != null) {
+                    if(datoColumna.endsWith(".0")) {
+                        datoColumna = datoColumna.substring(
+                                0,
+                                datoColumna.length() - 2
+                        );
+                    }
+                }
                
                 datosFila[i-1] = datoColumna;
             }
@@ -199,97 +212,5 @@ public class ManejadorConsulta {
             }
         }
         
-    }
-    
-    private String getDatoColumna(int numColumna, int tipoColumna) throws
-                ManejadorConsultaErrorSQL {
-        try {
-            switch(tipoColumna) {
-                case java.sql.Types.ARRAY:
-                    Array array = rsQuery.getArray(numColumna);
-                    if(array == null) {
-                        return "NULL";
-                    }
-                    return array.getArray().toString();
-                case java.sql.Types.BIGINT:
-                    return Long.toString(rsQuery.getLong(numColumna));
-                case java.sql.Types.BINARY: 
-                    return "BINARY";
-                case java.sql.Types.BIT: 
-                    return "BIT";
-                case java.sql.Types.BLOB: 
-                    Blob blob = rsQuery.getBlob(numColumna);
-                    return blob == null ? "NULL" : blob.toString();
-                case java.sql.Types.BOOLEAN:
-                    return Boolean.toString(rsQuery.getBoolean(numColumna));
-                case java.sql.Types.CHAR: 
-                    return rsQuery.getString(numColumna);
-                case java.sql.Types.CLOB: 
-                    Clob clob = rsQuery.getClob(numColumna);
-                    return clob == null ? "NULL" : clob.toString();
-                case java.sql.Types.DATALINK: 
-                    return "DATALINK";
-                case java.sql.Types.DATE: 
-                    Date date = rsQuery.getDate(numColumna);
-                    return date == null ? "NULL" : date.toString();
-                case java.sql.Types.DECIMAL: 
-                    return Double.toString(rsQuery.getDouble(numColumna));
-                case java.sql.Types.DISTINCT: 
-                    return "DISTINCT";
-                case java.sql.Types.DOUBLE: 
-                    return Double.toString(rsQuery.getDouble(numColumna));
-                case java.sql.Types.FLOAT: 
-                    return Float.toString(rsQuery.getFloat(numColumna));
-                case java.sql.Types.INTEGER: 
-                    return Integer.toString(rsQuery.getInt(numColumna));
-                case java.sql.Types.JAVA_OBJECT: 
-                    return "JAVA_OBJECT";
-                case java.sql.Types.LONGNVARCHAR: 
-                    return rsQuery.getString(numColumna);
-                case java.sql.Types.LONGVARBINARY: 
-                    return rsQuery.getString(numColumna);
-                case java.sql.Types.LONGVARCHAR: 
-                    return rsQuery.getString(numColumna);
-                case java.sql.Types.NCHAR: 
-                    return rsQuery.getNString(numColumna);
-                case java.sql.Types.NCLOB: 
-                    NClob nClob = rsQuery.getNClob(numColumna);
-                    return nClob == null? "NULL" : nClob.toString();
-                case java.sql.Types.NULL: 
-                    return "NULL";
-                case java.sql.Types.NUMERIC: 
-                    return Float.toString(rsQuery.getFloat(numColumna));
-                case java.sql.Types.NVARCHAR: 
-                    return rsQuery.getNString(numColumna);
-                case java.sql.Types.OTHER: 
-                    return "OTHER";
-                case java.sql.Types.REAL: 
-                    return Double.toString(rsQuery.getDouble(numColumna));
-                case java.sql.Types.REF: 
-                    return rsQuery.getRef(numColumna).getObject().toString();
-                case java.sql.Types.ROWID: 
-                    return "ROWID";
-                case java.sql.Types.SMALLINT: 
-                    return Integer.toString(rsQuery.getInt(numColumna));
-                case java.sql.Types.SQLXML: 
-                    return "SQLXML";
-                case java.sql.Types.STRUCT: 
-                    return "STRUCT";
-                case java.sql.Types.TIME: 
-                    return rsQuery.getTime(numColumna).toString();
-                case java.sql.Types.TIMESTAMP: 
-                    Timestamp timestamp = rsQuery.getTimestamp(numColumna);
-                    return timestamp == null? "NULL" : timestamp.toString();
-                case java.sql.Types.TINYINT: 
-                    return Integer.toString(rsQuery.getInt(numColumna));
-                case java.sql.Types.VARBINARY: 
-                    return "VARBINARY";
-                case java.sql.Types.VARCHAR:
-                    return rsQuery.getString(numColumna);
-            }
-        } catch (SQLException ex) {
-            throw new ManejadorConsultaErrorSQL(ex);
-        }
-        return "";
     }
 }

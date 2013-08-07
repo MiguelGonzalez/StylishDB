@@ -22,14 +22,14 @@ public class ResultadoEjecutarConsulta {
     }
     
     public String[] nombreDatosColumnaMostrar = {
-        "Column label",
-        "Column name",
-        "Table name",
-        "Column Type",
-        "Precission",
-        "Scale",
-        "ReadOnly",
-        "AutoIncrement",
+        "Etiqueta",
+        "Nombre",
+        "Tabla",
+        "Tipo",
+        "Precisión",
+        "Decimales",
+        "Solo lectura",
+        "Auto incremental",
         "Nullable"
     };
 }
