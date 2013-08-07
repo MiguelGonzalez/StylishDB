@@ -129,10 +129,11 @@ public class AnalizadorTextoConsulta {
     private String getConsultaFormateada(String consultaSQL) {
         consultaSQL = quitarComentarios(consultaSQL);
         
-        consultaSQL = consultaSQL.replaceAll("\\r", "").
+        consultaSQL = consultaSQL.replaceAll("\\r", " ").
                 replaceAll("\\n", " ").
+                replaceAll("\\t", " ").
                 replaceAll("\\r\\n", " ").
-                replaceAll("" + (char)8233, "");
+                replaceAll("" + (char)8233, " ");
         consultaSQL = consultaSQL.trim();
         
         return consultaSQL;
