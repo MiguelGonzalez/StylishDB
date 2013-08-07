@@ -1,7 +1,6 @@
 package es.miguelgonzalezgomez.dataBaseFun.bd;
 
 import es.miguelgonzalezgomez.dataBaseFun.bd.domain.DatosColumna;
-import es.miguelgonzalezgomez.dataBaseFun.bd.domain.ObtenerUrlConexion;
 import es.miguelgonzalezgomez.dataBaseFun.bd.domain.ResultadoEjecutarConsulta;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import java.sql.Array;
