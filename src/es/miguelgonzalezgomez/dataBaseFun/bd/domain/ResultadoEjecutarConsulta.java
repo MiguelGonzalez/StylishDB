@@ -30,6 +30,6 @@ public class ResultadoEjecutarConsulta {
         "Decimales",
         "Solo lectura",
         "Auto incremental",
-        "Nullable"
+        "Admite nulos"
     };
 }
