@@ -90,7 +90,7 @@ public class VistaDatosTabla extends QWidget {
         establecerItemFilaColumna(filaActual, 1, datoColumna.columnName);
         establecerItemFilaColumna(filaActual, 2, datoColumna.tableName);
         establecerItemFilaColumna(filaActual, 3, datoColumna.columnTypeName);
-        establecerItemFilaColumna(filaActual, 4, datoColumna.precission +"");
+        establecerItemFilaColumna(filaActual, 4, datoColumna.precision +"");
         establecerItemFilaColumna(filaActual, 5, datoColumna.scale + "");
         establecerItemFilaColumna(filaActual, 6, Boolean.toString(datoColumna.isReadOnly));
         establecerItemFilaColumna(filaActual, 7, Boolean.toString(datoColumna.isAutoIncrement));

@@ -81,7 +81,7 @@ public class ManejadorConsulta {
         resultadoEjecutar.nombresColumnas = getNombresColumnas();
 
         while(haySiguienteFila()) {
-            resultadoEjecutar.datosFila.add(
+            resultadoEjecutar.datosFilas.add(
                     getFila(resultadoEjecutar)
             );
         }
@@ -150,7 +150,7 @@ public class ManejadorConsulta {
         datosColumna.isReadOnly = rsMetaData.isReadOnly(numColumna);
         datosColumna.isAutoIncrement = rsMetaData.isAutoIncrement(numColumna);
         datosColumna.isNullable = rsMetaData.isNullable(numColumna);
-        datosColumna.precission = rsMetaData.getPrecision(numColumna);
+        datosColumna.precision = rsMetaData.getPrecision(numColumna);
         datosColumna.scale = rsMetaData.getScale(numColumna);
         
         return datosColumna;

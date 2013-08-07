@@ -25,7 +25,7 @@ public class CVistaDatosConsulta {
         
         establecerColumnas(resultado.nombresColumnas);
 
-        anadirDatosConsulta(resultado.datosFila);
+        anadirDatosConsulta(resultado.datosFilas);
     }
     
     private void establecerColumnas(List<String> columnas) {

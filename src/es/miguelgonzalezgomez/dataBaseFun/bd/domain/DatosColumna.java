@@ -13,7 +13,7 @@ public class DatosColumna {
     public int columnType;
     public String columnTypeName;
     public String columnClassName;
-    public int precission;
+    public int precision;
     public int scale;
     public boolean isReadOnly;
     public boolean isAutoIncrement;

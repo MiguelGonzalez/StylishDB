@@ -4,6 +4,7 @@ import com.trolltech.qt.gui.QWidget;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ManejadorConsulta;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ManejadorConsultaErrorSQL;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ManejadorConsultaNoHayConexion;
+import es.miguelgonzalezgomez.dataBaseFun.bd.domain.ResultadoEjecutarConsulta;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.qt.pestanaVistaResultado.PestanaMostrarResultadoConsulta;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalMostrarAviso;
@@ -19,6 +20,7 @@ public class CPestanaMostrarConsulta {
     
     private CVistaDatosConsulta controladorVistaDatosConsulta;
     private CVistaDatosTabla controladorVistaDatosTabla;
+    private CVistaDatosTextoPlano controladorVistaDatosTextoPlano;
     
     private String consultaSQL;
     private MConexion mConexion;
@@ -41,13 +43,16 @@ public class CPestanaMostrarConsulta {
         
         controladorVistaDatosConsulta = new CVistaDatosConsulta();
         controladorVistaDatosTabla = new CVistaDatosTabla();
+        controladorVistaDatosTextoPlano = new CVistaDatosTextoPlano();
         
         pestanaResultado = new PestanaMostrarResultadoConsulta(this);
         
         pestanaResultado.pintarVistaDatosConsulta(
                 controladorVistaDatosConsulta.getVistaDatosConsulta()
         );
-        
+        pestanaResultado.pintarVistaDatosTextoPlano(
+                controladorVistaDatosTextoPlano.getVistaDatosTextoPlano()
+        );
         pestanaResultado.pintarVistaDatosTabla(
                 controladorVistaDatosTabla.getVistaDatosTabla()
         );
@@ -92,11 +97,16 @@ public class CPestanaMostrarConsulta {
     }
     
     private void pintarRespuestaConsulta() {
+        ResultadoEjecutarConsulta resultado = manejadorConsulta.
+                getDatosConsultaEjecutada();
         controladorVistaDatosConsulta.pintarDatosConsulta(
-                manejadorConsulta.getDatosConsultaEjecutada()
+                resultado
+        );
+        controladorVistaDatosTextoPlano.pintarDatosConsulta(
+                resultado
         );
         controladorVistaDatosTabla.pintarDatosTabla(
-                manejadorConsulta.getDatosConsultaEjecutada()
+                resultado
         );
     }
 

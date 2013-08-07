@@ -34,6 +34,13 @@ public class PestanaMostrarResultadoConsulta extends QWidget {
         );
     }
     
+    public void pintarVistaDatosTextoPlano(VistaDatosTextoPlano vistaDatos) {
+        pestanasTiposVistas.addTab(
+                vistaDatos,
+                "Texto plano"
+        );
+    }
+    
     public void pintarVistaDatosTabla(VistaDatosTabla vistaDatos) {
         pestanasTiposVistas.addTab(
                 vistaDatos,

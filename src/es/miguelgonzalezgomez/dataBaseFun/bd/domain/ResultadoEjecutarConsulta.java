@@ -13,12 +13,12 @@ public class ResultadoEjecutarConsulta {
     public int numColumnas;
     public List<DatosColumna> datosColumnas;
     public List<String> nombresColumnas;
-    public List<String[]> datosFila;
+    public List<String[]> datosFilas;
     
     public ResultadoEjecutarConsulta() {
         datosColumnas = new ArrayList<>();
         nombresColumnas = new ArrayList<>();
-        datosFila = new ArrayList<>();
+        datosFilas = new ArrayList<>();
     }
     
     public String[] nombreDatosColumnaMostrar = {
