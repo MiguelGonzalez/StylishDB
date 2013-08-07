@@ -3,7 +3,7 @@ package es.miguelgonzalezgomez.dataBaseFun.qt;
 import com.trolltech.qt.core.Qt;
 import com.trolltech.qt.core.Qt.DockWidgetAreas;
 import com.trolltech.qt.gui.QDockWidget;
-import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CPanelMostrarConsultasRealizadas;
+import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CDockPanelConsultasRealizadas;
 
 /**
  *
@@ -11,9 +11,9 @@ import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CPanelMostrarConsulta
  */
 public class PanelMostrarConsultasRealizadas extends QDockWidget {
     
-    private CPanelMostrarConsultasRealizadas controlador;
+    private CDockPanelConsultasRealizadas controlador;
     
-    public PanelMostrarConsultasRealizadas(CPanelMostrarConsultasRealizadas controlador) {
+    public PanelMostrarConsultasRealizadas(CDockPanelConsultasRealizadas controlador) {
         this.controlador = controlador;
         
         establecerAreasPermitidas();

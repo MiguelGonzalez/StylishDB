@@ -1,8 +1,8 @@
-package es.miguelgonzalezgomez.dataBaseFun.qt;
+package es.miguelgonzalezgomez.dataBaseFun.qt.pestanaVistaResultado;
 
 import com.trolltech.qt.gui.QTabWidget;
 import com.trolltech.qt.gui.QWidget;
-import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CPanelPestanasMostrarConsultas;
+import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.pestanaVistaResultado.CPanelPestanasMostrarConsultas;
 
 /**
  *

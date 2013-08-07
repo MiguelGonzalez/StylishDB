@@ -23,12 +23,12 @@ public class CVentanaPrincipal {
     
     private CMenuSuperior controladorMenuSup;
     private CWidgetPestanasEditores controladorPestanasEditores;
-    private CPanelMostrarConsultasRealizadas controladorConsultasRealizadas;
+    private CDockPanelConsultasRealizadas controladorConsultasRealizadas;
     
     public CVentanaPrincipal() {
         controladorMenuSup = new CMenuSuperior();
         controladorPestanasEditores = new CWidgetPestanasEditores();
-        controladorConsultasRealizadas = new CPanelMostrarConsultasRealizadas();
+        controladorConsultasRealizadas = new CDockPanelConsultasRealizadas();
         
         prefs = Preferencias.getInstance();
         

@@ -1,12 +1,12 @@
-package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
+package es.miguelgonzalezgomez.dataBaseFun.qt.controladores.pestanaVistaResultado;
 
-import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.pestanaVistaResultado.CPestanaMostrarConsulta;
 import com.trolltech.qt.gui.QTabWidget;
+import com.trolltech.qt.gui.QWidget;
 import es.miguelgonzalezgomez.dataBaseFun.bd.AnalizadorTextoConsulta;
 import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
-import es.miguelgonzalezgomez.dataBaseFun.qt.PanelPestanasMostrarConsultas;
+import es.miguelgonzalezgomez.dataBaseFun.qt.pestanaVistaResultado.PanelPestanasMostrarConsultas;
 
 /**
  *
@@ -14,13 +14,13 @@ import es.miguelgonzalezgomez.dataBaseFun.qt.PanelPestanasMostrarConsultas;
  */
 public class CPanelPestanasMostrarConsultas {
 
-    private CEjecutarConsultasEscuchaCambios escuchaCambiosConsultas;
+    private CPanelPestanasMostrarConsultasEscuchaCambios escuchaCambiosConsultas;
     private GEditoresAplicacion editoresAplicacion;
     private PanelPestanasMostrarConsultas panelConsultas;
     
     public CPanelPestanasMostrarConsultas() {
         panelConsultas = new PanelPestanasMostrarConsultas(this);
-        escuchaCambiosConsultas = new CEjecutarConsultasEscuchaCambios(this);
+        escuchaCambiosConsultas = new CPanelPestanasMostrarConsultasEscuchaCambios(this);
         editoresAplicacion = new GEditoresAplicacion();
         
         inicializarEscuchaCambios();
@@ -72,7 +72,7 @@ public class CPanelPestanasMostrarConsultas {
                 CPestanaMostrarConsulta(mConexion,consultaSQL);
         MPestanaEditor pestana = editoresAplicacion.getMPestanaActiva();
         
-        panelConsultas.addTab(
+        anadirNuevaPestana(
                 pestana.nombrePestana,
                 cPestanaMostrarConsulta.getPestanaResultado()
         );
@@ -85,6 +85,14 @@ public class CPanelPestanasMostrarConsultas {
     public QTabWidget getPanelConsultas() {
         return panelConsultas;
         
+    }
+    
+    private void anadirNuevaPestana(String nombrePestana, QWidget widget) {
+        panelConsultas.addTab(nombrePestana, widget);
+        int nPestanas = panelConsultas.count();
+        if(nPestanas > 0) {
+            panelConsultas.setCurrentIndex(nPestanas - 1);
+        }
     }
     
     protected void cerrarPestana(int indexPestana) {

@@ -1,4 +1,4 @@
-package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
+package es.miguelgonzalezgomez.dataBaseFun.qt.controladores.pestanaVistaResultado;
 
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.PestanaEditorListener;
@@ -7,11 +7,11 @@ import es.miguelgonzalezgomez.dataBaseFun.modelos.PestanaEditorListener;
  *
  * @author Miguel González
  */
-public class CEjecutarConsultasEscuchaCambios implements PestanaEditorListener {
+public class CPanelPestanasMostrarConsultasEscuchaCambios implements PestanaEditorListener {
     
     private CPanelPestanasMostrarConsultas controlador;
     
-    public CEjecutarConsultasEscuchaCambios(CPanelPestanasMostrarConsultas controlador) {
+    public CPanelPestanasMostrarConsultasEscuchaCambios(CPanelPestanasMostrarConsultas controlador) {
         this.controlador = controlador;
     }
     
