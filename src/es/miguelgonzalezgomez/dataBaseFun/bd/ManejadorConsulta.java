@@ -3,18 +3,12 @@ package es.miguelgonzalezgomez.dataBaseFun.bd;
 import es.miguelgonzalezgomez.dataBaseFun.bd.domain.DatosColumna;
 import es.miguelgonzalezgomez.dataBaseFun.bd.domain.ResultadoEjecutarConsulta;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
-import java.sql.Array;
-import java.sql.Blob;
-import java.sql.Clob;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
-import java.sql.NClob;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +25,7 @@ public class ManejadorConsulta {
     private MConexion mConexion;
     private String consultaSQL;
     private ResultadoEjecutarConsulta resultadoEjecutar;
+    private long tiempoParaConectarContraBaseDeDatos;
 
     public ManejadorConsulta(MConexion mConexion, String consultaSQL) {
         this.mConexion = mConexion;
@@ -42,12 +37,16 @@ public class ManejadorConsulta {
     public void conectarContraBaseDeDatos()
             throws ManejadorConsultaNoHayConexion {
         try {
+            long time_start = System.currentTimeMillis();
             String urlConexion = mConexion.getUrlConexion();
             connection = DriverManager.getConnection(
                     urlConexion,
                     mConexion.usuario,
                     mConexion.password
             );
+            long time_end = System.currentTimeMillis();
+            tiempoParaConectarContraBaseDeDatos = time_end - time_start;
+            
         } catch (SQLException ex) {
             throw new ManejadorConsultaNoHayConexion(ex);
         }
@@ -57,12 +56,14 @@ public class ManejadorConsulta {
             throws ManejadorConsultaErrorSQL {
         
         try {
+            long time_start = System.currentTimeMillis();
             statement = connection.createStatement();
             rsQuery = statement.executeQuery(
                     consultaSQL
             );
+            long time_end = System.currentTimeMillis();
 
-            rellenarDatosConsultaEjecutada();
+            rellenarDatosConsultaEjecutada(time_end - time_start);
         } catch (SQLException ex) {
             throw new ManejadorConsultaErrorSQL(ex);
         } finally {
@@ -74,8 +75,13 @@ public class ManejadorConsulta {
         return resultadoEjecutar;
     }
     
-    private void rellenarDatosConsultaEjecutada() throws ManejadorConsultaErrorSQL {
+    private void rellenarDatosConsultaEjecutada(long tiempoEjecucionConsulta)
+            throws ManejadorConsultaErrorSQL {
         resultadoEjecutar.consultaSQL = consultaSQL;
+        resultadoEjecutar.tiempoEjecucionConsultaMilisegundos = tiempoEjecucionConsulta;
+        
+        long time_start = System.currentTimeMillis();
+        
         resultadoEjecutar.datosColumnas = getTiposColumnas();
         resultadoEjecutar.numColumnas = getNumColumnas();
         resultadoEjecutar.nombresColumnas = getNombresColumnas();
@@ -85,6 +91,11 @@ public class ManejadorConsulta {
                     getFila(resultadoEjecutar)
             );
         }
+        resultadoEjecutar.numFilas = resultadoEjecutar.datosFilas.size();
+        long time_end = System.currentTimeMillis();
+        resultadoEjecutar.tiempoObtenerDatosConsulta = time_end - time_start;
+        resultadoEjecutar.tiempoParaConectarContraBaseDeDatos = 
+                tiempoParaConectarContraBaseDeDatos;
     }
     
     private boolean haySiguienteFila() throws ManejadorConsultaErrorSQL {

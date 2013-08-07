@@ -11,6 +11,10 @@ public class ResultadoEjecutarConsulta {
     
     public String consultaSQL;
     public int numColumnas;
+    public long tiempoEjecucionConsultaMilisegundos;
+    public long tiempoObtenerDatosConsulta;
+    public long tiempoParaConectarContraBaseDeDatos;
+    public int numFilas;
     public List<DatosColumna> datosColumnas;
     public List<String> nombresColumnas;
     public List<String[]> datosFilas;

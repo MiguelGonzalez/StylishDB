@@ -21,6 +21,7 @@ public class CPestanaMostrarConsulta {
     private CVistaDatosConsulta controladorVistaDatosConsulta;
     private CVistaDatosTabla controladorVistaDatosTabla;
     private CVistaDatosTextoPlano controladorVistaDatosTextoPlano;
+    private CVistaDatosInformacion controladorVistaDatosInformacion;
     
     private String consultaSQL;
     private MConexion mConexion;
@@ -44,6 +45,7 @@ public class CPestanaMostrarConsulta {
         controladorVistaDatosConsulta = new CVistaDatosConsulta();
         controladorVistaDatosTabla = new CVistaDatosTabla();
         controladorVistaDatosTextoPlano = new CVistaDatosTextoPlano();
+        controladorVistaDatosInformacion = new CVistaDatosInformacion();
         
         pestanaResultado = new PestanaMostrarResultadoConsulta(this);
         
@@ -55,6 +57,9 @@ public class CPestanaMostrarConsulta {
         );
         pestanaResultado.pintarVistaDatosTabla(
                 controladorVistaDatosTabla.getVistaDatosTabla()
+        );
+        pestanaResultado.pintarVistaDatosInformacion(
+                controladorVistaDatosInformacion.getVistaDatosInformacion()
         );
     }
     
@@ -99,15 +104,10 @@ public class CPestanaMostrarConsulta {
     private void pintarRespuestaConsulta() {
         ResultadoEjecutarConsulta resultado = manejadorConsulta.
                 getDatosConsultaEjecutada();
-        controladorVistaDatosConsulta.pintarDatosConsulta(
-                resultado
-        );
-        controladorVistaDatosTextoPlano.pintarDatosConsulta(
-                resultado
-        );
-        controladorVistaDatosTabla.pintarDatosTabla(
-                resultado
-        );
+        controladorVistaDatosConsulta.pintarDatosConsulta(resultado);
+        controladorVistaDatosTextoPlano.pintarDatosConsulta(resultado);
+        controladorVistaDatosTabla.pintarDatosTabla(resultado);
+        controladorVistaDatosInformacion.pintarDatosInformacion(resultado);
     }
 
     
