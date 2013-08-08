@@ -22,11 +22,7 @@ public class VistaDatosTextoPlano extends QPlainTextEdit {
     public VistaDatosTextoPlano(CVistaDatosTextoPlano controlador) {
         this.controlador = controlador;
         
-        setLineWrapMode(LineWrapMode.NoWrap);
-        QFont fuenteTextoPlano = new QFont();
-        fuenteTextoPlano.setFixedPitch(true);
-        fuenteTextoPlano.setFamily("monospacedmonospaced");
-        setFont(fuenteTextoPlano);
+        construirWidget();
     }
 
     public void pintarDatosConsulta(ResultadoEjecutarConsulta resultado) {
@@ -37,20 +33,25 @@ public class VistaDatosTextoPlano extends QPlainTextEdit {
         
         setPlainText(sbTextoPintar.toString());
     }
-
+    
+    private void construirWidget() {
+        setLineWrapMode(LineWrapMode.NoWrap);
+        QFont fuenteTextoPlano = new QFont();
+        fuenteTextoPlano.setFixedPitch(true);
+        fuenteTextoPlano.setFamily("monospacedmonospaced");
+        setFont(fuenteTextoPlano);
+    }
+    
     private void rellenarDatosColumna(List<DatosColumna> datosColumnas) {
         StringBuilder sbDatosColumna = new StringBuilder();
         StringBuilder sbLineasIntermitentes = new StringBuilder();
         int numColumna = 0;
         for(DatosColumna datosColumna : datosColumnas) {
+            int anchoCol = anchoColumnas[numColumna];
             String datoColumna = rellenarConCaracter(
-                    datosColumna.columnName,
-                    anchoColumnas[numColumna],
-                    " ");
+                    datosColumna.columnName,anchoCol," ");
             String lineasIntermitentesColumna = rellenarConCaracter(
-                    "",
-                    anchoColumnas[numColumna],
-                    "-");
+                    "",anchoCol,"-");
             
             sbDatosColumna.append(datoColumna).append("  ");
             sbLineasIntermitentes.append(lineasIntermitentesColumna).append("  ");
@@ -125,12 +126,10 @@ public class VistaDatosTextoPlano extends QPlainTextEdit {
 
     private int buscarAnchoColumna(DatosColumna datosColumna) {
         int precision = datosColumna.precision;
-        int anchoColumna = datosColumna.precision;
         int anchoNombre = datosColumna.columnName.length();
         int anchuraMinima = precision < anchoNombre ? anchoNombre : precision;
-        anchoColumna = anchuraMinima < MAX_ANCHO_COLUMNA ? anchuraMinima :
-                    MAX_ANCHO_COLUMNA;
         
-        return anchoColumna;
+        return anchuraMinima < MAX_ANCHO_COLUMNA ? anchuraMinima :
+                    MAX_ANCHO_COLUMNA;
     }
 }
