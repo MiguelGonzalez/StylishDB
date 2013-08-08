@@ -27,6 +27,7 @@ public class VistaDatosTextoPlano extends QPlainTextEdit {
     
     private void construirWidget() {
         setLineWrapMode(LineWrapMode.NoWrap);
+        setReadOnly(true);
         setUndoRedoEnabled(false);
         
         QFont fuenteTextoPlano = new QFont();

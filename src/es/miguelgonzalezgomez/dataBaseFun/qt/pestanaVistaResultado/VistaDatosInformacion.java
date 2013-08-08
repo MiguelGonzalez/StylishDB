@@ -1,5 +1,6 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.pestanaVistaResultado;
 
+import com.trolltech.qt.gui.QFont;
 import com.trolltech.qt.gui.QPlainTextEdit;
 import es.miguelgonzalezgomez.dataBaseFun.bd.domain.ResultadoEjecutarConsulta;
 import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.pestanaVistaResultado.CVistaDatosInformacion;
@@ -15,6 +16,19 @@ public class VistaDatosInformacion extends QPlainTextEdit {
 
     public VistaDatosInformacion(CVistaDatosInformacion controlador) {
         this.controlador = controlador;
+        
+        construirWidget();
+    }
+    
+    private void construirWidget() {
+        setLineWrapMode(LineWrapMode.NoWrap);
+        setReadOnly(true);
+        setUndoRedoEnabled(false);
+        
+        QFont fuenteTextoPlano = new QFont();
+        fuenteTextoPlano.setFixedPitch(true);
+        fuenteTextoPlano.setFamily("monospacedmonospaced");
+        setFont(fuenteTextoPlano);
     }
 
     public void pintarDatosInformacion(ResultadoEjecutarConsulta resultadoConsulta) {
