@@ -21,25 +21,29 @@ public class VistaDatosTextoPlano extends QPlainTextEdit {
     
     public VistaDatosTextoPlano(CVistaDatosTextoPlano controlador) {
         this.controlador = controlador;
-        
+
         construirWidget();
+    }
+    
+    private void construirWidget() {
+        setLineWrapMode(LineWrapMode.NoWrap);
+        setUndoRedoEnabled(false);
+        
+        QFont fuenteTextoPlano = new QFont();
+        fuenteTextoPlano.setFixedPitch(true);
+        fuenteTextoPlano.setFamily("monospacedmonospaced");
+        setFont(fuenteTextoPlano);
     }
 
     public void pintarDatosConsulta(ResultadoEjecutarConsulta resultado) {
-        sbTextoPintar = new StringBuilder();
+        sbTextoPintar = new StringBuilder(2000);
+        
         rellenarAnchosColumnas(resultado.datosColumnas);
         rellenarDatosColumna(resultado.datosColumnas);
         rellenarDatosFilas(resultado.datosFilas);
         
         setPlainText(sbTextoPintar.toString());
-    }
-    
-    private void construirWidget() {
-        setLineWrapMode(LineWrapMode.NoWrap);
-        QFont fuenteTextoPlano = new QFont();
-        fuenteTextoPlano.setFixedPitch(true);
-        fuenteTextoPlano.setFamily("monospacedmonospaced");
-        setFont(fuenteTextoPlano);
+        sbTextoPintar.delete(0, sbTextoPintar.length());
     }
     
     private void rellenarDatosColumna(List<DatosColumna> datosColumnas) {

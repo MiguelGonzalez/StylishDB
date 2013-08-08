@@ -18,7 +18,7 @@ public class VistaDatosInformacion extends QPlainTextEdit {
     }
 
     public void pintarDatosInformacion(ResultadoEjecutarConsulta resultadoConsulta) {
-        sbInformacion = new StringBuilder();
+        sbInformacion = new StringBuilder(2000);
         
         rellenarDatosInformacion(resultadoConsulta);
         
@@ -43,6 +43,7 @@ public class VistaDatosInformacion extends QPlainTextEdit {
                     resultadoConsulta.tiempoEjecucionConsultaMilisegundos +
                     resultadoConsulta.tiempoObtenerDatosConsulta
                 ).append("msg");
+        sbInformacion.delete(0, sbInformacion.length());
     }
     
 }
