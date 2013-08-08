@@ -28,7 +28,7 @@ public class CPestanaMostrarConsulta {
     
     public CPestanaMostrarConsulta(
             MConexion mConexion,
-            String consultaSQL) {
+            String consultaSQL) throws ManejadorConsultaErrorSQL {
         this.consultaSQL = consultaSQL;
         this.mConexion = mConexion;
         
@@ -63,11 +63,10 @@ public class CPestanaMostrarConsulta {
         );
     }
     
-    private void ejecutarPasosLanzarQuery() {
+    private void ejecutarPasosLanzarQuery() throws ManejadorConsultaErrorSQL {
         if(conectarContraBaseDeDatos()) {
-            if(ejecutarConsulta()) {
-                pintarRespuestaConsulta();
-            }
+            ejecutarConsulta();
+            pintarRespuestaConsulta();
         }
     }
     
@@ -88,17 +87,8 @@ public class CPestanaMostrarConsulta {
         return false;
     }
     
-    private boolean ejecutarConsulta() {
-        try {
-            manejadorConsulta.ejecutarConsulta();
-            return true;
-        } catch (ManejadorConsultaErrorSQL ex) {
-            mostrarErrorEnPantalla(
-                    "Error al ejecutar la consulta",
-                    ex.getMessage()
-            );
-        }
-        return false;
+    private void ejecutarConsulta() throws ManejadorConsultaErrorSQL {
+        manejadorConsulta.ejecutarConsulta();
     }
     
     private void pintarRespuestaConsulta() {

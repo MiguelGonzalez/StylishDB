@@ -3,10 +3,14 @@ package es.miguelgonzalezgomez.dataBaseFun.qt.controladores.pestanaVistaResultad
 import com.trolltech.qt.gui.QTabWidget;
 import com.trolltech.qt.gui.QWidget;
 import es.miguelgonzalezgomez.dataBaseFun.bd.AnalizadorTextoConsulta;
+import es.miguelgonzalezgomez.dataBaseFun.bd.ManejadorConsultaErrorSQL;
 import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
+import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalMostrarAviso;
 import es.miguelgonzalezgomez.dataBaseFun.qt.pestanaVistaResultado.PanelPestanasMostrarConsultas;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -68,14 +72,21 @@ public class CPanelPestanasMostrarConsultas {
     }
     
     private void lanzarEjecutarQuery(MConexion mConexion, String consultaSQL) {
-        CPestanaMostrarConsulta cPestanaMostrarConsulta = new
-                CPestanaMostrarConsulta(mConexion,consultaSQL);
-        MPestanaEditor pestana = editoresAplicacion.getMPestanaActiva();
-        
-        anadirNuevaPestana(
-                pestana.nombrePestana,
-                cPestanaMostrarConsulta.getPestanaResultado()
-        );
+        try {
+            CPestanaMostrarConsulta cPestanaMostrarConsulta = new
+                    CPestanaMostrarConsulta(mConexion,consultaSQL);
+            MPestanaEditor pestana = editoresAplicacion.getMPestanaActiva();
+            
+            anadirNuevaPestana(
+                    pestana.nombrePestana,
+                    cPestanaMostrarConsulta.getPestanaResultado()
+            );
+        } catch (ManejadorConsultaErrorSQL ex) {
+            ModalMostrarAviso.mostrarErrorEnPantalla(
+                "Error al ejecutar la consulta",
+                ex.getMessage()
+            );
+        }
     }
     
     private void lanzarUpdateQuery(MConexion mConexion, String consultaSQL) {
