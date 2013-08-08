@@ -23,6 +23,7 @@ public class VistaDatosInformacion extends QPlainTextEdit {
         rellenarDatosInformacion(resultadoConsulta);
         
         setPlainText(sbInformacion.toString());
+        sbInformacion.delete(0, sbInformacion.length());
     }
     
     private void rellenarDatosInformacion(ResultadoEjecutarConsulta resultadoConsulta) {
@@ -43,7 +44,6 @@ public class VistaDatosInformacion extends QPlainTextEdit {
                     resultadoConsulta.tiempoEjecucionConsultaMilisegundos +
                     resultadoConsulta.tiempoObtenerDatosConsulta
                 ).append("msg");
-        sbInformacion.delete(0, sbInformacion.length());
     }
     
 }
