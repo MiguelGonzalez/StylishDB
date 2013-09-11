@@ -12,20 +12,18 @@ public class MySQL implements DatosBaseDatos {
     public static String claseDriver = "com.mysql.jdbc.Driver";
     public static String puertoDriver = "3306";
     
-    public static char delimitadorConsulta = ';';
+    public static String[][] palabrasClaveDelimitadoresConsulta = {
+        {"SELECT",";"},
+        {"SHOW",";"},
+        {"UPDATE",";"},
+        {"INSERT",";"},
+        {"DELETE",";"},
+        {"DROP",";"},
+        {"TRUNCATE",";"}
+    };
 
     public static String[] palabrasClaveEjecutarConsulta = {
         "SELECT",
-        "SHOW"
-    };
-
-    public static String[] palabrasClaveComienzoConsulta = {
-        "SELECT",
-        "UPDATE",
-        "INSERT",
-        "DELETE",
-        "DROP",
-        "TRUNCATE",
         "SHOW"
     };
         
@@ -151,17 +149,12 @@ public class MySQL implements DatosBaseDatos {
     }
     
     @Override
-    public char getDelimitadorConsulta() {
-        return delimitadorConsulta;
-    }
-    
-    @Override
     public String[] getPalabrasClaveEjecutarConsulta() {
         return palabrasClaveEjecutarConsulta;
     }
-    
+
     @Override
-    public String[] getPalabrasClaveComienzoConsulta() {
-        return palabrasClaveComienzoConsulta;
+    public String[][] getPalabrasClaveDelimitadoresConsulta() {
+        return palabrasClaveDelimitadoresConsulta;
     }
 }

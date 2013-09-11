@@ -12,20 +12,19 @@ public class ORACLE implements DatosBaseDatos {
     public static String claseDriver = "oracle.jdbc.driver.OracleDriver";
     public static String puertoDriver = "1521";
     
-    public static char delimitadorConsulta = ';';
+    public static String[][] palabrasClaveDelimitadoresConsulta = {
+        {"SELECT",";"},
+        {"UPDATE",";"},
+        {"INSERT",";"},
+        {"DELETE",";"},
+        {"DROP",";"},
+        {"TRUNCATE",";"},
+        {"MERGE",";"},
+        {"PROCEDURE","END;"}
+    };
 
     public static String[] palabrasClaveEjecutarConsulta = {
         "SELECT"
-    };
-
-    public static String[] palabrasClaveComienzoConsulta = {
-        "SELECT",
-        "UPDATE",
-        "INSERT",
-        "DELETE",
-        "DROP",
-        "TRUNCATE",
-        "MERGE"
     };
     
     public static String[] palabrasClavesReservadas = {
@@ -157,17 +156,12 @@ public class ORACLE implements DatosBaseDatos {
     }
     
     @Override
-    public char getDelimitadorConsulta() {
-        return delimitadorConsulta;
-    }
-    
-    @Override
     public String[] getPalabrasClaveEjecutarConsulta() {
         return palabrasClaveEjecutarConsulta;
     }
     
     @Override
-    public String[] getPalabrasClaveComienzoConsulta() {
-        return palabrasClaveComienzoConsulta;
+    public String[][] getPalabrasClaveDelimitadoresConsulta() {
+        return palabrasClaveDelimitadoresConsulta;
     }
 }
