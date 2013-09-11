@@ -20,7 +20,8 @@ public class ORACLE implements DatosBaseDatos {
         {"DROP",";"},
         {"TRUNCATE",";"},
         {"MERGE",";"},
-        {"PROCEDURE","END;"}
+        {"CREATE OR REPLACE PROCEDURE","END;"},
+        {"CREATE PROCEDURE","END;"}
     };
 
     public static String[] palabrasClaveEjecutarConsulta = {

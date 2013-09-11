@@ -70,10 +70,10 @@ public class TroceadorTextoConsulta {
                 consultasSQL.add(consultaSQLAnalizandose);
                 consultaSQLAnalizandose = "";
                 buscandoTrozo = false;
-            } else if(posInicioSiguienteConsulta == -1 || posFinal < posInicioSiguienteConsulta) {
-                String trozoConsulta = consultaSQLAnalizandose.substring(0, posFinal);
+            } else if(posInicioSiguienteConsulta == -1 || posFinal <= posInicioSiguienteConsulta) {
+                String trozoConsulta = consultaSQLAnalizandose.substring(0, posFinal - 1);
                 consultasSQL.add(trozoConsulta);
-                consultaSQLAnalizandose = consultaSQLAnalizandose.substring(posFinal + 1);
+                consultaSQLAnalizandose = consultaSQLAnalizandose.substring(posFinal);
                 
                 buscandoTrozo = false;
             } else {
@@ -90,11 +90,19 @@ public class TroceadorTextoConsulta {
                 inicioBusqueda
         );
         
+        if(posFinal != -1) {
+            posFinal += palabraClaveComienzoFin[1].length();
+        }
+        
         while(posFinal != -1 && estaDentroComentario(posFinal)) {
             posFinal = consultaSQLAnalizandose.toLowerCase().indexOf(
                     palabraClaveComienzoFin[1].toLowerCase(),
-                    posFinal + 1
+                    posFinal
             );
+            
+            if(posFinal != -1) {
+                posFinal += palabraClaveComienzoFin[1].length();
+            }
         }
         return posFinal;
     }
