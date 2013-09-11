@@ -97,7 +97,7 @@ public class TextAnalizadorTextoConsulta {
         
         assertEquals(
                 "Se esperaba obtener la primera consulta SQL inicial",
-                "SELECT * FROM TABLA wheRe palabra like \"\';\"",
+                "SELECT * FROM TABLA wheRe palabra like \'\";\'",
                 analizadorTextoConsulta.getConsulta(0)
         );
         
