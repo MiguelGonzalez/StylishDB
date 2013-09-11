@@ -20,6 +20,9 @@ public class ORACLE implements DatosBaseDatos {
         {"DROP",";"},
         {"TRUNCATE",";"},
         {"MERGE",";"},
+        {"CREATE VIEW",";"},
+        {"CREATE OR REPLACE VIEW",";"},
+        {"DROP VIEW",";"},
         {"CREATE OR REPLACE PROCEDURE","END;"},
         {"CREATE PROCEDURE","END;"}
     };
