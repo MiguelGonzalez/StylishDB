@@ -61,6 +61,10 @@ public class AnalizadorTextoConsulta {
         return consultasSQL.size();
     }
     
+    public String getConsulta(int numConsultaLanzando) {
+        return consultasSQL.get(numConsultaLanzando);
+    }
+    
     private void trocearTextoConsulta() {
         String textoConsultaCopia = textoConsultaLanzar;
         DatosBaseDatos datosBaseDatos = tipoBaseDatos.getDatosBaseDatos();
@@ -120,10 +124,6 @@ public class AnalizadorTextoConsulta {
             }
         }
         return -1;
-    }
-
-    public String getConsulta(int numConsultaLanzando) {
-        return consultasSQL.get(numConsultaLanzando);
     }
     
     private String getConsultaFormateada(String consultaSQL) {
