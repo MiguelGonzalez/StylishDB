@@ -113,9 +113,9 @@ public class AnalizadorTextoConsulta {
         boolean abiertoComentarioDoble = false;
         //ToDo: Mirar si el comentario está escapado o no
         for(int i=0; i<textoConsulta.length(); i++) {
-            if(textoConsulta.charAt(i) == '"') {
+            if(!abiertoComentarioSimple && textoConsulta.charAt(i) == '"') {
                 abiertoComentarioDoble = !abiertoComentarioDoble;
-            } else if(textoConsulta.charAt(i) == '\'') {
+            } else if(!abiertoComentarioDoble && textoConsulta.charAt(i) == '\'') {
                 abiertoComentarioSimple = !abiertoComentarioSimple;
             } else if(textoConsulta.charAt(i) == delimitadorConsulta ) {
                 if(!abiertoComentarioSimple && !abiertoComentarioDoble) {
