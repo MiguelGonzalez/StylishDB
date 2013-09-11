@@ -9,8 +9,6 @@ import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalMostrarAviso;
 import es.miguelgonzalezgomez.dataBaseFun.qt.pestanaVistaResultado.PanelPestanasMostrarConsultas;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -44,7 +42,7 @@ public class CPanelPestanasMostrarConsultas {
         
         int numeroConsultasAnalizadas = analizarTextoConsulta.numConsultasExistentes();
         for(int i=0; i<numeroConsultasAnalizadas; i++) {
-            String trozoConsultaSQL = analizarTextoConsulta.getConsulta(i);
+            String trozoConsultaSQL = analizarTextoConsulta.getConsulta(i + 1);
             
             lanzarConsulta(
                     mPestanaEditor.mConexion,

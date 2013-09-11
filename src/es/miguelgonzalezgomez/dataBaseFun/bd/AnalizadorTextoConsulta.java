@@ -61,8 +61,10 @@ public class AnalizadorTextoConsulta {
         return consultasSQL.size();
     }
     
-    public String getConsulta(int numConsultaLanzando) {
-        return consultasSQL.get(numConsultaLanzando);
+    public String getConsulta(int numeroQuery) {
+        return consultasSQL.get(
+                numeroQuery - 1
+        );
     }
     
     private void trocearTextoConsulta() {
