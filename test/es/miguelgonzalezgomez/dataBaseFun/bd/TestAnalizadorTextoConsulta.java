@@ -155,7 +155,7 @@ public class TestAnalizadorTextoConsulta {
                 procedimientoOracleSQL + segundaConsulta);
         
         assertEquals(
-                "Se esperaba obtener una consulta SQL",
+                "Se esperaban obtener dos consultas SQL",
                 2,
                 analizadorTextoConsulta.numConsultasExistentes()
         );
@@ -169,6 +169,134 @@ public class TestAnalizadorTextoConsulta {
         assertEquals(
                 "Se esperaba que la consulta no fuera de tipo Ejecutar",
                 false,
+                analizadorTextoConsulta.isEjecutarQuery(1)
+        );
+        
+        assertEquals(
+                "Se esperaba obtener la consulta SQL inicial",
+                segundaConsulta,
+                analizadorTextoConsulta.getConsulta(2)
+        );
+        
+        assertEquals(
+                "Se esperaba que la consulta fuera de tipo Ejecutar",
+                true,
+                analizadorTextoConsulta.isEjecutarQuery(2)
+        );
+    }
+    
+    @Test
+    public void consultaJoinOracle() {
+        String joinOracleSQL = "SELECT suppliers.supplier_id, suppliers."
+                + "supplier_name, orders.order_date FROM suppliers FULL OUTER JOIN"
+                + " orders ON suppliers.supplier_id = orders.supplier_id;";
+        String segundaConsulta = "SELECT * FROM TABLA";
+        
+        analizadorTextoConsulta = new AnalizadorTextoConsulta(
+                TiposBasesDeDatos.TIPO_BASE_DATOS.ORACLE,
+                joinOracleSQL + segundaConsulta);
+        
+        assertEquals(
+                "Se esperaban obtener dos consulta SQL",
+                2,
+                analizadorTextoConsulta.numConsultasExistentes()
+        );
+        
+        assertEquals(
+                "Se esperaba obtener la consulta SQL inicial",
+                joinOracleSQL.substring(0, joinOracleSQL.length() - 1),
+                analizadorTextoConsulta.getConsulta(1)
+        );
+        
+        assertEquals(
+                "Se esperaba que la consulta fuera de tipo Ejecutar",
+                true,
+                analizadorTextoConsulta.isEjecutarQuery(1)
+        );
+        
+        assertEquals(
+                "Se esperaba obtener la consulta SQL inicial",
+                segundaConsulta,
+                analizadorTextoConsulta.getConsulta(2)
+        );
+        
+        assertEquals(
+                "Se esperaba que la consulta fuera de tipo Ejecutar",
+                true,
+                analizadorTextoConsulta.isEjecutarQuery(2)
+        );
+    }
+    
+    @Test
+    public void consultaCreateViewOracle() {
+        String createViewOracleSQL = "CREATE VIEW sup_orders AS SELECT suppliers."
+                + "supplier_id, orders.quantity, orders.price FROM suppliers "
+                + "INNER JOIN orders ON suppliers.supplier_id = orders.supplier_id "
+                + "WHERE suppliers.supplier_name = 'IBM';";
+        String segundaConsulta = "SELECT * FROM TABLA";
+        
+        analizadorTextoConsulta = new AnalizadorTextoConsulta(
+                TiposBasesDeDatos.TIPO_BASE_DATOS.ORACLE,
+                createViewOracleSQL + segundaConsulta);
+        
+        assertEquals(
+                "Se esperaban obtener dos consulta SQL",
+                2,
+                analizadorTextoConsulta.numConsultasExistentes()
+        );
+        
+        assertEquals(
+                "Se esperaba obtener la consulta SQL inicial",
+                createViewOracleSQL.substring(0, createViewOracleSQL.length() - 1),
+                analizadorTextoConsulta.getConsulta(1)
+        );
+        
+        assertEquals(
+                "Se esperaba que la consulta no fuera de tipo Ejecutar",
+                false,
+                analizadorTextoConsulta.isEjecutarQuery(1)
+        );
+        
+        assertEquals(
+                "Se esperaba obtener la consulta SQL inicial",
+                segundaConsulta,
+                analizadorTextoConsulta.getConsulta(2)
+        );
+        
+        assertEquals(
+                "Se esperaba que la consulta fuera de tipo Ejecutar",
+                true,
+                analizadorTextoConsulta.isEjecutarQuery(2)
+        );
+    }
+    
+    @Test
+    public void consultaSubSelectViewOracle() {
+        String subSelectOracleSQL = "select suppliers.name, subquery1.total_amt "
+                + "from suppliers, (select supplier_id, Sum(orders.amount) as "
+                + "total_amt from orders group by supplier_id) subquery1 where "
+                + "subquery1.supplier_id = suppliers.supplier_id;";
+        String segundaConsulta = "SELECT * FROM TABLA";
+        
+        analizadorTextoConsulta = new AnalizadorTextoConsulta(
+                TiposBasesDeDatos.TIPO_BASE_DATOS.ORACLE,
+                subSelectOracleSQL + segundaConsulta);
+        
+        assertEquals(
+                "Se esperaban obtener dos consulta SQL",
+                2,
+                analizadorTextoConsulta.numConsultasExistentes()
+        );
+        
+        assertEquals(
+                "Se esperaba obtener la consulta SQL inicial",
+                subSelectOracleSQL.substring(0, subSelectOracleSQL.length() - 1),
+                analizadorTextoConsulta.getConsulta(1)
+        );
+        
+        assertEquals(
+                "Se esperaba que la consulta fuera de tipo Ejecutar",
+                true,
                 analizadorTextoConsulta.isEjecutarQuery(1)
         );
         
