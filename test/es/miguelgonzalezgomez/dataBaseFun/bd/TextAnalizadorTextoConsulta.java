@@ -81,4 +81,30 @@ public class TextAnalizadorTextoConsulta {
                 analizadorTextoConsulta.getConsulta(1)
         );
     }
+    
+    @Test
+    public void consultaComplejaOracle() {
+        String consultaSQLAnalizar = "SELECT * FROM TABLA wheRe palabra like \'\";\';SELECT * FROM TABLA";
+        analizadorTextoConsulta = new AnalizadorTextoConsulta(
+                TiposBasesDeDatos.TIPO_BASE_DATOS.ORACLE,
+                consultaSQLAnalizar);
+        
+        assertEquals(
+                "Se esperaba obtener dos consultas SQL",
+                2,
+                analizadorTextoConsulta.numConsultasExistentes()
+        );
+        
+        assertEquals(
+                "Se esperaba obtener la primera consulta SQL inicial",
+                "SELECT * FROM TABLA wheRe palabra like \"\';\"",
+                analizadorTextoConsulta.getConsulta(0)
+        );
+        
+        assertEquals(
+                "Se esperaba obtener la segunda consulta SQL inicial",
+                "SELECT * FROM TABLA",
+                analizadorTextoConsulta.getConsulta(1)
+        );
+    }
 }
