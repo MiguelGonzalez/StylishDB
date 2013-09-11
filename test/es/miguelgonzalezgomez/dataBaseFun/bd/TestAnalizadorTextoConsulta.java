@@ -136,4 +136,52 @@ public class TestAnalizadorTextoConsulta {
                 analizadorTextoConsulta.isEjecutarQuery(2)
         );
     }
+    
+    @Test
+    public void consultaProcedureOracle() {
+        String procedimientoOracleSQL = "CREATE OR REPLACE Procedure UpdateCourse "
+                + "( name_in IN varchar2 ) IS cnumber number; cursor c1 is select "
+                + "course_number from courses_tbl where course_name = name_in; "
+                + "BEGIN open c1; fetch c1 into cnumber; if c1%notfound then "
+                + "cnumber := 9999; end if; insert into student_courses ( "
+                + "course_name, course_number ) values ( name_in, cnumber ); "
+                + "commit; close c1; EXCEPTION WHEN OTHERS THEN "
+                + "raise_application_error(-20001,'An error was encountered"
+                + " - '||SQLCODE||' -ERROR- '||SQLERRM); END;";
+        String segundaConsulta = "SELECT * FROM TABLA";
+        
+        analizadorTextoConsulta = new AnalizadorTextoConsulta(
+                TiposBasesDeDatos.TIPO_BASE_DATOS.ORACLE,
+                procedimientoOracleSQL + segundaConsulta);
+        
+        assertEquals(
+                "Se esperaba obtener una consulta SQL",
+                2,
+                analizadorTextoConsulta.numConsultasExistentes()
+        );
+        
+        assertEquals(
+                "Se esperaba obtener la consulta SQL inicial",
+                procedimientoOracleSQL,
+                analizadorTextoConsulta.getConsulta(1)
+        );
+        
+        assertEquals(
+                "Se esperaba que la consulta no fuera de tipo Ejecutar",
+                false,
+                analizadorTextoConsulta.isEjecutarQuery(1)
+        );
+        
+        assertEquals(
+                "Se esperaba obtener la consulta SQL inicial",
+                segundaConsulta,
+                analizadorTextoConsulta.getConsulta(2)
+        );
+        
+        assertEquals(
+                "Se esperaba que la consulta fuera de tipo Ejecutar",
+                true,
+                analizadorTextoConsulta.isEjecutarQuery(2)
+        );
+    }
 }
