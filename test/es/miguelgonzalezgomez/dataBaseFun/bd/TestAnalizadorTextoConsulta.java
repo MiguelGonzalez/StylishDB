@@ -162,7 +162,7 @@ public class TestAnalizadorTextoConsulta {
         
         assertEquals(
                 "Se esperaba obtener la consulta SQL inicial",
-                procedimientoOracleSQL,
+                procedimientoOracleSQL.substring(0, procedimientoOracleSQL.length() - 1),
                 analizadorTextoConsulta.getConsulta(1)
         );
         
