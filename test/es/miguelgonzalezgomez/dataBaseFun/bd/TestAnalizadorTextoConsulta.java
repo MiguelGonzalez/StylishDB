@@ -410,6 +410,45 @@ public class TestAnalizadorTextoConsulta {
                 false,
                 analizadorTextoConsulta.isEjecutarQuery(2)
         );
+    }
+    
+    @Test
+    public void consultaPlSQLSelect() {
+        String plqSQLOracle = "DECLARE v_variable VARCHAR2(5); BEGIN SELECT column_name NTO v_variable FROM table_name; EXCEPTION WHEN exception_name THEN ... END;";
+        String segundaConsulta = "SELECT * FROM TABLA";
         
+        analizadorTextoConsulta = new AnalizadorTextoConsulta(
+                TiposBasesDeDatos.TIPO_BASE_DATOS.ORACLE,
+                plqSQLOracle + segundaConsulta);
+        
+        assertEquals(
+                "Se esperaban obtener dos consulta SQL",
+                2,
+                analizadorTextoConsulta.numConsultasExistentes()
+        );
+        
+        assertEquals(
+                "Se esperaba obtener la consulta SQL inicial",
+                plqSQLOracle.substring(0, plqSQLOracle.length() - 1),
+                analizadorTextoConsulta.getConsulta(1)
+        );
+        
+        assertEquals(
+                "Se esperaba que la consulta no fuera de tipo Ejecutar",
+                false,
+                analizadorTextoConsulta.isEjecutarQuery(1)
+        );
+        
+        assertEquals(
+                "Se esperaba obtener la consulta SQL inicial",
+                segundaConsulta,
+                analizadorTextoConsulta.getConsulta(2)
+        );
+        
+        assertEquals(
+                "Se esperaba que la consulta fuera de tipo Ejecutar",
+                true,
+                analizadorTextoConsulta.isEjecutarQuery(2)
+        );
     }
 }

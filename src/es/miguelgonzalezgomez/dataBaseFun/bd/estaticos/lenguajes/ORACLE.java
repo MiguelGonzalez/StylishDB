@@ -24,7 +24,8 @@ public class ORACLE implements DatosBaseDatos {
         {"CREATE OR REPLACE VIEW",";"},
         {"DROP VIEW",";"},
         {"CREATE OR REPLACE PROCEDURE","END;"},
-        {"CREATE PROCEDURE","END;"}
+        {"CREATE PROCEDURE","END;"},
+        {"DECLARE","END;"}
     };
 
     public static String[] palabrasClaveEjecutarConsulta = {
