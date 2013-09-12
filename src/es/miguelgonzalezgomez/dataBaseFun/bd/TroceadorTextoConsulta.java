@@ -3,7 +3,6 @@ package es.miguelgonzalezgomez.dataBaseFun.bd;
 import es.miguelgonzalezgomez.dataBaseFun.bd.estaticos.lenguajes.DatosBaseDatos;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 /**
  *
@@ -12,7 +11,7 @@ import java.util.regex.Pattern;
 public class TroceadorTextoConsulta {
 
     private DatosBaseDatos datosBaseDatos;
-    private String consultaSQL;
+    public String consultaSQL;
     private String consultaSQLAnalizandose;
     
     private List<String> consultasSQL;
@@ -70,16 +69,10 @@ public class TroceadorTextoConsulta {
                 consultasSQL.add(consultaSQLAnalizandose);
                 consultaSQLAnalizandose = "";
                 buscandoTrozo = false;
-            } else if(posInicioSiguienteConsulta == -1) {
+            } else if(posInicioSiguienteConsulta == -1 || posFinal <= posInicioSiguienteConsulta) {
                 String trozoConsulta = consultaSQLAnalizandose.substring(0, posFinal - 1);
                 consultasSQL.add(trozoConsulta);
-                consultaSQLAnalizandose = consultaSQLAnalizandose.substring(posFinal);
-                
-                buscandoTrozo = false;
-            } else if(posFinal <= posInicioSiguienteConsulta) {
-                String trozoConsulta = consultaSQLAnalizandose.substring(0, posFinal - 1);
-                consultasSQL.add(trozoConsulta);
-                consultaSQLAnalizandose = consultaSQLAnalizandose.substring(posFinal);
+                consultaSQLAnalizandose = consultaSQLAnalizandose.substring(posFinal).trim();
                 
                 buscandoTrozo = false;
             } else if(posFinal > posInicioSiguienteConsulta) {    

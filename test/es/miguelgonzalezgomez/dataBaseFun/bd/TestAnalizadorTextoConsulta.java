@@ -63,7 +63,7 @@ public class TestAnalizadorTextoConsulta {
     
     @Test
     public void consultaDobleOracle() {
-        String consultaSQLAnalizar = "SELECT * FROM TABLA;SELECT * FROM TABLA";
+        String consultaSQLAnalizar = "SELECT * FROM TABLA;\n SELECT * FROM TABLA";
         analizadorTextoConsulta = new AnalizadorTextoConsulta(
                 TiposBasesDeDatos.TIPO_BASE_DATOS.ORACLE,
                 consultaSQLAnalizar);
