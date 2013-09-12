@@ -70,12 +70,21 @@ public class TroceadorTextoConsulta {
                 consultasSQL.add(consultaSQLAnalizandose);
                 consultaSQLAnalizandose = "";
                 buscandoTrozo = false;
-            } else if(posInicioSiguienteConsulta == -1 || posFinal <= posInicioSiguienteConsulta) {
+            } else if(posInicioSiguienteConsulta == -1) {
                 String trozoConsulta = consultaSQLAnalizandose.substring(0, posFinal - 1);
                 consultasSQL.add(trozoConsulta);
                 consultaSQLAnalizandose = consultaSQLAnalizandose.substring(posFinal);
                 
                 buscandoTrozo = false;
+            } else if(posFinal <= posInicioSiguienteConsulta) {
+                String trozoConsulta = consultaSQLAnalizandose.substring(0, posFinal - 1);
+                consultasSQL.add(trozoConsulta);
+                consultaSQLAnalizandose = consultaSQLAnalizandose.substring(posFinal);
+                
+                buscandoTrozo = false;
+            } else if(posFinal > posInicioSiguienteConsulta) {    
+                posInicioSiguienteConsulta = encontrarPosicionInicioConsulta(
+                    palabraClaveComienzoFin, posFinal + 1);
             } else {
                 posFinal = encontrarPosicionFinConsulta(palabraClaveComienzoFin,
                         posInicioSiguienteConsulta);
@@ -137,6 +146,5 @@ public class TroceadorTextoConsulta {
         }
         
         return dentroComentarioSimple || dentroComentarioDoble;
-    }
-    
+    }   
 }
