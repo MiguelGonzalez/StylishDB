@@ -107,7 +107,7 @@ public class ORACLE implements DatosBaseDatos {
     };
     
     public static String[] funcionesReservadas = {
-        
+        "UPPER"
     };
     
     public static String[] funcionesEspecialesReservadas = {
