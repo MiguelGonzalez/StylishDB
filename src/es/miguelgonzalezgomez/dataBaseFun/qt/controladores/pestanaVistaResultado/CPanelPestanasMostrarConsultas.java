@@ -9,6 +9,7 @@ import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalMostrarAviso;
 import es.miguelgonzalezgomez.dataBaseFun.qt.pestanaVistaResultado.PanelPestanasMostrarConsultas;
+import java.util.List;
 
 /**
  *
@@ -40,36 +41,49 @@ public class CPanelPestanasMostrarConsultas {
                 mConexion.tipoDeBaseDeDatos, textoConsultaLanzar
         );
         
-        int numeroConsultasAnalizadas = analizarTextoConsulta.numConsultasExistentes();
-        for(int i=0; i<numeroConsultasAnalizadas; i++) {
-            String trozoConsultaSQL = analizarTextoConsulta.getConsulta(i + 1);
-            
-            lanzarConsulta(
+        List<String> consultasEjecutar = analizarTextoConsulta.getConsultasEjecutar();
+        List<String> consultasActualizar = analizarTextoConsulta.getConsultasActualizar();
+        
+        if(!consultasEjecutar.isEmpty()) {
+            ejecutarConsultas(mPestanaEditor, consultasEjecutar);
+        }
+        if(!consultasActualizar.isEmpty()) {
+            actualizarConsultas(mPestanaEditor, consultasActualizar);
+        }
+    }
+    
+    private void ejecutarConsultas(MPestanaEditor mPestanaEditor,
+            List<String> consultasEjecutar) {
+        for(String consultaEjecutar : consultasEjecutar) {
+            ejecutarConsulta(
                     mPestanaEditor.mConexion,
-                    analizarTextoConsulta,
-                    trozoConsultaSQL
+                    consultaEjecutar
             );
         }
     }
     
-    private void lanzarConsulta(
-            MConexion mConexion,
-            AnalizadorTextoConsulta analizarTextoConsulta,
-            String consultaSQL) {
-        
-        
-        if(analizarTextoConsulta.isEjecutarQuery(consultaSQL)) {
-            lanzarEjecutarQuery(
-                    mConexion, consultaSQL
+    private void actualizarConsultas(MPestanaEditor mPestanaEditor,
+            List<String> consultasActualizar) {
+        try {
+            CPestanaActualizarConsultas cPestanaActualizarConsultas = new
+                    CPestanaActualizarConsultas(
+                        mPestanaEditor.mConexion,
+                        consultasActualizar);
+            MPestanaEditor pestana = editoresAplicacion.getMPestanaActiva();
+            
+            anadirNuevaPestana(
+                    pestana.nombrePestana,
+                    cPestanaActualizarConsultas.getPestanaResultado()
             );
-        } else {
-            lanzarUpdateQuery(
-                    mConexion, consultaSQL
+        } catch (ManejadorConsultaErrorSQL ex) {
+            ModalMostrarAviso.mostrarErrorEnPantalla(
+                "Error al actualizar la consulta",
+                ex.getMessage()
             );
         }
     }
     
-    private void lanzarEjecutarQuery(MConexion mConexion, String consultaSQL) {
+    private void ejecutarConsulta(MConexion mConexion, String consultaSQL) {
         try {
             CPestanaMostrarConsulta cPestanaMostrarConsulta = new
                     CPestanaMostrarConsulta(mConexion,consultaSQL);
@@ -85,10 +99,6 @@ public class CPanelPestanasMostrarConsultas {
                 ex.getMessage()
             );
         }
-    }
-    
-    private void lanzarUpdateQuery(MConexion mConexion, String consultaSQL) {
-        //ToDo: Hacer Upadte query
     }
     
     public QTabWidget getPanelConsultas() {

@@ -148,4 +148,28 @@ public class AnalizadorTextoConsulta {
 
         return strTextoLimpio.toString();
     }
+
+    public List<String> getConsultasEjecutar() {
+        List<String> consultasEjecutar = new ArrayList<>();
+        
+        for(String consultaSQL : consultasSQL) {
+            if(isEjecutarQuery(consultaSQL)) {
+                consultasEjecutar.add(consultaSQL);
+            }
+        }
+        
+        return consultasEjecutar;
+    }
+
+    public List<String> getConsultasActualizar() {
+        List<String> consultasActualizar = new ArrayList<>();
+        
+        for(String consultaSQL : consultasSQL) {
+            if(!isEjecutarQuery(consultaSQL)) {
+                consultasActualizar.add(consultaSQL);
+            }
+        }
+        
+        return consultasActualizar;
+    }
 }

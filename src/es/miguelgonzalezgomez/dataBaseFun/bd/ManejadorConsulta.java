@@ -1,6 +1,7 @@
 package es.miguelgonzalezgomez.dataBaseFun.bd;
 
 import es.miguelgonzalezgomez.dataBaseFun.bd.domain.DatosColumna;
+import es.miguelgonzalezgomez.dataBaseFun.bd.domain.ResultadoActualizarConsultas;
 import es.miguelgonzalezgomez.dataBaseFun.bd.domain.ResultadoEjecutarConsulta;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import java.sql.Connection;
@@ -11,6 +12,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -24,7 +27,11 @@ public class ManejadorConsulta {
     
     private MConexion mConexion;
     private String consultaSQL;
+    private List<String> consultasSQL;
+    
     private ResultadoEjecutarConsulta resultadoEjecutar;
+    private ResultadoActualizarConsultas resultadoActualizarConsultas;
+    
     private long tiempoParaConectarContraBaseDeDatos;
 
     public ManejadorConsulta(MConexion mConexion, String consultaSQL) {
@@ -32,6 +39,15 @@ public class ManejadorConsulta {
         this.consultaSQL = consultaSQL;
         
         resultadoEjecutar= new ResultadoEjecutarConsulta();
+        resultadoActualizarConsultas = new ResultadoActualizarConsultas();
+    }
+    
+    public ManejadorConsulta(MConexion mConexion, List<String> consultasSQL) {
+        this.mConexion = mConexion;
+        this.consultasSQL = consultasSQL;
+        
+        resultadoEjecutar= new ResultadoEjecutarConsulta();
+        resultadoActualizarConsultas = new ResultadoActualizarConsultas();
     }
 
     public void conectarContraBaseDeDatos()
@@ -71,6 +87,46 @@ public class ManejadorConsulta {
         }
     }
     
+    public void actualizarConsultas() throws ManejadorConsultaErrorSQL {
+        List<Integer> numFilasAfectadas = new ArrayList<>();
+        
+        try {
+            connection.setAutoCommit(false);
+            
+            long time_start = System.currentTimeMillis();
+            statement = connection.createStatement();
+            
+            for(String consultaSQLActual : consultasSQL) {
+                int filasAfectadas = statement.executeUpdate(
+                        consultaSQLActual
+                );
+                numFilasAfectadas.add(filasAfectadas);
+            }
+            
+            long time_end = System.currentTimeMillis();
+
+            rellenarDatosConsultasActualizadas(
+                    numFilasAfectadas,
+                    time_end - time_start
+            );
+        } catch (SQLException ex) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                throw new ManejadorConsultaErrorSQL(ex);
+            }
+            throw new ManejadorConsultaErrorSQL(ex);
+        } finally {
+            try {
+                connection.commit();
+            } catch (SQLException ex) {
+                throw new ManejadorConsultaErrorSQL(ex);
+            } finally {
+                cerrarConexion();
+            }
+        }
+    }
+    
     public ResultadoEjecutarConsulta getDatosConsultaEjecutada() {
         return resultadoEjecutar;
     }
@@ -96,6 +152,21 @@ public class ManejadorConsulta {
         resultadoEjecutar.tiempoObtenerDatosConsulta = time_end - time_start;
         resultadoEjecutar.tiempoParaConectarContraBaseDeDatos = 
                 tiempoParaConectarContraBaseDeDatos;
+    }
+    
+    private void rellenarDatosConsultasActualizadas(
+            List<Integer> numFilasAfectadas,
+            long tiempoActualizacionConsultas) {
+        resultadoActualizarConsultas.consultasSQLActualizar = consultasSQL;
+        resultadoActualizarConsultas.numeroFilasAfectadas = numFilasAfectadas;
+        resultadoActualizarConsultas.tiempoActualizacionConsultas = 
+                tiempoActualizacionConsultas;
+        resultadoActualizarConsultas.tiempoParaConectarContraBaseDeDatos =
+                tiempoParaConectarContraBaseDeDatos;
+    }
+    
+    public ResultadoActualizarConsultas getResultadoActualizacionConsultas() {
+        return resultadoActualizarConsultas;
     }
     
     private boolean haySiguienteFila() throws ManejadorConsultaErrorSQL {
