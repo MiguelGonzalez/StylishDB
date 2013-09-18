@@ -14,6 +14,7 @@ public class ORACLE implements DatosBaseDatos {
     
     public static String[][] palabrasClaveDelimitadoresConsulta = {
         {"SELECT",";"},
+        {"ALTER",";"},
         {"UPDATE",";"},
         {"INSERT",";"},
         {"DELETE",";"},
