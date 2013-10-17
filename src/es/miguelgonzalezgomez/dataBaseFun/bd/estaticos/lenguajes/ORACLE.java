@@ -22,6 +22,7 @@ public class ORACLE implements DatosBaseDatos {
         {"TRUNCATE",";"},
         {"MERGE",";"},
         {"CREATE VIEW",";"},
+        {"CREATE TABLE",";"},
         {"CREATE OR REPLACE VIEW",";"},
         {"DROP VIEW",";"},
         {"CREATE OR REPLACE PROCEDURE","END;"},
