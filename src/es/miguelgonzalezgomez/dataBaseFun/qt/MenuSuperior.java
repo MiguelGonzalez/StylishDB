@@ -29,6 +29,7 @@ public class MenuSuperior extends QMenuBar {
     private QAction deshacer;
     private QAction rehacer;
     private QAction ejecutarConsulta;
+    private QAction verTablasBaseDatos;
     private QAction renombrarPestana;
     private QAction cerrarPestana;
     
@@ -83,6 +84,7 @@ public class MenuSuperior extends QMenuBar {
         
         edicionMenu.addSeparator();
         crearOpcionEjecutarConsulta();
+        crearOpcionVerTablaseBaseDatos();
         
         edicionMenu.addSeparator();
         crearOpcionRenombrarPestana();
@@ -108,6 +110,13 @@ public class MenuSuperior extends QMenuBar {
         ejecutarConsulta.setShortcut(QKeySequence.fromString("F5"));
         ejecutarConsulta.triggered.connect(controlador, "ejecutarConsulta()");
         edicionMenu.addAction(ejecutarConsulta);
+    }
+    
+    private void crearOpcionVerTablaseBaseDatos() {
+        verTablasBaseDatos = new QAction(tr("Ver tablas BD"), this);
+        verTablasBaseDatos.setShortcut(QKeySequence.fromString("Ctrl+T"));
+        verTablasBaseDatos.triggered.connect(controlador, "verTablasBaseDatos()");
+        edicionMenu.addAction(verTablasBaseDatos);
     }
     
     private void crearOpcionRenombrarPestana() {

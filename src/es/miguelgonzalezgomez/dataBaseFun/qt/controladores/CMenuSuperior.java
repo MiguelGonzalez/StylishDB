@@ -119,6 +119,14 @@ public class CMenuSuperior {
         gestionadorEditores.ejecutarConsultaPestanaActiva();
     }
     
+    protected void verTablasBaseDatos() {
+        if(gestionadorEditores.hayPestanaActiva()) {
+            CVerTablasBaseDatos verTablasBaseDatos =
+                    new CVerTablasBaseDatos();
+            verTablasBaseDatos.mostrarRenombrarPestanaActiva();
+        }
+    }
+    
     protected void renombrarPestana() {
         if(gestionadorEditores.hayPestanaActiva()) {
             CRenombrarPestanaActiva renombrarPestanaActiva =
