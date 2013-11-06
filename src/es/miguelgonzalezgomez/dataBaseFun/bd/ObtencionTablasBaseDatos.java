@@ -49,7 +49,11 @@ public class ObtencionTablasBaseDatos {
             statement = connection.createStatement();
             DatabaseMetaData metaData = connection.getMetaData();
             
-            ResultSet rsMetaData = metaData.getTables(null, null, "%", null);
+            ResultSet rsMetaData = metaData.getTables(null,
+                    null,
+                    "%",
+                    new String[] {"TABLE"}
+            );
             while (rsMetaData.next()) {
                 String nombreTabla = rsMetaData.getString(3);
                 nombresTablasBD.add(nombreTabla);
