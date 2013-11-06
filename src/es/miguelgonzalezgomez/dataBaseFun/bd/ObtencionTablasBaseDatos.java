@@ -55,10 +55,9 @@ public class ObtencionTablasBaseDatos {
                     new String[] {"TABLE"}
             );
             while (rsMetaData.next()) {
-                String nombreTabla = rsMetaData.getString(3);
+                String nombreTabla = rsMetaData.getString("TABLE_NAME");
                 nombresTablasBD.add(nombreTabla);
             }
-            
         } catch (SQLException ex) {
             throw new ManejadorConsultaErrorSQL(ex);
         } finally {
