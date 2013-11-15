@@ -17,7 +17,7 @@ public class MAplicacion {
     
     private void inicializarModelos() {
         mConexionesGuardadas = new MConexionesGuardadas();
-        mPestanasEditorAbiertas = new MPestanasEditorAbiertas(this);
+        mPestanasEditorAbiertas = new MPestanasEditorAbiertas();
     }
     
     public static MAplicacion getInstance() {
