@@ -2,6 +2,7 @@ package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
 import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.pestanaVistaResultado.CPanelPestanasMostrarConsultas;
 import com.trolltech.qt.gui.QDockWidget;
+import com.trolltech.qt.gui.QTabWidget;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.qt.PanelMostrarConsultasRealizadas;
 
@@ -25,7 +26,16 @@ public class CDockPanelConsultasRealizadas {
         panelConsultas.setStyleSheet(
                 ObtencionEstilo.getEstiloVentana("widgetConsultas.css")
         );
-        panelConsultas.setWidget(controladorEjecutarConsultas.getPanelConsultas());
+        QTabWidget qTabWidget = controladorEjecutarConsultas.getPanelConsultas();
+        panelConsultas.setWidget(qTabWidget);
+        
+        qTabWidget.currentChanged.connect(this, "cambiadoPestana()");
+    }
+    
+    private void cambiadoPestana() {
+        if(!panelConsultas.isVisible()) {
+            panelConsultas.setVisible(true);
+        }
     }
     
     public QDockWidget getPanelMostrarConsultasRealizadas() {
