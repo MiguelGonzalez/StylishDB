@@ -37,7 +37,6 @@ public class CPestanaEditor extends CMiControladorGenerico {
     }
 
     public void estaVisible() {
-        gestionadorEditores.establecerPestanaActiva(
-                mPestanaEditor);
+        pestanasAbiertas.establecerEditorActivo(mPestanaEditor);
     }
 }

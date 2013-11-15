@@ -21,7 +21,7 @@ public class CRenombrarPestanaActiva extends CMiControladorGenerico {
     }
     
     public void mostrarRenombrarPestanaActiva() {
-        if(gestionadorEditores.hayPestanaActiva()) {
+        if(pestanasAbiertas.hayPestanaActiva()) {
             modalRenombrar = new ModalRenombrarPestanaActiva(this);        
             mPestana = obtenerPestanaActiva();
             
@@ -42,7 +42,7 @@ public class CRenombrarPestanaActiva extends CMiControladorGenerico {
     }
     
     public MPestanaEditor obtenerPestanaActiva() {
-        return gestionadorEditores.getMPestanaActiva();
+        return pestanasAbiertas.getPestanaActiva();
     }
     
     private void establecerDisenoInterfaz() {
@@ -72,7 +72,7 @@ public class CRenombrarPestanaActiva extends CMiControladorGenerico {
     protected void eventoAceptar() {
         if(noTieneErroresFormulario()) {
             mPestana.nombrePestana = modalRenombrar.nombreEdit.text();
-            gestionadorEditores.editadaPestanaEditor(mPestana);
+            pestanasAbiertas.editadaPestanaEditor(mPestana);
             
             modalRenombrar.close();
         }
@@ -95,5 +95,4 @@ public class CRenombrarPestanaActiva extends CMiControladorGenerico {
                 ObtencionEstilo.getEstiloVentana("dialogEstilo.css")
         );
     }
-    
 }

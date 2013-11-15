@@ -48,7 +48,7 @@ public class CEditarConexion extends CNuevaConexion {
                 modalGestionConexiones.
                         mostrarAvisoNombreConexionDuplicado();
             } else {
-                gestionadorConexiones.
+                conexionesGuardadas.
                         editadaConexion(mConexion, mConexionEditada);
             
                 cerrarVentanaModal();

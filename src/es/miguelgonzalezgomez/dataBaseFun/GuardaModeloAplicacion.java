@@ -1,9 +1,8 @@
 package es.miguelgonzalezgomez.dataBaseFun;
 
 import com.google.gson.reflect.TypeToken;
-import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GConexionesAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.configuracion.ConfiguracionAplicacion;
-import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
+import es.miguelgonzalezgomez.dataBaseFun.modelos.MAplicacion;
 import java.lang.reflect.Type;
 
 /**
@@ -15,12 +14,14 @@ public class GuardaModeloAplicacion {
     private static Preferencias prefs;
     
     private static ConfiguracionAplicacion configuracionAplicacion;
+    private static MAplicacion mAplicacion;
     
     static {
         configuracionAplicacion = new ConfiguracionAplicacion();
     }
     
     public static void guardarModeloAplicacion() {
+        mAplicacion = MAplicacion.getInstance();
         prefs = Preferencias.getInstance();
         
         guardarEstadoAplicacion();
@@ -33,17 +34,13 @@ public class GuardaModeloAplicacion {
     }
     
     private static void cargarEnConfiguracionConexiones() {
-        GConexionesAplicacion conexionesAplicacion = new 
-                GConexionesAplicacion();
-        configuracionAplicacion.conexiones = conexionesAplicacion.getConexiones();
+        configuracionAplicacion.conexiones = mAplicacion.mConexionesGuardadas.
+                getConexionesGuardadas();
     }
     
     private static void cargarEnConfiguracionEditores() {
-        GEditoresAplicacion editoresAplicacion = new
-                GEditoresAplicacion();
-        
-        configuracionAplicacion.editores = editoresAplicacion.
-                getPestanasEditores();
+        configuracionAplicacion.editores = mAplicacion.mPestanasEditorAbiertas.
+                getPestanasEditoresAbiertas();
     }
     
     private static void guardarEstadoEnFicheroJson() {

@@ -62,7 +62,7 @@ public class CEditor extends CMiControladorGenerico {
     }
     
     public void eventoTextoCambiado() {
-        gestionadorEditores.textoCambiadoPestana(mPestanaEditor,
+        pestanasAbiertas.textoCambiadoPestana(mPestanaEditor,
                 editorTexto.document().toPlainText()
         );
     }
@@ -73,21 +73,20 @@ public class CEditor extends CMiControladorGenerico {
         if(hayTextoSeleccionado) {
             textoSeleccionado = editorTexto.textCursor().selectedText();
         }
-        gestionadorEditores.establecerEstadoTextoSeleccionado(
+        pestanasAbiertas.establecerEstadoTextoSeleccionado(
                 hayTextoSeleccionado, textoSeleccionado
         );
     }
 
     public void cambiarSiguientePestana() {
-        gestionadorEditores.cambiarSiguientePestana();
+        pestanasAbiertas.cambiarSiguientePestana();
     }
 
     public void cambiarAnteriorPestana() {
-        gestionadorEditores.cambiarAnteriorPestana();
+        pestanasAbiertas.cambiarAnteriorPestana();
     }
 
     public void establecerEditorVisible() {
-        gestionadorEditores.establecerPestanaActiva(
-                mPestanaEditor);
+        pestanasAbiertas.establecerEditorActivo(mPestanaEditor);
     }
 }

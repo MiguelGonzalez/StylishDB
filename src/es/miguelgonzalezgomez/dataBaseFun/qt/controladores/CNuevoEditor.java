@@ -1,7 +1,6 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
 import com.trolltech.qt.core.Qt;
-import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
@@ -17,7 +16,6 @@ import java.util.List;
 public class CNuevoEditor extends CMiControladorGenerico {
  
     private ModalCrearNuevoEditor modalCrearNuevoEditor;
-    
     
     public CNuevoEditor() {
         super();
@@ -49,7 +47,7 @@ public class CNuevoEditor extends CMiControladorGenerico {
     }
     
     private void pintarComboBoxConexionesGuardadas() {
-        List<MConexion> conexiones = gestionadorConexiones.getConexiones();
+        List<MConexion> conexiones = conexionesGuardadas.getConexionesGuardadas();
         
         for(MConexion conexion : conexiones) {
             modalCrearNuevoEditor.conexionListWidget.addItem(conexion.nombre);
@@ -58,19 +56,15 @@ public class CNuevoEditor extends CMiControladorGenerico {
     }
     
     protected void eventoCrearEditor() {
-        GEditoresAplicacion editoresAplicacion = new
-                GEditoresAplicacion();
-        
         String nombreConexion = modalCrearNuevoEditor.conexionListWidget.
                 currentItem().text();
         
-        MConexion conexion = gestionadorConexiones.getMConexionNombre(nombreConexion);
-        
+        MConexion conexion = conexionesGuardadas.getMConexionNombre(nombreConexion);
         
         MPestanaEditor mPestanaEditor = new MPestanaEditor(
                 conexion.uuidConexion,
                 conexion.nombre);
-        editoresAplicacion.addNuevaPestanaEditor(mPestanaEditor);
+        pestanasAbiertas.addNuevaPestanaEditor(mPestanaEditor);
         
         modalCrearNuevoEditor.close();
     }

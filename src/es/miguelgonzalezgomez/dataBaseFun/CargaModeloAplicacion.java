@@ -1,9 +1,8 @@
 package es.miguelgonzalezgomez.dataBaseFun;
 
 import com.google.gson.reflect.TypeToken;
-import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GConexionesAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.configuracion.ConfiguracionAplicacion;
-import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
+import es.miguelgonzalezgomez.dataBaseFun.modelos.MAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
 import java.lang.reflect.Type;
@@ -16,10 +15,12 @@ import java.util.ArrayList;
 public class CargaModeloAplicacion {
     private static String nombreFicheroPreferencias = "preferenciasAplicacion";
     private static Preferencias prefs;
+    private static MAplicacion mAplicacion;
     
     private static ConfiguracionAplicacion configuracionAplicacion;
     
     public static void cargarModeloAplicacion() {
+        mAplicacion = MAplicacion.getInstance();
         prefs = Preferencias.getInstance();
         
         cargaConfiguracionAplicacion();
@@ -62,20 +63,14 @@ public class CargaModeloAplicacion {
     }
     
     private static void cargarConexiones() {
-        GConexionesAplicacion conexionesAplicacion = new 
-                GConexionesAplicacion();
-        
         for(MConexion conexion : configuracionAplicacion.conexiones) {
-            conexionesAplicacion.addNuevaConexion(conexion);
+            mAplicacion.mConexionesGuardadas.addNuevaConexion(conexion);
         }
     }
     
     private static void cargarEditores() {
-        GEditoresAplicacion editoresAplicacion = new
-                GEditoresAplicacion();
-        
         for(MPestanaEditor editor : configuracionAplicacion.editores) {
-            editoresAplicacion.addNuevaPestanaEditor(editor);
+            mAplicacion.mPestanasEditorAbiertas.addNuevaPestanaEditor(editor);
         }
     }
 }

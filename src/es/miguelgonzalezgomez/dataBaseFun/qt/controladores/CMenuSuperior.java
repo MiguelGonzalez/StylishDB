@@ -83,7 +83,7 @@ public class CMenuSuperior extends CMiControladorGenerico {
         
         MConexion mConexionBorrar = (MConexion) actionBorrar.data();
         
-        gestionadorConexiones.borrarConexion(mConexionBorrar);
+        conexionesGuardadas.removeConexion(mConexionBorrar);
     }
     
     protected void editarConexion() {
@@ -97,19 +97,19 @@ public class CMenuSuperior extends CMiControladorGenerico {
     }
     
     protected void deshacer() {
-        gestionadorEditores.deshacerPestanaActiva();
+        pestanasAbiertas.deshacerPestanaActiva();
     }
     
     protected void rehacer() {
-        gestionadorEditores.rehacerPestanaActiva();
+        pestanasAbiertas.rehacerPestanaActiva();
     }
     
     protected void ejecutarConsulta() {
-        gestionadorEditores.ejecutarConsultaPestanaActiva();
+        pestanasAbiertas.ejecutarConsultaPestanaActiva();
     }
     
     protected void verTablasBaseDatos() {
-        if(gestionadorEditores.hayPestanaActiva()) {
+        if(pestanasAbiertas.hayPestanaActiva()) {
             CVerTablasBaseDatos verTablasBaseDatos =
                     new CVerTablasBaseDatos();
             verTablasBaseDatos.mostrarRenombrarPestanaActiva();
@@ -117,7 +117,7 @@ public class CMenuSuperior extends CMiControladorGenerico {
     }
     
     protected void renombrarPestana() {
-        if(gestionadorEditores.hayPestanaActiva()) {
+        if(pestanasAbiertas.hayPestanaActiva()) {
             CRenombrarPestanaActiva renombrarPestanaActiva =
                     new CRenombrarPestanaActiva();
             renombrarPestanaActiva.mostrarRenombrarPestanaActiva();
@@ -125,6 +125,6 @@ public class CMenuSuperior extends CMiControladorGenerico {
     }
     
     protected void cerrarPestana() {
-        gestionadorEditores.cerrarPestanaActiva();
+        pestanasAbiertas.cerrarPestanaActiva();
     }
 }

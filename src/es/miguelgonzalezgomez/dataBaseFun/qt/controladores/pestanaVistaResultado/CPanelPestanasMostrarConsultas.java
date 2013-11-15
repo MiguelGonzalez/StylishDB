@@ -32,7 +32,7 @@ public class CPanelPestanasMostrarConsultas extends CMiControladorGenerico {
     }
     
     private void inicializarEscuchaCambios() {
-        gestionadorEditores.addPestanasEditorListener(escuchaCambiosConsultas);
+        pestanasAbiertas.addPestanaEditorListener(escuchaCambiosConsultas);
     }
     
     private void establecerEstilo() {
@@ -82,7 +82,7 @@ public class CPanelPestanasMostrarConsultas extends CMiControladorGenerico {
                     CPestanaActualizarConsultas(
                         mConexion,
                         consultasActualizar);
-            MPestanaEditor pestana = gestionadorEditores.getMPestanaActiva();
+            MPestanaEditor pestana = pestanasAbiertas.getPestanaActiva();
             
             anadirNuevaPestana(
                     pestana.nombrePestana,
@@ -100,7 +100,7 @@ public class CPanelPestanasMostrarConsultas extends CMiControladorGenerico {
         try {
             CPestanaMostrarConsulta cPestanaMostrarConsulta = new
                     CPestanaMostrarConsulta(mConexion,consultaSQL);
-            MPestanaEditor pestana = gestionadorEditores.getMPestanaActiva();
+            MPestanaEditor pestana = pestanasAbiertas.getPestanaActiva();
             
             anadirNuevaPestana(
                     pestana.nombrePestana,

@@ -54,7 +54,7 @@ public class CWidgetPestanasEditores extends CMiControladorGenerico {
     
     private void cargarPestanasAbiertas() {
         for(MPestanaEditor pestanaEditor :
-                gestionadorEditores.getPestanasEditores()) {
+                pestanasAbiertas.getPestanasEditoresAbiertas()) {
             addTab(pestanaEditor);
         }
     }
@@ -76,7 +76,7 @@ public class CWidgetPestanasEditores extends CMiControladorGenerico {
     private void escuchaEditoresAplicacion() {
         escuchaCambiosPestana = new
                 CWidgetPestanasEditoresEscuchaCambios(this);
-        gestionadorEditores.addPestanasEditorListener(escuchaCambiosPestana);
+        pestanasAbiertas.addPestanaEditorListener(escuchaCambiosPestana);
     }
 
     public void addTab(MPestanaEditor pestanaEditor) {
@@ -114,7 +114,7 @@ public class CWidgetPestanasEditores extends CMiControladorGenerico {
         if(pestanaEditorTexto != null) {
             pestanaEditorTexto.establecerEditorVisible();
         } else {
-            gestionadorEditores.establecerPestanaActiva(null);
+            pestanasAbiertas.establecerEditorActivo(null);
         }
     }
     
@@ -160,6 +160,5 @@ public class CWidgetPestanasEditores extends CMiControladorGenerico {
         }
         
         widgetPestanasEditores.setCurrentIndex(anteriorIndex);
-        
     }
 }

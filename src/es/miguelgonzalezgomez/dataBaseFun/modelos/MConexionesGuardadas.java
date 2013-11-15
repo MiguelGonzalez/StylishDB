@@ -45,6 +45,19 @@ public class MConexionesGuardadas {
         return conexionCopy;
     }
     
+    public boolean existeNombreConexion(MConexion mConexion) {
+        List<MConexion> conexiones = getConexionesGuardadas();
+        
+        for(MConexion conexion : conexiones) {
+            if(!mConexion.equals(conexion) &&
+                    conexion.nombre.equals(mConexion.nombre)) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
     public void addConexionListener(ConexionListener conexionListener) {
         conexionListeners.add(conexionListener);
     }

@@ -1,9 +1,9 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
 import es.miguelgonzalezgomez.dataBaseFun.Preferencias;
-import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GConexionesAplicacion;
-import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MAplicacion;
+import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexionesGuardadas;
+import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanasEditorAbiertas;
 
 /**
  *
@@ -12,15 +12,14 @@ import es.miguelgonzalezgomez.dataBaseFun.modelos.MAplicacion;
 public class CMiControladorGenerico {
 
     protected MAplicacion mAplicacion;
-    protected GConexionesAplicacion gestionadorConexiones;
-    protected GEditoresAplicacion gestionadorEditores;
     protected Preferencias prefs;
+    protected MConexionesGuardadas conexionesGuardadas;
+    protected MPestanasEditorAbiertas pestanasAbiertas;
     
     public CMiControladorGenerico() {
         mAplicacion = MAplicacion.getInstance();
-        gestionadorConexiones = new
-                GConexionesAplicacion();
-        gestionadorEditores = new GEditoresAplicacion();
+        conexionesGuardadas = mAplicacion.mConexionesGuardadas;
+        pestanasAbiertas = mAplicacion.mPestanasEditorAbiertas;
         prefs = Preferencias.getInstance();
     }
     

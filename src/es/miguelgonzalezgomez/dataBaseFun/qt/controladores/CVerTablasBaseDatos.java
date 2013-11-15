@@ -27,7 +27,7 @@ public class CVerTablasBaseDatos extends CMiControladorGenerico {
     }
     
     void mostrarRenombrarPestanaActiva() {
-        if(gestionadorEditores.hayPestanaActiva()) {
+        if(pestanasAbiertas.hayPestanaActiva()) {
             modalVerTablasBD = new ModalVerTablasBaseDatos(this);        
             mPestanaEditor = obtenerPestanaActiva();
             
@@ -37,7 +37,7 @@ public class CVerTablasBaseDatos extends CMiControladorGenerico {
     }
     
     public MPestanaEditor obtenerPestanaActiva() {
-        return gestionadorEditores.getMPestanaActiva();
+        return pestanasAbiertas.getPestanaActiva();
     }
 
     private void cargarDisenoVentanaModal() {

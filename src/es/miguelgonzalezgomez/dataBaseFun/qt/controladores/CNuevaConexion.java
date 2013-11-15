@@ -74,7 +74,7 @@ public class CNuevaConexion extends CMiControladorGenerico {
                 modalGestionConexiones.
                         mostrarAvisoNombreConexionDuplicado();
             } else {
-                gestionadorConexiones.
+                conexionesGuardadas.
                         addNuevaConexion(mConexion);
             
                 cerrarVentanaModal();
@@ -83,7 +83,7 @@ public class CNuevaConexion extends CMiControladorGenerico {
     }
     
     protected boolean nombreConexionRepetido(MConexion mConexion) {
-        return gestionadorConexiones.existeNombreConexion(mConexion);
+        return conexionesGuardadas.existeNombreConexion(mConexion);
     }
     
     protected void cerrarVentanaModal() {
