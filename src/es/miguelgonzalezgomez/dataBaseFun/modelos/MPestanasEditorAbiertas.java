@@ -14,7 +14,11 @@ public class MPestanasEditorAbiertas {
     
     private transient List<PestanaEditorListener> pestanasListeners;
     
-    public MPestanasEditorAbiertas() {
+    private MAplicacion mAplicacion;
+    
+    public MPestanasEditorAbiertas(MAplicacion mAplicacion) {
+        this.mAplicacion = mAplicacion;
+        
         pestanasEditoresAbiertas = new ArrayList<>();
         pestanasListeners = new ArrayList<>();
         pestanaEditorActiva = null;
@@ -39,7 +43,7 @@ public class MPestanasEditorAbiertas {
     public List<MPestanaEditor> getPestanasEditoresAbiertas() {
         List<MPestanaEditor> pestanasAbiertasClone = new ArrayList<>();
         for(MPestanaEditor pestanaAbierta : pestanasEditoresAbiertas) {
-            pestanasAbiertasClone.add(pestanaAbierta.clone());
+            pestanasAbiertasClone.add(getCopiaPestana(pestanaAbierta));
         }
 
         return pestanasAbiertasClone;
@@ -48,13 +52,13 @@ public class MPestanasEditorAbiertas {
     public void addNuevaPestanaEditor(MPestanaEditor pestanaEditor) {
         pestanasEditoresAbiertas.add(pestanaEditor.clone());
         
-        notificarNuevaPestanaEditor(pestanaEditor);
+        notificarNuevaPestanaEditor(getCopiaPestana(pestanaEditor));
     }
     
     public void removePestanaEditor(MPestanaEditor pestanaEditor) {
         pestanasEditoresAbiertas.remove(pestanaEditor);
         
-        notificarEliminadaPestanaEditor(pestanaEditor);
+        notificarEliminadaPestanaEditor(getCopiaPestana(pestanaEditor));
     }
     
     public void editadaPestanaEditor(MPestanaEditor pestanaEditorEditada) {
@@ -64,7 +68,7 @@ public class MPestanasEditorAbiertas {
             }
         }
         
-        notificarModificadaPestanaEditor(pestanaEditorEditada,
+        notificarModificadaPestanaEditor(getCopiaPestana(pestanaEditorEditada),
                 MPestanaEditorEvento.EVENT_RENOMBRADA);
     }
     
@@ -95,14 +99,14 @@ public class MPestanasEditorAbiertas {
 
     public void deshacerPestanaActiva() {
         if(hayPestanaActiva()) {
-            notificarAtajoPestana(pestanaEditorActiva.clone(),
+            notificarAtajoPestana(getCopiaPestana(pestanaEditorActiva),
                     MPestanaEditorEvento.EVENT_DESHACER);
         }
     }
     
     public void rehacerPestanaActiva() {
         if(hayPestanaActiva()) {
-            notificarAtajoPestana(pestanaEditorActiva.clone(),
+            notificarAtajoPestana(getCopiaPestana(pestanaEditorActiva),
                     MPestanaEditorEvento.EVENT_REHACER);
         }
     }
@@ -120,7 +124,10 @@ public class MPestanasEditorAbiertas {
 
     public MPestanaEditor getPestanaActiva() {
         if(hayPestanaActiva()) {
-            return pestanaEditorActiva.clone();
+            MPestanaEditor pestanaAbiertaClone = pestanaEditorActiva.clone();
+            pestanaAbiertaClone.mConexion = getMConexionPestana(pestanaAbiertaClone);
+            
+            return pestanaAbiertaClone;
         } else {
             return null;
         }
@@ -130,8 +137,8 @@ public class MPestanasEditorAbiertas {
         if(hayPestanaActiva()) {
             pestanasEditoresAbiertas.remove(pestanaEditorActiva);
             
-            MPestanaEditor pestanaEditorActivaClone =
-                    pestanaEditorActiva.clone();
+            MPestanaEditor pestanaEditorActivaClone = getCopiaPestana(
+                    pestanaEditorActiva);
             pestanaEditorActiva = null;
             
             notificarAtajoPestana(pestanaEditorActivaClone,
@@ -142,8 +149,8 @@ public class MPestanasEditorAbiertas {
 
     public void ejecutarConsultaPestanaActiva() {
         if(hayPestanaActiva()) {
-            MPestanaEditor pestanaEditorActivaClone =
-                    pestanaEditorActiva.clone();
+            MPestanaEditor pestanaEditorActivaClone = getCopiaPestana(
+                    pestanaEditorActiva);
             notificarEjecutarConsulta(pestanaEditorActivaClone);
            
         }
@@ -168,7 +175,7 @@ public class MPestanasEditorAbiertas {
             if(pestanaEditor.equals(mPestanaEditor)) {
                 pestanaEditor.contenidoTexto = textoEditor;
                 
-                notificarModificadaPestanaEditor(pestanaEditor.clone(),
+                notificarModificadaPestanaEditor(getCopiaPestana(pestanaEditor),
                     MPestanaEditorEvento.EVENT_TEXTO_CAMBIADO);
             }
         }
@@ -184,5 +191,17 @@ public class MPestanasEditorAbiertas {
         for(PestanaEditorListener pestanaEditorListener : getCopiaPestanasListeners()) {
             pestanaEditorListener.cambiarSiguientePestana();
         }
+    }
+    
+    private MPestanaEditor getCopiaPestana(MPestanaEditor pestanaEditor) {
+        MPestanaEditor pestanaEditorClone = pestanaEditor.clone();
+        pestanaEditorClone.mConexion = getMConexionPestana(pestanaEditorClone);
+
+        return pestanaEditorClone;
+    }
+    
+    private MConexion getMConexionPestana(MPestanaEditor pestanaEditor) {
+        MConexionesGuardadas conexionesGuardadas = mAplicacion.mConexionesGuardadas;
+        return conexionesGuardadas.getConexionCopia(pestanaEditor.mConexion);
     }
 }

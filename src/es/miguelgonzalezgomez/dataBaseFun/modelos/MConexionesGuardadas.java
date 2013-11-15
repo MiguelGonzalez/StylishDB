@@ -107,4 +107,15 @@ public class MConexionesGuardadas {
                 ArrayList<>(conexionListeners);
         return conexionListenersCopy;
     }
+
+    public MConexion getConexionCopia(MConexion mConexion) {
+        List<MConexion> conexionesGuardadasCopy = new
+                ArrayList<>(conexionesGuardadas);
+        for(MConexion conexionGuardadaCopy : conexionesGuardadasCopy) {
+            if(conexionGuardadaCopy.equals(mConexion)) {
+                return conexionGuardadaCopy.clone();
+            }
+        }
+        return new MConexion();
+    }
 }

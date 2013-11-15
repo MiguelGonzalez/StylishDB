@@ -12,8 +12,12 @@ public class MAplicacion {
     private static MAplicacion INSTANCE = null;
     
     private MAplicacion() {
+        inicializarModelos();
+    }
+    
+    private void inicializarModelos() {
         mConexionesGuardadas = new MConexionesGuardadas();
-        mPestanasEditorAbiertas = new MPestanasEditorAbiertas();
+        mPestanasEditorAbiertas = new MPestanasEditorAbiertas(this);
     }
     
     public static MAplicacion getInstance() {
