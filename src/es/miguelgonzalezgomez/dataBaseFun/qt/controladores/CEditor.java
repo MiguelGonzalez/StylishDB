@@ -2,6 +2,8 @@ package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
 import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
+import es.miguelgonzalezgomez.dataBaseFun.modelos.MAplicacion;
+import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
 import es.miguelgonzalezgomez.dataBaseFun.qt.EditorTexto;
 import es.miguelgonzalezgomez.dataBaseFun.qt.restaltadoEditor.ConstruirSyntaxHighlighter;
@@ -16,9 +18,12 @@ public class CEditor {
     private EditorTexto editorTexto;
     
     private MPestanaEditor mPestanaEditor;
+    private MAplicacion mAplicacion;
     
     public CEditor(MPestanaEditor mPestanaEditor) {
         this.mPestanaEditor = mPestanaEditor;
+        mAplicacion = MAplicacion.getInstance();
+        
         editoresAplicacion = new GEditoresAplicacion();
         
         construirEditorTexto();
@@ -34,8 +39,10 @@ public class CEditor {
     }
     
     private void establecerResaltadoSintaxis() {
+        MConexion mConexion = mAplicacion.mConexionesGuardadas.
+                getMConexion(mPestanaEditor.uuidConexion);
         ConstruirSyntaxHighlighter.establecerSyntaxHighlighter(
-                mPestanaEditor.mConexion.tipoDeBaseDeDatos,
+                mConexion.tipoDeBaseDeDatos,
                 editorTexto.document()
         );
     }

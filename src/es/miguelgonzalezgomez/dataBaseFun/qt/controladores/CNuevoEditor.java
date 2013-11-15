@@ -64,14 +64,13 @@ public class CNuevoEditor {
         String nombreConexion = modalCrearNuevoEditor.conexionListWidget.
                 currentItem().text();
         
-        List<MConexion> conexiones = gestionadorConexiones.getConexiones();
+        MConexion conexion = gestionadorConexiones.getMConexionNombre(nombreConexion);
         
-        for(MConexion conexion : conexiones) {
-            if(nombreConexion.equals(conexion.nombre)) {
-                MPestanaEditor mPestanaEditor = new MPestanaEditor(conexion);
-                editoresAplicacion.addNuevaPestanaEditor(mPestanaEditor);
-            }
-        }
+        
+        MPestanaEditor mPestanaEditor = new MPestanaEditor(
+                conexion.uuidConexion,
+                conexion.nombre);
+        editoresAplicacion.addNuevaPestanaEditor(mPestanaEditor);
         
         modalCrearNuevoEditor.close();
     }

@@ -20,6 +20,10 @@ public class GConexionesAplicacion {
         return aplicacion.mConexionesGuardadas.getConexionesGuardadas();
     }
     
+    public MConexion getMConexionNombre(String nombreConexion) {
+        return aplicacion.mConexionesGuardadas.getMConexionNombre(nombreConexion);
+    }
+    
     public void borrarConexion(MConexion mConexion) {
         aplicacion.mConexionesGuardadas.removeConexion(mConexion);
     }

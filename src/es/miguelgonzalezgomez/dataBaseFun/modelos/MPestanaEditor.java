@@ -8,7 +8,7 @@ import java.util.UUID;
  */
 public class MPestanaEditor {
     
-    public MConexion mConexion;
+    public UUID uuidConexion;
     public UUID uuidPestana;
     
     public String nombrePestana;
@@ -17,20 +17,25 @@ public class MPestanaEditor {
     public boolean hayTextoSeleccionado;
     public String textoSeleccionado;
     
-    public MPestanaEditor(MConexion mConexion) {
-        this.mConexion = mConexion;
+    public MPestanaEditor(UUID uuidConexion, String nombrePestana) {
+        this(uuidConexion);
         
-        nombrePestana = mConexion.nombre;
-        
-        contenidoTexto = "";
+        this.nombrePestana = nombrePestana;
+    }
+    
+    public MPestanaEditor(UUID uuidConexion) {
+        this.uuidConexion = uuidConexion;
         uuidPestana = UUID.randomUUID();
+        
+        nombrePestana = "Consultas";
+        contenidoTexto = "";
     }
     
     @Override
     public MPestanaEditor clone() {
-        MPestanaEditor mPestanaEditor = new MPestanaEditor(mConexion);
+        MPestanaEditor mPestanaEditor = new MPestanaEditor(uuidConexion,
+                nombrePestana);
         mPestanaEditor.uuidPestana = uuidPestana;
-        mPestanaEditor.nombrePestana = nombrePestana;
         mPestanaEditor.contenidoTexto = contenidoTexto;
         mPestanaEditor.hayTextoSeleccionado = hayTextoSeleccionado;
         mPestanaEditor.textoSeleccionado = textoSeleccionado;

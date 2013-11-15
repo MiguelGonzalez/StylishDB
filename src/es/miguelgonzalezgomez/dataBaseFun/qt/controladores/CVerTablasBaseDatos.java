@@ -6,6 +6,8 @@ import es.miguelgonzalezgomez.dataBaseFun.bd.ManejadorConsultaNoHayConexion;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ObtencionTablasBaseDatos;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
+import es.miguelgonzalezgomez.dataBaseFun.modelos.MAplicacion;
+import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalMostrarAviso;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalVerTablasBaseDatos;
@@ -19,20 +21,21 @@ import java.util.List;
 public class CVerTablasBaseDatos {
 
     private GEditoresAplicacion gestionadorEditores;
-    private MPestanaEditor mPestana;
+    private MPestanaEditor mPestanaEditor;
     
     private ObtencionTablasBaseDatos obtencionTablas;
-    
     private ModalVerTablasBaseDatos modalVerTablasBD;
+    private MAplicacion mAplicacion;
 
     public CVerTablasBaseDatos() {
+        mAplicacion = MAplicacion.getInstance();
         gestionadorEditores = new GEditoresAplicacion();
     }
     
     void mostrarRenombrarPestanaActiva() {
         if(gestionadorEditores.hayPestanaActiva()) {
             modalVerTablasBD = new ModalVerTablasBaseDatos(this);        
-            mPestana = obtenerPestanaActiva();
+            mPestanaEditor = obtenerPestanaActiva();
             
             cargarDisenoVentanaModal();
             mostrarVentanaModal();
@@ -78,7 +81,9 @@ public class CVerTablasBaseDatos {
     }
     
     private void cargarTablasBD() {
-        obtencionTablas = new ObtencionTablasBaseDatos(mPestana.mConexion);
+        MConexion mConexion = mAplicacion.mConexionesGuardadas.
+                getMConexion(mPestanaEditor.uuidConexion);
+        obtencionTablas = new ObtencionTablasBaseDatos(mConexion);
         try {
             obtencionTablas.conectarContraBaseDeDatos();
             

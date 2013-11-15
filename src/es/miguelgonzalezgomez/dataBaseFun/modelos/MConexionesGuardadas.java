@@ -2,6 +2,7 @@ package es.miguelgonzalezgomez.dataBaseFun.modelos;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  *
@@ -15,6 +16,24 @@ public class MConexionesGuardadas {
     public MConexionesGuardadas() {
         conexionesGuardadas = new ArrayList<>();
         conexionListeners = new ArrayList<>();
+    }
+    
+    public MConexion getMConexion(UUID uuidConexion) {
+        for(MConexion conexion : conexionesGuardadas) {
+            if(conexion.uuidConexion.equals(uuidConexion)) {
+                return conexion.clone();
+            }
+        }
+        return null;
+    }
+    
+    public MConexion getMConexionNombre(String nombreConexion) {
+        for(MConexion conexion : conexionesGuardadas) {
+            if(conexion.nombre.equals(nombreConexion)) {
+                return conexion.clone();
+            }
+        }
+        return null;
     }
     
     public List<MConexion> getConexionesGuardadas() {

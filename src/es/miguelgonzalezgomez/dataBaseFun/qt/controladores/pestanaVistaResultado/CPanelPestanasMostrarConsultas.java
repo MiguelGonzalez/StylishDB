@@ -5,6 +5,7 @@ import com.trolltech.qt.gui.QWidget;
 import es.miguelgonzalezgomez.dataBaseFun.bd.AnalizadorTextoConsulta;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ManejadorConsultaErrorSQL;
 import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
+import es.miguelgonzalezgomez.dataBaseFun.modelos.MAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalMostrarAviso;
@@ -21,7 +22,11 @@ public class CPanelPestanasMostrarConsultas {
     private GEditoresAplicacion editoresAplicacion;
     private PanelPestanasMostrarConsultas panelConsultas;
     
+    private MAplicacion mAplicacion;
+    
     public CPanelPestanasMostrarConsultas() {
+        mAplicacion = MAplicacion.getInstance();
+        
         panelConsultas = new PanelPestanasMostrarConsultas(this);
         escuchaCambiosConsultas = new CPanelPestanasMostrarConsultasEscuchaCambios(this);
         editoresAplicacion = new GEditoresAplicacion();
@@ -34,7 +39,8 @@ public class CPanelPestanasMostrarConsultas {
     }
 
     public void lanzarConsultaTexto(MPestanaEditor mPestanaEditor) {
-        MConexion mConexion = mPestanaEditor.mConexion;
+        MConexion mConexion = mAplicacion.mConexionesGuardadas.
+                getMConexion(mPestanaEditor.uuidConexion);
         String textoConsultaLanzar = mPestanaEditor.getTextoConsultaLanzar();
         
         AnalizadorTextoConsulta analizarTextoConsulta = new AnalizadorTextoConsulta(
@@ -54,9 +60,11 @@ public class CPanelPestanasMostrarConsultas {
     
     private void ejecutarConsultas(MPestanaEditor mPestanaEditor,
             List<String> consultasEjecutar) {
+        MConexion mConexion = mAplicacion.mConexionesGuardadas.
+                getMConexion(mPestanaEditor.uuidConexion);
         for(String consultaEjecutar : consultasEjecutar) {
             ejecutarConsulta(
-                    mPestanaEditor.mConexion,
+                    mConexion,
                     consultaEjecutar
             );
         }
@@ -65,9 +73,11 @@ public class CPanelPestanasMostrarConsultas {
     private void actualizarConsultas(MPestanaEditor mPestanaEditor,
             List<String> consultasActualizar) {
         try {
+            MConexion mConexion = mAplicacion.mConexionesGuardadas.
+                getMConexion(mPestanaEditor.uuidConexion);
             CPestanaActualizarConsultas cPestanaActualizarConsultas = new
                     CPestanaActualizarConsultas(
-                        mPestanaEditor.mConexion,
+                        mConexion,
                         consultasActualizar);
             MPestanaEditor pestana = editoresAplicacion.getMPestanaActiva();
             
