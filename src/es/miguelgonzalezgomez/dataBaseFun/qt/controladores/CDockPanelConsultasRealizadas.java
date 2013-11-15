@@ -24,7 +24,7 @@ public class CDockPanelConsultasRealizadas {
     
     private void decorarPanelMostrarConsultas() {
         panelConsultas.setStyleSheet(
-                ObtencionEstilo.getEstiloVentana("widgetConsultas.css")
+                ObtencionEstilo.getEstiloVentana("QDockWidgetEstilo.css")
         );
         QTabWidget qTabWidget = controladorEjecutarConsultas.getPanelConsultas();
         panelConsultas.setWidget(qTabWidget);

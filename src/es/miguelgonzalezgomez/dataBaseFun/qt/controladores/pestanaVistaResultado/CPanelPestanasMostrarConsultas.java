@@ -4,6 +4,7 @@ import com.trolltech.qt.gui.QTabWidget;
 import com.trolltech.qt.gui.QWidget;
 import es.miguelgonzalezgomez.dataBaseFun.bd.AnalizadorTextoConsulta;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ManejadorConsultaErrorSQL;
+import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
@@ -31,11 +32,18 @@ public class CPanelPestanasMostrarConsultas {
         escuchaCambiosConsultas = new CPanelPestanasMostrarConsultasEscuchaCambios(this);
         editoresAplicacion = new GEditoresAplicacion();
         
+        establecerEstilo();
         inicializarEscuchaCambios();
     }
     
     private void inicializarEscuchaCambios() {
         editoresAplicacion.addPestanasEditorListener(escuchaCambiosConsultas);
+    }
+    
+    private void establecerEstilo() {
+        panelConsultas.setStyleSheet(
+                ObtencionEstilo.getEstiloVentana("widgetConsultas.css")
+        );
     }
 
     public void lanzarConsultaTexto(MPestanaEditor mPestanaEditor) {
