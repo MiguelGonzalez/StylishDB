@@ -2,7 +2,6 @@ package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
 import com.trolltech.qt.core.Qt;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ComprobacionConexion;
-import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GConexionesAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ValidadorModeloConexion;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
@@ -14,13 +13,12 @@ import static es.miguelgonzalezgomez.dataBaseFun.bd.domain.TiposBasesDeDatos.dev
  *
  * @author Miguel González
  */
-public class CNuevaConexion {
+public class CNuevaConexion extends CMiControladorGenerico {
     
     protected ModalCrearEditarConexion modalGestionConexiones;
-    protected GConexionesAplicacion gestionadorConexiones;
     
     public CNuevaConexion() {
-        gestionadorConexiones = new GConexionesAplicacion();
+        super();
         
         crearVentanaModal();
         recargarEstiloModal();

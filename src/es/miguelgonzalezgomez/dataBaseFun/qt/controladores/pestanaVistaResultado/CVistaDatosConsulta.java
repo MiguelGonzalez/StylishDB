@@ -1,6 +1,7 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores.pestanaVistaResultado;
 
 import es.miguelgonzalezgomez.dataBaseFun.bd.domain.ResultadoEjecutarConsulta;
+import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CMiControladorGenerico;
 import es.miguelgonzalezgomez.dataBaseFun.qt.pestanaVistaResultado.VistaDatosConsulta;
 import java.util.List;
 
@@ -8,11 +9,13 @@ import java.util.List;
  *
  * @author Miguel González
  */
-public class CVistaDatosConsulta {
+public class CVistaDatosConsulta extends CMiControladorGenerico {
     
     private VistaDatosConsulta vistaDatos;
     
     public CVistaDatosConsulta() {
+        super();
+        
         vistaDatos = new VistaDatosConsulta(this);
     }
     

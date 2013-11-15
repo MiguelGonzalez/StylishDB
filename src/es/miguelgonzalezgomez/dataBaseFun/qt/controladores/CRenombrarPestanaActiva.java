@@ -1,7 +1,6 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
 import com.trolltech.qt.core.Qt;
-import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalRenombrarPestanaActiva;
@@ -11,15 +10,14 @@ import es.miguelgonzalezgomez.dataBaseFun.utilidadesEstaticas.CentroCoordenadas;
  *
  * @author Miguel González
  */
-public class CRenombrarPestanaActiva {
+public class CRenombrarPestanaActiva extends CMiControladorGenerico {
     
-    private GEditoresAplicacion gestionadorEditores;
     private MPestanaEditor mPestana;
     
     private ModalRenombrarPestanaActiva modalRenombrar;
     
     public CRenombrarPestanaActiva() {
-        gestionadorEditores = new GEditoresAplicacion();
+        super();
     }
     
     public void mostrarRenombrarPestanaActiva() {

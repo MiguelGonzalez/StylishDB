@@ -1,24 +1,22 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
 import com.trolltech.qt.gui.QPlainTextEdit;
-import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
 
 /**
  *
  * @author Miguel González
  */
-public class CPestanaEditor {
+public class CPestanaEditor extends CMiControladorGenerico {
     
-    private GEditoresAplicacion editoresAplicacion;
     private CEditor controladorEditor;
-    
     private MPestanaEditor mPestanaEditor;
     
     public CPestanaEditor(MPestanaEditor mPestanaEditor) {
+        super();
+        
         this.mPestanaEditor = mPestanaEditor;
         
-        editoresAplicacion = new GEditoresAplicacion();
         controladorEditor = new CEditor(mPestanaEditor);
     }
     
@@ -39,7 +37,7 @@ public class CPestanaEditor {
     }
 
     public void estaVisible() {
-        editoresAplicacion.establecerPestanaActiva(
+        gestionadorEditores.establecerPestanaActiva(
                 mPestanaEditor);
     }
 }

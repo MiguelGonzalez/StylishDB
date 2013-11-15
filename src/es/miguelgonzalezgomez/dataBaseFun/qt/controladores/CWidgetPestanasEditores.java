@@ -3,7 +3,6 @@ package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 import com.trolltech.qt.gui.QIcon;
 import com.trolltech.qt.gui.QTabWidget;
 import com.trolltech.qt.gui.QWidget;
-import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
 import es.miguelgonzalezgomez.dataBaseFun.qt.EditorTexto;
@@ -15,18 +14,17 @@ import java.util.Map;
  *
  * @author Miguel González
  */
-public class CWidgetPestanasEditores {
+public class CWidgetPestanasEditores extends CMiControladorGenerico {
 
     private WidgetPestanasEditores widgetPestanasEditores;
-
+    
     private CWidgetPestanasEditoresEscuchaCambios escuchaCambiosPestana;
-    private GEditoresAplicacion editoresAplicacion;
     private CPestanasEditores cPestanasEditores;
     
     private Map<MPestanaEditor, CPestanaEditor> relacionPestanaEditor;
     
     public CWidgetPestanasEditores() {
-        editoresAplicacion = new GEditoresAplicacion();
+        super();
         cPestanasEditores = new CPestanasEditores(this);
         relacionPestanaEditor = new HashMap<>();
         
@@ -56,7 +54,7 @@ public class CWidgetPestanasEditores {
     
     private void cargarPestanasAbiertas() {
         for(MPestanaEditor pestanaEditor :
-                editoresAplicacion.getPestanasEditores()) {
+                gestionadorEditores.getPestanasEditores()) {
             addTab(pestanaEditor);
         }
     }
@@ -78,7 +76,7 @@ public class CWidgetPestanasEditores {
     private void escuchaEditoresAplicacion() {
         escuchaCambiosPestana = new
                 CWidgetPestanasEditoresEscuchaCambios(this);
-        editoresAplicacion.addPestanasEditorListener(escuchaCambiosPestana);
+        gestionadorEditores.addPestanasEditorListener(escuchaCambiosPestana);
     }
 
     public void addTab(MPestanaEditor pestanaEditor) {
@@ -116,7 +114,7 @@ public class CWidgetPestanasEditores {
         if(pestanaEditorTexto != null) {
             pestanaEditorTexto.establecerEditorVisible();
         } else {
-            editoresAplicacion.establecerPestanaActiva(null);
+            gestionadorEditores.establecerPestanaActiva(null);
         }
     }
     

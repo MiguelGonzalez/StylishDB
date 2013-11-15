@@ -5,10 +5,9 @@ import com.trolltech.qt.gui.QWidget;
 import es.miguelgonzalezgomez.dataBaseFun.bd.AnalizadorTextoConsulta;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ManejadorConsultaErrorSQL;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
-import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
-import es.miguelgonzalezgomez.dataBaseFun.modelos.MAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
+import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CMiControladorGenerico;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalMostrarAviso;
 import es.miguelgonzalezgomez.dataBaseFun.qt.pestanaVistaResultado.PanelPestanasMostrarConsultas;
 import java.util.List;
@@ -17,27 +16,23 @@ import java.util.List;
  *
  * @author Miguel González
  */
-public class CPanelPestanasMostrarConsultas {
+public class CPanelPestanasMostrarConsultas extends CMiControladorGenerico {
 
     private CPanelPestanasMostrarConsultasEscuchaCambios escuchaCambiosConsultas;
-    private GEditoresAplicacion editoresAplicacion;
-    private PanelPestanasMostrarConsultas panelConsultas;
-    
-    private MAplicacion mAplicacion;
+    private PanelPestanasMostrarConsultas panelConsultas; 
     
     public CPanelPestanasMostrarConsultas() {
-        mAplicacion = MAplicacion.getInstance();
+        super();
         
         panelConsultas = new PanelPestanasMostrarConsultas(this);
         escuchaCambiosConsultas = new CPanelPestanasMostrarConsultasEscuchaCambios(this);
-        editoresAplicacion = new GEditoresAplicacion();
         
         establecerEstilo();
         inicializarEscuchaCambios();
     }
     
     private void inicializarEscuchaCambios() {
-        editoresAplicacion.addPestanasEditorListener(escuchaCambiosConsultas);
+        gestionadorEditores.addPestanasEditorListener(escuchaCambiosConsultas);
     }
     
     private void establecerEstilo() {
@@ -87,7 +82,7 @@ public class CPanelPestanasMostrarConsultas {
                     CPestanaActualizarConsultas(
                         mConexion,
                         consultasActualizar);
-            MPestanaEditor pestana = editoresAplicacion.getMPestanaActiva();
+            MPestanaEditor pestana = gestionadorEditores.getMPestanaActiva();
             
             anadirNuevaPestana(
                     pestana.nombrePestana,
@@ -105,7 +100,7 @@ public class CPanelPestanasMostrarConsultas {
         try {
             CPestanaMostrarConsulta cPestanaMostrarConsulta = new
                     CPestanaMostrarConsulta(mConexion,consultaSQL);
-            MPestanaEditor pestana = editoresAplicacion.getMPestanaActiva();
+            MPestanaEditor pestana = gestionadorEditores.getMPestanaActiva();
             
             anadirNuevaPestana(
                     pestana.nombrePestana,

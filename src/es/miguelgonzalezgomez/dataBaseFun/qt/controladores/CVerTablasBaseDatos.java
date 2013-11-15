@@ -5,8 +5,6 @@ import es.miguelgonzalezgomez.dataBaseFun.bd.ManejadorConsultaErrorSQL;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ManejadorConsultaNoHayConexion;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ObtencionTablasBaseDatos;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
-import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
-import es.miguelgonzalezgomez.dataBaseFun.modelos.MAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalMostrarAviso;
@@ -18,18 +16,14 @@ import java.util.List;
  *
  * @author Miguel González
  */
-public class CVerTablasBaseDatos {
+public class CVerTablasBaseDatos extends CMiControladorGenerico {
 
-    private GEditoresAplicacion gestionadorEditores;
     private MPestanaEditor mPestanaEditor;
-    
     private ObtencionTablasBaseDatos obtencionTablas;
-    private ModalVerTablasBaseDatos modalVerTablasBD;
-    private MAplicacion mAplicacion;
+    private ModalVerTablasBaseDatos modalVerTablasBD;    
 
     public CVerTablasBaseDatos() {
-        mAplicacion = MAplicacion.getInstance();
-        gestionadorEditores = new GEditoresAplicacion();
+        super();
     }
     
     void mostrarRenombrarPestanaActiva() {

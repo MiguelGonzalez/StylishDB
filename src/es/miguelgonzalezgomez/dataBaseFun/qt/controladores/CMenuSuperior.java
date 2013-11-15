@@ -3,10 +3,7 @@ package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 import com.trolltech.qt.QSignalEmitter;
 import com.trolltech.qt.gui.QAction;
 import es.miguelgonzalezgomez.dataBaseFun.DataBaseFun;
-import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GConexionesAplicacion;
-import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.ConexionListener;
-import es.miguelgonzalezgomez.dataBaseFun.modelos.MAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.qt.MenuSuperior;
 
@@ -14,20 +11,12 @@ import es.miguelgonzalezgomez.dataBaseFun.qt.MenuSuperior;
  *
  * @author Miguel González
  */
-public class CMenuSuperior {
+public class CMenuSuperior extends CMiControladorGenerico {
     private MenuSuperior menuSuperior;
-    private MAplicacion aplicacion;
-    
-    private GConexionesAplicacion gestionadorConexiones;
-    private GEditoresAplicacion gestionadorEditores;
-    
     
     public CMenuSuperior() {
-        gestionadorConexiones = new
-                GConexionesAplicacion();
-        gestionadorEditores = new GEditoresAplicacion();
+        super();
         
-        aplicacion = MAplicacion.getInstance();
         suscribirCambiosConexiones();
         
         menuSuperior = new MenuSuperior(this);
@@ -40,7 +29,7 @@ public class CMenuSuperior {
     }
     
     private void suscribirCambiosConexiones() {
-        aplicacion.mConexionesGuardadas.addConexionListener(new ConexionListener() {
+        mAplicacion.mConexionesGuardadas.addConexionListener(new ConexionListener() {
             @Override
             public void nuevaConexion(MConexion mConexion) {
                 menuSuperior.pintarNuevaConexion(mConexion);
@@ -62,7 +51,7 @@ public class CMenuSuperior {
     }
     
     private void cargarConexionesGuardadas() {
-        for(MConexion conexion :aplicacion.mConexionesGuardadas.
+        for(MConexion conexion :mAplicacion.mConexionesGuardadas.
                 getConexionesGuardadas()) {
             menuSuperior.pintarNuevaConexion(conexion);
         }

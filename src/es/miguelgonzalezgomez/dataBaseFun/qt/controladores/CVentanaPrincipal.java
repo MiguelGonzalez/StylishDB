@@ -4,7 +4,6 @@ import com.google.gson.reflect.TypeToken;
 import com.trolltech.qt.core.Qt;
 import com.trolltech.qt.core.Qt.WindowStates;
 import es.miguelgonzalezgomez.dataBaseFun.configuracion.ConfiguracionVentanaPrincipal;
-import es.miguelgonzalezgomez.dataBaseFun.Preferencias;
 import es.miguelgonzalezgomez.dataBaseFun.PreferenciasException;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.qt.VentanaPrincipal;
@@ -14,9 +13,9 @@ import java.lang.reflect.Type;
  *
  * @author Miguel González
  */
-public class CVentanaPrincipal {
+public class CVentanaPrincipal extends CMiControladorGenerico {
     
-    private Preferencias prefs;
+    
     private static String nombreFicheroPreferencias = "confVentanaPrincipal";
     public VentanaPrincipal ventanaPrincipal;
     private ConfiguracionVentanaPrincipal configuracionVentanaPrincipal;
@@ -26,11 +25,11 @@ public class CVentanaPrincipal {
     private CDockPanelConsultasRealizadas controladorConsultasRealizadas;
     
     public CVentanaPrincipal() {
+        super();
+        
         controladorMenuSup = new CMenuSuperior();
         controladorPestanasEditores = new CWidgetPestanasEditores();
         controladorConsultasRealizadas = new CDockPanelConsultasRealizadas();
-        
-        prefs = Preferencias.getInstance();
         
         cargarPropiedadesVentanaPrincipal();
         crearYPosicionarVentana();

@@ -1,8 +1,6 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
-import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
-import es.miguelgonzalezgomez.dataBaseFun.modelos.MAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
 import es.miguelgonzalezgomez.dataBaseFun.qt.EditorTexto;
@@ -12,20 +10,16 @@ import es.miguelgonzalezgomez.dataBaseFun.qt.restaltadoEditor.ConstruirSyntaxHig
  *
  * @author Miguel González
  */
-public class CEditor {
+public class CEditor extends CMiControladorGenerico {
     
-    private GEditoresAplicacion editoresAplicacion;
     private EditorTexto editorTexto;
-    
     private MPestanaEditor mPestanaEditor;
-    private MAplicacion mAplicacion;
-    
+
     public CEditor(MPestanaEditor mPestanaEditor) {
+        super();
+        
         this.mPestanaEditor = mPestanaEditor;
-        mAplicacion = MAplicacion.getInstance();
-        
-        editoresAplicacion = new GEditoresAplicacion();
-        
+    
         construirEditorTexto();
         establecerResaltadoSintaxis();
         establecerTextoModeloPestana();
@@ -68,7 +62,7 @@ public class CEditor {
     }
     
     public void eventoTextoCambiado() {
-        editoresAplicacion.textoCambiadoPestana(mPestanaEditor,
+        gestionadorEditores.textoCambiadoPestana(mPestanaEditor,
                 editorTexto.document().toPlainText()
         );
     }
@@ -79,21 +73,21 @@ public class CEditor {
         if(hayTextoSeleccionado) {
             textoSeleccionado = editorTexto.textCursor().selectedText();
         }
-        editoresAplicacion.establecerEstadoTextoSeleccionado(
+        gestionadorEditores.establecerEstadoTextoSeleccionado(
                 hayTextoSeleccionado, textoSeleccionado
         );
     }
 
     public void cambiarSiguientePestana() {
-        editoresAplicacion.cambiarSiguientePestana();
+        gestionadorEditores.cambiarSiguientePestana();
     }
 
     public void cambiarAnteriorPestana() {
-        editoresAplicacion.cambiarAnteriorPestana();
+        gestionadorEditores.cambiarAnteriorPestana();
     }
 
     public void establecerEditorVisible() {
-        editoresAplicacion.establecerPestanaActiva(
+        gestionadorEditores.establecerPestanaActiva(
                 mPestanaEditor);
     }
 }

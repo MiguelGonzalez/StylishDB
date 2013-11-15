@@ -6,6 +6,7 @@ import es.miguelgonzalezgomez.dataBaseFun.bd.ManejadorConsultaErrorSQL;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ManejadorConsultaNoHayConexion;
 import es.miguelgonzalezgomez.dataBaseFun.bd.domain.ResultadoActualizarConsultas;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
+import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CMiControladorGenerico;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalMostrarAviso;
 import es.miguelgonzalezgomez.dataBaseFun.qt.pestanaVistaResultado.PestanaActualizarConsultas;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
  *
  * @author Miguel González
  */
-public class CPestanaActualizarConsultas {
+public class CPestanaActualizarConsultas extends CMiControladorGenerico {
     private ManejadorConsulta manejadorConsulta;
     private PestanaActualizarConsultas pestanaConsultas;
     
@@ -23,6 +24,8 @@ public class CPestanaActualizarConsultas {
     
     public CPestanaActualizarConsultas(MConexion mConexion,
             List<String> consultasActualizar) throws ManejadorConsultaErrorSQL {
+        super();
+        
         this.mConexion = mConexion;
         this.consultasActualizar = consultasActualizar;
         

@@ -1,7 +1,6 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
 import com.trolltech.qt.core.Qt;
-import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GConexionesAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.gestionadores.GEditoresAplicacion;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
@@ -15,13 +14,14 @@ import java.util.List;
  *
  * @author Miguel González
  */
-public class CNuevoEditor {
+public class CNuevoEditor extends CMiControladorGenerico {
  
     private ModalCrearNuevoEditor modalCrearNuevoEditor;
-    private GConexionesAplicacion gestionadorConexiones;
+    
     
     public CNuevoEditor() {
-        gestionadorConexiones = new GConexionesAplicacion();
+        super();
+        
         modalCrearNuevoEditor = new ModalCrearNuevoEditor(this);
         
         posicionarVentanaModal();

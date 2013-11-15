@@ -10,11 +10,13 @@ import es.miguelgonzalezgomez.dataBaseFun.utilidadesEstaticas.CentroCoordenadas;
  *
  * @author Miguel
  */
-public class CPreferencias {
+public class CPreferencias extends CMiControladorGenerico {
     
     private ModalPreferencias modalPreferencias;
     
     public CPreferencias() {
+        super();
+        
         crearVentanaModal();
         
         posicionarVentanaModal();

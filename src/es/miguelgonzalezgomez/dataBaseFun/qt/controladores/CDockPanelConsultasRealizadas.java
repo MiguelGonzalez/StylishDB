@@ -10,12 +10,14 @@ import es.miguelgonzalezgomez.dataBaseFun.qt.PanelMostrarConsultasRealizadas;
  *
  * @author Miguel González
  */
-public class CDockPanelConsultasRealizadas {
+public class CDockPanelConsultasRealizadas extends CMiControladorGenerico {
     
     private CPanelPestanasMostrarConsultas controladorEjecutarConsultas;
     private PanelMostrarConsultasRealizadas panelConsultas;
     
     public CDockPanelConsultasRealizadas() {
+        super();
+        
         panelConsultas = new PanelMostrarConsultasRealizadas(this);
         controladorEjecutarConsultas = new CPanelPestanasMostrarConsultas();
         

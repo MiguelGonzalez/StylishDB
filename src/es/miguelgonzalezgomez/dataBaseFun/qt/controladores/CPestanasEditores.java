@@ -10,12 +10,14 @@ import es.miguelgonzalezgomez.dataBaseFun.qt.PestanasEditores;
  *
  * @author Miguel González
  */
-public class CPestanasEditores {
+public class CPestanasEditores extends CMiControladorGenerico {
     
     private PestanasEditores pestanasEditores;
     private CWidgetPestanasEditores controlador;
     
     public CPestanasEditores(CWidgetPestanasEditores controlador) {
+        super();
+        
         this.controlador = controlador;
         
         pestanasEditores = new PestanasEditores(this);
