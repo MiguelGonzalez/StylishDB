@@ -26,11 +26,11 @@ Programación
 ===========
 
 * JDK Java 7 (http://www.java.com/es/download/)
-* QT Jambi 4.7 (http://qt-jambi.org/downloads)
+* QT Jambi 4.6.3 (http://qt-jambi.org/downloads)
 
 Capturas de pantalla
 ===========
 
 ![ScreenShot](https://raw.github.com/miguelgonzalez/DataBaseFun/master/imgReadme/User_MySQL.png)
 
-![ScreenShot](https://raw.github.com/miguelgonzalez/DataBaseFun/master/imgReadme/Version_MySQL.png)
+![ScreenShot](https://raw.github.com/miguelgonzalez/DataBaseFun/master/imgReadme/User_MySQL_Info.png)
