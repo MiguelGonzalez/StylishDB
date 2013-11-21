@@ -4,28 +4,26 @@ import com.trolltech.qt.QSignalEmitter;
 import com.trolltech.qt.gui.QAction;
 import es.miguelgonzalezgomez.dataBaseFun.DataBaseFun;
 import es.miguelgonzalezgomez.dataBaseFun.domain.ConexionListener;
+import es.miguelgonzalezgomez.dataBaseFun.domain.ConexionesGuardadasListener;
 import es.miguelgonzalezgomez.dataBaseFun.domain.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.domain.MPestana;
-import es.miguelgonzalezgomez.dataBaseFun.domain.controladores.CPestanaActiva;
 import es.miguelgonzalezgomez.dataBaseFun.qt.MenuSuperior;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Miguel González
  */
-public class CMenuSuperior extends CMiControladorGenerico {
+public class CMenuSuperior extends CMiControladorGenerico implements
+            ConexionesGuardadasListener, ConexionListener {
     private MenuSuperior menuSuperior;
     
     public CMenuSuperior() {
         super();
         
-        suscribirCambiosConexiones();
-        
         menuSuperior = new MenuSuperior(this);
         
         cargarConexionesGuardadas();
+        suscribirCambiosConexiones();
     }
     
     public MenuSuperior getVistaMenuSuperior() {
@@ -33,25 +31,7 @@ public class CMenuSuperior extends CMiControladorGenerico {
     }
     
     private void suscribirCambiosConexiones() {
-        mAplicacion.mConexionesGuardadas.addConexionListener(new ConexionListener() {
-            @Override
-            public void nuevaConexion(MConexion mConexion) {
-                menuSuperior.pintarNuevaConexion(mConexion);
-            }
-
-            @Override
-            public void eliminadaConexion(MConexion mConexion) {
-                menuSuperior.despintarConexion(mConexion);
-            }
-
-            @Override
-            public void modificadaConexion(MConexion mConexionVieja, 
-                    MConexion mConexionEditada) {
-                menuSuperior.comprobarCambiarNombre(mConexionVieja,
-                        mConexionEditada);
-
-            }
-        });
+        mAplicacion.mConexionesGuardadas.addConexionListener(this);
     }
     
     private void cargarConexionesGuardadas() {
@@ -134,4 +114,41 @@ public class CMenuSuperior extends CMiControladorGenerico {
             pestanasAbiertas.removePestana(pestanaActiva);
         }
     }
+
+    @Override
+    public void nuevaConexion(MConexion mConexion) {
+        menuSuperior.pintarNuevaConexion(mConexion);
+        
+        mConexion.addMConexionListener(this);
+    }
+
+    @Override
+    public void eliminadaConexion(MConexion mConexion) {
+        menuSuperior.quitarConexion(mConexion);
+        
+        mConexion.removeMConexionListener(this);
+    }
+
+    @Override
+    public void modificadoNombre(MConexion mConexion) {
+        menuSuperior.modificadoNombre(mConexion);
+    }
+
+    @Override
+    public void modificadoTipoBaseDatos(MConexion mConexion) {}
+
+    @Override
+    public void modificadoSid(MConexion mConexion) {}
+
+    @Override
+    public void modificadaIp(MConexion mConexion) {}
+
+    @Override
+    public void modificadoPuerto(MConexion mConexion) {}
+
+    @Override
+    public void modificadoUsuario(MConexion mConexion) {}
+
+    @Override
+    public void modificadoPassword(MConexion mConexion) {}
 }

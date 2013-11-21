@@ -36,7 +36,7 @@ public class CEditor extends CMiControladorGenerico {
         MConexion mConexion = mAplicacion.mConexionesGuardadas.
                 getMConexion(mPestanaEditor.uuidConexion);
         ConstruirSyntaxHighlighter.establecerSyntaxHighlighter(
-                mConexion.tipoDeBaseDeDatos,
+                mConexion.getTipoDeBaseDeDatos(),
                 editorTexto.document()
         );
     }

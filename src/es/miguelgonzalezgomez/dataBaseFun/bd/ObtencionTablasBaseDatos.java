@@ -33,8 +33,8 @@ public class ObtencionTablasBaseDatos {
             String urlConexion = mConexion.getUrlConexion();
             connection = DriverManager.getConnection(
                     urlConexion,
-                    mConexion.usuario,
-                    mConexion.password
+                    mConexion.getUsuario(),
+                    mConexion.getPassword()
             );
         } catch (SQLException ex) {
             throw new ManejadorConsultaNoHayConexion(ex);

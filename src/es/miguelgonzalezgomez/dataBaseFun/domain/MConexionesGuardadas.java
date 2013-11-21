@@ -1,56 +1,39 @@
 package es.miguelgonzalezgomez.dataBaseFun.domain;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  *
  * @author Miguel González
  */
 public class MConexionesGuardadas {
-    private List<MConexion> conexionesGuardadas;
+    private CopyOnWriteArrayList<MConexion> conexionesGuardadas;
     
-    private transient List<ConexionListener> conexionListeners;
+    private transient CopyOnWriteArrayList<ConexionesGuardadasListener> conexionListeners;
     
     public MConexionesGuardadas() {
-        conexionesGuardadas = new ArrayList<>();
-        conexionListeners = new ArrayList<>();
+        conexionesGuardadas = new CopyOnWriteArrayList<>();
+        conexionListeners = new CopyOnWriteArrayList<>();
     }
     
     public MConexion getMConexion(UUID uuidConexion) {
         for(MConexion conexion : conexionesGuardadas) {
             if(conexion.uuidConexion.equals(uuidConexion)) {
-                return conexion.clone();
-            }
-        }
-        return null;
-    }
-    
-    public MConexion getMConexionNombre(String nombreConexion) {
-        for(MConexion conexion : conexionesGuardadas) {
-            if(conexion.nombre.equals(nombreConexion)) {
-                return conexion.clone();
+                return conexion;
             }
         }
         return null;
     }
     
     public List<MConexion> getConexionesGuardadas() {
-        List<MConexion> conexionCopy = new ArrayList<>();
-        for(MConexion conexion : conexionesGuardadas) {
-            conexionCopy.add(conexion.clone());
-        }
-
-        return conexionCopy;
+        return conexionesGuardadas;
     }
     
-    public boolean existeNombreConexion(MConexion mConexion) {
-        List<MConexion> conexiones = getConexionesGuardadas();
-        
-        for(MConexion conexion : conexiones) {
-            if(!mConexion.equals(conexion) &&
-                    conexion.nombre.equals(mConexion.nombre)) {
+    public boolean existeNombreConexion(String nombreConexion) {
+        for(MConexion conexion : conexionesGuardadas) {
+            if(conexion.getNombre().equals(nombreConexion)) {
                 return true;
             }
         }
@@ -58,77 +41,27 @@ public class MConexionesGuardadas {
         return false;
     }
     
-    public void addConexionListener(ConexionListener conexionListener) {
+    public void addConexionListener(ConexionesGuardadasListener conexionListener) {
         conexionListeners.add(conexionListener);
     }
     
-    public void removeConexionListener(ConexionListener conexionListener) {
+    public void removeConexionListener(ConexionesGuardadasListener conexionListener) {
         conexionListeners.remove(conexionListener);
     }
     
     public void addNuevaConexion(MConexion conexion) {
-        conexionesGuardadas.add(conexion.clone());
+        conexionesGuardadas.add(conexion);
         
-        notificarNuevaConexion(conexion);
+        for(ConexionesGuardadasListener conexionListener : conexionListeners) {
+            conexionListener.nuevaConexion(conexion);
+        }
     }
     
     public void removeConexion(MConexion conexion) {
         conexionesGuardadas.remove(conexion);
         
-        notificarEliminadaConexion(conexion);
-    }
-    
-    public void editadaConexion(MConexion mConexionVieja,
-            MConexion mConexionNueva) {
-        for(MConexion conexion : conexionesGuardadas) {
-            if(conexion.equals(mConexionVieja)) {
-                conexion.nombre = mConexionNueva.nombre;
-                conexion.tipoDeBaseDeDatos = mConexionNueva.tipoDeBaseDeDatos;
-                conexion.sid = mConexionNueva.sid;
-                conexion.ip = mConexionNueva.ip;
-                conexion.puerto = mConexionNueva.puerto;
-                conexion.usuario = mConexionNueva.usuario;
-                conexion.password = mConexionNueva.password;
-            }
-        }
-        
-        notificarModificadaConexion(mConexionVieja,
-                mConexionNueva);
-    }
-    
-    private void notificarNuevaConexion(MConexion conexion) {
-        for(ConexionListener conexionListener : getCopiaConexionListeners()) {
-            conexionListener.nuevaConexion(conexion);
-        }
-    }
-    
-    private void notificarEliminadaConexion(MConexion conexion) {
-        for(ConexionListener conexionListener : getCopiaConexionListeners()) {
+        for(ConexionesGuardadasListener conexionListener : conexionListeners) {
             conexionListener.eliminadaConexion(conexion);
         }
-    }
-    
-    private void notificarModificadaConexion(MConexion conexionVieja,
-            MConexion conexionEditada) {
-        for(ConexionListener conexionListener : getCopiaConexionListeners()) {
-            conexionListener.modificadaConexion(conexionVieja, conexionEditada);
-        }
-    }
-    
-    private List<ConexionListener> getCopiaConexionListeners() {
-        List<ConexionListener> conexionListenersCopy = new
-                ArrayList<>(conexionListeners);
-        return conexionListenersCopy;
-    }
-
-    public MConexion getConexionCopia(MConexion mConexion) {
-        List<MConexion> conexionesGuardadasCopy = new
-                ArrayList<>(conexionesGuardadas);
-        for(MConexion conexionGuardadaCopy : conexionesGuardadasCopy) {
-            if(conexionGuardadaCopy.equals(mConexion)) {
-                return conexionGuardadaCopy.clone();
-            }
-        }
-        return new MConexion();
     }
 }

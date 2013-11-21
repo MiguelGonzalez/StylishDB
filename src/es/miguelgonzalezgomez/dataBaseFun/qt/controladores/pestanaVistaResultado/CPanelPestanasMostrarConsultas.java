@@ -131,7 +131,7 @@ public class CPanelPestanasMostrarConsultas extends CMiControladorGenerico
         String textoConsultaLanzar = mPestana.getTextoConsultaLanzar();
         
         AnalizadorTextoConsulta analizarTextoConsulta = new AnalizadorTextoConsulta(
-                mConexion.tipoDeBaseDeDatos, textoConsultaLanzar
+                mConexion.getTipoDeBaseDeDatos(), textoConsultaLanzar
         );
         
         List<String> consultasEjecutar = analizarTextoConsulta.getConsultasEjecutar();

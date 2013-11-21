@@ -55,8 +55,8 @@ public class ManejadorConsulta {
             String urlConexion = mConexion.getUrlConexion();
             connection = DriverManager.getConnection(
                     urlConexion,
-                    mConexion.usuario,
-                    mConexion.password
+                    mConexion.getUsuario(),
+                    mConexion.getPassword()
             );
             long time_end = System.currentTimeMillis();
             tiempoParaConectarContraBaseDeDatos = time_end - time_start;

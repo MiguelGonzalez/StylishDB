@@ -54,9 +54,9 @@ public class CNuevaConexion extends CMiControladorGenerico {
     }
     
     protected void eventoProbarConexion() {
-        if(esValidoSinoMostrarErrores()) {
-            MConexion mConexion = obtenerModeloConexion();
-            
+        MConexion mConexion = obtenerModeloConexion();
+        
+        if(esValidoSinoMostrarErrores(mConexion)) {
             if(ComprobacionConexion.hayConexion(mConexion)) {
                 modalGestionConexiones.
                         mostrarAvisoConexionEstablecida();
@@ -68,8 +68,9 @@ public class CNuevaConexion extends CMiControladorGenerico {
     }
     
     protected void eventoCrearEditarConexion() {
-        if(esValidoSinoMostrarErrores()) {
-            MConexion mConexion = obtenerModeloConexion();
+        MConexion mConexion = obtenerModeloConexion();
+
+        if(esValidoSinoMostrarErrores(mConexion)) {
             if(nombreConexionRepetido(mConexion)) {
                 modalGestionConexiones.
                         mostrarAvisoNombreConexionDuplicado();
@@ -82,33 +83,32 @@ public class CNuevaConexion extends CMiControladorGenerico {
         }
     }
     
-    protected boolean nombreConexionRepetido(MConexion mConexion) {
-        return conexionesGuardadas.existeNombreConexion(mConexion);
-    }
-    
     protected void cerrarVentanaModal() {
         modalGestionConexiones.close();
+    }
+    
+    protected boolean nombreConexionRepetido(MConexion mConexion) {
+        return conexionesGuardadas.existeNombreConexion(mConexion.getNombre());
     }
     
     protected MConexion obtenerModeloConexion() {
         MConexion mConexion = new MConexion();
         
-        mConexion.nombre = modalGestionConexiones.nombreEdit.text();
+        mConexion.setNombre(modalGestionConexiones.nombreEdit.text());
         int indexGestor = modalGestionConexiones.gestorCombo.currentIndex();
         String nombreGestor = modalGestionConexiones.gestorCombo.itemText(indexGestor);
-        mConexion.tipoDeBaseDeDatos = devolverTipoBaseDatos(nombreGestor);
-        mConexion.sid = modalGestionConexiones.sidEdit.text();
-        mConexion.ip = modalGestionConexiones.ipEdit.text();
-        mConexion.puerto = modalGestionConexiones.puertoEdit.text();
-        mConexion.usuario = modalGestionConexiones.usuarioEdit.text();
-        mConexion.password = modalGestionConexiones.passwordEdit.text();
+        mConexion.setTipoBaseDatos(devolverTipoBaseDatos(nombreGestor));
+        mConexion.setSid(modalGestionConexiones.sidEdit.text());
+        mConexion.setIp(modalGestionConexiones.ipEdit.text());
+        mConexion.setPuerto(modalGestionConexiones.puertoEdit.text());
+        mConexion.setUsuario(modalGestionConexiones.usuarioEdit.text());
+        mConexion.setPassword(modalGestionConexiones.passwordEdit.text());
         
         return mConexion;
     }
     
-    protected boolean esValidoSinoMostrarErrores() {
-        MConexion conexion = obtenerModeloConexion();
-        ValidadorModeloConexion validador = new ValidadorModeloConexion(conexion);
+    protected boolean esValidoSinoMostrarErrores(MConexion mConexion) {
+        ValidadorModeloConexion validador = new ValidadorModeloConexion(mConexion);
         
         if(!validador.isNombreValido()) {
             modalGestionConexiones.pintarErrorNombre();

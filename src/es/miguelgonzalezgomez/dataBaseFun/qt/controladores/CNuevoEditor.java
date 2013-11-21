@@ -1,6 +1,7 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
 import com.trolltech.qt.core.Qt;
+import com.trolltech.qt.gui.QListWidgetItem;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.domain.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.domain.MPestana;
@@ -47,23 +48,25 @@ public class CNuevoEditor extends CMiControladorGenerico {
     }
     
     private void pintarComboBoxConexionesGuardadas() {
-        List<MConexion> conexiones = conexionesGuardadas.getConexionesGuardadas();
+        List<MConexion> mConexiones = conexionesGuardadas.getConexionesGuardadas();
         
-        for(MConexion conexion : conexiones) {
-            modalCrearNuevoEditor.conexionListWidget.addItem(conexion.nombre);
+        for(MConexion mConexion : mConexiones) {
+            QListWidgetItem widgetItem = new QListWidgetItem(mConexion.getNombre());
+            widgetItem.setData(0, mConexion);
+            modalCrearNuevoEditor.conexionListWidget.addItem(widgetItem);
         }
         modalCrearNuevoEditor.conexionListWidget.setStyle(new EstiloSinFoco());
     }
     
     protected void eventoCrearEditor() {
-        String nombreConexion = modalCrearNuevoEditor.conexionListWidget.
-                currentItem().text();
+        QListWidgetItem widgetItem = modalCrearNuevoEditor.conexionListWidget.
+                currentItem();
         
-        MConexion conexion = conexionesGuardadas.getMConexionNombre(nombreConexion);
+        MConexion conexion = (MConexion) widgetItem.data(0);
         
         MPestana mPestanaEditor = new MPestana(
                 conexion.uuidConexion,
-                conexion.nombre);
+                conexion.getNombre());
         pestanasAbiertas.addPestana(mPestanaEditor);
         
         modalCrearNuevoEditor.close();

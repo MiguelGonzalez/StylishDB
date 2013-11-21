@@ -1,15 +1,15 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package es.miguelgonzalezgomez.dataBaseFun.domain;
 
 /**
  *
- * @author paracaidista
+ * @author Miguel González
  */
 public interface ConexionListener {
-    public void nuevaConexion(MConexion mConexion);
-    public void eliminadaConexion(MConexion mConexion);
-    public void modificadaConexion(MConexion mConexionVieja, MConexion mConexionEditada);
+    public void modificadoNombre(MConexion mConexion);
+    public void modificadoTipoBaseDatos(MConexion mConexion);
+    public void modificadoSid(MConexion mConexion);
+    public void modificadaIp(MConexion mConexion);
+    public void modificadoPuerto(MConexion mConexion);
+    public void modificadoUsuario(MConexion mConexion);
+    public void modificadoPassword(MConexion mConexion);
 }

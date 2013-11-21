@@ -175,11 +175,11 @@ public class MenuSuperior extends QMenuBar {
     }
 
     public void pintarNuevaConexion(MConexion mConexion) {
-        QMenu conexion = new QMenu(mConexion.nombre, this);
+        QMenu conexion = new QMenu(mConexion.getNombre(), this);
         
         pintarOpcionesNuevaConexion(conexion, mConexion);
         
-        conexiones.put(mConexion.nombre, conexion);
+        conexiones.put(mConexion.uuidConexion.toString(), conexion);
 
         conexionesMenu.addMenu(conexion);
     }
@@ -199,20 +199,17 @@ public class MenuSuperior extends QMenuBar {
         conexion.addAction(conexionBorrar);
     }
 
-    public void despintarConexion(MConexion mConexion) {
-        QMenu conexionBorrar = conexiones.get(mConexion.nombre);
+    public void modificadoNombre(MConexion mConexionModificada) {
+        QMenu menuConexion = conexiones.get(
+                mConexionModificada.uuidConexion.toString());
+        
+        menuConexion.setTitle(mConexionModificada.getNombre());
+    }
+    
+    public void quitarConexion(MConexion mConexion) {
+        QMenu conexionBorrar = conexiones.remove(
+                mConexion.uuidConexion.toString());
         
         conexionesMenu.removeAction(conexionBorrar.menuAction());
-    }
-
-    public void comprobarCambiarNombre(MConexion conexionVieja, MConexion conexionEditada) {
-        QMenu menuConexion = conexiones.remove(conexionVieja.nombre);
-        conexiones.put(conexionEditada.nombre, menuConexion);
-        
-        for(QAction action : menuConexion.actions()) {
-            action.setData(conexionEditada);
-        }
-
-        menuConexion.setTitle(conexionEditada.nombre);
     }
 }

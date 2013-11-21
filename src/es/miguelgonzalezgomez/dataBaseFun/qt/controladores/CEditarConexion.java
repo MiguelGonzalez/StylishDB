@@ -24,43 +24,68 @@ public class CEditarConexion extends CNuevaConexion {
     }
     
     private void establecerDatosConexionAEditar() {
-        modalGestionConexiones.nombreEdit.setText(mConexion.nombre);
+        modalGestionConexiones.nombreEdit.setText(mConexion.getNombre());
         int posGestor = modalGestionConexiones.gestorCombo.findText(
-                mConexion.tipoDeBaseDeDatos.toString());
+                mConexion.getTipoDeBaseDeDatos().toString());
         if(posGestor != -1) {
             modalGestionConexiones.gestorCombo.setCurrentIndex(posGestor);
         }
-        modalGestionConexiones.sidEdit.setText(mConexion.sid);
-        modalGestionConexiones.ipEdit.setText(mConexion.ip);
-        modalGestionConexiones.puertoEdit.setText(mConexion.puerto);
-        modalGestionConexiones.usuarioEdit.setText(mConexion.usuario);
-        modalGestionConexiones.passwordEdit.setText(mConexion.password);
+        modalGestionConexiones.sidEdit.setText(mConexion.getSid());
+        modalGestionConexiones.ipEdit.setText(mConexion.getIp());
+        modalGestionConexiones.puertoEdit.setText(mConexion.getPuerto());
+        modalGestionConexiones.usuarioEdit.setText(mConexion.getUsuario());
+        modalGestionConexiones.passwordEdit.setText(mConexion.getPassword());
         
         modalGestionConexiones.establecerTextoGuardarCambios();
     }
     
     @Override
     protected void eventoCrearEditarConexion() {
-        if(esValidoSinoMostrarErrores()) {
-            MConexion mConexionEditada = obtenerModeloConexion();
-
-            if(nombreConexionRepetido(mConexionEditada)) {
-                modalGestionConexiones.
-                        mostrarAvisoNombreConexionDuplicado();
-            } else {
-                conexionesGuardadas.
-                        editadaConexion(mConexion, mConexionEditada);
+        MConexion mConexionEditada = obtenerModeloConexion();
+        if(esValidoSinoMostrarErrores(mConexionEditada)) {
+            if(mConexion.getNombre().equals(mConexionEditada.getNombre())) {
+                actualizarModelo(mConexionEditada);
             
                 cerrarVentanaModal();
+            } else {
+                if(nombreConexionRepetido(mConexionEditada)) {
+                    actualizarModelo(mConexionEditada);
+
+                    cerrarVentanaModal();
+                } else {
+                    modalGestionConexiones.
+                        mostrarAvisoNombreConexionDuplicado();
+                }
             }
+        }
+    }
+    
+    private void actualizarModelo(MConexion mConexionEditada) {
+        if(!mConexion.getNombre().equals(mConexionEditada.getNombre())) {
+            mConexion.setNombre(mConexionEditada.getNombre());
+        }
+        if(!mConexion.getIp().equals(mConexionEditada.getIp())) {
+            mConexion.setIp(mConexionEditada.getIp());
+        }
+        if(!mConexion.getPassword().equals(mConexionEditada.getPassword())) {
+            mConexion.setPassword(mConexionEditada.getPassword());
+        }
+        if(!mConexion.getPuerto().equals(mConexionEditada.getPuerto())) {
+            mConexion.setPuerto(mConexionEditada.getPuerto());
+        }
+        if(!mConexion.getSid().equals(mConexionEditada.getSid())) {
+            mConexion.setSid(mConexionEditada.getSid());
+        }
+        if(!mConexion.getTipoDeBaseDeDatos().equals(mConexionEditada.getTipoDeBaseDeDatos())) {
+            mConexion.setTipoBaseDatos(mConexionEditada.getTipoDeBaseDeDatos());
+        }
+        if(!mConexion.getUsuario().equals(mConexionEditada.getUsuario())) {
+            mConexion.setUsuario(mConexionEditada.getUsuario());
         }
     }
     
     @Override
     protected MConexion obtenerModeloConexion() {
-        MConexion mConexionEditada = super.obtenerModeloConexion();
-        mConexionEditada.uuidConexion = mConexion.uuidConexion;
-        
-        return mConexionEditada;
+        return super.obtenerModeloConexion();
     }
 }

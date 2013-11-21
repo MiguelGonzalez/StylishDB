@@ -25,7 +25,7 @@ public class ValidadorModeloConexion {
     }
     
     public boolean isNombreValido() {
-        return !mConexion.nombre.isEmpty();
+        return !mConexion.getNombre().isEmpty();
     }
     
     public boolean isGestorValido() {
@@ -33,24 +33,24 @@ public class ValidadorModeloConexion {
     }
     
     public boolean isSidValido() {
-        return !mConexion.sid.isEmpty();
+        return !mConexion.getSid().isEmpty();
     }
     
     public boolean isUsuarioValido() {
-        return !mConexion.usuario.isEmpty();
+        return !mConexion.getUsuario().isEmpty();
     }
     
     public boolean isPasswordValido() {
-        return !mConexion.password.isEmpty();
+        return !mConexion.getPassword().isEmpty();
     }
     
     public boolean isIpValido() {
-        return !mConexion.ip.isEmpty();
+        return !mConexion.getIp().isEmpty();
     }
     
     public boolean isPuertoValido() {
-        return !mConexion.puerto.isEmpty() &&
-                esStringNumero(mConexion.puerto);
+        return !mConexion.getPuerto().isEmpty() &&
+                esStringNumero(mConexion.getPuerto());
     }
     
     private boolean esStringNumero(String string) {
