@@ -3,7 +3,7 @@ package es.miguelgonzalezgomez.dataBaseFun.qt.pestanaVistaResultado;
 import com.trolltech.qt.gui.QTabWidget;
 import com.trolltech.qt.gui.QVBoxLayout;
 import com.trolltech.qt.gui.QWidget;
-import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.pestanaVistaResultado.QWidgetResultadosConsulta;
+import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.pestanaVistaResultado.CWidgetResultadosConsulta;
 
 /**
  *
@@ -13,9 +13,9 @@ public class WidgetResultadosConsulta extends QWidget {
     
     private QVBoxLayout widgetLayout;
     private QTabWidget pestanasTiposVistas;
-    private QWidgetResultadosConsulta controlador;
+    private CWidgetResultadosConsulta controlador;
     
-    public WidgetResultadosConsulta(QWidgetResultadosConsulta controlador) {
+    public WidgetResultadosConsulta(CWidgetResultadosConsulta controlador) {
         this.controlador = controlador;
         
         crearComponentesInterfaz();

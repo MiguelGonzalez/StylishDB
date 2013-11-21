@@ -12,18 +12,23 @@ import java.util.List;
 public class CVistaDatosConsulta extends CMiControladorGenerico {
     
     private VistaDatosConsulta vistaDatos;
+    private ResultadoEjecutarConsulta resultado;
     
-    public CVistaDatosConsulta() {
+    public CVistaDatosConsulta(ResultadoEjecutarConsulta resultado) {
         super();
+        this.resultado = resultado;
         
-        vistaDatos = new VistaDatosConsulta(this);
+        int numColumnas = resultado.datosColumnas.size();
+        int numFilas = resultado.datosFilas.size();
+        
+        vistaDatos = new VistaDatosConsulta(this, numFilas, numColumnas);
     }
     
     public VistaDatosConsulta getVistaDatosConsulta() {
         return vistaDatos;
     }
 
-    public void pintarDatosConsulta(ResultadoEjecutarConsulta resultado) {
+    public void pintarDatosConsulta() {
         pintarConsultaSQL(resultado.consultaSQL);
         
         establecerColumnas(resultado.nombresColumnas);
@@ -35,11 +40,11 @@ public class CVistaDatosConsulta extends CMiControladorGenerico {
         vistaDatos.establecerColumnas(columnas);
     }
 
-    private void anadirDatosConsulta(List<String[]> datosConsulta) {
-        vistaDatos.anadirDatosConsulta(datosConsulta);
-    }
-
     private void pintarConsultaSQL(String consultaSQL) {
         vistaDatos.pintarConsultaSQL(consultaSQL);
+    }
+    
+    private void anadirDatosConsulta(List<String[]> datosConsulta) {
+        vistaDatos.anadirDatosConsulta(datosConsulta);
     }
 }

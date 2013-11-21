@@ -1,9 +1,11 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores.pestanaVistaResultado;
 
+import com.trolltech.qt.gui.QApplication;
 import com.trolltech.qt.gui.QTabWidget;
 import com.trolltech.qt.gui.QWidget;
 import es.miguelgonzalezgomez.dataBaseFun.bd.AnalizadorTextoConsulta;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ManejadorConsultaErrorSQL;
+import es.miguelgonzalezgomez.dataBaseFun.bd.domain.ResultadoEjecutarConsulta;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.domain.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.domain.MPestana;
@@ -18,7 +20,7 @@ import java.util.List;
  * @author Miguel González
  */
 public class CTabWidgetConsultas extends CMiControladorGenerico
-        implements CPestanaActivaListener {
+        implements CPestanaActivaListener, ThreadEjecutarConsultaListener {
 
     private TabWidgetConsultas panelConsultas; 
     
@@ -41,16 +43,23 @@ public class CTabWidgetConsultas extends CMiControladorGenerico
         controladorPestanaActiva.addListener(this);
     }
     
-    private void ejecutarConsultas(MPestana mPestanaEditor,
+    private void ejecutarConsultas(MPestana mPestana,
             List<String> consultasEjecutar) {
-        MConexion mConexion = mAplicacion.mConexionesGuardadas.
-                getMConexion(mPestanaEditor.uuidConexion);
+        MConexion mConexion = conexionesGuardadas.getMConexion(
+                mPestana.uuidConexion);
+                
         for(String consultaEjecutar : consultasEjecutar) {
-            ejecutarConsulta(
-                    mConexion,
-                    consultaEjecutar
-            );
+            ejecutarConsulta(mConexion, consultaEjecutar);
         }
+    }
+    
+    private void ejecutarConsulta(MConexion mConexion, String consultaEjecutar) {
+        ThreadEjecutarConsulta thread = new ThreadEjecutarConsulta(
+            mConexion,
+            consultaEjecutar
+        );
+        thread.addListener(this);
+        thread.start();
     }
     
     private void actualizarConsultas(MPestana mPestana,
@@ -71,25 +80,6 @@ public class CTabWidgetConsultas extends CMiControladorGenerico
         } catch (ManejadorConsultaErrorSQL ex) {
             ModalMostrarAviso.mostrarErrorEnPantalla(
                 "Error al actualizar la consulta",
-                ex.getMessage()
-            );
-        }
-    }
-    
-    private void ejecutarConsulta(MConexion mConexion, String consultaSQL) {
-        try {
-            QWidgetResultadosConsulta cPestanaMostrarConsulta = new
-                    QWidgetResultadosConsulta(mConexion,consultaSQL);
-            MPestana mPestana = pestanasAbiertas.getPestanaActiva();
-            
-            String nombrePestana = mPestana.getNombrePestana();
-            anadirNuevaPestana(
-                    nombrePestana,
-                    cPestanaMostrarConsulta.getPestanaResultado()
-            );
-        } catch (ManejadorConsultaErrorSQL ex) {
-            ModalMostrarAviso.mostrarErrorEnPantalla(
-                "Error al ejecutar la consulta",
                 ex.getMessage()
             );
         }
@@ -143,5 +133,36 @@ public class CTabWidgetConsultas extends CMiControladorGenerico
         if(!consultasActualizar.isEmpty()) {
             actualizarConsultas(mPestana, consultasActualizar);
         }
+    }
+
+    @Override
+    public void consultaEjecutada(final ResultadoEjecutarConsulta resultadoEjecutarConsulta) {
+        QApplication.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                CWidgetResultadosConsulta cPestanaMostrarConsulta = new
+                        CWidgetResultadosConsulta(resultadoEjecutarConsulta);
+                MPestana mPestana = pestanasAbiertas.getPestanaActiva();
+
+                String nombrePestana = mPestana.getNombrePestana();
+                anadirNuevaPestana(
+                        nombrePestana,
+                        cPestanaMostrarConsulta.getPestanaResultado()
+                );
+            }
+        });
+    }
+
+    @Override
+    public void errorEjecutarConsulta(final Exception ex) {
+        QApplication.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                ModalMostrarAviso.mostrarErrorEnPantalla(
+                    "Error al ejecutar la consulta",
+                    ex.getMessage()
+                );
+            }
+        });
     }
 }

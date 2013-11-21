@@ -19,20 +19,21 @@ public class VistaDatosConsulta extends QWidget {
     
     private CVistaDatosConsulta controlador;
     
-    public VistaDatosConsulta(CVistaDatosConsulta controlador) {
+    public VistaDatosConsulta(CVistaDatosConsulta controlador,
+            int numFilas, int numColumnas) {
         this.controlador = controlador;
         
-        crearComponentesInterfaz();
+        crearComponentesInterfaz(numFilas, numColumnas);
         
         posicionarComponentesInterfaz();
     }
     
-    private void crearComponentesInterfaz() {
+    private void crearComponentesInterfaz(int numFilas, int numColumnas) {
         textConsultaSQL = new QLineEdit();
         textConsultaSQL.setReadOnly(true);
         textConsultaSQL.setTextMargins(3, 6, 3, 6);
         
-        tablaResultadoConsulta = new QTableWidget();
+        tablaResultadoConsulta = new QTableWidget(numFilas, numColumnas);
     }
     
     private void posicionarComponentesInterfaz() {
@@ -46,20 +47,19 @@ public class VistaDatosConsulta extends QWidget {
     
     public void pintarConsultaSQL(String consultaSQL) {
         textConsultaSQL.setText(consultaSQL);
-        textConsultaSQL.adjustSize();
-        
     }
     
     public void establecerColumnas(List<String> columnas) {
-        tablaResultadoConsulta.setColumnCount(columnas.size());
         tablaResultadoConsulta.setHorizontalHeaderLabels(columnas);
     }
     
     public void anadirDatosConsulta(List<String[]> datosConsulta) {
+        int numFila = 0;
         for(String[] datosFila : datosConsulta) {
-            anadirDatosFila(datosFila);
+            anadirDatosFila(datosFila, numFila);
+            numFila++;
         }
-        
+
         if (tablaResultadoConsulta.selectedItems().isEmpty()) {
             tablaResultadoConsulta.selectRow(0);
         }
@@ -67,16 +67,14 @@ public class VistaDatosConsulta extends QWidget {
         tablaResultadoConsulta.resizeColumnsToContents();
     }
     
-    private void anadirDatosFila(String[] datosFila) {
-        int filaActual = tablaResultadoConsulta.rowCount();
+    private void anadirDatosFila(String[] datosFila, int numFila) {
         int numColumna = -1;
         
-        tablaResultadoConsulta.insertRow(filaActual);
         for(String datoFila : datosFila) {
             numColumna++;
             QTableWidgetItem columnaFilaWidget = new QTableWidgetItem(datoFila);
             
-            tablaResultadoConsulta.setItem(filaActual, numColumna, columnaFilaWidget);
+            tablaResultadoConsulta.setItem(numFila, numColumna, columnaFilaWidget);
         }
     }
 }
