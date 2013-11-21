@@ -87,7 +87,6 @@ public class CTabWidgetConsultas extends CMiControladorGenerico
     
     public QTabWidget getPanelConsultas() {
         return panelConsultas;
-        
     }
     
     private void anadirNuevaPestana(String nombrePestana, QWidget widget) {

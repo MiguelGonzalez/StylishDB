@@ -3,7 +3,6 @@ package es.miguelgonzalezgomez.dataBaseFun.qt.controladores.pestanaVistaResultad
 import es.miguelgonzalezgomez.dataBaseFun.bd.domain.ResultadoEjecutarConsulta;
 import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CMiControladorGenerico;
 import es.miguelgonzalezgomez.dataBaseFun.qt.pestanaVistaResultado.VistaDatosConsulta;
-import java.util.List;
 
 /**
  *
