@@ -141,7 +141,7 @@ public class CTabWidgetConsultas extends CMiControladorGenerico
             @Override
             public void run() {
                 CWidgetResultadosConsulta cPestanaMostrarConsulta = new
-                        CWidgetResultadosConsulta(resultadoEjecutarConsulta);
+                        CWidgetResultadosConsulta();
                 MPestana mPestana = pestanasAbiertas.getPestanaActiva();
 
                 String nombrePestana = mPestana.getNombrePestana();
@@ -149,6 +149,8 @@ public class CTabWidgetConsultas extends CMiControladorGenerico
                         nombrePestana,
                         cPestanaMostrarConsulta.getPestanaResultado()
                 );
+                
+                cPestanaMostrarConsulta.pintarResultados(resultadoEjecutarConsulta);
             }
         });
     }

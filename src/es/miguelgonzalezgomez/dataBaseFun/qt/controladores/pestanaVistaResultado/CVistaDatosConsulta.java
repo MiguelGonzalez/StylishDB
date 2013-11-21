@@ -12,39 +12,18 @@ import java.util.List;
 public class CVistaDatosConsulta extends CMiControladorGenerico {
     
     private VistaDatosConsulta vistaDatos;
-    private ResultadoEjecutarConsulta resultado;
     
-    public CVistaDatosConsulta(ResultadoEjecutarConsulta resultado) {
+    public CVistaDatosConsulta() {
         super();
-        this.resultado = resultado;
         
-        int numColumnas = resultado.datosColumnas.size();
-        int numFilas = resultado.datosFilas.size();
-        
-        vistaDatos = new VistaDatosConsulta(this, numFilas, numColumnas);
+        vistaDatos = new VistaDatosConsulta(this);
     }
     
     public VistaDatosConsulta getVistaDatosConsulta() {
         return vistaDatos;
     }
 
-    public void pintarDatosConsulta() {
-        pintarConsultaSQL(resultado.consultaSQL);
-        
-        establecerColumnas(resultado.nombresColumnas);
-
-        anadirDatosConsulta(resultado.datosFilas);
-    }
-    
-    private void establecerColumnas(List<String> columnas) {
-        vistaDatos.establecerColumnas(columnas);
-    }
-
-    private void pintarConsultaSQL(String consultaSQL) {
-        vistaDatos.pintarConsultaSQL(consultaSQL);
-    }
-    
-    private void anadirDatosConsulta(List<String[]> datosConsulta) {
-        vistaDatos.anadirDatosConsulta(datosConsulta);
+    public void pintarDatosConsulta(ResultadoEjecutarConsulta resultadoEjecutarConsulta) {
+        vistaDatos.pintarDatos(resultadoEjecutarConsulta);
     }
 }

@@ -19,19 +19,15 @@ public class CWidgetResultadosConsulta extends CMiControladorGenerico {
     private CVistaDatosTextoPlano controladorVistaDatosTextoPlano;
     private CVistaDatosInformacion controladorVistaDatosInformacion;
     
-    private ResultadoEjecutarConsulta resultadoEjecutarConsulta;
-    
-    public CWidgetResultadosConsulta(ResultadoEjecutarConsulta resultadoEjecutarConsulta)  {
+    public CWidgetResultadosConsulta()  {
         super();
-        this.resultadoEjecutarConsulta = resultadoEjecutarConsulta;
         
         crearControladores();
         pintarComponentes();
-        rellenarDatosComponentes();
     }
     
     private void crearControladores() {
-        controladorVistaDatosConsulta = new CVistaDatosConsulta(resultadoEjecutarConsulta);
+        controladorVistaDatosConsulta = new CVistaDatosConsulta();
         controladorVistaDatosTabla = new CVistaDatosTabla();
         controladorVistaDatosTextoPlano = new CVistaDatosTextoPlano();
         controladorVistaDatosInformacion = new CVistaDatosInformacion();
@@ -39,39 +35,35 @@ public class CWidgetResultadosConsulta extends CMiControladorGenerico {
         pestanaResultado = new WidgetResultadosConsulta(this);
     }
     
+    private void pintarComponentes() {
+        pestanaResultado.pintarVistaDatosConsulta(
+                controladorVistaDatosConsulta.getVistaDatosConsulta()
+        );
+        pestanaResultado.pintarVistaDatosTextoPlano(
+                controladorVistaDatosTextoPlano.getVistaDatosTextoPlano()
+        );
+        pestanaResultado.pintarVistaDatosTabla(
+                controladorVistaDatosTabla.getVistaDatosTabla()
+        );
+        pestanaResultado.pintarVistaDatosInformacion(
+                controladorVistaDatosInformacion.getVistaDatosInformacion()
+        );
+    }
+    
     public QWidget getPestanaResultado() {
         return pestanaResultado;
     }
 
-    private void pintarComponentes() {
+    public void pintarResultados(final ResultadoEjecutarConsulta resultadoEjecutarConsulta) {
         QApplication.invokeLater(new Runnable() {
             @Override
             public void run() {
-                pestanaResultado.pintarVistaDatosConsulta(
-                        controladorVistaDatosConsulta.getVistaDatosConsulta()
-                );
-                pestanaResultado.pintarVistaDatosTextoPlano(
-                        controladorVistaDatosTextoPlano.getVistaDatosTextoPlano()
-                );
-                pestanaResultado.pintarVistaDatosTabla(
-                        controladorVistaDatosTabla.getVistaDatosTabla()
-                );
-                pestanaResultado.pintarVistaDatosInformacion(
-                        controladorVistaDatosInformacion.getVistaDatosInformacion()
-                );
-            }
+                controladorVistaDatosConsulta.pintarDatosConsulta(
+                        resultadoEjecutarConsulta);
+                }
         });
-    }
-    
-    private void rellenarDatosComponentes() {
-        QApplication.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                controladorVistaDatosConsulta.pintarDatosConsulta();
-                controladorVistaDatosTextoPlano.pintarDatosConsulta(resultadoEjecutarConsulta);
-                controladorVistaDatosTabla.pintarDatosTabla(resultadoEjecutarConsulta);
-                controladorVistaDatosInformacion.pintarDatosInformacion(resultadoEjecutarConsulta);
-            }
-        });
+        controladorVistaDatosTextoPlano.pintarDatosConsulta(resultadoEjecutarConsulta);
+        controladorVistaDatosTabla.pintarDatosTabla(resultadoEjecutarConsulta);
+        controladorVistaDatosInformacion.pintarDatosInformacion(resultadoEjecutarConsulta);
     }
 }

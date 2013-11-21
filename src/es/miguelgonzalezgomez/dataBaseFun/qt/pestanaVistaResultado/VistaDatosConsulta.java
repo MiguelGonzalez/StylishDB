@@ -5,6 +5,7 @@ import com.trolltech.qt.gui.QTableWidget;
 import com.trolltech.qt.gui.QTableWidgetItem;
 import com.trolltech.qt.gui.QVBoxLayout;
 import com.trolltech.qt.gui.QWidget;
+import es.miguelgonzalezgomez.dataBaseFun.bd.domain.ResultadoEjecutarConsulta;
 import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.pestanaVistaResultado.CVistaDatosConsulta;
 import java.util.List;
 
@@ -19,21 +20,19 @@ public class VistaDatosConsulta extends QWidget {
     
     private CVistaDatosConsulta controlador;
     
-    public VistaDatosConsulta(CVistaDatosConsulta controlador,
-            int numFilas, int numColumnas) {
+    public VistaDatosConsulta(CVistaDatosConsulta controlador) {
         this.controlador = controlador;
         
-        crearComponentesInterfaz(numFilas, numColumnas);
+        crearComponentesInterfaz();
         
         posicionarComponentesInterfaz();
     }
     
-    private void crearComponentesInterfaz(int numFilas, int numColumnas) {
+    private void crearComponentesInterfaz() {
         textConsultaSQL = new QLineEdit();
         textConsultaSQL.setReadOnly(true);
         textConsultaSQL.setTextMargins(3, 6, 3, 6);
-        
-        tablaResultadoConsulta = new QTableWidget(numFilas, numColumnas);
+        tablaResultadoConsulta = new QTableWidget();
     }
     
     private void posicionarComponentesInterfaz() {
@@ -49,11 +48,19 @@ public class VistaDatosConsulta extends QWidget {
         textConsultaSQL.setText(consultaSQL);
     }
     
-    public void establecerColumnas(List<String> columnas) {
-        tablaResultadoConsulta.setHorizontalHeaderLabels(columnas);
+    public void pintarDatos(ResultadoEjecutarConsulta resultadoEjecutarConsulta) {
+        int numFilas = resultadoEjecutarConsulta.datosFilas.size();
+        int numColumnas = resultadoEjecutarConsulta.datosColumnas.size();
+        
+        tablaResultadoConsulta.setRowCount(numFilas);
+        tablaResultadoConsulta.setColumnCount(numColumnas);
+        tablaResultadoConsulta.setHorizontalHeaderLabels(
+                resultadoEjecutarConsulta.nombresColumnas);
+        
+        anadirDatosConsulta(resultadoEjecutarConsulta.datosFilas);
     }
     
-    public void anadirDatosConsulta(List<String[]> datosConsulta) {
+    private void anadirDatosConsulta(List<String[]> datosConsulta) {
         int numFila = 0;
         for(String[] datosFila : datosConsulta) {
             anadirDatosFila(datosFila, numFila);
