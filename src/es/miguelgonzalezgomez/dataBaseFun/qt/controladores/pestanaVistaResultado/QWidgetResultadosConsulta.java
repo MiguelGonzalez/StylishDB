@@ -7,17 +7,17 @@ import es.miguelgonzalezgomez.dataBaseFun.bd.ManejadorConsultaNoHayConexion;
 import es.miguelgonzalezgomez.dataBaseFun.bd.domain.ResultadoEjecutarConsulta;
 import es.miguelgonzalezgomez.dataBaseFun.domain.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CMiControladorGenerico;
-import es.miguelgonzalezgomez.dataBaseFun.qt.pestanaVistaResultado.PestanaMostrarResultadoConsulta;
+import es.miguelgonzalezgomez.dataBaseFun.qt.pestanaVistaResultado.WidgetResultadosConsulta;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalMostrarAviso;
 
 /**
  *
  * @author Miguel González
  */
-public class CPestanaMostrarConsulta extends CMiControladorGenerico {
+public class QWidgetResultadosConsulta extends CMiControladorGenerico {
     
     private ManejadorConsulta manejadorConsulta;
-    private PestanaMostrarResultadoConsulta pestanaResultado;
+    private WidgetResultadosConsulta pestanaResultado;
     
     private CVistaDatosConsulta controladorVistaDatosConsulta;
     private CVistaDatosTabla controladorVistaDatosTabla;
@@ -27,7 +27,7 @@ public class CPestanaMostrarConsulta extends CMiControladorGenerico {
     private String consultaSQL;
     private MConexion mConexion;
     
-    public CPestanaMostrarConsulta(
+    public QWidgetResultadosConsulta(
             MConexion mConexion,
             String consultaSQL) throws ManejadorConsultaErrorSQL {
         super();
@@ -50,7 +50,7 @@ public class CPestanaMostrarConsulta extends CMiControladorGenerico {
         controladorVistaDatosTextoPlano = new CVistaDatosTextoPlano();
         controladorVistaDatosInformacion = new CVistaDatosInformacion();
         
-        pestanaResultado = new PestanaMostrarResultadoConsulta(this);
+        pestanaResultado = new WidgetResultadosConsulta(this);
         
         pestanaResultado.pintarVistaDatosConsulta(
                 controladorVistaDatosConsulta.getVistaDatosConsulta()

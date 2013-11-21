@@ -10,22 +10,22 @@ import es.miguelgonzalezgomez.dataBaseFun.domain.MPestana;
 import es.miguelgonzalezgomez.dataBaseFun.domain.controladores.CPestanaActivaListener;
 import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CMiControladorGenerico;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalMostrarAviso;
-import es.miguelgonzalezgomez.dataBaseFun.qt.pestanaVistaResultado.PanelPestanasMostrarConsultas;
+import es.miguelgonzalezgomez.dataBaseFun.qt.pestanaVistaResultado.TabWidgetConsultas;
 import java.util.List;
 
 /**
  *
  * @author Miguel González
  */
-public class CPanelPestanasMostrarConsultas extends CMiControladorGenerico
+public class CTabWidgetConsultas extends CMiControladorGenerico
         implements CPestanaActivaListener {
 
-    private PanelPestanasMostrarConsultas panelConsultas; 
+    private TabWidgetConsultas panelConsultas; 
     
-    public CPanelPestanasMostrarConsultas() {
+    public CTabWidgetConsultas() {
         super();
         
-        panelConsultas = new PanelPestanasMostrarConsultas(this);
+        panelConsultas = new TabWidgetConsultas(this);
         
         establecerEstilo();
         establecerListener();
@@ -78,8 +78,8 @@ public class CPanelPestanasMostrarConsultas extends CMiControladorGenerico
     
     private void ejecutarConsulta(MConexion mConexion, String consultaSQL) {
         try {
-            CPestanaMostrarConsulta cPestanaMostrarConsulta = new
-                    CPestanaMostrarConsulta(mConexion,consultaSQL);
+            QWidgetResultadosConsulta cPestanaMostrarConsulta = new
+                    QWidgetResultadosConsulta(mConexion,consultaSQL);
             MPestana mPestana = pestanasAbiertas.getPestanaActiva();
             
             String nombrePestana = mPestana.getNombrePestana();

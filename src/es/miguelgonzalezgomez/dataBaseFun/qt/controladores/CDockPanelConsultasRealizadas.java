@@ -1,6 +1,6 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
-import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.pestanaVistaResultado.CPanelPestanasMostrarConsultas;
+import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.pestanaVistaResultado.CTabWidgetConsultas;
 import com.trolltech.qt.gui.QDockWidget;
 import com.trolltech.qt.gui.QTabWidget;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
@@ -12,14 +12,14 @@ import es.miguelgonzalezgomez.dataBaseFun.qt.PanelMostrarConsultasRealizadas;
  */
 public class CDockPanelConsultasRealizadas extends CMiControladorGenerico {
     
-    private CPanelPestanasMostrarConsultas controladorEjecutarConsultas;
+    private CTabWidgetConsultas controladorEjecutarConsultas;
     private PanelMostrarConsultasRealizadas panelConsultas;
     
     public CDockPanelConsultasRealizadas() {
         super();
         
         panelConsultas = new PanelMostrarConsultasRealizadas(this);
-        controladorEjecutarConsultas = new CPanelPestanasMostrarConsultas();
+        controladorEjecutarConsultas = new CTabWidgetConsultas();
         
         decorarPanelMostrarConsultas();
     }
