@@ -1,7 +1,7 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
 import com.trolltech.qt.gui.QPlainTextEdit;
-import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
+import es.miguelgonzalezgomez.dataBaseFun.domain.MPestana;
 
 /**
  *
@@ -10,9 +10,9 @@ import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
 public class CPestanaEditor extends CMiControladorGenerico {
     
     private CEditor controladorEditor;
-    private MPestanaEditor mPestanaEditor;
+    private MPestana mPestanaEditor;
     
-    public CPestanaEditor(MPestanaEditor mPestanaEditor) {
+    public CPestanaEditor(MPestana mPestanaEditor) {
         super();
         
         this.mPestanaEditor = mPestanaEditor;
@@ -32,7 +32,7 @@ public class CPestanaEditor extends CMiControladorGenerico {
         controladorEditor.rehacer();
     }
 
-    public MPestanaEditor getModeloEditor() {
+    public MPestana getModeloEditor() {
         return mPestanaEditor;
     }
 

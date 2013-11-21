@@ -2,9 +2,9 @@ package es.miguelgonzalezgomez.dataBaseFun;
 
 import com.google.gson.reflect.TypeToken;
 import es.miguelgonzalezgomez.dataBaseFun.configuracion.ConfiguracionAplicacion;
-import es.miguelgonzalezgomez.dataBaseFun.modelos.MAplicacion;
-import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
-import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
+import es.miguelgonzalezgomez.dataBaseFun.domain.MAplicacion;
+import es.miguelgonzalezgomez.dataBaseFun.domain.MConexion;
+import es.miguelgonzalezgomez.dataBaseFun.domain.MPestana;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
@@ -69,8 +69,8 @@ public class CargaModeloAplicacion {
     }
     
     private static void cargarEditores() {
-        for(MPestanaEditor editor : configuracionAplicacion.editores) {
-            mAplicacion.mPestanasEditorAbiertas.addNuevaPestanaEditor(editor);
+        for(MPestana editor : configuracionAplicacion.editores) {
+            mAplicacion.mPestanasEditorAbiertas.addPestana(editor);
         }
     }
 }

@@ -5,7 +5,7 @@ import es.miguelgonzalezgomez.dataBaseFun.bd.ManejadorConsulta;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ManejadorConsultaErrorSQL;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ManejadorConsultaNoHayConexion;
 import es.miguelgonzalezgomez.dataBaseFun.bd.domain.ResultadoEjecutarConsulta;
-import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
+import es.miguelgonzalezgomez.dataBaseFun.domain.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CMiControladorGenerico;
 import es.miguelgonzalezgomez.dataBaseFun.qt.pestanaVistaResultado.PestanaMostrarResultadoConsulta;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalMostrarAviso;

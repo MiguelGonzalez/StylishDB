@@ -3,9 +3,13 @@ package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 import com.trolltech.qt.QSignalEmitter;
 import com.trolltech.qt.gui.QAction;
 import es.miguelgonzalezgomez.dataBaseFun.DataBaseFun;
-import es.miguelgonzalezgomez.dataBaseFun.modelos.ConexionListener;
-import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
+import es.miguelgonzalezgomez.dataBaseFun.domain.ConexionListener;
+import es.miguelgonzalezgomez.dataBaseFun.domain.MConexion;
+import es.miguelgonzalezgomez.dataBaseFun.domain.MPestana;
+import es.miguelgonzalezgomez.dataBaseFun.domain.controladores.CPestanaActiva;
 import es.miguelgonzalezgomez.dataBaseFun.qt.MenuSuperior;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -97,15 +101,15 @@ public class CMenuSuperior extends CMiControladorGenerico {
     }
     
     protected void deshacer() {
-        pestanasAbiertas.deshacerPestanaActiva();
+        controladorPestanaActiva.deshacerPestana();
     }
     
     protected void rehacer() {
-        pestanasAbiertas.rehacerPestanaActiva();
+        controladorPestanaActiva.rehacerPestana();
     }
     
     protected void ejecutarConsulta() {
-        pestanasAbiertas.ejecutarConsultaPestanaActiva();
+        controladorPestanaActiva.ejecutarConsulta();
     }
     
     protected void verTablasBaseDatos() {
@@ -124,7 +128,10 @@ public class CMenuSuperior extends CMiControladorGenerico {
         }
     }
     
-    protected void cerrarPestana() {
-        pestanasAbiertas.cerrarPestanaActiva();
+    protected void cerrarPestana() {        
+        if(pestanasAbiertas.hayPestanaActiva()) {
+            MPestana pestanaActiva = pestanasAbiertas.getPestanaActiva();
+            pestanasAbiertas.removePestana(pestanaActiva);
+        }
     }
 }

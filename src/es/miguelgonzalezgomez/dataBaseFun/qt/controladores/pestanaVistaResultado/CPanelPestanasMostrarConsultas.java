@@ -5,8 +5,9 @@ import com.trolltech.qt.gui.QWidget;
 import es.miguelgonzalezgomez.dataBaseFun.bd.AnalizadorTextoConsulta;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ManejadorConsultaErrorSQL;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
-import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
-import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
+import es.miguelgonzalezgomez.dataBaseFun.domain.MConexion;
+import es.miguelgonzalezgomez.dataBaseFun.domain.MPestana;
+import es.miguelgonzalezgomez.dataBaseFun.domain.controladores.CPestanaActivaListener;
 import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CMiControladorGenerico;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalMostrarAviso;
 import es.miguelgonzalezgomez.dataBaseFun.qt.pestanaVistaResultado.PanelPestanasMostrarConsultas;
@@ -16,23 +17,18 @@ import java.util.List;
  *
  * @author Miguel González
  */
-public class CPanelPestanasMostrarConsultas extends CMiControladorGenerico {
+public class CPanelPestanasMostrarConsultas extends CMiControladorGenerico
+        implements CPestanaActivaListener {
 
-    private CPanelPestanasMostrarConsultasEscuchaCambios escuchaCambiosConsultas;
     private PanelPestanasMostrarConsultas panelConsultas; 
     
     public CPanelPestanasMostrarConsultas() {
         super();
         
         panelConsultas = new PanelPestanasMostrarConsultas(this);
-        escuchaCambiosConsultas = new CPanelPestanasMostrarConsultasEscuchaCambios(this);
         
         establecerEstilo();
-        inicializarEscuchaCambios();
-    }
-    
-    private void inicializarEscuchaCambios() {
-        pestanasAbiertas.addPestanaEditorListener(escuchaCambiosConsultas);
+        establecerListener();
     }
     
     private void establecerEstilo() {
@@ -40,28 +36,12 @@ public class CPanelPestanasMostrarConsultas extends CMiControladorGenerico {
                 ObtencionEstilo.getEstiloVentana("widgetConsultas.css")
         );
     }
-
-    public void lanzarConsultaTexto(MPestanaEditor mPestanaEditor) {
-        MConexion mConexion = mAplicacion.mConexionesGuardadas.
-                getMConexion(mPestanaEditor.uuidConexion);
-        String textoConsultaLanzar = mPestanaEditor.getTextoConsultaLanzar();
-        
-        AnalizadorTextoConsulta analizarTextoConsulta = new AnalizadorTextoConsulta(
-                mConexion.tipoDeBaseDeDatos, textoConsultaLanzar
-        );
-        
-        List<String> consultasEjecutar = analizarTextoConsulta.getConsultasEjecutar();
-        List<String> consultasActualizar = analizarTextoConsulta.getConsultasActualizar();
-        
-        if(!consultasEjecutar.isEmpty()) {
-            ejecutarConsultas(mPestanaEditor, consultasEjecutar);
-        }
-        if(!consultasActualizar.isEmpty()) {
-            actualizarConsultas(mPestanaEditor, consultasActualizar);
-        }
+    
+    private void establecerListener() {
+        controladorPestanaActiva.addListener(this);
     }
     
-    private void ejecutarConsultas(MPestanaEditor mPestanaEditor,
+    private void ejecutarConsultas(MPestana mPestanaEditor,
             List<String> consultasEjecutar) {
         MConexion mConexion = mAplicacion.mConexionesGuardadas.
                 getMConexion(mPestanaEditor.uuidConexion);
@@ -73,19 +53,19 @@ public class CPanelPestanasMostrarConsultas extends CMiControladorGenerico {
         }
     }
     
-    private void actualizarConsultas(MPestanaEditor mPestanaEditor,
+    private void actualizarConsultas(MPestana mPestana,
             List<String> consultasActualizar) {
         try {
             MConexion mConexion = mAplicacion.mConexionesGuardadas.
-                getMConexion(mPestanaEditor.uuidConexion);
+                getMConexion(mPestana.uuidConexion);
             CPestanaActualizarConsultas cPestanaActualizarConsultas = new
                     CPestanaActualizarConsultas(
                         mConexion,
                         consultasActualizar);
-            MPestanaEditor pestana = pestanasAbiertas.getPestanaActiva();
             
+            String nombrePestana = mPestana.getNombrePestana();
             anadirNuevaPestana(
-                    pestana.nombrePestana,
+                    nombrePestana,
                     cPestanaActualizarConsultas.getPestanaResultado()
             );
         } catch (ManejadorConsultaErrorSQL ex) {
@@ -100,10 +80,11 @@ public class CPanelPestanasMostrarConsultas extends CMiControladorGenerico {
         try {
             CPestanaMostrarConsulta cPestanaMostrarConsulta = new
                     CPestanaMostrarConsulta(mConexion,consultaSQL);
-            MPestanaEditor pestana = pestanasAbiertas.getPestanaActiva();
+            MPestana mPestana = pestanasAbiertas.getPestanaActiva();
             
+            String nombrePestana = mPestana.getNombrePestana();
             anadirNuevaPestana(
-                    pestana.nombrePestana,
+                    nombrePestana,
                     cPestanaMostrarConsulta.getPestanaResultado()
             );
         } catch (ManejadorConsultaErrorSQL ex) {
@@ -129,5 +110,38 @@ public class CPanelPestanasMostrarConsultas extends CMiControladorGenerico {
     
     protected void cerrarPestana(int indexPestana) {
         panelConsultas.removeTab(indexPestana);
+    }
+
+    @Override
+    public void deshacer(MPestana pestana) {
+    }
+
+    @Override
+    public void rehacer(MPestana pestana) {
+    }
+
+    @Override
+    public void eliminada(MPestana pestana) {
+    }
+
+    @Override
+    public void ejecutarConsulta(MPestana mPestana) {
+        MConexion mConexion = mAplicacion.mConexionesGuardadas.
+                getMConexion(mPestana.uuidConexion);
+        String textoConsultaLanzar = mPestana.getTextoConsultaLanzar();
+        
+        AnalizadorTextoConsulta analizarTextoConsulta = new AnalizadorTextoConsulta(
+                mConexion.tipoDeBaseDeDatos, textoConsultaLanzar
+        );
+        
+        List<String> consultasEjecutar = analizarTextoConsulta.getConsultasEjecutar();
+        List<String> consultasActualizar = analizarTextoConsulta.getConsultasActualizar();
+        
+        if(!consultasEjecutar.isEmpty()) {
+            ejecutarConsultas(mPestana, consultasEjecutar);
+        }
+        if(!consultasActualizar.isEmpty()) {
+            actualizarConsultas(mPestana, consultasActualizar);
+        }
     }
 }

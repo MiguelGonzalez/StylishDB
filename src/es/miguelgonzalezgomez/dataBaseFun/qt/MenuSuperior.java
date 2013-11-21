@@ -6,7 +6,7 @@ import com.trolltech.qt.gui.QKeySequence;
 import com.trolltech.qt.gui.QKeySequence.StandardKey;
 import com.trolltech.qt.gui.QMenu;
 import com.trolltech.qt.gui.QMenuBar;
-import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
+import es.miguelgonzalezgomez.dataBaseFun.domain.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CMenuSuperior;
 import java.util.HashMap;
 import java.util.Map;

@@ -1,6 +1,6 @@
 package es.miguelgonzalezgomez.dataBaseFun.bd;
 
-import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
+import es.miguelgonzalezgomez.dataBaseFun.domain.MConexion;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;

@@ -4,7 +4,7 @@ import com.trolltech.qt.core.Qt;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ComprobacionConexion;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ValidadorModeloConexion;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
-import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
+import es.miguelgonzalezgomez.dataBaseFun.domain.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalCrearEditarConexion;
 import es.miguelgonzalezgomez.dataBaseFun.utilidadesEstaticas.CentroCoordenadas;
 import static es.miguelgonzalezgomez.dataBaseFun.bd.domain.TiposBasesDeDatos.devolverTipoBaseDatos;

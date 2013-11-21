@@ -1,4 +1,4 @@
-package es.miguelgonzalezgomez.dataBaseFun.modelos;
+package es.miguelgonzalezgomez.dataBaseFun.domain;
 
 /**
  *
@@ -7,7 +7,7 @@ package es.miguelgonzalezgomez.dataBaseFun.modelos;
 public class MAplicacion {
     
     public MConexionesGuardadas mConexionesGuardadas;
-    public MPestanasEditorAbiertas mPestanasEditorAbiertas;
+    public MPestanasAbiertas mPestanasEditorAbiertas;
     
     private static MAplicacion INSTANCE = null;
     
@@ -17,7 +17,7 @@ public class MAplicacion {
     
     private void inicializarModelos() {
         mConexionesGuardadas = new MConexionesGuardadas();
-        mPestanasEditorAbiertas = new MPestanasEditorAbiertas();
+        mPestanasEditorAbiertas = new MPestanasAbiertas();
     }
     
     public static MAplicacion getInstance() {

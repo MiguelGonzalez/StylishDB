@@ -1,4 +1,4 @@
-package es.miguelgonzalezgomez.dataBaseFun.modelos;
+package es.miguelgonzalezgomez.dataBaseFun.domain;
 
 import java.util.ArrayList;
 import java.util.List;

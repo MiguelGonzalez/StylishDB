@@ -2,8 +2,8 @@ package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
 import com.trolltech.qt.core.Qt;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
-import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
-import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
+import es.miguelgonzalezgomez.dataBaseFun.domain.MConexion;
+import es.miguelgonzalezgomez.dataBaseFun.domain.MPestana;
 import es.miguelgonzalezgomez.dataBaseFun.qt.EstiloSinFoco;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalCrearNuevoEditor;
 import es.miguelgonzalezgomez.dataBaseFun.utilidadesEstaticas.CentroCoordenadas;
@@ -61,10 +61,10 @@ public class CNuevoEditor extends CMiControladorGenerico {
         
         MConexion conexion = conexionesGuardadas.getMConexionNombre(nombreConexion);
         
-        MPestanaEditor mPestanaEditor = new MPestanaEditor(
+        MPestana mPestanaEditor = new MPestana(
                 conexion.uuidConexion,
                 conexion.nombre);
-        pestanasAbiertas.addNuevaPestanaEditor(mPestanaEditor);
+        pestanasAbiertas.addPestana(mPestanaEditor);
         
         modalCrearNuevoEditor.close();
     }

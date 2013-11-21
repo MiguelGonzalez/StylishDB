@@ -4,7 +4,7 @@ import com.trolltech.qt.core.Qt;
 import com.trolltech.qt.core.Qt.KeyboardModifiers;
 import com.trolltech.qt.gui.QKeyEvent;
 import com.trolltech.qt.gui.QPlainTextEdit;
-import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
+import es.miguelgonzalezgomez.dataBaseFun.domain.MPestana;
 import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CEditor;
 
 /**
@@ -31,7 +31,7 @@ public class EditorTexto extends QPlainTextEdit {
         selectionChanged.connect(controlador, "eventoSeleccionCambiado()");
     }
    
-    public MPestanaEditor getModeloEditor() {
+    public MPestana getModeloEditor() {
         return controlador.getModeloEditor();
     }
     

@@ -1,6 +1,6 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
-import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
+import es.miguelgonzalezgomez.dataBaseFun.domain.MConexion;
 
 /**
  *

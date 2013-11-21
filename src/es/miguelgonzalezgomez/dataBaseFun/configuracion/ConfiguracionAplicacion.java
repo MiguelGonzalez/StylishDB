@@ -1,7 +1,7 @@
 package es.miguelgonzalezgomez.dataBaseFun.configuracion;
 
-import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
-import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
+import es.miguelgonzalezgomez.dataBaseFun.domain.MConexion;
+import es.miguelgonzalezgomez.dataBaseFun.domain.MPestana;
 import java.util.List;
 
 /**
@@ -10,5 +10,5 @@ import java.util.List;
  */
 public class ConfiguracionAplicacion extends IConfiguracion {
     public List<MConexion> conexiones;
-    public List<MPestanaEditor> editores;
+    public List<MPestana> editores;
 }

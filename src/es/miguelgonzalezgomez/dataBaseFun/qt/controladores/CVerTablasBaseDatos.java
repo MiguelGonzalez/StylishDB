@@ -5,8 +5,8 @@ import es.miguelgonzalezgomez.dataBaseFun.bd.ManejadorConsultaErrorSQL;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ManejadorConsultaNoHayConexion;
 import es.miguelgonzalezgomez.dataBaseFun.bd.ObtencionTablasBaseDatos;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
-import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
-import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
+import es.miguelgonzalezgomez.dataBaseFun.domain.MConexion;
+import es.miguelgonzalezgomez.dataBaseFun.domain.MPestana;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalMostrarAviso;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalVerTablasBaseDatos;
 import es.miguelgonzalezgomez.dataBaseFun.utilidadesEstaticas.CentroCoordenadas;
@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class CVerTablasBaseDatos extends CMiControladorGenerico {
 
-    private MPestanaEditor mPestanaEditor;
+    private MPestana mPestanaEditor;
     private ObtencionTablasBaseDatos obtencionTablas;
     private ModalVerTablasBaseDatos modalVerTablasBD;    
 
@@ -36,7 +36,7 @@ public class CVerTablasBaseDatos extends CMiControladorGenerico {
         }
     }
     
-    public MPestanaEditor obtenerPestanaActiva() {
+    public MPestana obtenerPestanaActiva() {
         return pestanasAbiertas.getPestanaActiva();
     }
 

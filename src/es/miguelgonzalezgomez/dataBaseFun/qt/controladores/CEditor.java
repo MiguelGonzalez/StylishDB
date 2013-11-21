@@ -1,8 +1,8 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
-import es.miguelgonzalezgomez.dataBaseFun.modelos.MConexion;
-import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
+import es.miguelgonzalezgomez.dataBaseFun.domain.MConexion;
+import es.miguelgonzalezgomez.dataBaseFun.domain.MPestana;
 import es.miguelgonzalezgomez.dataBaseFun.qt.EditorTexto;
 import es.miguelgonzalezgomez.dataBaseFun.qt.restaltadoEditor.ConstruirSyntaxHighlighter;
 
@@ -13,13 +13,13 @@ import es.miguelgonzalezgomez.dataBaseFun.qt.restaltadoEditor.ConstruirSyntaxHig
 public class CEditor extends CMiControladorGenerico {
     
     private EditorTexto editorTexto;
-    private MPestanaEditor mPestanaEditor;
+    private MPestana mPestanaEditor;
 
-    public CEditor(MPestanaEditor mPestanaEditor) {
+    public CEditor(MPestana mPestanaEditor) {
         super();
-        
+
         this.mPestanaEditor = mPestanaEditor;
-    
+        
         construirEditorTexto();
         establecerResaltadoSintaxis();
         establecerTextoModeloPestana();
@@ -42,7 +42,8 @@ public class CEditor extends CMiControladorGenerico {
     }
     
     private void establecerTextoModeloPestana() {
-        editorTexto.setPlainText(mPestanaEditor.contenidoTexto);
+        String textoEditor = mPestanaEditor.getTextoEditor();
+        editorTexto.setPlainText(textoEditor);
     }
     
     public EditorTexto getEditorTexto() {
@@ -57,14 +58,13 @@ public class CEditor extends CMiControladorGenerico {
         editorTexto.redo();
     }
 
-    public MPestanaEditor getModeloEditor() {
+    public MPestana getModeloEditor() {
         return mPestanaEditor;
     }
     
     public void eventoTextoCambiado() {
-        pestanasAbiertas.textoCambiadoPestana(mPestanaEditor,
-                editorTexto.document().toPlainText()
-        );
+        String textoEditor = editorTexto.document().toPlainText();
+        mPestanaEditor.setTextoEditor(textoEditor);
     }
     
     public void eventoSeleccionCambiado() {
@@ -73,17 +73,17 @@ public class CEditor extends CMiControladorGenerico {
         if(hayTextoSeleccionado) {
             textoSeleccionado = editorTexto.textCursor().selectedText();
         }
-        pestanasAbiertas.establecerEstadoTextoSeleccionado(
-                hayTextoSeleccionado, textoSeleccionado
-        );
+        mPestanaEditor.setTextoSeleccionado(
+                textoSeleccionado,
+                hayTextoSeleccionado);
     }
 
     public void cambiarSiguientePestana() {
-        pestanasAbiertas.cambiarSiguientePestana();
+        controladorPestanasAbiertas.cambiarSiguientePestana();
     }
 
     public void cambiarAnteriorPestana() {
-        pestanasAbiertas.cambiarAnteriorPestana();
+        controladorPestanasAbiertas.cambiarAnteriorPestana();
     }
 
     public void establecerEditorVisible() {

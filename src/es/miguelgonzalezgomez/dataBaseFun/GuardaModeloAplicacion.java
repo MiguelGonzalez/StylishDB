@@ -2,7 +2,7 @@ package es.miguelgonzalezgomez.dataBaseFun;
 
 import com.google.gson.reflect.TypeToken;
 import es.miguelgonzalezgomez.dataBaseFun.configuracion.ConfiguracionAplicacion;
-import es.miguelgonzalezgomez.dataBaseFun.modelos.MAplicacion;
+import es.miguelgonzalezgomez.dataBaseFun.domain.MAplicacion;
 import java.lang.reflect.Type;
 
 /**
@@ -40,7 +40,7 @@ public class GuardaModeloAplicacion {
     
     private static void cargarEnConfiguracionEditores() {
         configuracionAplicacion.editores = mAplicacion.mPestanasEditorAbiertas.
-                getPestanasEditoresAbiertas();
+                getPestanasAbiertas();
     }
     
     private static void guardarEstadoEnFicheroJson() {

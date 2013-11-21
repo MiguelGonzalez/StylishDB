@@ -2,7 +2,7 @@ package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
 import com.trolltech.qt.core.Qt;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
-import es.miguelgonzalezgomez.dataBaseFun.modelos.MPestanaEditor;
+import es.miguelgonzalezgomez.dataBaseFun.domain.MPestana;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalRenombrarPestanaActiva;
 import es.miguelgonzalezgomez.dataBaseFun.utilidadesEstaticas.CentroCoordenadas;
 
@@ -12,7 +12,7 @@ import es.miguelgonzalezgomez.dataBaseFun.utilidadesEstaticas.CentroCoordenadas;
  */
 public class CRenombrarPestanaActiva extends CMiControladorGenerico {
     
-    private MPestanaEditor mPestana;
+    private MPestana mPestana;
     
     private ModalRenombrarPestanaActiva modalRenombrar;
     
@@ -41,7 +41,7 @@ public class CRenombrarPestanaActiva extends CMiControladorGenerico {
         modalRenombrar.show();
     }
     
-    public MPestanaEditor obtenerPestanaActiva() {
+    public MPestana obtenerPestanaActiva() {
         return pestanasAbiertas.getPestanaActiva();
     }
     
@@ -63,16 +63,17 @@ public class CRenombrarPestanaActiva extends CMiControladorGenerico {
     }
     
     private void establecerNombrePestana() {
-        modalRenombrar.nombreEdit.setText(mPestana.nombrePestana);
+        String nombrePestana = mPestana.getNombrePestana();
+        modalRenombrar.nombreEdit.setText(nombrePestana);
         
         modalRenombrar.nombreEdit.setSelection(0,
-                mPestana.nombrePestana.length());
+                nombrePestana.length());
     }
     
     protected void eventoAceptar() {
         if(noTieneErroresFormulario()) {
-            mPestana.nombrePestana = modalRenombrar.nombreEdit.text();
-            pestanasAbiertas.editadaPestanaEditor(mPestana);
+            String nombrePestana = modalRenombrar.nombreEdit.text();
+            mPestana.setNombrePestana(nombrePestana);
             
             modalRenombrar.close();
         }

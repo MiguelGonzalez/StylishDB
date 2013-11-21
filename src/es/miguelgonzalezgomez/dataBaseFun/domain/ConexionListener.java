@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package es.miguelgonzalezgomez.dataBaseFun.modelos;
+package es.miguelgonzalezgomez.dataBaseFun.domain;
 
 /**
  *

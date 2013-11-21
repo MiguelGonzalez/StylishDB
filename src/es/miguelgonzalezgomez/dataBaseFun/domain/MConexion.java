@@ -1,4 +1,4 @@
-package es.miguelgonzalezgomez.dataBaseFun.modelos;
+package es.miguelgonzalezgomez.dataBaseFun.domain;
 
 import es.miguelgonzalezgomez.dataBaseFun.bd.domain.ObtenerUrlConexion;
 import es.miguelgonzalezgomez.dataBaseFun.bd.domain.TiposBasesDeDatos.TIPO_BASE_DATOS;
