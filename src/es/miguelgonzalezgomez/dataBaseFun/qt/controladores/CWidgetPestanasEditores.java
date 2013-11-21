@@ -11,6 +11,7 @@ import es.miguelgonzalezgomez.dataBaseFun.domain.controladores.CPestanasListener
 import es.miguelgonzalezgomez.dataBaseFun.qt.EditorTexto;
 import es.miguelgonzalezgomez.dataBaseFun.qt.WidgetPestanasEditores;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,17 +19,18 @@ import java.util.Map;
  * @author Miguel González
  */
 public class CWidgetPestanasEditores extends CMiControladorGenerico
-        implements CPestanasListener, PestanasAbiertasListener, PestanaListener {
+        //implements CPestanasListener, PestanasAbiertasListener, PestanaListener {
+        implements CPestanasListener, PestanasAbiertasListener {
 
     private WidgetPestanasEditores widgetPestanasEditores;
     private CPestanasEditores cPestanasEditores;
     
-    private Map<MPestana, CPestanaEditor> relacionPestanaEditor;
+    //private Map<MPestana, CPestanaEditor> relacionPestanaEditor;
     
     public CWidgetPestanasEditores() {
         super();
         cPestanasEditores = new CPestanasEditores(this);
-        relacionPestanaEditor = new HashMap<>();
+        //relacionPestanaEditor = new HashMap<>();
         
         inicializarWidget();
         establecerTabBar();
@@ -38,7 +40,7 @@ public class CWidgetPestanasEditores extends CMiControladorGenerico
     }
     
     private void inicializarWidget() {
-        widgetPestanasEditores = new WidgetPestanasEditores(this);
+        widgetPestanasEditores = new WidgetPestanasEditores();
     }
     
     private void inicializarListener() {
@@ -118,36 +120,26 @@ public class CWidgetPestanasEditores extends CMiControladorGenerico
 
     @Override
     public void anadidaPestana(MPestana mPestana) {
-        CPestanaEditor cPestanaEditor = new CPestanaEditor(mPestana);
         
-        relacionPestanaEditor.put(mPestana, cPestanaEditor);
         
-        String nombrePestana = mPestana.getNombrePestana();
-        int index = widgetPestanasEditores.addTab(
-                cPestanaEditor.getPestanaEditor(),
-                nombrePestana
+        //relacionPestanaEditor.put(mPestana, cPestanaEditor);
+        
+        
+        widgetPestanasEditores.addTabEditorTexto(
+                mPestana
         );
-        widgetPestanasEditores.setCurrentIndex(index);
-        mPestana.addPestanaListener(this);
+       // mPestana.addPestanaListener(this);
     }
 
     @Override
     public void eliminadaPestana(MPestana mPestana) {
-        int posicionPestana = -1;
-        for(int i=0; i<relacionPestanaEditor.size() && posicionPestana == -1; i++) {
-            EditorTexto pestanaEditorTexto = (EditorTexto) widgetPestanasEditores.widget(i);
-            
-            if(mPestana.equals(pestanaEditorTexto.getModeloEditor())) {
-                posicionPestana = i;
-            }
-        }
-        if(posicionPestana != -1) {
-            widgetPestanasEditores.removeTab(posicionPestana);
-        }
-        relacionPestanaEditor.remove(mPestana);
-        mPestana.removePestanaListener(this);
-    }
 
+            widgetPestanasEditores.removeTabEditorTexto(mPestana);
+        
+        //relacionPestanaEditor.remove(mPestana);
+        //mPestana.removePestanaListener(this);
+    }
+/*
     @Override
     public void textoModificado(MPestana mPestana) {}
 
@@ -156,13 +148,6 @@ public class CWidgetPestanasEditores extends CMiControladorGenerico
 
     @Override
     public void renombrada(MPestana mPestana) {
-        for(int i=0; i<relacionPestanaEditor.size(); i++) {
-            EditorTexto pestanaEditorTexto = (EditorTexto) widgetPestanasEditores.widget(i);
-            
-            if(mPestana.equals(pestanaEditorTexto.getModeloEditor())) {
-                String nombrePestana = mPestana.getNombrePestana();
-                widgetPestanasEditores.setTabText(i, nombrePestana);
-            }
-        }
-    }
+        
+    }*/
 }

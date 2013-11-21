@@ -5,22 +5,58 @@ import com.trolltech.qt.gui.QKeyEvent;
 import com.trolltech.qt.gui.QTabBar;
 import com.trolltech.qt.gui.QTabWidget;
 import com.trolltech.qt.gui.QWidget;
+import es.miguelgonzalezgomez.dataBaseFun.domain.MPestana;
+import es.miguelgonzalezgomez.dataBaseFun.domain.PestanaListener;
+import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CPestanaEditor;
 import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CWidgetPestanasEditores;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Miguel González
  */
-public class WidgetPestanasEditores extends QTabWidget {
+public class WidgetPestanasEditores extends QTabWidget 
+        implements PestanaListener {
     
-    private CWidgetPestanasEditores controlador;
+    private List<MPestana> editoresTexto;
     
-    public WidgetPestanasEditores(CWidgetPestanasEditores controlador) {
-        this.controlador = controlador;
+    
+    public WidgetPestanasEditores() {
+        editoresTexto = new ArrayList<>();
     }
     
-    public void addTab(String name, QWidget widget) {
-        addTab(widget, name);
+    public void addTabEditorTexto(MPestana mPestana) {
+        CPestanaEditor cPestanaEditor = new CPestanaEditor(mPestana);
+        EditorTexto editorTexto = cPestanaEditor.getPestanaEditor();
+        
+        editoresTexto.add(mPestana);
+        
+        int index =addTab(
+                editorTexto, mPestana.toString()
+                );
+        setCurrentIndex(index);
+        
+        mPestana.addPestanaListener(this);
+    }
+    
+    public void removeTabEditorTexto(MPestana mPestana) {
+        int posicionPestana = -1;
+        
+        for(int i=0; i<editoresTexto.size() && posicionPestana == -1; i++) {
+            MPestana mPestanaEditor = editoresTexto.get(i);
+            
+            if(mPestanaEditor.equals(mPestana)) {
+                posicionPestana = i;
+            }
+        }
+        
+        if(posicionPestana != -1) {
+            editoresTexto.remove(mPestana);
+            removeTab(posicionPestana);
+        }
+        
+        mPestana.removePestanaListener(this);
     }
     
     public void setPestanasEditor(QTabBar tabBar) {
@@ -62,5 +98,22 @@ public class WidgetPestanasEditores extends QTabWidget {
         }
         
         return false;
+    }
+
+    @Override
+    public void textoModificado(MPestana mPestana) {}
+
+    @Override
+    public void textoSeleccionado(MPestana mPestana) {}
+
+    @Override
+    public void renombrada(MPestana mPestana) {
+        for(int i=0; i<editoresTexto.size(); i++) {
+            MPestana mPestanaEditor = editoresTexto.get(i);
+            
+            if(mPestanaEditor.equals(mPestana)) {
+                setTabText(i, mPestana.toString());
+            }
+        }
     }
 }

@@ -44,6 +44,11 @@ public class MPestana {
     }
     
     @Override
+    public String toString() {
+        return nombrePestana;
+    }
+    
+    @Override
     public boolean equals(Object pestanaEditor) {
         if(pestanaEditor instanceof MPestana) {
             return uuidPestana.equals(

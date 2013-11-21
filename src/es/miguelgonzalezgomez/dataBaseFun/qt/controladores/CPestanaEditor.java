@@ -2,6 +2,7 @@ package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
 import com.trolltech.qt.gui.QPlainTextEdit;
 import es.miguelgonzalezgomez.dataBaseFun.domain.MPestana;
+import es.miguelgonzalezgomez.dataBaseFun.qt.EditorTexto;
 
 /**
  *
@@ -20,7 +21,7 @@ public class CPestanaEditor extends CMiControladorGenerico {
         controladorEditor = new CEditor(mPestanaEditor);
     }
     
-    public QPlainTextEdit getPestanaEditor() {
+    public EditorTexto getPestanaEditor() {
         return controladorEditor.getEditorTexto();
     }
 

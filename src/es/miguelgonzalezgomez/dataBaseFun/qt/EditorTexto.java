@@ -6,6 +6,8 @@ import com.trolltech.qt.gui.QKeyEvent;
 import com.trolltech.qt.gui.QPlainTextEdit;
 import es.miguelgonzalezgomez.dataBaseFun.domain.MPestana;
 import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CEditor;
+import java.util.Objects;
+import java.util.UUID;
 
 /**
  *
@@ -13,17 +15,38 @@ import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CEditor;
  */
 public class EditorTexto extends QPlainTextEdit {
     
+    private UUID uuid;
     private CEditor controlador;
     
     public EditorTexto(CEditor controlador) {
         super();
         
         this.controlador = controlador;
+        uuid = UUID.randomUUID();
         setLineWrapMode(LineWrapMode.NoWrap);
         //setLineWrapMode(QTextEdit.LineWrapMode.NoWrap);
         //setAcceptRichText(false);
         
         establecerEventos();
+    }
+    
+    @Override
+    public boolean equals(Object object) {
+        if(object == null) {
+            return false;
+        }
+        if(!(object instanceof EditorTexto)) {
+            return false;
+        }
+        EditorTexto editorTextoComparar = (EditorTexto) object;
+        return uuid.equals(editorTextoComparar.uuid);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 41 * hash + Objects.hashCode(this.uuid);
+        return hash;
     }
     
     private void establecerEventos() {
