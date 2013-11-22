@@ -1,5 +1,6 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.pestanaVistaResultado;
 
+import com.trolltech.qt.QThread;
 import com.trolltech.qt.gui.QApplication;
 import com.trolltech.qt.gui.QTableWidget;
 import com.trolltech.qt.gui.QTableWidgetItem;
@@ -21,8 +22,42 @@ public class PintadoProgresivoTabla {
     }
  
     public void iniciarPintado() {
+        
+        bloquearSenales();
+        QThread qThread = new QThread(new Runnable() {
+            @Override
+            public void run() {
+                for(int numFila = 0; numFila < datosConsulta.size(); numFila++) {
+                    final String[] datosFila = datosConsulta.get(numFila);
+                    final int numFilaFinal = numFila;
+                    QApplication.invokeAndWait(new Runnable() {
+                        @Override
+                        public void run() {
+                            anadirDatosFila(datosFila, numFilaFinal);
+                        }
+                    });
+                }
+                
+                QApplication.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                         if (table.selectedItems().isEmpty()) {
+                            table.selectRow(0);
+                        }
+                        table.resizeColumnsToContents();
+                        desbloquearSenales();
+                    }
+                });
+            }
+        });
+        qThread.start();        
+    }
+    
+    private void bloquearSenales() {
         table.blockSignals(true);
-        anadirDatosConsulta(datosConsulta);
+    }
+    
+    private void desbloquearSenales() {
         table.blockSignals(false);
     }
     
@@ -38,11 +73,7 @@ public class PintadoProgresivoTabla {
             });
         }
 
-        if (table.selectedItems().isEmpty()) {
-            table.selectRow(0);
-        }
-        
-        table.resizeColumnsToContents();
+       
     }
     
     private void anadirDatosFila(String[] datosFila, int numFila) {
