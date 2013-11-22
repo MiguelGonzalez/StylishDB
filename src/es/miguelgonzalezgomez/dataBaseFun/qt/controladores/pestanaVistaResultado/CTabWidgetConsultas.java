@@ -13,6 +13,7 @@ import es.miguelgonzalezgomez.dataBaseFun.domain.controladores.CPestanaActivaLis
 import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CMiControladorGenerico;
 import es.miguelgonzalezgomez.dataBaseFun.qt.modals.ModalMostrarAviso;
 import es.miguelgonzalezgomez.dataBaseFun.qt.pestanaVistaResultado.TabWidgetConsultas;
+import es.miguelgonzalezgomez.dataBaseFun.qt.pestanaVistaResultado.WidgetResultadosConsulta;
 import java.util.List;
 
 /**
@@ -98,7 +99,10 @@ public class CTabWidgetConsultas extends CMiControladorGenerico
     }
     
     protected void cerrarPestana(int indexPestana) {
-        panelConsultas.removeTab(indexPestana);
+        WidgetResultadosConsulta tab = (WidgetResultadosConsulta) panelConsultas.
+                widget(indexPestana);
+        
+        tab.liberarControlador();
     }
 
     @Override

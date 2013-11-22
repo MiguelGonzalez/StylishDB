@@ -22,6 +22,10 @@ public class WidgetResultadosConsulta extends QWidget {
         posicionarComponentesInterfaz();
     }
     
+    public void liberarControlador() {
+        controlador.liberarWidget();
+    }
+    
     private void crearComponentesInterfaz() {
         widgetLayout = new QVBoxLayout();   
         pestanasTiposVistas = new QTabWidget();

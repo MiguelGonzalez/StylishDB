@@ -16,7 +16,7 @@ public class CWidgetResultadosConsulta extends CMiControladorGenerico {
     
     private CVistaDatosConsulta controladorVistaDatosConsulta;
     private CVistaDatosTabla controladorVistaDatosTabla;
-    private CVistaDatosTextoPlano controladorVistaDatosTextoPlano;
+    //private CVistaDatosTextoPlano controladorVistaDatosTextoPlano;
     private CVistaDatosInformacion controladorVistaDatosInformacion;
     
     public CWidgetResultadosConsulta()  {
@@ -29,7 +29,7 @@ public class CWidgetResultadosConsulta extends CMiControladorGenerico {
     private void crearControladores() {
         controladorVistaDatosConsulta = new CVistaDatosConsulta();
         controladorVistaDatosTabla = new CVistaDatosTabla();
-        controladorVistaDatosTextoPlano = new CVistaDatosTextoPlano();
+        //controladorVistaDatosTextoPlano = new CVistaDatosTextoPlano();
         controladorVistaDatosInformacion = new CVistaDatosInformacion();
         
         pestanaResultado = new WidgetResultadosConsulta(this);
@@ -39,9 +39,9 @@ public class CWidgetResultadosConsulta extends CMiControladorGenerico {
         pestanaResultado.pintarVistaDatosConsulta(
                 controladorVistaDatosConsulta.getVistaDatosConsulta()
         );
-        pestanaResultado.pintarVistaDatosTextoPlano(
+        /*pestanaResultado.pintarVistaDatosTextoPlano(
                 controladorVistaDatosTextoPlano.getVistaDatosTextoPlano()
-        );
+        );*/
         pestanaResultado.pintarVistaDatosTabla(
                 controladorVistaDatosTabla.getVistaDatosTabla()
         );
@@ -62,8 +62,23 @@ public class CWidgetResultadosConsulta extends CMiControladorGenerico {
                         resultadoEjecutarConsulta);
                 }
         });
-        controladorVistaDatosTextoPlano.pintarDatosConsulta(resultadoEjecutarConsulta);
+        //controladorVistaDatosTextoPlano.pintarDatosConsulta(resultadoEjecutarConsulta);
         controladorVistaDatosTabla.pintarDatosTabla(resultadoEjecutarConsulta);
         controladorVistaDatosInformacion.pintarDatosInformacion(resultadoEjecutarConsulta);
+    }
+
+    public void liberarWidget() {
+        controladorVistaDatosConsulta.liberarWidget();
+        controladorVistaDatosTabla.liberarWidget();
+        //controladorVistaDatosTextoPlano.liberarWidget();
+        controladorVistaDatosInformacion.liberarWidget();
+        
+        controladorVistaDatosConsulta = null;
+        controladorVistaDatosTabla = null;
+        //controladorVistaDatosTextoPlano = null;
+        controladorVistaDatosInformacion = null;
+        
+        pestanaResultado.dispose();
+        pestanaResultado = null;
     }
 }

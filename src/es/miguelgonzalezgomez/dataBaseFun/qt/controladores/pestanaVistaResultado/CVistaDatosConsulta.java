@@ -25,4 +25,8 @@ public class CVistaDatosConsulta extends CMiControladorGenerico {
     public void pintarDatosConsulta(ResultadoEjecutarConsulta resultadoEjecutarConsulta) {
         vistaDatos.pintarDatos(resultadoEjecutarConsulta);
     }
+
+    void liberarWidget() {
+        vistaDatos.dispose();
+    }
 }

@@ -25,7 +25,7 @@ public class MPestanasAbiertas {
         listeners.add(listener);
     }
     
-    private void removeListener(PestanasAbiertasListener listener) {
+    public void removeListener(PestanasAbiertasListener listener) {
         listeners.remove(listener);
     }
     

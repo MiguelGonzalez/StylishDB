@@ -25,5 +25,9 @@ public class CVistaDatosTextoPlano extends CMiControladorGenerico {
     void pintarDatosConsulta(ResultadoEjecutarConsulta resultado) {
         datosTextoPlano.pintarDatosConsulta(resultado);
     }
+
+    void liberarWidget() {
+        datosTextoPlano.dispose();
+    }
     
 }
