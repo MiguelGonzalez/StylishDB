@@ -43,7 +43,7 @@ public class CEditor extends CMiControladorGenerico {
     
     private void establecerTextoModeloPestana() {
         String textoEditor = mPestanaEditor.getTextoEditor();
-        editorTexto.setPlainText(textoEditor);
+        editorTexto.establecerTexto(textoEditor);
     }
     
     public EditorTexto getEditorTexto() {
