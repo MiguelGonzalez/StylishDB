@@ -24,6 +24,7 @@ public class EditorTexto extends QPlainTextEdit {
         this.controlador = controlador;
         uuid = UUID.randomUUID();
         setLineWrapMode(LineWrapMode.NoWrap);
+        setTabStopWidth(40);
         //setLineWrapMode(QTextEdit.LineWrapMode.NoWrap);
         //setAcceptRichText(false);
         
@@ -48,7 +49,7 @@ public class EditorTexto extends QPlainTextEdit {
         hash = 41 * hash + Objects.hashCode(this.uuid);
         return hash;
     }
-    
+      
     private void establecerEventos() {
         textChanged.connect(controlador, "eventoTextoCambiado()");
         selectionChanged.connect(controlador, "eventoSeleccionCambiado()");
