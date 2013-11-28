@@ -4,6 +4,7 @@ import com.trolltech.qt.core.Qt;
 import com.trolltech.qt.core.Qt.KeyboardModifiers;
 import com.trolltech.qt.gui.QKeyEvent;
 import com.trolltech.qt.gui.QPlainTextEdit;
+import com.trolltech.qt.gui.QSizePolicy;
 import com.trolltech.qt.gui.QTextCursor;
 import es.miguelgonzalezgomez.dataBaseFun.domain.MPestana;
 import es.miguelgonzalezgomez.dataBaseFun.domain.holders.IndentacionHolder;
@@ -15,7 +16,7 @@ import java.util.UUID;
  *
  * @author Miguel González
  */
-public class EditorTexto extends QPlainTextEdit {
+    public class EditorTexto extends QPlainTextEdit {
     
     private final int NUM_SPACES_INDENT = 4;
     private UUID uuid;
@@ -28,6 +29,7 @@ public class EditorTexto extends QPlainTextEdit {
         uuid = UUID.randomUUID();
         setLineWrapMode(LineWrapMode.NoWrap);
         setTabStopWidth(40);
+        setSizePolicy(new QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding));
         
         establecerEventos();
     }
@@ -59,6 +61,12 @@ public class EditorTexto extends QPlainTextEdit {
     private void establecerEventos() {
         textChanged.connect(controlador, "eventoTextoCambiado()");
         selectionChanged.connect(controlador, "eventoSeleccionCambiado()");
+        verticalScrollBar().valueChanged.connect(controlador, "scrollBarCambiado()");
+        cursorPositionChanged.connect(controlador, "cursorTextoCambiado()");
+    }
+    
+    public int getPositionScrollBar() {
+        return verticalScrollBar().value();
     }
    
     public MPestana getModeloEditor() {
@@ -358,5 +366,28 @@ public class EditorTexto extends QPlainTextEdit {
 
     public void establecerEditorVisible() {
         controlador.establecerEditorVisible();
+    }
+
+    public int getNumLineas() {
+        return blockCount();
+    }
+
+    public int[] getLineasSeleccionadas() {
+        int[] lineasSeleccionadas;
+        
+        IndentacionHolder indentacionHolder = new IndentacionHolder();
+        indentacionHolder.curs = textCursor();
+        obtenemosFilasIndentarIzquierda(indentacionHolder);
+        
+        int numLineasSeleccionadas = indentacionHolder.bloqueFinal -
+                indentacionHolder.bloqueInical + 1;
+        lineasSeleccionadas = new int[numLineasSeleccionadas];
+        
+        for(int i=1; i <= numLineasSeleccionadas; i++) {
+            lineasSeleccionadas[i-1] =
+                    indentacionHolder.bloqueInical + i;
+        }
+        
+        return lineasSeleccionadas;
     }
 }

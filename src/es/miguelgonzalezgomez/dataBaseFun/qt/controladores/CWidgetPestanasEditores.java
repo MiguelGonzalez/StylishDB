@@ -7,6 +7,7 @@ import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.domain.MPestana;
 import es.miguelgonzalezgomez.dataBaseFun.domain.PestanasAbiertasListener;
 import es.miguelgonzalezgomez.dataBaseFun.domain.controladores.CPestanasListener;
+import es.miguelgonzalezgomez.dataBaseFun.qt.ContenedorEditor;
 import es.miguelgonzalezgomez.dataBaseFun.qt.EditorTexto;
 import es.miguelgonzalezgomez.dataBaseFun.qt.WidgetPestanasEditores;
 
@@ -75,8 +76,9 @@ public class CWidgetPestanasEditores extends CMiControladorGenerico
     }
            
     private void cambiadaPestana() {
-        EditorTexto pestanaEditorTexto = (EditorTexto) widgetPestanasEditores.
+        ContenedorEditor contenedorEditor = (ContenedorEditor) widgetPestanasEditores.
                 currentWidget();
+        EditorTexto pestanaEditorTexto = contenedorEditor.getEditorTexto();
         
         if(pestanaEditorTexto != null) {
             pestanaEditorTexto.establecerEditorVisible();

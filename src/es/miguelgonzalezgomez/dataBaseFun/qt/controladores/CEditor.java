@@ -4,6 +4,8 @@ import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.domain.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.domain.MPestana;
 import es.miguelgonzalezgomez.dataBaseFun.qt.EditorTexto;
+import es.miguelgonzalezgomez.dataBaseFun.qt.ContadorLineas;
+import es.miguelgonzalezgomez.dataBaseFun.qt.ContenedorEditor;
 import es.miguelgonzalezgomez.dataBaseFun.qt.restaltadoEditor.ConstruirSyntaxHighlighter;
 
 /**
@@ -12,8 +14,12 @@ import es.miguelgonzalezgomez.dataBaseFun.qt.restaltadoEditor.ConstruirSyntaxHig
  */
 public class CEditor extends CMiControladorGenerico {
     
-    private EditorTexto editorTexto;
     private MPestana mPestanaEditor;
+    
+    private EditorTexto editorTexto;
+    private ContadorLineas contadorLineas;
+    private ContenedorEditor contenedorEditor;
+    
 
     public CEditor(MPestana mPestanaEditor) {
         super();
@@ -21,8 +27,10 @@ public class CEditor extends CMiControladorGenerico {
         this.mPestanaEditor = mPestanaEditor;
         
         construirEditorTexto();
+        construirContadorLineas();
         establecerResaltadoSintaxis();
         establecerTextoModeloPestana();
+        construirContenedorEditorTexto();
     }
     
     private void construirEditorTexto() {
@@ -30,6 +38,20 @@ public class CEditor extends CMiControladorGenerico {
         editorTexto.setStyleSheet(
                 ObtencionEstilo.getEstiloVentana("editor.css")
         );
+    }
+    
+    private void construirContadorLineas() {
+        contadorLineas = new ContadorLineas(this);
+        contadorLineas.setStyleSheet(
+                ObtencionEstilo.getEstiloVentana("editorContadorLineas.css")
+        );
+    }
+    
+    private void construirContenedorEditorTexto() {
+        contenedorEditor = new ContenedorEditor(this);
+ 
+        contenedorEditor.establecerContadorLineas(contadorLineas);
+        contenedorEditor.establecerEditorTexto(editorTexto);
     }
     
     private void establecerResaltadoSintaxis() {
@@ -45,11 +67,11 @@ public class CEditor extends CMiControladorGenerico {
         String textoEditor = mPestanaEditor.getTextoEditor();
         editorTexto.establecerTexto(textoEditor);
     }
-    
-    public EditorTexto getEditorTexto() {
-        return editorTexto;
+        
+    public ContenedorEditor getContenedorEditor() {
+        return contenedorEditor;
     }
-
+    
     public void deshacer() {
         editorTexto.undo();
     }
@@ -65,6 +87,9 @@ public class CEditor extends CMiControladorGenerico {
     public void eventoTextoCambiado() {
         String textoEditor = editorTexto.document().toPlainText();
         mPestanaEditor.setTextoEditor(textoEditor);
+        
+        int numLineas = editorTexto.getNumLineas();
+        contadorLineas.pintarContadorLineas(numLineas);
     }
     
     public void eventoSeleccionCambiado() {
@@ -77,6 +102,15 @@ public class CEditor extends CMiControladorGenerico {
                 textoSeleccionado,
                 hayTextoSeleccionado);
     }
+    
+    public void cursorTextoCambiado() {
+        actualizarSeleccion();
+        actualizarScrollBar();
+    }
+    
+    public void scrollBarCambiado() {
+        actualizarScrollBar();
+    }
 
     public void cambiarSiguientePestana() {
         controladorPestanasAbiertas.cambiarSiguientePestana();
@@ -88,5 +122,15 @@ public class CEditor extends CMiControladorGenerico {
 
     public void establecerEditorVisible() {
         pestanasAbiertas.establecerEditorActivo(mPestanaEditor);
+    }
+    
+    private synchronized void actualizarSeleccion() {
+        int lineasSeleccionadas[] = editorTexto.getLineasSeleccionadas();
+        contadorLineas.lineasSeleccionadas(lineasSeleccionadas);
+    }
+    
+    private synchronized void actualizarScrollBar() {
+        int pos = editorTexto.getPositionScrollBar();
+        contadorLineas.setPosicionScrollBar(pos);
     }
 }

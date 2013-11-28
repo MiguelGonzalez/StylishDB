@@ -3,7 +3,13 @@ QPlainTextEdit {
    color: #f8f8f2;
    font-size: 12px;
    border: none;
+   margin: 0;
+   padding: 0 5px 0 0;
+   selection-background-color: #49483e
 }
+
+
+
 
 /*
  * VERTICAL

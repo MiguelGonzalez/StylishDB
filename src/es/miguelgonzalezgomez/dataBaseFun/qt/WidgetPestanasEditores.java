@@ -26,12 +26,12 @@ public class WidgetPestanasEditores extends QTabWidget
     
     public void addTabEditorTexto(MPestana mPestana) {
         CPestanaEditor cPestanaEditor = new CPestanaEditor(mPestana);
-        EditorTexto editorTexto = cPestanaEditor.getPestanaEditor();
+        ContenedorEditor contenedorEditor = cPestanaEditor.getContenedorEditor();
         
         editoresTexto.add(mPestana);
         
         int index =addTab(
-                editorTexto, mPestana.toString()
+                contenedorEditor, mPestana.toString()
                 );
         setCurrentIndex(index);
         
