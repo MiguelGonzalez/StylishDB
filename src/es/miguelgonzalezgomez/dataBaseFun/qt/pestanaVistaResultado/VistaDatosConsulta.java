@@ -42,11 +42,9 @@ public class VistaDatosConsulta extends QWidget {
         setLayout(ventanaLayout);
     }
     
-    public void pintarConsultaSQL(String consultaSQL) {
-        textConsultaSQL.setText(consultaSQL);
-    }
-    
     public void pintarDatos(ResultadoEjecutarConsulta resultadoEjecutarConsulta) {
+        textConsultaSQL.setText(resultadoEjecutarConsulta.consultaSQL);
+        
         int numFilas = resultadoEjecutarConsulta.datosFilas.size();
         int numColumnas = resultadoEjecutarConsulta.datosColumnas.size();
         

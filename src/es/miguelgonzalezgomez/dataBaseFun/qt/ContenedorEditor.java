@@ -1,7 +1,6 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt;
 
 import com.trolltech.qt.gui.QHBoxLayout;
-import com.trolltech.qt.gui.QLayout;
 import com.trolltech.qt.gui.QSizePolicy;
 import com.trolltech.qt.gui.QWidget;
 import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CEditor;

@@ -27,8 +27,12 @@ public class WidgetResultadosConsulta extends QWidget {
     }
     
     private void crearComponentesInterfaz() {
-        widgetLayout = new QVBoxLayout();   
         pestanasTiposVistas = new QTabWidget();
+        pestanasTiposVistas.setContentsMargins(0, 0, 0, 0);
+        
+        widgetLayout = new QVBoxLayout();
+        widgetLayout.setContentsMargins(0, 2, 0, 0);
+        widgetLayout.setSpacing(0);
     }
     
     public void pintarVistaDatosConsulta(VistaDatosConsulta vistaDatos) {

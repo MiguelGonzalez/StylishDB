@@ -5,7 +5,7 @@ QPlainTextEdit {
    border: none;
    margin: 0;
    padding: 0;
-   selection-background-color: #49483e
+   selection-background-color: #49483e;
 }
 
 

@@ -15,6 +15,10 @@ public class ObtencionEstilo {
     public static String getEstiloVentana(String nameVentana) {
         InputStream is = ObtencionEstilo.class.getResourceAsStream(nameVentana);
 
+        if(is == null) {
+            return "";
+        }
+        
         return leerTextoInputStream(is);
     }
 

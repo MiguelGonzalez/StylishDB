@@ -1,10 +1,99 @@
 /*
+ * QWidget
+*/
+ 
+QWidget {
+    background-color: #171714;    
+}
+
+/*
+ * QLineEdit
+*/
+
+QLineEdit {
+    color: white;
+    selection-background-color: #49483e;
+}
+
+/*
+ * QPlainTextEdit
+*/
+
+QPlainTextEdit {
+   background-color: #272822;
+   color: #f8f8f2;
+   font-size: 12px;
+   border: none;
+   margin: 0;
+   padding: 5 10;
+   selection-background-color: #49483e;
+}
+ 
+/*
+ * QTabWidget
+*/
+
+QTabWidget::pane {
+    border: none;
+    border-top: 1px solid #333;
+}
+
+/*
+ * QTabBar
+*/
+
+QTabBar {
+    background-color: #171714;
+    border: 0;
+}
+
+QTabBar::tab {
+    color: #abb2b6;
+    margin-top: 10px;
+    background-color: #3d3d3a;
+    border-top: 1px solid #666664;
+    border-left: 1px solid #666664;
+    border-right: 1px solid #666664;
+    border-bottom: none;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    min-width: 50px;
+    padding-bottom: 1px;
+    padding-top: 4px;
+    padding-right: 20px;
+    padding-left: 10px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+QTabBar::tab:selected {
+    color: #ffffff;
+    background-color: #272822;
+    border-top: 1px solid #3a3b35;
+    border-left: 1px solid #3a3b35;
+    border-right: 1px solid #3a3b35;
+}
+
+QTabBar:tab:first {
+    margin-left: 5px;
+}
+
+QTabBar:tab:last {    
+    margin-right: 5px;
+}
+
+QTabBar:tab:only-one {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+/*
  * QTableWidget
 */
 
 QTableWidget {
-    background-color: #eee;
-    color: #666666;
+    background-color: #49483e;
+    color: #f8f8f2;
 }
 
 QTableWidget QHeaderView, QTableWidget QHeaderView::section {
@@ -18,11 +107,9 @@ QTableWidget QHeaderView::section:focus {
 }
 
 QTableWidget::item {
-    background-color: #eee;
-    color: #666666;
+    background-color: #49483e;
 }
 
 QTableWidget::item:selected {
     background-color: #272822;
-    color: #ffffff;
 }
