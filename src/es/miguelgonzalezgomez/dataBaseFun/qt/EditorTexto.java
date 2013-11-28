@@ -63,6 +63,7 @@ import java.util.UUID;
         selectionChanged.connect(controlador, "eventoSeleccionCambiado()");
         verticalScrollBar().valueChanged.connect(controlador, "scrollBarCambiado()");
         cursorPositionChanged.connect(controlador, "cursorTextoCambiado()");
+        blockCountChanged.connect(controlador, "cursorTextoCambiado()");
     }
     
     public int getPositionScrollBar() {
