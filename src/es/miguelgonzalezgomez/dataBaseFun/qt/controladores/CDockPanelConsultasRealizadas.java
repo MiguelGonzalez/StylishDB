@@ -30,6 +30,7 @@ public class CDockPanelConsultasRealizadas extends CMiControladorGenerico {
         );
         QTabWidget qTabWidget = controladorEjecutarConsultas.getPanelConsultas();
         panelConsultas.setWidget(qTabWidget);
+        panelConsultas.setContentsMargins(0, 0, 0, 0);
         
         qTabWidget.currentChanged.connect(this, "cambiadoPestana()");
     }

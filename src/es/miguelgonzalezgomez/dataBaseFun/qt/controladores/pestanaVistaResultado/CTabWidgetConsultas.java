@@ -37,7 +37,8 @@ public class CTabWidgetConsultas extends CMiControladorGenerico
     private void establecerEstilo() {
         panelConsultas.setStyleSheet(
                 ObtencionEstilo.getEstiloVentana("widgetConsultas.css")
-        );    
+        );
+        panelConsultas.setContentsMargins(0, 0, 0, 0);
     }
     
     private void establecerListener() {
