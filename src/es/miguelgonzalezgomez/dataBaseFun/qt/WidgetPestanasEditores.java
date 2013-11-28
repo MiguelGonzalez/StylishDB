@@ -4,11 +4,9 @@ import com.trolltech.qt.core.Qt;
 import com.trolltech.qt.gui.QKeyEvent;
 import com.trolltech.qt.gui.QTabBar;
 import com.trolltech.qt.gui.QTabWidget;
-import com.trolltech.qt.gui.QWidget;
 import es.miguelgonzalezgomez.dataBaseFun.domain.MPestana;
 import es.miguelgonzalezgomez.dataBaseFun.domain.PestanaListener;
 import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CPestanaEditor;
-import es.miguelgonzalezgomez.dataBaseFun.qt.controladores.CWidgetPestanasEditores;
 import java.util.ArrayList;
 import java.util.List;
 
