@@ -1,6 +1,12 @@
 package es.miguelgonzalezgomez.dataBaseFun.bd;
 
 import es.miguelgonzalezgomez.dataBaseFun.bd.domain.DatosColumna;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringWriter;
+import java.nio.charset.Charset;
 import java.sql.Array;
 import java.sql.Blob;
 import java.sql.Clob;
@@ -11,6 +17,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -120,7 +128,22 @@ public class ManejadorDatoConsulta {
         if(rsQuery.wasNull()) {
             return "NULL";
         }
-        return clob.toString();
+        
+        InputStream in = clob.getAsciiStream();
+        Reader read = new InputStreamReader(in, Charset.forName("UTF-8"));
+        StringWriter write = new StringWriter();
+
+        try {
+            int c;
+            while ((c = read.read()) != -1)
+            {
+                write.write(c);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ManejadorDatoConsulta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        write.flush();
+        return write.toString();
     }
     
     private String getBlobValue(int numColumna) throws SQLException {
@@ -128,6 +151,7 @@ public class ManejadorDatoConsulta {
         if(rsQuery.wasNull()) {
             return "NULL";
         }
+
         return blob.toString();
     }
     
