@@ -87,9 +87,6 @@ public class CEditor extends CMiControladorGenerico {
     public void eventoTextoCambiado() {
         String textoEditor = editorTexto.document().toPlainText();
         mPestanaEditor.setTextoEditor(textoEditor);
-        
-        int numLineas = editorTexto.getNumLineas();
-        contadorLineas.pintarContadorLineas(numLineas);
     }
     
     public void eventoSeleccionCambiado() {
@@ -110,6 +107,14 @@ public class CEditor extends CMiControladorGenerico {
     
     public void scrollBarCambiado() {
         actualizarScrollBar();
+    }
+    
+    public void blockCountCambiado() {
+        int numLineas = editorTexto.getNumLineas();
+        contadorLineas.pintarContadorLineas(numLineas);
+        
+        actualizarScrollBar();
+        actualizarSeleccion();
     }
 
     public void cambiarSiguientePestana() {
