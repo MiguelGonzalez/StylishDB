@@ -81,11 +81,16 @@ public class EditorTexto extends QPlainTextEdit {
             return;
         }
         
-        if(esTabPestana(event)) {
-            insertarTab();
-            
+        if(esIndentarDerecha(event)) {
+            indentarDerecha();
             return;
         }
+        
+        if(esIndentarIzquierda(event)) {
+            indentarIzquierda();
+            return;
+        }
+        
         
         super.keyPressEvent(event);
     }
@@ -128,30 +133,41 @@ public class EditorTexto extends QPlainTextEdit {
         return false;
     }
     
-    private boolean esTabPestana(QKeyEvent e) {
+    private boolean esIndentarDerecha(QKeyEvent e) {
         if(e.key() == Qt.Key.Key_Tab.value()) {
             return true;
         }
         return false;
     }
     
-    private void insertarTab() {
+    private boolean esIndentarIzquierda(QKeyEvent e) {
+        KeyboardModifiers modifiers = e.modifiers();
+        if(
+                modifiers.isSet(Qt.KeyboardModifier.ShiftModifier)) {
+            if(e.key() == Qt.Key.Key_Backtab.value()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    
+    private void indentarDerecha() {
         if(textCursor().hasSelection()) {
-            inserTabSelection();
+            indentarSeleccionDerecha();
         } else {
-            insertTabSimple();
+            indentarSimpleDerecha();
         }
     }
     
-    private void insertTabSimple() {
+    private void indentarSimpleDerecha() {
         int caracteresPrevios = textCursor().position() -
                 textCursor().block().position();
-        int numSpacesAppend = NUM_SPACES_INDENT - caracteresPrevios % NUM_SPACES_INDENT;
-        String tab = getTabIndentParcial(numSpacesAppend);
+        String tab = getTabIndentParcial(caracteresPrevios);
         insertPlainText(tab);
     }
     
-    private void inserTabSelection() {
+    private void indentarSeleccionDerecha() {
         IndentacionHolder indentacionHolder = new IndentacionHolder();
         indentacionHolder.curs = textCursor();
         
@@ -201,6 +217,89 @@ public class EditorTexto extends QPlainTextEdit {
         }
 
         curs.endEditBlock();
+    }
+        
+    private void indentarIzquierda() {
+        if(textCursor().hasSelection()) {
+            indentarSeleccionIzquierda();
+        } else {
+            indentarSimpleIzquierda();
+        }
+    }
+    
+    private void indentarSimpleIzquierda() {
+        IndentacionHolder indentacionHolder = new IndentacionHolder();
+        indentacionHolder.curs = textCursor();
+        indentacionHolder.curs.beginEditBlock();
+        indentarFilaIzquierda(indentacionHolder);
+        indentacionHolder.curs.endEditBlock();
+    }
+    
+    private void indentarSeleccionIzquierda() {
+        IndentacionHolder indentacionHolder = new IndentacionHolder();
+        indentacionHolder.curs = textCursor();
+                
+        obtenemosFilasIndentarIzquierda(indentacionHolder);
+        indentamosFilasIzquierda(indentacionHolder);
+        seleccionamosTodasFilasIndentadas(indentacionHolder);
+    }
+    
+    private void obtenemosFilasIndentarIzquierda(IndentacionHolder indentacionHolder) {
+        QTextCursor curs = indentacionHolder.curs;
+        
+        int posInicial =  curs.anchor();
+        int posFinal = curs.position();
+
+        if(posInicial > posFinal) {
+            int hold = posInicial;
+            posInicial = posFinal;
+            posFinal = hold;
+        }
+        indentacionHolder.posInicial = posInicial;
+        indentacionHolder.posFinal = posFinal;
+
+        curs.setPosition(posInicial, QTextCursor.MoveMode.MoveAnchor);
+        indentacionHolder.bloqueInical = curs.block().blockNumber();
+
+        curs.setPosition(posFinal, QTextCursor.MoveMode.MoveAnchor);
+        indentacionHolder.bloqueFinal = curs.block().blockNumber();
+    }
+    
+    private void indentamosFilasIzquierda(IndentacionHolder indentacionHolder) {
+        QTextCursor curs = indentacionHolder.curs;
+        
+        curs.setPosition(indentacionHolder.posInicial,
+                QTextCursor.MoveMode.MoveAnchor);
+        curs.beginEditBlock();
+        for(int i = 0; i <= (indentacionHolder.bloqueFinal - 
+                indentacionHolder.bloqueInical); ++i) {
+            
+            indentarFilaIzquierda(indentacionHolder);
+            
+            curs.movePosition(QTextCursor.MoveOperation.NextBlock,
+                    QTextCursor.MoveMode.MoveAnchor);
+        }
+
+        curs.endEditBlock();
+    }
+    
+    private void indentarFilaIzquierda(IndentacionHolder indentacionHolder) {
+        QTextCursor curs = indentacionHolder.curs;
+        curs.movePosition(QTextCursor.MoveOperation.StartOfBlock,
+                QTextCursor.MoveMode.MoveAnchor);
+        for(int i=0; i<NUM_SPACES_INDENT; i++) {
+            
+            curs.movePosition(QTextCursor.MoveOperation.NextCharacter,
+                    QTextCursor.MoveMode.KeepAnchor);
+            String primeraLetra =  curs.selectedText();
+
+            curs.movePosition(QTextCursor.MoveOperation.PreviousCharacter,
+                    QTextCursor.MoveMode.MoveAnchor);
+
+            if(" ".equals(primeraLetra)) {
+                curs.deleteChar();
+            }
+        }
     }
     
     private void seleccionamosTodasFilasIndentadas(
