@@ -5,7 +5,7 @@ QPlainTextEdit {
    border: none;
    border-right: 1px solid #333;
    margin: 0;
-   padding: 0 0 0 5px;
+   padding: 0;
    color: #abb2b6;
    width: 40px;
    max-width: 40px;
