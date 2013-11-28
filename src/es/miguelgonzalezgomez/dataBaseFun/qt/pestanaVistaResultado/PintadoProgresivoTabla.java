@@ -41,11 +41,8 @@ public class PintadoProgresivoTabla {
                 QApplication.invokeLater(new Runnable() {
                     @Override
                     public void run() {
-                         if (table.selectedItems().isEmpty()) {
-                            table.selectRow(0);
-                        }
-                        table.resizeColumnsToContents();
-                        desbloquearSenales();
+                       table.resizeColumnsToContents();
+                       desbloquearSenales();
                     }
                 });
             }
