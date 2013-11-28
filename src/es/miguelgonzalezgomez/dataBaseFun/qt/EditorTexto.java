@@ -71,6 +71,11 @@ public class EditorTexto extends QPlainTextEdit {
             return;
         }
         
+        if(esRehacer(event)) {
+            controlador.rehacer();
+            return;
+        }
+        
         if(esCambiarSiguientePestana(event)) {
             controlador.cambiarSiguientePestana();
             return;
@@ -101,6 +106,18 @@ public class EditorTexto extends QPlainTextEdit {
                 modifiers.isSet(Qt.KeyboardModifier.ControlModifier) &&
                 modifiers.isSet(Qt.KeyboardModifier.ShiftModifier)) {
             if(e.key() == Qt.Key.Key_Z.value()) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    private boolean esRehacer(QKeyEvent e) {
+        KeyboardModifiers modifiers = e.modifiers();
+        if(
+                modifiers.isSet(Qt.KeyboardModifier.ControlModifier)) {
+            if(e.key() == Qt.Key.Key_Y.value()) {
                 return true;
             }
         }
