@@ -138,7 +138,6 @@ public class AnalizadorTextoConsulta {
         
         while (index >= 0) {
             int length = patronDobleLinea.matchedLength();
-            System.out.println(length);
             strTextoLimpio.delete(index, index + length);
             
             index = patronDobleLinea.indexIn(
