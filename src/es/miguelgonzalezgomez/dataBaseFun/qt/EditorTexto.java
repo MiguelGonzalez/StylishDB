@@ -2,6 +2,8 @@ package es.miguelgonzalezgomez.dataBaseFun.qt;
 
 import com.trolltech.qt.core.Qt;
 import com.trolltech.qt.core.Qt.KeyboardModifiers;
+import com.trolltech.qt.gui.QApplication;
+import com.trolltech.qt.gui.QClipboard;
 import com.trolltech.qt.gui.QKeyEvent;
 import com.trolltech.qt.gui.QPlainTextEdit;
 import com.trolltech.qt.gui.QSizePolicy;
@@ -16,8 +18,9 @@ import java.util.UUID;
  *
  * @author Miguel González
  */
-    public class EditorTexto extends QPlainTextEdit {
+public class EditorTexto extends QPlainTextEdit {
     
+    private final int NUM_CARACTERES_MAX_PEGAR = 10000;
     private final int NUM_SPACES_INDENT = 4;
     private UUID uuid;
     private CEditor controlador;
@@ -58,6 +61,11 @@ import java.util.UUID;
         setPlainText(texto);
     }
     
+    public void pegarTexto(String texto) {
+        texto = texto.replaceAll("\t", getTabIndent());
+        insertPlainText(texto);
+    }
+    
     private void establecerEventos() {
         textChanged.connect(controlador, "eventoTextoCambiado()");
         selectionChanged.connect(controlador, "eventoSeleccionCambiado()");
@@ -95,6 +103,11 @@ import java.util.UUID;
             return;
         }
         
+        if(esPegarTexto(event)) {
+            pegarTexto();
+            return;
+        }
+        
         if(esIndentarDerecha(event)) {
             indentarDerecha();
             return;
@@ -107,6 +120,18 @@ import java.util.UUID;
         
         
         super.keyPressEvent(event);
+    }
+    
+    private boolean esPegarTexto(QKeyEvent e) {
+        KeyboardModifiers modifiers = e.modifiers();
+        if(
+                modifiers.isSet(Qt.KeyboardModifier.ControlModifier)) {
+            if(e.key() == Qt.Key.Key_V.value()) {
+                return true;
+            }
+        }
+        
+        return false;
     }
     
     private boolean suprimirRehacerNativo(QKeyEvent e) {
@@ -176,6 +201,19 @@ import java.util.UUID;
         }
 
         return false;
+    }
+    
+    private void pegarTexto() {
+        String clipboardText = QApplication.clipboard().text(
+                QClipboard.Mode.Clipboard);
+        if(clipboardText.length() > NUM_CARACTERES_MAX_PEGAR) {
+            clipboardText = clipboardText.substring(
+                    0,
+                    NUM_CARACTERES_MAX_PEGAR
+            );
+        }
+        
+        pegarTexto(clipboardText);
     }
     
     private void indentarDerecha() {
