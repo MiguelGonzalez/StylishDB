@@ -223,7 +223,8 @@ public class Formmater {
             if ("between".equals(lcToken)) {
                 afterBetween = true;
             }
-            if (afterInsert || afterValues) {
+            if (afterInsert) {
+                beginLine = false;
                 white();
                 afterInsert = false;
                 afterValues = false;
@@ -326,6 +327,11 @@ public class Formmater {
         }
 
         private void openParen() {
+            if(afterInsert) {
+                System.out.println("AFTER INSERT");
+                beginLine = false;
+                white();
+            }
             out();
             indent++;
             newline();
