@@ -96,6 +96,7 @@ public class Formmater {
         boolean afterOn = false;
         boolean afterBetween = false;
         boolean afterInsert = false;
+        boolean afterWhiteSpace = false;
         int inFunction = 0;
         int parensSinceSelect = 0;
         private LinkedList parenCounts = new LinkedList();
@@ -169,6 +170,9 @@ public class Formmater {
 
                 if (!isWhitespace(token)) {
                     lastToken = lcToken;
+                    afterWhiteSpace = false;
+                } else {
+                    afterWhiteSpace = true;
                 }
 
             }
@@ -192,9 +196,9 @@ public class Formmater {
             if ("end".equals(lcToken)) {
                 indent--;
             }
-            newline();
             out();
-            beginLine = false;
+            newline();
+            beginLine = true;
         }
 
         private void on() {
@@ -205,16 +209,31 @@ public class Formmater {
             beginLine = false;
         }
 
+        private void removeLastLetter() {
+            result.deleteCharAt(
+                    result.length() - 1
+            );
+        }
+        
         private void misc() {
+            if(",".equals(token.trim()) && afterWhiteSpace) {
+                removeLastLetter();
+            }
             out();
             if ("between".equals(lcToken)) {
                 afterBetween = true;
             }
-            if (afterInsert) {
-                newline();
+            if (afterInsert || afterValues) {
+                white();
                 afterInsert = false;
+                afterValues = false;
             } else {
-                beginLine = false;
+                if(",".equals(token.trim())) {
+                    beginLine = true;
+                    newline();
+                } else {
+                    beginLine = false;
+                }
                 if ("case".equals(lcToken)) {
                     indent++;
                 }
@@ -252,7 +271,7 @@ public class Formmater {
         private void out() {
             result.append(token);
         }
-
+        
         private void endNewClause() {
             if (!afterBeginBeforeEnd) {
                 indent--;
@@ -260,7 +279,9 @@ public class Formmater {
                     indent--;
                     afterOn = false;
                 }
-                newline();
+                if(!"INTO".equals(lcToken.toUpperCase())) {
+                    newline();
+                }
             }
             out();
             if (!"union".equals(lcToken)) {
@@ -291,46 +312,24 @@ public class Formmater {
             indent--;
             newline();
             out();
-            indent++;
-            newline();
+            result.append(" ");
+            white();
             afterValues = true;
         }
 
         private void closeParen() {
             parensSinceSelect--;
-            if (parensSinceSelect < 0) {
-                indent--;
-                parensSinceSelect = ((Integer) parenCounts.removeLast()).intValue();
-                afterByOrSetOrFromOrSelect = ((Boolean) afterByOrFromOrSelects.removeLast()).booleanValue();
-            }
-            if (inFunction > 0) {
-                inFunction--;
-                out();
-            } else {
-                if (!afterByOrSetOrFromOrSelect) {
-                    indent--;
-                    newline();
-                }
-                out();
-            }
+            indent--;
+            newline();
+            out();
             beginLine = false;
         }
 
         private void openParen() {
-            if (isFunctionName(lastToken) || inFunction > 0) {
-                inFunction++;
-            }
-            beginLine = false;
-            if (inFunction > 0) {
-                out();
-            } else {
-                out();
-                if (!afterByOrSetOrFromOrSelect) {
-                    indent++;
-                    newline();
-                    beginLine = true;
-                }
-            }
+            out();
+            indent++;
+            newline();
+            beginLine = true;
             parensSinceSelect++;
         }
 

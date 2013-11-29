@@ -46,7 +46,7 @@ public class FormatearTextoPestana {
         
         AnalizadorTextoConsulta analizador = new AnalizadorTextoConsulta(
                 conexion.getTipoDeBaseDeDatos(),
-                pestana.getTextoEditor()
+                pestana.getTextoEditorSinIndentar()
         );
         int numConsultas = analizador.numConsultasExistentes();
         

@@ -70,6 +70,15 @@ public class MPestana {
         return nombrePestana;
     }
     
+    public String getTextoEditorSinIndentar() {
+        StringBuilder sb = new StringBuilder();
+        String lineas[] = textoEditor.split("\n");
+        for(String linea : lineas) {
+            sb.append(linea.trim()).append("\n");
+        }
+        return sb.toString();
+    }
+    
     public String getTextoEditor() {
         return textoEditor;
     }
