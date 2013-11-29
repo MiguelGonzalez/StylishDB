@@ -58,7 +58,21 @@ public class EditorTexto extends QPlainTextEdit {
     
     public void establecerTexto(String texto) {
         texto = texto.replaceAll("\t", getTabIndent());
-        setPlainText(texto);
+        
+        QTextCursor curs = textCursor();
+        curs.beginEditBlock();
+        
+        curs.movePosition(QTextCursor.MoveOperation.Start,
+                QTextCursor.MoveMode.MoveAnchor);
+        curs.movePosition(QTextCursor.MoveOperation.End,
+                QTextCursor.MoveMode.KeepAnchor);
+        curs.removeSelectedText();
+        curs.insertText(texto);
+        curs.movePosition(QTextCursor.MoveOperation.Start,
+                QTextCursor.MoveMode.MoveAnchor);
+
+        curs.endEditBlock();
+        setTextCursor(curs);
     }
     
     public void pegarTexto(String texto) {

@@ -81,7 +81,7 @@ public class Formmater {
         MISC.add("on");
     }
     static final String indentString = "    ";
-    static final String initial = "\n    ";
+    static final String initial = "";
 
     public String format(String source) {
         return new FormatProcess(source).perform();
@@ -100,7 +100,7 @@ public class Formmater {
         int parensSinceSelect = 0;
         private LinkedList parenCounts = new LinkedList();
         private LinkedList afterByOrFromOrSelects = new LinkedList();
-        int indent = 1;
+        int indent = 0;
         StringBuffer result = new StringBuffer();
         StringTokenizer tokens;
         String lastToken;
