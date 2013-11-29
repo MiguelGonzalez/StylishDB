@@ -3,6 +3,7 @@ package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 import es.miguelgonzalezgomez.dataBaseFun.estilos.ObtencionEstilo;
 import es.miguelgonzalezgomez.dataBaseFun.domain.MConexion;
 import es.miguelgonzalezgomez.dataBaseFun.domain.MPestana;
+import es.miguelgonzalezgomez.dataBaseFun.domain.PestanaListener;
 import es.miguelgonzalezgomez.dataBaseFun.qt.EditorTexto;
 import es.miguelgonzalezgomez.dataBaseFun.qt.ContadorLineas;
 import es.miguelgonzalezgomez.dataBaseFun.qt.ContenedorEditor;
@@ -12,7 +13,7 @@ import es.miguelgonzalezgomez.dataBaseFun.qt.restaltadoEditor.ConstruirSyntaxHig
  *
  * @author Miguel González
  */
-public class CEditor extends CMiControladorGenerico {
+public class CEditor extends CMiControladorGenerico implements PestanaListener {
     
     private MPestana mPestanaEditor;
     
@@ -31,6 +32,12 @@ public class CEditor extends CMiControladorGenerico {
         establecerResaltadoSintaxis();
         establecerTextoModeloPestana();
         construirContenedorEditorTexto();
+        
+        inicializarListeners();
+    }
+    
+    private void inicializarListeners() {
+        mPestanaEditor.addPestanaListener(this);
     }
     
     private void construirEditorTexto() {
@@ -137,5 +144,21 @@ public class CEditor extends CMiControladorGenerico {
     private synchronized void actualizarScrollBar() {
         int pos = editorTexto.getPositionScrollBar();
         contadorLineas.setPosicionScrollBar(pos);
+    }
+
+    @Override
+    public void textoModificado(MPestana mPestana) {}
+
+    @Override
+    public void textoSeleccionado(MPestana mPestana) {}
+
+    @Override
+    public void renombrada(MPestana mPestana) {}
+    
+    @Override
+    public void textoFormateado(MPestana mPestana) {
+        editorTexto.establecerTexto(
+            mPestana.getTextoEditor()
+        );
     }
 }

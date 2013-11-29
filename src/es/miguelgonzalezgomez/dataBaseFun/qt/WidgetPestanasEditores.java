@@ -114,4 +114,7 @@ public class WidgetPestanasEditores extends QTabWidget
             }
         }
     }
+
+    @Override
+    public void textoFormateado(MPestana mPestana) {}
 }

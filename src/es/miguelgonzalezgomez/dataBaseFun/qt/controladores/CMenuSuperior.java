@@ -3,6 +3,7 @@ package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 import com.trolltech.qt.QSignalEmitter;
 import com.trolltech.qt.gui.QAction;
 import es.miguelgonzalezgomez.dataBaseFun.DataBaseFun;
+import es.miguelgonzalezgomez.dataBaseFun.bd.FormatearTextoPestana;
 import es.miguelgonzalezgomez.dataBaseFun.domain.ConexionListener;
 import es.miguelgonzalezgomez.dataBaseFun.domain.ConexionesGuardadasListener;
 import es.miguelgonzalezgomez.dataBaseFun.domain.MConexion;
@@ -112,6 +113,14 @@ public class CMenuSuperior extends CMiControladorGenerico implements
         if(pestanasAbiertas.hayPestanaActiva()) {
             MPestana pestanaActiva = pestanasAbiertas.getPestanaActiva();
             pestanasAbiertas.removePestana(pestanaActiva);
+        }
+    }
+    
+    protected void formatear() {
+        if(pestanasAbiertas.hayPestanaActiva()) {
+            FormatearTextoPestana formatear = new
+                    FormatearTextoPestana();
+            formatear.pestana(pestanasAbiertas.getPestanaActiva());
         }
     }
 

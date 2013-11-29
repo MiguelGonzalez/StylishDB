@@ -28,10 +28,12 @@ public class MPestana {
     }
     
     public void addPestanaListener(PestanaListener listener) {
+        comprobarInicializacionListeners();
         listeners.add(listener);
     }
     
     public void removePestanaListener(PestanaListener listener) {
+        comprobarInicializacionListeners();
         listeners.remove(listener);
     }
     
@@ -99,12 +101,21 @@ public class MPestana {
     }
     
     public void setTextoEditor(String textoEditor) {
-        this.textoEditor = textoEditor;
-        
-        comprobarInicializacionListeners();
-        for(PestanaListener listener : listeners) {
-            listener.textoModificado(this);
+        if(!textoEditor.equals(this.textoEditor)) {
+            this.textoEditor = textoEditor;
+
+            comprobarInicializacionListeners();
+            for(PestanaListener listener : listeners) {
+                listener.textoModificado(this);
+            }
         }
+    }
+    
+    public void notificarTextoFormateado() {
+        comprobarInicializacionListeners();
+            for(PestanaListener listener : listeners) {
+                listener.textoFormateado(this);
+            }
     }
     
     private void comprobarInicializacionListeners() {

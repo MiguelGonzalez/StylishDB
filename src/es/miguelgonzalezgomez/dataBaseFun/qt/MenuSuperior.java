@@ -20,8 +20,9 @@ public class MenuSuperior extends QMenuBar {
     private CMenuSuperior controlador;
     private QMenu achivoMenu;
     private QMenu edicionMenu;
-    private QMenu conexionesMenu;
     private QMenu herramientasMenu;
+    private QMenu preferenciasMenu;
+    private QMenu conexionesMenu;
     
     private QAction nuevoEditor;
     private QAction salirAction;
@@ -32,6 +33,8 @@ public class MenuSuperior extends QMenuBar {
     private QAction verTablasBaseDatos;
     private QAction renombrarPestana;
     private QAction cerrarPestana;
+    
+    private QAction formatear;
     
     private QAction nuevaConexion;
     private QAction preferencias;
@@ -46,8 +49,9 @@ public class MenuSuperior extends QMenuBar {
         
         crearOpcionesFichero();
         crearOpcionesEdicion();
-        crearOpcionesConexiones();
         crearOpcionesHerramientas();
+        crearOpcionesConexiones();
+        crearOpcionesPreferencias();
     }
         
     private void crearOpcionesFichero() {
@@ -133,6 +137,19 @@ public class MenuSuperior extends QMenuBar {
         edicionMenu.addAction(cerrarPestana);
     }
     
+    private void crearOpcionesHerramientas() {
+        herramientasMenu = addMenu(tr("Herramientas"));
+        
+        crearOpcionFormatear();
+    }
+    
+    private void crearOpcionFormatear() {
+        formatear = new QAction(tr("Formatear"), this);
+        formatear.setShortcut(QKeySequence.fromString("Ctrl+F"));
+        formatear.triggered.connect(controlador, "formatear()");
+        herramientasMenu.addAction(formatear);
+    }
+    
     private void crearOpcionesConexiones() {
         conexionesMenu = addMenu(tr("&Conexiones"));
         
@@ -147,10 +164,10 @@ public class MenuSuperior extends QMenuBar {
         conexionesMenu.addAction(nuevaConexion);
     }
     
-    private void crearOpcionesHerramientas() {
-        herramientasMenu = addMenu(tr("&Preferencias"));
+    private void crearOpcionesPreferencias() {
+        preferenciasMenu = addMenu(tr("&Preferencias"));
         
-        herramientasMenu.addSeparator();
+        preferenciasMenu.addSeparator();
         crearOpcionPreferencias();
     }
     
@@ -158,7 +175,7 @@ public class MenuSuperior extends QMenuBar {
         preferencias = new QAction(tr("Preferencias"), this);
         preferencias.triggered.connect(controlador, "preferencias()");
         
-        herramientasMenu.addAction(preferencias);
+        preferenciasMenu.addAction(preferencias);
     }
     
     @Override
