@@ -8,8 +8,8 @@ import com.trolltech.qt.gui.QFont;
 import com.trolltech.qt.gui.QSyntaxHighlighter;
 import com.trolltech.qt.gui.QTextCharFormat;
 import com.trolltech.qt.gui.QTextDocument;
-import com.stylishdb.db.domain.TiposBasesDeDatos.TIPO_BASE_DATOS;
-import com.stylishdb.db.managers.DatosBaseDatos;
+import com.stylishdb.db.domain.TypeManagers.TIPO_BASE_DATOS;
+import com.stylishdb.db.managers.Manager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class SyntaxHighlighterLenguaje extends QSyntaxHighlighter {
     private QRegExp commentStartExpression;
     private QRegExp commentEndExpression;
     
-    private DatosBaseDatos datosBaseDatos;
+    private Manager datosBaseDatos;
     
     public SyntaxHighlighterLenguaje(QTextDocument parent,
             TIPO_BASE_DATOS tipoBaseDeDatos) {

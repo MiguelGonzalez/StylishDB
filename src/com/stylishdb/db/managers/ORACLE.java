@@ -1,12 +1,12 @@
 package com.stylishdb.db.managers;
 
-import com.stylishdb.db.domain.TiposBasesDeDatos;
+import com.stylishdb.db.domain.TypeManagers;
 
 /**
  *
  ** @author StylishDB
  */
-public class ORACLE implements DatosBaseDatos {
+public class ORACLE implements Manager {
     
     public static String nombrePresentable = "Oracle";
     public static String claseDriver = "oracle.jdbc.driver.OracleDriver";
@@ -145,8 +145,8 @@ public class ORACLE implements DatosBaseDatos {
     }
 
     @Override
-    public boolean equals(TiposBasesDeDatos.TIPO_BASE_DATOS tipoBaseDatos) {
-        return tipoBaseDatos.equals(TiposBasesDeDatos.TIPO_BASE_DATOS.ORACLE);
+    public boolean equals(TypeManagers.TIPO_BASE_DATOS tipoBaseDatos) {
+        return tipoBaseDatos.equals(TypeManagers.TIPO_BASE_DATOS.ORACLE);
     }
     
     @Override

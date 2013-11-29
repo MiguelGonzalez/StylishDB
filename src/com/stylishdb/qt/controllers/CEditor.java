@@ -1,29 +1,29 @@
 package com.stylishdb.qt.controllers;
 
-import com.stylishdb.style.ObtencionEstilo;
-import com.stylishdb.domain.MConexion;
-import com.stylishdb.domain.MPestana;
-import com.stylishdb.domain.PestanaListener;
-import com.stylishdb.qt.EditorTexto;
-import com.stylishdb.qt.ContadorLineas;
-import com.stylishdb.qt.ContenedorEditor;
-import com.stylishdb.qt.highlighting.ConstruirSyntaxHighlighter;
+import com.stylishdb.style.GetStyle;
+import com.stylishdb.domain.MConnection;
+import com.stylishdb.domain.MTab;
+import com.stylishdb.domain.MTabListener;
+import com.stylishdb.qt.TextEditor;
+import com.stylishdb.qt.LineCounter;
+import com.stylishdb.qt.HolderEditor;
+import com.stylishdb.qt.highlighting.BuiltSyntaxHighlighter;
 
 /**
  *
  ** @author StylishDB
  */
-public class CEditor extends CMiControladorGenerico
-        implements PestanaListener {
+public class CEditor extends Controller
+        implements MTabListener {
     
-    private MPestana mPestanaEditor;
+    private MTab mPestanaEditor;
     
-    private EditorTexto editorTexto;
-    private ContadorLineas contadorLineas;
-    private ContenedorEditor contenedorEditor;
+    private TextEditor editorTexto;
+    private LineCounter contadorLineas;
+    private HolderEditor contenedorEditor;
     
 
-    public CEditor(MPestana mPestanaEditor) {
+    public CEditor(MTab mPestanaEditor) {
         super();
 
         this.mPestanaEditor = mPestanaEditor;
@@ -42,30 +42,30 @@ public class CEditor extends CMiControladorGenerico
     }
     
     private void construirEditorTexto() {
-        editorTexto = new EditorTexto(this);
+        editorTexto = new TextEditor(this);
         editorTexto.setStyleSheet(
-                ObtencionEstilo.getEstiloVentana("editor.css")
+                GetStyle.getEstiloVentana("editor.css")
         );
     }
     
     private void construirContadorLineas() {
-        contadorLineas = new ContadorLineas(this);
+        contadorLineas = new LineCounter(this);
         contadorLineas.setStyleSheet(
-                ObtencionEstilo.getEstiloVentana("editorContadorLineas.css")
+                GetStyle.getEstiloVentana("editorContadorLineas.css")
         );
     }
     
     private void construirContenedorEditorTexto() {
-        contenedorEditor = new ContenedorEditor(this);
+        contenedorEditor = new HolderEditor(this);
  
         contenedorEditor.establecerContadorLineas(contadorLineas);
         contenedorEditor.establecerEditorTexto(editorTexto);
     }
     
     private void establecerResaltadoSintaxis() {
-        MConexion mConexion = mAplicacion.mConexionesGuardadas.
+        MConnection mConexion = mAplicacion.mConexionesGuardadas.
                 getMConexion(mPestanaEditor.uuidConexion);
-        ConstruirSyntaxHighlighter.establecerSyntaxHighlighter(
+        BuiltSyntaxHighlighter.establecerSyntaxHighlighter(
                 mConexion.getTipoDeBaseDeDatos(),
                 editorTexto.document()
         );
@@ -76,11 +76,11 @@ public class CEditor extends CMiControladorGenerico
         editorTexto.establecerTexto(textoEditor);
     }
         
-    public ContenedorEditor getContenedorEditor() {
+    public HolderEditor getContenedorEditor() {
         return contenedorEditor;
     }
     
-    public MPestana getModeloEditor() {
+    public MTab getModeloEditor() {
         return mPestanaEditor;
     }
     
@@ -140,16 +140,16 @@ public class CEditor extends CMiControladorGenerico
     }
 
     @Override
-    public void textoModificado(MPestana mPestana) {}
+    public void textoModificado(MTab mPestana) {}
 
     @Override
-    public void textoSeleccionado(MPestana mPestana) {}
+    public void textoSeleccionado(MTab mPestana) {}
 
     @Override
-    public void renombrada(MPestana mPestana) {}
+    public void renombrada(MTab mPestana) {}
     
     @Override
-    public void textoFormateado(MPestana mPestana) {
+    public void textoFormateado(MTab mPestana) {
         editorTexto.establecerTexto(
             mPestana.getTextoEditor()
         );

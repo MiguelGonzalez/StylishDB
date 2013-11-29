@@ -1,12 +1,12 @@
 package com.stylishdb.db.managers;
 
-import com.stylishdb.db.domain.TiposBasesDeDatos;
+import com.stylishdb.db.domain.TypeManagers;
 
 /**
  *
  ** @author StylishDB
  */
-public class MySQL implements DatosBaseDatos {
+public class MySQL implements Manager {
     
     public static String nombrePresentable = "MySQL";
     public static String claseDriver = "com.mysql.jdbc.Driver";
@@ -129,8 +129,8 @@ public class MySQL implements DatosBaseDatos {
     }
 
     @Override
-    public boolean equals(TiposBasesDeDatos.TIPO_BASE_DATOS tipoBaseDatos) {
-        return tipoBaseDatos.equals(TiposBasesDeDatos.TIPO_BASE_DATOS.MYSQL);
+    public boolean equals(TypeManagers.TIPO_BASE_DATOS tipoBaseDatos) {
+        return tipoBaseDatos.equals(TypeManagers.TIPO_BASE_DATOS.MYSQL);
     }
     
     @Override

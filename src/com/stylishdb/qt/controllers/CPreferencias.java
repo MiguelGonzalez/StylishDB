@@ -1,18 +1,18 @@
 package com.stylishdb.qt.controllers;
 
 import com.trolltech.qt.core.Qt;
-import com.stylishdb.style.ObtencionEstilo;
-import com.stylishdb.languages.CargaIdioma;
-import com.stylishdb.qt.modals.ModalPreferencias;
-import com.stylishdb.utilities.CentroCoordenadas;
+import com.stylishdb.style.GetStyle;
+import com.stylishdb.languages.LoadLanguage;
+import com.stylishdb.qt.modals.ModalPreferences;
+import com.stylishdb.utilities.CoordenatesWindow;
 
 /**
  *
  * @author Miguel
  */
-public class CPreferencias extends CMiControladorGenerico {
+public class CPreferencias extends Controller {
     
-    private ModalPreferencias modalPreferencias;
+    private ModalPreferences modalPreferencias;
     
     public CPreferencias() {
         super();
@@ -26,14 +26,14 @@ public class CPreferencias extends CMiControladorGenerico {
     
     public void mostrarVentanaModal() {
         modalPreferencias.construirInterfaz(
-                CargaIdioma.obtenerIdiomasInstalados()
+                LoadLanguage.obtenerIdiomasInstalados()
                 );
         
         modalPreferencias.show();
     }
     
     private void crearVentanaModal() {
-        modalPreferencias = new ModalPreferencias(
+        modalPreferencias = new ModalPreferences(
                 this);
         modalPreferencias.setWindowFlags(Qt.WindowType.FramelessWindowHint);
     }
@@ -45,14 +45,14 @@ public class CPreferencias extends CMiControladorGenerico {
                 width, height
                 );
         modalPreferencias.move(
-                CentroCoordenadas.getXCentrada(width),
-                CentroCoordenadas.getYCentradaArriba()
+                CoordenatesWindow.getXCentrada(width),
+                CoordenatesWindow.getYCentradaArriba()
                 );
     }
     
     private void establecerEstiloVentana() {
         modalPreferencias.setStyleSheet(
-                ObtencionEstilo.getEstiloVentana("dialogEstilo.css")
+                GetStyle.getEstiloVentana("dialogEstilo.css")
         );
     }
     
@@ -71,8 +71,8 @@ public class CPreferencias extends CMiControladorGenerico {
         if(indexIdioma != -1) {
             String idioma = modalPreferencias.idiomasCombo.itemText(indexIdioma);
             
-            CargaIdioma.cargarIdioma(idioma);
-            CargaIdioma.guardarPreferenciasIdioma();
+            LoadLanguage.cargarIdioma(idioma);
+            LoadLanguage.guardarPreferenciasIdioma();
         }
     }
 }

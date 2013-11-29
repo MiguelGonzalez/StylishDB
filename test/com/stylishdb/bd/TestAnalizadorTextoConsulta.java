@@ -1,7 +1,7 @@
 package com.stylishdb.bd;
 
-import com.stylishdb.db.AnalizadorTextoConsulta;
-import com.stylishdb.db.domain.TiposBasesDeDatos;
+import com.stylishdb.db.ParserTextSQL;
+import com.stylishdb.db.domain.TypeManagers;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
  */
 public class TestAnalizadorTextoConsulta {
     
-    private AnalizadorTextoConsulta analizadorTextoConsulta;
+    private ParserTextSQL analizadorTextoConsulta;
     
     public TestAnalizadorTextoConsulta() {
     }
@@ -39,8 +39,8 @@ public class TestAnalizadorTextoConsulta {
     @Test
     public void consultaSimpleOracle() {
         String consultaSQLAnalizar = "SELECT * FROM TABLA";
-        analizadorTextoConsulta = new AnalizadorTextoConsulta(
-                TiposBasesDeDatos.TIPO_BASE_DATOS.ORACLE,
+        analizadorTextoConsulta = new ParserTextSQL(
+                TypeManagers.TIPO_BASE_DATOS.ORACLE,
                 consultaSQLAnalizar);
         
         assertEquals(
@@ -65,8 +65,8 @@ public class TestAnalizadorTextoConsulta {
     @Test
     public void consultaDobleOracle() {
         String consultaSQLAnalizar = "SELECT * FROM TABLA;\n SELECT * FROM TABLA";
-        analizadorTextoConsulta = new AnalizadorTextoConsulta(
-                TiposBasesDeDatos.TIPO_BASE_DATOS.ORACLE,
+        analizadorTextoConsulta = new ParserTextSQL(
+                TypeManagers.TIPO_BASE_DATOS.ORACLE,
                 consultaSQLAnalizar);
         
         assertEquals(
@@ -103,8 +103,8 @@ public class TestAnalizadorTextoConsulta {
     @Test
     public void consultaComplejaOracle() {
         String consultaSQLAnalizar = "SELECT * FROM TABLA wheRe palabra like \'\";\';SELECT * FROM TABLA";
-        analizadorTextoConsulta = new AnalizadorTextoConsulta(
-                TiposBasesDeDatos.TIPO_BASE_DATOS.ORACLE,
+        analizadorTextoConsulta = new ParserTextSQL(
+                TypeManagers.TIPO_BASE_DATOS.ORACLE,
                 consultaSQLAnalizar);
         
         assertEquals(
@@ -151,8 +151,8 @@ public class TestAnalizadorTextoConsulta {
                 + " - '||SQLCODE||' -ERROR- '||SQLERRM); END;";
         String segundaConsulta = "SELECT * FROM TABLA";
         
-        analizadorTextoConsulta = new AnalizadorTextoConsulta(
-                TiposBasesDeDatos.TIPO_BASE_DATOS.ORACLE,
+        analizadorTextoConsulta = new ParserTextSQL(
+                TypeManagers.TIPO_BASE_DATOS.ORACLE,
                 procedimientoOracleSQL + segundaConsulta);
         
         assertEquals(
@@ -193,8 +193,8 @@ public class TestAnalizadorTextoConsulta {
                 + " orders ON suppliers.supplier_id = orders.supplier_id;";
         String segundaConsulta = "SELECT * FROM TABLA";
         
-        analizadorTextoConsulta = new AnalizadorTextoConsulta(
-                TiposBasesDeDatos.TIPO_BASE_DATOS.ORACLE,
+        analizadorTextoConsulta = new ParserTextSQL(
+                TypeManagers.TIPO_BASE_DATOS.ORACLE,
                 joinOracleSQL + segundaConsulta);
         
         assertEquals(
@@ -236,8 +236,8 @@ public class TestAnalizadorTextoConsulta {
                 + "WHERE suppliers.supplier_name = 'IBM';";
         String segundaConsulta = "SELECT * FROM TABLA";
         
-        analizadorTextoConsulta = new AnalizadorTextoConsulta(
-                TiposBasesDeDatos.TIPO_BASE_DATOS.ORACLE,
+        analizadorTextoConsulta = new ParserTextSQL(
+                TypeManagers.TIPO_BASE_DATOS.ORACLE,
                 createViewOracleSQL + segundaConsulta);
         
         assertEquals(
@@ -279,8 +279,8 @@ public class TestAnalizadorTextoConsulta {
                 + "subquery1.supplier_id = suppliers.supplier_id;";
         String segundaConsulta = "SELECT * FROM TABLA";
         
-        analizadorTextoConsulta = new AnalizadorTextoConsulta(
-                TiposBasesDeDatos.TIPO_BASE_DATOS.ORACLE,
+        analizadorTextoConsulta = new ParserTextSQL(
+                TypeManagers.TIPO_BASE_DATOS.ORACLE,
                 subSelectOracleSQL + segundaConsulta);
         
         assertEquals(
@@ -320,8 +320,8 @@ public class TestAnalizadorTextoConsulta {
                 + "SELECT MAX(ID) + 1 FROM A), 1, 'L', 'Lo');";
         String segundaConsulta = "SELECT * FROM TABLA";
         
-        analizadorTextoConsulta = new AnalizadorTextoConsulta(
-                TiposBasesDeDatos.TIPO_BASE_DATOS.ORACLE,
+        analizadorTextoConsulta = new ParserTextSQL(
+                TypeManagers.TIPO_BASE_DATOS.ORACLE,
                 insertSubSelectOracleSQL + segundaConsulta);
         
         assertEquals(
@@ -378,8 +378,8 @@ public class TestAnalizadorTextoConsulta {
                 + "Campo1,Source.Campo2, Source.Campo3) WHEN NOT MATCHED BY "
                 + "SOURCE THEN DELETE;";
         
-        analizadorTextoConsulta = new AnalizadorTextoConsulta(
-                TiposBasesDeDatos.TIPO_BASE_DATOS.ORACLE,
+        analizadorTextoConsulta = new ParserTextSQL(
+                TypeManagers.TIPO_BASE_DATOS.ORACLE,
                 insertSubSelectMergeOracleSQL + segundaConsulta);
         
         assertEquals(
@@ -418,8 +418,8 @@ public class TestAnalizadorTextoConsulta {
         String plqSQLOracle = "DECLARE v_variable VARCHAR2(5); BEGIN SELECT column_name NTO v_variable FROM table_name; EXCEPTION WHEN exception_name THEN ... END;";
         String segundaConsulta = "SELECT * FROM TABLA";
         
-        analizadorTextoConsulta = new AnalizadorTextoConsulta(
-                TiposBasesDeDatos.TIPO_BASE_DATOS.ORACLE,
+        analizadorTextoConsulta = new ParserTextSQL(
+                TypeManagers.TIPO_BASE_DATOS.ORACLE,
                 plqSQLOracle + segundaConsulta);
         
         assertEquals(

@@ -1,9 +1,9 @@
 package com.stylishdb;
 
 import com.trolltech.qt.core.QTextCodec;
-import com.stylishdb.qt.controllers.CVentanaPrincipal;
+import com.stylishdb.qt.controllers.CMainWindow;
 import com.trolltech.qt.gui.QApplication;
-import com.stylishdb.languages.CargaIdioma;
+import com.stylishdb.languages.LoadLanguage;
 
 /**
  *
@@ -11,24 +11,24 @@ import com.stylishdb.languages.CargaIdioma;
  */
 public class StylishDB {
 
-    private static CVentanaPrincipal controladorVentanaPrincipal;
+    private static CMainWindow controladorVentanaPrincipal;
     
     public static void main(String args[]) {
         QApplication.initialize(args);
         QTextCodec.setCodecForCStrings(QTextCodec.codecForName("UTF-8"));
         QTextCodec.setCodecForLocale(QTextCodec.codecForName("UTF-8"));
 
-        CargaIdioma.cargarIdiomaDefecto();
-        CargaModeloAplicacion.cargarModeloAplicacion();
+        LoadLanguage.cargarIdiomaDefecto();
+        LoadApplicationModel.cargarModeloAplicacion();
         
         controladorVentanaPrincipal = new
-                CVentanaPrincipal();
+                CMainWindow();
         
         QApplication.exec();
     }
     
     public static void salirAplicacion() {
-        GuardaModeloAplicacion.guardarModeloAplicacion();
+        SaveApplicationModel.guardarModeloAplicacion();
         
         controladorVentanaPrincipal.salirAplicacion();
     }
