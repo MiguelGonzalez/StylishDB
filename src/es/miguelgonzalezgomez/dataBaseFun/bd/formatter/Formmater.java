@@ -324,7 +324,9 @@ public class Formmater {
         private void closeParen() {
             parensSinceSelect--;
             indent--;
-            newline();
+            if(afterInsert || afterValues) {
+                newline();
+            }
             out();
             beginLine = false;
         }
@@ -338,7 +340,9 @@ public class Formmater {
             }
             out();
             indent++;
-            newline();
+            if(afterInsert || afterValues) {
+                newline();
+            }
             beginLine = true;
             parensSinceSelect++;
         }
