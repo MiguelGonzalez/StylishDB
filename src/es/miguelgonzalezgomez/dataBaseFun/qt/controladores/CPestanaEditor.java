@@ -1,15 +1,15 @@
 package es.miguelgonzalezgomez.dataBaseFun.qt.controladores;
 
-import com.trolltech.qt.gui.QPlainTextEdit;
 import es.miguelgonzalezgomez.dataBaseFun.domain.MPestana;
+import es.miguelgonzalezgomez.dataBaseFun.domain.controladores.CPestanaActivaListener;
 import es.miguelgonzalezgomez.dataBaseFun.qt.ContenedorEditor;
-import es.miguelgonzalezgomez.dataBaseFun.qt.EditorTexto;
 
 /**
  *
  * @author Miguel González
  */
-public class CPestanaEditor extends CMiControladorGenerico {
+public class CPestanaEditor extends CMiControladorGenerico
+        implements CPestanaActivaListener {
     
     private CEditor controladorEditor;
     private MPestana mPestanaEditor;
@@ -20,18 +20,16 @@ public class CPestanaEditor extends CMiControladorGenerico {
         this.mPestanaEditor = mPestanaEditor;
         
         controladorEditor = new CEditor(mPestanaEditor);
+        
+        initListeners();
+    }
+    
+    private void initListeners() {
+        controladorPestanaActiva.addListener(this);
     }
 
     public ContenedorEditor getContenedorEditor() {
         return controladorEditor.getContenedorEditor();
-    }
-
-    public void deshacer() {
-        controladorEditor.deshacer();
-    }
-
-    public void rehacer() {
-        controladorEditor.rehacer();
     }
 
     public MPestana getModeloEditor() {
@@ -41,4 +39,29 @@ public class CPestanaEditor extends CMiControladorGenerico {
     public void estaVisible() {
         pestanasAbiertas.establecerEditorActivo(mPestanaEditor);
     }
+
+    @Override
+    public void deshacer(MPestana pestana) {
+        if(this.mPestanaEditor.equals(pestana)) {
+            controladorEditor.deshacerTexto();
+        }
+    }
+
+    @Override
+    public void rehacer(MPestana pestana) {
+        if(this.mPestanaEditor.equals(pestana)) {
+            controladorEditor.rehacerTexto();
+        }
+    }
+
+    @Override
+    public void eliminada(MPestana pestana) {
+        if(this.mPestanaEditor.equals(pestana)) {
+            controladorEditor.quitarListeners();
+            controladorPestanaActiva.removeListener(this);
+        }
+    }
+
+    @Override
+    public void ejecutarConsulta(MPestana pestana) {}
 }

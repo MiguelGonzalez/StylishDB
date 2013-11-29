@@ -107,12 +107,10 @@ public class CTabWidgetConsultas extends CMiControladorGenerico
     }
 
     @Override
-    public void deshacer(MPestana pestana) {
-    }
+    public void deshacer(MPestana pestana) {}
 
     @Override
-    public void rehacer(MPestana pestana) {
-    }
+    public void rehacer(MPestana pestana) {}
 
     @Override
     public void eliminada(MPestana pestana) {

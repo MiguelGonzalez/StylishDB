@@ -103,7 +103,6 @@ public class EditorTexto extends QPlainTextEdit {
         }
         
         if(esRehacer(event)) {
-            controlador.rehacer();
             return;
         }
         

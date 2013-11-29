@@ -13,7 +13,8 @@ import es.miguelgonzalezgomez.dataBaseFun.qt.restaltadoEditor.ConstruirSyntaxHig
  *
  * @author Miguel González
  */
-public class CEditor extends CMiControladorGenerico implements PestanaListener {
+public class CEditor extends CMiControladorGenerico
+        implements PestanaListener {
     
     private MPestana mPestanaEditor;
     
@@ -79,14 +80,6 @@ public class CEditor extends CMiControladorGenerico implements PestanaListener {
         return contenedorEditor;
     }
     
-    public void deshacer() {
-        editorTexto.undo();
-    }
-
-    public void rehacer() {
-        editorTexto.redo();
-    }
-
     public MPestana getModeloEditor() {
         return mPestanaEditor;
     }
@@ -160,5 +153,17 @@ public class CEditor extends CMiControladorGenerico implements PestanaListener {
         editorTexto.establecerTexto(
             mPestana.getTextoEditor()
         );
+    }
+    
+    protected void deshacerTexto() {
+        editorTexto.undo();
+    }
+    
+    protected void rehacerTexto() {
+        editorTexto.redo();
+    }
+    
+    public void quitarListeners() {
+        mPestanaEditor.removePestanaListener(this);
     }
 }
