@@ -225,7 +225,10 @@ public class Formmater {
             }
             if (afterInsert) {
                 beginLine = false;
+                afterWhiteSpace = false;
                 white();
+                afterWhiteSpace = true;
+                beginLine = true;
                 afterInsert = false;
                 afterValues = false;
             } else {
@@ -242,7 +245,7 @@ public class Formmater {
         }
 
         private void white() {
-            if (!beginLine) {
+            if (!beginLine && !afterWhiteSpace) {
                 result.append(" ");
             }
         }
@@ -328,9 +331,10 @@ public class Formmater {
 
         private void openParen() {
             if(afterInsert) {
-                System.out.println("AFTER INSERT");
                 beginLine = false;
+                afterInsert = false;
                 white();
+                afterInsert = true;
             }
             out();
             indent++;
