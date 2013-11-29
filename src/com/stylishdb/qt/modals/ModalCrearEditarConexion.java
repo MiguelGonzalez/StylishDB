@@ -9,8 +9,8 @@ import com.trolltech.qt.gui.QLineEdit;
 import com.trolltech.qt.gui.QMessageBox;
 import com.trolltech.qt.gui.QPushButton;
 import com.trolltech.qt.gui.QVBoxLayout;
-import com.stylishdb.bd.domain.TiposBasesDeDatos;
-import com.stylishdb.qt.controladores.CNuevaConexion;
+import com.stylishdb.db.domain.TiposBasesDeDatos;
+import com.stylishdb.qt.controllers.CNuevaConexion;
 
 /**
  *

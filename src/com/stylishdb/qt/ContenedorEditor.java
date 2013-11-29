@@ -3,7 +3,7 @@ package com.stylishdb.qt;
 import com.trolltech.qt.gui.QHBoxLayout;
 import com.trolltech.qt.gui.QSizePolicy;
 import com.trolltech.qt.gui.QWidget;
-import com.stylishdb.qt.controladores.CEditor;
+import com.stylishdb.qt.controllers.CEditor;
 
 /**
  *

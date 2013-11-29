@@ -1,7 +1,7 @@
 package com.stylishdb.domain;
 
-import com.stylishdb.bd.domain.ObtenerUrlConexion;
-import com.stylishdb.bd.domain.TiposBasesDeDatos.TIPO_BASE_DATOS;
+import com.stylishdb.db.domain.ObtenerUrlConexion;
+import com.stylishdb.db.domain.TiposBasesDeDatos.TIPO_BASE_DATOS;
 import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
 

@@ -4,7 +4,7 @@ import com.trolltech.qt.gui.QPalette;
 import com.trolltech.qt.gui.QPlainTextEdit;
 import com.trolltech.qt.gui.QTextCursor;
 import com.trolltech.qt.gui.QTextOption;
-import com.stylishdb.qt.controladores.CEditor;
+import com.stylishdb.qt.controllers.CEditor;
 
 /**
  *

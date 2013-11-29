@@ -7,7 +7,7 @@ import com.trolltech.qt.gui.QHBoxLayout;
 import com.trolltech.qt.gui.QLabel;
 import com.trolltech.qt.gui.QPushButton;
 import com.trolltech.qt.gui.QVBoxLayout;
-import com.stylishdb.qt.controladores.CPreferencias;
+import com.stylishdb.qt.controllers.CPreferencias;
 
 /**
  *

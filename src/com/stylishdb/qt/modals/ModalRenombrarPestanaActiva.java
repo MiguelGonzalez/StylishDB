@@ -5,7 +5,7 @@ import com.trolltech.qt.gui.QGridLayout;
 import com.trolltech.qt.gui.QLabel;
 import com.trolltech.qt.gui.QLineEdit;
 import com.trolltech.qt.gui.QVBoxLayout;
-import com.stylishdb.qt.controladores.CRenombrarPestanaActiva;
+import com.stylishdb.qt.controllers.CRenombrarPestanaActiva;
 
 /**
  *

@@ -5,8 +5,8 @@ import com.trolltech.qt.gui.QDialog;
 import com.trolltech.qt.gui.QLabel;
 import com.trolltech.qt.gui.QTextEdit;
 import com.trolltech.qt.gui.QVBoxLayout;
-import com.stylishdb.estilos.ObtencionEstilo;
-import com.stylishdb.utilidadesEstaticas.CentroCoordenadas;
+import com.stylishdb.style.ObtencionEstilo;
+import com.stylishdb.utilities.CentroCoordenadas;
 
 /**
  *

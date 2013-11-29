@@ -5,7 +5,7 @@ import com.trolltech.qt.gui.QGridLayout;
 import com.trolltech.qt.gui.QListWidget;
 import com.trolltech.qt.gui.QListWidgetItem;
 import com.trolltech.qt.gui.QVBoxLayout;
-import com.stylishdb.qt.controladores.CVerTablasBaseDatos;
+import com.stylishdb.qt.controllers.CVerTablasBaseDatos;
 import java.util.List;
 
 /**

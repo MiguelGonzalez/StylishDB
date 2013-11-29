@@ -9,7 +9,7 @@ import com.trolltech.qt.gui.QDrag;
 import com.trolltech.qt.gui.QDragEnterEvent;
 import com.trolltech.qt.gui.QDropEvent;
 import com.trolltech.qt.gui.QMouseEvent;
-import com.stylishdb.qt.controladores.CPestanasEditores;
+import com.stylishdb.qt.controllers.CPestanasEditores;
 import com.trolltech.qt.gui.QTabBar;
 import java.util.List;
 

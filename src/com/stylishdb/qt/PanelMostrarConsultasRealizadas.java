@@ -3,7 +3,7 @@ package com.stylishdb.qt;
 import com.trolltech.qt.core.Qt;
 import com.trolltech.qt.core.Qt.DockWidgetAreas;
 import com.trolltech.qt.gui.QDockWidget;
-import com.stylishdb.qt.controladores.CDockPanelConsultasRealizadas;
+import com.stylishdb.qt.controllers.CDockPanelConsultasRealizadas;
 
 /**
  *

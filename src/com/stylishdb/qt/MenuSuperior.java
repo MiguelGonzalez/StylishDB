@@ -7,7 +7,7 @@ import com.trolltech.qt.gui.QKeySequence.StandardKey;
 import com.trolltech.qt.gui.QMenu;
 import com.trolltech.qt.gui.QMenuBar;
 import com.stylishdb.domain.MConexion;
-import com.stylishdb.qt.controladores.CMenuSuperior;
+import com.stylishdb.qt.controllers.CMenuSuperior;
 import java.util.HashMap;
 import java.util.Map;
 

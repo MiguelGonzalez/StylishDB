@@ -10,7 +10,7 @@ import com.trolltech.qt.gui.QSizePolicy;
 import com.trolltech.qt.gui.QTextCursor;
 import com.stylishdb.domain.MPestana;
 import com.stylishdb.domain.holders.IndentacionHolder;
-import com.stylishdb.qt.controladores.CEditor;
+import com.stylishdb.qt.controllers.CEditor;
 import java.util.Objects;
 import java.util.UUID;
 

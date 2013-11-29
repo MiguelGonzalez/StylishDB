@@ -1,9 +1,9 @@
 package com.stylishdb;
 
 import com.trolltech.qt.core.QTextCodec;
-import com.stylishdb.qt.controladores.CVentanaPrincipal;
+import com.stylishdb.qt.controllers.CVentanaPrincipal;
 import com.trolltech.qt.gui.QApplication;
-import com.stylishdb.idiomas.CargaIdioma;
+import com.stylishdb.languages.CargaIdioma;
 
 /**
  *

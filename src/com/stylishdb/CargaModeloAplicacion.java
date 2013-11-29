@@ -1,7 +1,7 @@
 package com.stylishdb;
 
 import com.google.gson.reflect.TypeToken;
-import com.stylishdb.configuracion.ConfiguracionAplicacion;
+import com.stylishdb.configuration.ConfiguracionAplicacion;
 import com.stylishdb.domain.MAplicacion;
 import com.stylishdb.domain.MConexion;
 import com.stylishdb.domain.MPestana;

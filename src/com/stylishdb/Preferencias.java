@@ -1,7 +1,7 @@
 package com.stylishdb;
 
 import com.google.gson.Gson;
-import com.stylishdb.configuracion.IConfiguracion;
+import com.stylishdb.configuration.IConfiguracion;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;

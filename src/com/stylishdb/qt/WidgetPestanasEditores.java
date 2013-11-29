@@ -6,7 +6,7 @@ import com.trolltech.qt.gui.QTabBar;
 import com.trolltech.qt.gui.QTabWidget;
 import com.stylishdb.domain.MPestana;
 import com.stylishdb.domain.PestanaListener;
-import com.stylishdb.qt.controladores.CPestanaEditor;
+import com.stylishdb.qt.controllers.CPestanaEditor;
 import java.util.ArrayList;
 import java.util.List;
 

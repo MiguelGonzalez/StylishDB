@@ -1,7 +1,7 @@
 package com.stylishdb.bd;
 
-import com.stylishdb.bd.AnalizadorTextoConsulta;
-import com.stylishdb.bd.domain.TiposBasesDeDatos;
+import com.stylishdb.db.AnalizadorTextoConsulta;
+import com.stylishdb.db.domain.TiposBasesDeDatos;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

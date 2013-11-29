@@ -1,7 +1,7 @@
 package com.stylishdb;
 
 import com.google.gson.reflect.TypeToken;
-import com.stylishdb.configuracion.ConfiguracionAplicacion;
+import com.stylishdb.configuration.ConfiguracionAplicacion;
 import com.stylishdb.domain.MAplicacion;
 import java.lang.reflect.Type;
 
