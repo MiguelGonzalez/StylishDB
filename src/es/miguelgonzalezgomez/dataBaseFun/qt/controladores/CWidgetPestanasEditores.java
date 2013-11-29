@@ -78,10 +78,14 @@ public class CWidgetPestanasEditores extends CMiControladorGenerico
     private void cambiadaPestana() {
         ContenedorEditor contenedorEditor = (ContenedorEditor) widgetPestanasEditores.
                 currentWidget();
-        EditorTexto pestanaEditorTexto = contenedorEditor.getEditorTexto();
-        
-        if(pestanaEditorTexto != null) {
-            pestanaEditorTexto.establecerEditorVisible();
+        if(contenedorEditor != null) {
+            EditorTexto pestanaEditorTexto = contenedorEditor.getEditorTexto();
+
+            if(pestanaEditorTexto != null) {
+                pestanaEditorTexto.establecerEditorVisible();
+            } else {
+                pestanasAbiertas.establecerEditorActivo(null);
+            }
         } else {
             pestanasAbiertas.establecerEditorActivo(null);
         }
