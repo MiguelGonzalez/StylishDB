@@ -70,12 +70,12 @@ public class DataTypeResultSet {
                     return "VARBINARY";
                 case java.sql.Types.INTEGER: 
                 case java.sql.Types.SMALLINT: 
-                case java.sql.Types.TINYINT: 
+                case java.sql.Types.TINYINT:
                     return getIntValue(numColumna);
                 case java.sql.Types.BIGINT:
                     return getLongValue(numColumna);
                 case java.sql.Types.FLOAT: 
-                case java.sql.Types.NUMERIC: 
+                case java.sql.Types.NUMERIC:
                     return getFloatValue(numColumna, numDecimales);
                 case java.sql.Types.DECIMAL: 
                 case java.sql.Types.DOUBLE: 
@@ -239,7 +239,7 @@ public class DataTypeResultSet {
             return "NULL";
         }
         if(numDecimales == 0) {
-            return Integer.toString(numero.intValue());
+            return Long.toString(numero.longValue());
         } else {
             return Float.toString(rsQuery.getFloat(numColumna));
         }
