@@ -14,6 +14,7 @@ import com.stylishdb.qt.controllers.Controller;
 import com.stylishdb.qt.modals.ModalAlert;
 import com.stylishdb.qt.tabResultViews.TabQueriesExecuted;
 import com.stylishdb.qt.tabResultViews.TabQueryExecute;
+import com.stylishdb.qt.tabResultViews.TabUpdates;
 import java.util.List;
 
 /**
@@ -100,10 +101,16 @@ public class CTabQueriesExecuted extends Controller
     }
     
     protected void cerrarPestana(int indexPestana) {
-        TabQueryExecute tab = (TabQueryExecute) panelConsultas.
-                widget(indexPestana);
-        
-        tab.liberarControlador();
+        try {
+            TabQueryExecute tab = (TabQueryExecute) panelConsultas.
+                    widget(indexPestana);
+
+            tab.liberarControlador();
+        } catch(ClassCastException ex) {
+            TabUpdates tab = (TabUpdates) panelConsultas.
+                    widget(indexPestana);
+            tab.liberarControlador();
+        }
     }
 
     @Override

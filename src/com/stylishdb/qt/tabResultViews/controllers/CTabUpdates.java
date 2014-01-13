@@ -83,4 +83,9 @@ public class CTabUpdates extends Controller {
         ModalAlert.mostrarErrorEnPantalla(tituloError,
                 mensajeError);
     }
+
+    public void liberarWidget() {
+        pestanaConsultas.dispose();
+        pestanaConsultas = null;
+    }
 }

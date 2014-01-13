@@ -70,5 +70,9 @@ public class TabUpdates extends QWidget {
         
         textResultadoActualizaciones.setPlainText(strResultado.toString());
     }
+
+    public void liberarControlador() {
+        controlador.liberarWidget();
+    }
     
 }
