@@ -26,6 +26,7 @@ package com.stylishdb.db;
 
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.StringTokenizer;
 
@@ -131,10 +132,12 @@ public class Formatter {
                     } while (!"'".equals(t) && tokens.hasMoreTokens()); // cannot handle single quotes
                 } else if ("\"".equals(token)) {
                     String t;
-                    do {
-                        t = tokens.nextToken();
-                        token += t;
-                    } while (!"\"".equals(t));
+                    try {
+                        do {
+                            t = tokens.nextToken();
+                            token += t;
+                        } while (!"\"".equals(t));
+                    } catch(NoSuchElementException ex){}
                 }
 
                 if (afterByOrSetOrFromOrSelect && ",".equals(token)) {
