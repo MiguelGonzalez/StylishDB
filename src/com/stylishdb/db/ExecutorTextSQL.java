@@ -246,27 +246,32 @@ public class ExecutorTextSQL {
             for(int i=1; i<=resultado.numColumnas; i++) {
                 ColumnDatas datosColumna = resultado.datosColumnas.get(i - 1);
                 
-                String datoColumna = datoConsulta.getDatoColumna(
+                String dataColumn = datoConsulta.getDatoColumna(
                         i,
                         datosColumna.columnType,
                         datosColumna
                 );
-                if(datosColumna.scale == 0 && datoColumna != null) {
-                    if(datoColumna.endsWith(".0")) {
-                        datoColumna = datoColumna.substring(
-                                0,
-                                datoColumna.length() - 2
-                        );
-                    }
-                }
-               
-                datosFila[i-1] = datoColumna;
+                dataColumn = cleanDataColumScale(dataColumn, datosColumna.scale);
+                
+                datosFila[i-1] = dataColumn;
             }
         } catch (SQLException ex) {
             throw new ExecutorTextSQLException(ex);
         }
         
         return datosFila;
+    }
+    
+    private String cleanDataColumScale(String dataColumn, int scale) {
+        if(scale <= 0 && dataColumn != null) {
+            if(dataColumn.endsWith(".0")) {
+                dataColumn = dataColumn.substring(
+                        0,
+                        dataColumn.length() - 2
+                );
+            }
+        }
+        return dataColumn;
     }
     
     private void cerrarConexion() {
