@@ -54,6 +54,6 @@ Programming
 Screenshots
 ===========
 
-![ScreenShot](https://raw.github.com/miguelgonzalez/DataBaseFun/master/imgReadme/User_MySQL.png)
+![ScreenShot](https://raw.github.com/miguelgonzalez/StylishDB/master/imgReadme/User_MySQL.png)
 
-![ScreenShot](https://raw.github.com/miguelgonzalez/DataBaseFun/master/imgReadme/User_MySQL_Info.png)
+![ScreenShot](https://raw.github.com/miguelgonzalez/StylishDB/master/imgReadme/User_MySQL_Info.png)
