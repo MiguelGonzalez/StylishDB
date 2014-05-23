@@ -81,14 +81,10 @@ public class TopMenu extends QMenuBar {
     }
     
     private void crearOpcionesEdicion() {
-        edicionMenu = addMenu(tr("Edición"));
+        edicionMenu = addMenu(tr("&Edición"));
         
         crearOpcionDeshacer();
         crearOpcionRehacer();
-        
-        edicionMenu.addSeparator();
-        crearOpcionEjecutarConsulta();
-        crearOpcionVerTablaseBaseDatos();
         
         edicionMenu.addSeparator();
         crearOpcionRenombrarPestana();
@@ -109,20 +105,6 @@ public class TopMenu extends QMenuBar {
         edicionMenu.addAction(rehacer);
     }
     
-    private void crearOpcionEjecutarConsulta() {
-        ejecutarConsulta = new QAction(tr("Ejecutar consulta"), this);
-        ejecutarConsulta.setShortcut(QKeySequence.fromString("F5"));
-        ejecutarConsulta.triggered.connect(controlador, "ejecutarConsulta()");
-        edicionMenu.addAction(ejecutarConsulta);
-    }
-    
-    private void crearOpcionVerTablaseBaseDatos() {
-        verTablasBaseDatos = new QAction(tr("Ver tablas BD"), this);
-        verTablasBaseDatos.setShortcut(QKeySequence.fromString("Ctrl+T"));
-        verTablasBaseDatos.triggered.connect(controlador, "verTablasBaseDatos()");
-        edicionMenu.addAction(verTablasBaseDatos);
-    }
-    
     private void crearOpcionRenombrarPestana() {
         renombrarPestana = new QAction(tr("Renombrar pestaña"), this);
         renombrarPestana.setShortcut(QKeySequence.fromString("Ctrl+R"));
@@ -138,9 +120,13 @@ public class TopMenu extends QMenuBar {
     }
     
     private void crearOpcionesHerramientas() {
-        herramientasMenu = addMenu(tr("Herramientas"));
+        herramientasMenu = addMenu(tr("&Herramientas"));
         
         crearOpcionFormatear();
+
+        herramientasMenu.addSeparator();
+        crearOpcionEjecutarConsulta();
+        crearOpcionVerTablaseBaseDatos();
     }
     
     private void crearOpcionFormatear() {
@@ -148,6 +134,20 @@ public class TopMenu extends QMenuBar {
         formatear.setShortcut(QKeySequence.fromString("Ctrl+F"));
         formatear.triggered.connect(controlador, "formatear()");
         herramientasMenu.addAction(formatear);
+    }
+    
+    private void crearOpcionEjecutarConsulta() {
+        ejecutarConsulta = new QAction(tr("Ejecutar consulta"), this);
+        ejecutarConsulta.setShortcut(QKeySequence.fromString("F5"));
+        ejecutarConsulta.triggered.connect(controlador, "ejecutarConsulta()");
+        herramientasMenu.addAction(ejecutarConsulta);
+    }
+    
+    private void crearOpcionVerTablaseBaseDatos() {
+        verTablasBaseDatos = new QAction(tr("Ver tablas BD"), this);
+        verTablasBaseDatos.setShortcut(QKeySequence.fromString("Ctrl+T"));
+        verTablasBaseDatos.triggered.connect(controlador, "verTablasBaseDatos()");
+        herramientasMenu.addAction(verTablasBaseDatos);
     }
     
     private void crearOpcionesConexiones() {
