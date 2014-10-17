@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
+import java.math.BigDecimal;
 import java.nio.charset.Charset;
 import java.sql.Array;
 import java.sql.Blob;
@@ -26,7 +27,7 @@ import java.util.logging.Logger;
  */
 public class DataTypeResultSet {
     
-    private ResultSet rsQuery;
+    private final ResultSet rsQuery;
 
     DataTypeResultSet(ResultSet rsQuery) {
         this.rsQuery = rsQuery;
@@ -48,8 +49,6 @@ public class DataTypeResultSet {
             switch(tipoColumna) {
                 case java.sql.Types.BINARY: 
                     return "BINARY";
-                case java.sql.Types.BIT: 
-                    return "BIT";
                 case java.sql.Types.DATALINK: 
                     return "DATALINK";
                 case java.sql.Types.DISTINCT: 
@@ -69,18 +68,21 @@ public class DataTypeResultSet {
                 case java.sql.Types.VARBINARY: 
                     return "VARBINARY";
                 case java.sql.Types.INTEGER: 
-                case java.sql.Types.SMALLINT: 
-                case java.sql.Types.TINYINT:
                     return getIntValue(numColumna);
+                case java.sql.Types.TINYINT:
+                    return getByteValue(numColumna);
+                case java.sql.Types.SMALLINT:
+                    return getShortValue(numColumna);
                 case java.sql.Types.BIGINT:
                     return getLongValue(numColumna);
                 case java.sql.Types.FLOAT: 
-                case java.sql.Types.NUMERIC:
+                case java.sql.Types.REAL:
                     return getFloatValue(numColumna, numDecimales);
-                case java.sql.Types.DECIMAL: 
                 case java.sql.Types.DOUBLE: 
-                case java.sql.Types.REAL: 
                     return getDoubleValue(numColumna);
+                case java.sql.Types.NUMERIC:
+                case java.sql.Types.DECIMAL: 
+                    return getBigDecimal(numColumna);
                 case java.sql.Types.REF: 
                     return getRefValue(numColumna);
                 case java.sql.Types.CHAR: 
@@ -105,7 +107,8 @@ public class DataTypeResultSet {
                 case java.sql.Types.BLOB: 
                     return getBlobValue(numColumna);
                 case java.sql.Types.BOOLEAN:
-                    return getBooleanValue(numColumna);
+                case java.sql.Types.BIT: 
+                    return getBooleanValue(numColumna);    
                 case java.sql.Types.CLOB: 
                     return getClobValue(numColumna);                
             }
@@ -253,6 +256,30 @@ public class DataTypeResultSet {
         return Double.toString(numero);
     }
     
+    private String getBigDecimal(int numColumna) throws SQLException {
+        BigDecimal numero = rsQuery.getBigDecimal(numColumna);
+        if(rsQuery.wasNull()) {
+            return "NULL";
+        }
+        return numero.toString();
+    }
+    
+    private String getByteValue(int numColumna) throws SQLException {
+        Byte numero = rsQuery.getByte(numColumna);
+        if(rsQuery.wasNull()) {
+            return "NULL";
+        }
+        return numero.toString();
+    }
+    
+    public String getShortValue(int numColumna) throws SQLException {
+        Short numero = rsQuery.getShort(numColumna);
+        if(rsQuery.wasNull()) {
+            return "NULL";
+        }
+        return numero.toString();
+    }
+        
     private String getRefValue(int numColumna) throws SQLException {
         Ref ref = rsQuery.getRef(numColumna);
         if(rsQuery.wasNull()) {
