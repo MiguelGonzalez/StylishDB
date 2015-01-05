@@ -3,6 +3,7 @@ package com.stylishdb.db.domain;
 import com.stylishdb.db.managers.Manager;
 import com.stylishdb.db.managers.MySQL;
 import com.stylishdb.db.managers.ORACLE;
+import com.stylishdb.db.managers.SQL_SERVER;
 
 /**
  *
@@ -11,7 +12,8 @@ import com.stylishdb.db.managers.ORACLE;
 public class TypeManagers {
     public static enum TIPO_BASE_DATOS {
         MYSQL,
-        ORACLE;
+        ORACLE,
+        SQL_SERVER;
 
         private Manager datosBaseDatos = null;
         
@@ -31,6 +33,8 @@ public class TypeManagers {
                 datosBaseDatos = new MySQL();
             } else if (this == TIPO_BASE_DATOS.ORACLE) {
                 datosBaseDatos = new ORACLE();
+            } else if (this == TIPO_BASE_DATOS.SQL_SERVER) {
+                datosBaseDatos = new SQL_SERVER();
             }
         }
     };
@@ -38,7 +42,8 @@ public class TypeManagers {
     public static String[] getNombresBasesDatos() {
         return new String[]{
             TIPO_BASE_DATOS.MYSQL.toString(),
-            TIPO_BASE_DATOS.ORACLE.toString()
+            TIPO_BASE_DATOS.ORACLE.toString(),
+            TIPO_BASE_DATOS.SQL_SERVER.toString()
         };
     }
     
@@ -48,6 +53,9 @@ public class TypeManagers {
         }
         if(nombreBaseDatos.equals(TIPO_BASE_DATOS.ORACLE.toString())) {
             return TIPO_BASE_DATOS.ORACLE;
+        }
+        if(nombreBaseDatos.equals(TIPO_BASE_DATOS.SQL_SERVER.toString())) {
+            return TIPO_BASE_DATOS.SQL_SERVER;
         }
         
         return null;

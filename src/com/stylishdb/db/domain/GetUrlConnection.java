@@ -17,6 +17,8 @@ public class GetUrlConnection {
             return "jdbc:mysql://" + ip.trim() + ":" + puerto.trim() + "/" + sid.trim();
         } else if(TIPO_BASE_DATOS.ORACLE.equals(tipoBaseDeDatos)) {
             return "jdbc:oracle:thin:@" + ip.trim() + ":" + puerto.trim() + ":" + sid.trim();
+        } else if(TIPO_BASE_DATOS.SQL_SERVER.equals(tipoBaseDeDatos)) {
+            return "jdbc:sqlserver://" + ip.trim() + ":" + puerto.trim() + ";databaseName=" + sid.trim();
         }
         
         return "";

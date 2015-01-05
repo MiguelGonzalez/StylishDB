@@ -1,5 +1,7 @@
 package com.stylishdb.db;
 
+import com.stylishdb.db.domain.TypeManagers;
+import com.stylishdb.db.domain.TypeManagers.TIPO_BASE_DATOS;
 import com.stylishdb.domain.MConnection;
 
 /**
@@ -33,6 +35,9 @@ public class CheckConnectionModel {
     }
     
     public boolean isSidValido() {
+        if(mConexion.getTipoDeBaseDeDatos().equals(TIPO_BASE_DATOS.SQL_SERVER)) {
+            return true;
+        }
         return !mConexion.getSid().isEmpty();
     }
     
