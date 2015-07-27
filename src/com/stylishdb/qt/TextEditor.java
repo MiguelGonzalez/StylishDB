@@ -78,6 +78,40 @@ public class TextEditor extends QPlainTextEdit {
     public void pegarTexto(String texto) {
         texto = texto.replaceAll("\t", getTabIndent());
         insertPlainText(texto);
+        
+        // Hack: Al pegar un texto el cursor se queda en la primera línea
+        // Con esto conseguimos que se coloque al final del texto pegado
+        situarCursorAlFinalTextoPegado();
+    }
+    
+    private void situarCursorAlFinalTextoPegado() {
+        QTextCursor curs = textCursor();
+        
+        moverDerechaCursor(curs);
+        
+        if(!curs.atEnd()) {
+            moverIzquierdaCursor(curs);
+        }
+    }
+    
+    private void moverDerechaCursor(QTextCursor curs) {
+        curs.beginEditBlock();
+        
+        curs.movePosition(QTextCursor.MoveOperation.Right,
+                QTextCursor.MoveMode.MoveAnchor);
+
+        curs.endEditBlock();
+        setTextCursor(curs);
+    }
+    
+    private void moverIzquierdaCursor(QTextCursor curs) {
+        curs.beginEditBlock();
+
+        curs.movePosition(QTextCursor.MoveOperation.Left,
+                QTextCursor.MoveMode.MoveAnchor);
+
+        curs.endEditBlock();
+        setTextCursor(curs);
     }
     
     private void establecerEventos() {
@@ -219,14 +253,17 @@ public class TextEditor extends QPlainTextEdit {
     private void pegarTexto() {
         String clipboardText = QApplication.clipboard().text(
                 QClipboard.Mode.Clipboard);
-        if(clipboardText.length() > NUM_CARACTERES_MAX_PEGAR) {
+        /*if(clipboardText.length() > NUM_CARACTERES_MAX_PEGAR) {
             clipboardText = clipboardText.substring(
                     0,
                     NUM_CARACTERES_MAX_PEGAR
             );
-        }
+        }*/
         
         pegarTexto(clipboardText);
+       
+        /*
+        verticalScrollBar().valueChanged.connect(controlador, "scrollBarCambiado()");*/
     }
     
     private void indentarDerecha() {
