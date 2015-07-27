@@ -4,12 +4,13 @@ import com.trolltech.qt.core.QTextCodec;
 import com.stylishdb.qt.controllers.CMainWindow;
 import com.trolltech.qt.gui.QApplication;
 import com.stylishdb.languages.LoadLanguage;
+import com.trolltech.qt.gui.QMainWindow;
 
 /**
  *
  ** @author StylishDB
  */
-public class StylishDB {
+public class StylishDB extends QMainWindow {
 
     private static CMainWindow controladorVentanaPrincipal;
     
@@ -24,7 +25,7 @@ public class StylishDB {
         controladorVentanaPrincipal = new
                 CMainWindow();
         
-        QApplication.exec();
+        QApplication.execStatic();
     }
     
     public static void salirAplicacion() {
