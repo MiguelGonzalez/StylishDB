@@ -90,7 +90,11 @@ public class CTopMenu extends Controller implements
     }
     
     protected void ejecutarConsulta() {
-        controladorPestanaActiva.ejecutarConsulta();
+        controladorPestanaActiva.ejecutarConsulta(false);
+    }
+    
+    protected void ejecutarConsultaNuevaPestana() {
+        controladorPestanaActiva.ejecutarConsulta(true);
     }
     
     protected void verTablasBaseDatos() {

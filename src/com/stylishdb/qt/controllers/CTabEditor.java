@@ -63,5 +63,5 @@ public class CTabEditor extends Controller
     }
 
     @Override
-    public void ejecutarConsulta(MTab pestana) {}
+    public void ejecutarConsulta(MTab pestana, boolean nuevaPestana) {}
 }

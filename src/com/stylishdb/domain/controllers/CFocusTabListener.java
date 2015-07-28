@@ -10,5 +10,5 @@ public interface CFocusTabListener {
     public void deshacer(MTab pestana);
     public void rehacer(MTab pestana);
     public void eliminada(MTab pestana);
-    public void ejecutarConsulta(MTab pestana);
+    public void ejecutarConsulta(MTab pestana, boolean nuevaPestana);
 }

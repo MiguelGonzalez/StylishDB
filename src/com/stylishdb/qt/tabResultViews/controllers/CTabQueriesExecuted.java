@@ -24,7 +24,7 @@ import java.util.List;
 public class CTabQueriesExecuted extends Controller
         implements CFocusTabListener, ThreadExecuteQueryListener {
 
-    private TabQueriesExecuted panelConsultas; 
+    private TabQueriesExecuted panelConsultas;
     
     public CTabQueriesExecuted() {
         super();
@@ -47,38 +47,53 @@ public class CTabQueriesExecuted extends Controller
     }
     
     private void ejecutarConsultas(MTab mPestana,
-            List<String> consultasEjecutar) {
+            List<String> consultasEjecutar,
+            boolean nuevaPestana) {
         MConnection mConexion = conexionesGuardadas.getMConexion(
                 mPestana.uuidConexion);
-                
+        
+        boolean esPrimeraConsultaEjecutar = true;
         for(String consultaEjecutar : consultasEjecutar) {
-            ejecutarConsulta(mConexion, consultaEjecutar);
+            ejecutarConsulta(
+                    mConexion,
+                    consultaEjecutar,
+                    esPrimeraConsultaEjecutar ? nuevaPestana : true);
+            
+             esPrimeraConsultaEjecutar = false;
         }
     }
     
-    private void ejecutarConsulta(MConnection mConexion, String consultaEjecutar) {
+    private void ejecutarConsulta(
+            MConnection mConexion,
+            String consultaEjecutar,
+            boolean nuevaPestana) {
         ThreadExecuteQuery thread = new ThreadExecuteQuery(
             mConexion,
-            consultaEjecutar
+            consultaEjecutar,
+                nuevaPestana
         );
         thread.addListener(this);
         thread.start();
     }
     
-    private void actualizarConsultas(MTab mPestana,
-            List<String> consultasActualizar) {
+    private void actualizarConsultas(
+            MTab mPestana,
+            List<String> consultasActualizar,
+            boolean nuevaPestana) {
         try {
             MConnection mConexion = mAplicacion.mConexionesGuardadas.
-                getMConexion(mPestana.uuidConexion);
+                getMConexion(mPestana.uuidConexion);            
             CTabUpdates cPestanaActualizarConsultas = new
-                    CTabUpdates(
-                        mConexion,
-                        consultasActualizar);
-            
+                CTabUpdates(
+                    mConexion,
+                    consultasActualizar);
+
             String nombrePestana = mPestana.getNombrePestana();
+
             anadirNuevaPestana(
                     nombrePestana,
-                    cPestanaActualizarConsultas.getPestanaResultado()
+                    cPestanaActualizarConsultas.getPestanaResultado(),
+                    nuevaPestana
             );
         } catch (ExecutorTextSQLException ex) {
             ModalAlert.mostrarErrorEnPantalla(
@@ -92,11 +107,25 @@ public class CTabQueriesExecuted extends Controller
         return panelConsultas;
     }
     
-    private void anadirNuevaPestana(String nombrePestana, QWidget widget) {
-        panelConsultas.addTab(nombrePestana, widget);
-        int nPestanas = panelConsultas.count();
-        if(nPestanas > 0) {
-            panelConsultas.setCurrentIndex(nPestanas - 1);
+    private void anadirNuevaPestana(
+            String nombrePestana,
+            QWidget widget,
+            boolean nuevaPestana) {
+        
+        int index = -1;
+        if(panelConsultas.isTabActive() && !nuevaPestana) {
+            index = panelConsultas.currentIndex();
+            
+            panelConsultas.removeTab(index);
+        }
+        
+        panelConsultas.addTab(nombrePestana, widget, index);        
+        if(index != -1) {
+            panelConsultas.setCurrentIndex(index);
+        } else {
+            panelConsultas.setCurrentIndex(
+                    panelConsultas.count() - 1
+            );
         }
     }
     
@@ -124,7 +153,7 @@ public class CTabQueriesExecuted extends Controller
     }
 
     @Override
-    public void ejecutarConsulta(MTab mPestana) {
+    public void ejecutarConsulta(MTab mPestana, boolean nuevaPestana) {
         MConnection mConexion = mAplicacion.mConexionesGuardadas.
                 getMConexion(mPestana.uuidConexion);
         String textoConsultaLanzar = mPestana.getTextoConsultaLanzar();
@@ -137,28 +166,38 @@ public class CTabQueriesExecuted extends Controller
         List<String> consultasActualizar = analizarTextoConsulta.getConsultasActualizar();
         
         if(!consultasEjecutar.isEmpty()) {
-            ejecutarConsultas(mPestana, consultasEjecutar);
+            ejecutarConsultas(
+                    mPestana,
+                    consultasEjecutar,
+                    nuevaPestana);
         }
         if(!consultasActualizar.isEmpty()) {
-            actualizarConsultas(mPestana, consultasActualizar);
+            actualizarConsultas(
+                    mPestana,
+                    consultasActualizar,
+                    nuevaPestana);
         }
     }
 
     @Override
-    public void consultaEjecutada(final ResultExecutes resultadoEjecutarConsulta) {
+    public void consultaEjecutada(
+            final ResultExecutes resultadoEjecutarConsulta,
+            final boolean nuevaPestana) {
         QApplication.invokeLater(new Runnable() {
             @Override
             public void run() {
                 CTabQueryExecute cPestanaMostrarConsulta = new
-                        CTabQueryExecute();
+                    CTabQueryExecute();
+
                 MTab mPestana = pestanasAbiertas.getPestanaActiva();
 
                 String nombrePestana = mPestana.getNombrePestana();
                 anadirNuevaPestana(
                         nombrePestana,
-                        cPestanaMostrarConsulta.getPestanaResultado()
+                        cPestanaMostrarConsulta.getPestanaResultado(),
+                        nuevaPestana
                 );
-                
+
                 cPestanaMostrarConsulta.pintarResultados(resultadoEjecutarConsulta);
             }
         });

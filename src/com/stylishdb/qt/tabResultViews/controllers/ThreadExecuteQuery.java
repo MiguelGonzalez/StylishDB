@@ -16,13 +16,20 @@ import java.util.List;
 public class ThreadExecuteQuery {
 
     private ExecutorTextSQL manejadorConsulta;
-    private MConnection mConexion;
-    private String consultaSQL;
-    private List<ThreadExecuteQueryListener> listeners;
+    
+    private final MConnection mConexion;
+    private final String consultaSQL;
+    private final List<ThreadExecuteQueryListener> listeners;
+    private final boolean nuevaPestana;
 
-    public ThreadExecuteQuery(MConnection mConexion, String consultaSQL) {
+    public ThreadExecuteQuery(
+            MConnection mConexion,
+            String consultaSQL,
+            boolean nuevaPestana) {
         this.mConexion = mConexion;
         this.consultaSQL = consultaSQL;
+        this.nuevaPestana = nuevaPestana;
+        
         listeners = new ArrayList<>();
     }
     
@@ -46,15 +53,19 @@ public class ThreadExecuteQuery {
                             getDatosConsultaEjecutada();
 
                     for(ThreadExecuteQueryListener listener : listeners) {
-                        listener.consultaEjecutada(res);
+                        listener.consultaEjecutada(
+                                res,
+                                nuevaPestana);
                     }
                 } catch (ExecutorTextSQLException ex) {
                     for(ThreadExecuteQueryListener listener : listeners) {
-                        listener.errorEjecutarConsulta(ex);
+                        listener.errorEjecutarConsulta(
+                                ex);
                     }
                 } catch (NoConnectionException ex) {
                     for(ThreadExecuteQueryListener listener : listeners) {
-                        listener.errorEjecutarConsulta(ex);
+                        listener.errorEjecutarConsulta(
+                                ex);
                     }
                 }
             }

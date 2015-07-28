@@ -58,11 +58,12 @@ public class CFocusTab {
         }
     }
     
-    public void ejecutarConsulta() {
+    public void ejecutarConsulta(boolean nuevaPestana) {
         comprobarInicializacionListeners();
         for(CFocusTabListener listener : listeners) {
             listener.ejecutarConsulta(
-                    pestanasAbiertas.getPestanaActiva());
+                    pestanasAbiertas.getPestanaActiva(),
+                    nuevaPestana);
         }
     }
     

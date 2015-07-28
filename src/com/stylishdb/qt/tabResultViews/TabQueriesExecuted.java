@@ -24,7 +24,19 @@ public class TabQueriesExecuted extends QTabWidget {
         tabCloseRequested.connect(controlador, "cerrarPestana(int)");
     }
     
-    public void addTab(String name, QWidget widget) {
-        addTab(widget, name);
+    public void addTab(String name, QWidget widget, int index) {
+        if(index == -1) {
+            addTab(widget, name);
+        } else {
+            insertTab(index, widget, name);
+        }        
+    }
+    
+    public boolean isTabActive() {
+        return count() != 0;
+    }
+    
+    public QWidget getTabActive() {
+        return currentWidget();
     }
 }

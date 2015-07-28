@@ -30,6 +30,7 @@ public class TopMenu extends QMenuBar {
     private QAction deshacer;
     private QAction rehacer;
     private QAction ejecutarConsulta;
+    private QAction ejecutarConsultaNuevaPestana;
     private QAction verTablasBaseDatos;
     private QAction renombrarPestana;
     private QAction cerrarPestana;
@@ -126,6 +127,7 @@ public class TopMenu extends QMenuBar {
 
         herramientasMenu.addSeparator();
         crearOpcionEjecutarConsulta();
+        crearOpcionEjecutarConsultaNuevaPestana();
         crearOpcionVerTablaseBaseDatos();
     }
     
@@ -141,6 +143,14 @@ public class TopMenu extends QMenuBar {
         ejecutarConsulta.setShortcut(QKeySequence.fromString("F5"));
         ejecutarConsulta.triggered.connect(controlador, "ejecutarConsulta()");
         herramientasMenu.addAction(ejecutarConsulta);
+    }
+    
+    
+    private void crearOpcionEjecutarConsultaNuevaPestana() {
+        ejecutarConsultaNuevaPestana = new QAction(tr("Ejecutar consulta en otra pestaña"), this);
+        ejecutarConsultaNuevaPestana.setShortcut(QKeySequence.fromString("F6"));
+        ejecutarConsultaNuevaPestana.triggered.connect(controlador, "ejecutarConsultaNuevaPestana()");
+        herramientasMenu.addAction(ejecutarConsultaNuevaPestana);
     }
     
     private void crearOpcionVerTablaseBaseDatos() {
