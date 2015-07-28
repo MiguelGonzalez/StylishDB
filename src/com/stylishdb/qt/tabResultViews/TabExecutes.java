@@ -6,8 +6,6 @@ import com.trolltech.qt.gui.QVBoxLayout;
 import com.trolltech.qt.gui.QWidget;
 import com.stylishdb.db.domain.ResultExecutes;
 import com.stylishdb.qt.tabResultViews.controllers.CTabExecutes;
-import com.trolltech.qt.core.Qt;
-import com.trolltech.qt.gui.QAbstractItemView;
 
 /**
  *
@@ -18,7 +16,8 @@ public class TabExecutes extends QWidget {
     private QLineEdit textConsultaSQL;
     private QTableWidget tablaResultadoConsulta;
     
-    private CTabExecutes controlador;
+    private final CTabExecutes controlador;
+    private ExecutesTablePaint pintadoProgresivo = null;
     
     public TabExecutes(CTabExecutes controlador) {
         this.controlador = controlador;
@@ -56,11 +55,16 @@ public class TabExecutes extends QWidget {
         tablaResultadoConsulta.setHorizontalHeaderLabels(
                 resultadoEjecutarConsulta.nombresColumnas);
         
-        ExecutesTablePaint pintadoProgresivo = new
+        pintadoProgresivo = new
                 ExecutesTablePaint(
             tablaResultadoConsulta,
             resultadoEjecutarConsulta.datosFilas
         );
         pintadoProgresivo.iniciarPintado();
+    }
+
+    public void liberarWidget() {
+        pintadoProgresivo.pararPintado();
+        pintadoProgresivo = null;
     }
 }

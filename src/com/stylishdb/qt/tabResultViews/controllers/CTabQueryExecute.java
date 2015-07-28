@@ -78,9 +78,5 @@ public class CTabQueryExecute extends Controller {
         
         pestanaResultado.dispose();
         pestanaResultado = null;
-        
-        try {
-            finalize();
-        } catch (Throwable ex) {}
-    }
+    }    
 }

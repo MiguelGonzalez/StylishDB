@@ -26,7 +26,8 @@ public class CTabExecutes extends Controller {
         vistaDatos.pintarDatos(resultadoEjecutarConsulta);
     }
 
-    void liberarWidget() {
-        vistaDatos.dispose();
-    }
+    void liberarWidget() {        
+        vistaDatos.liberarWidget();
+        vistaDatos = null;
+    }    
 }

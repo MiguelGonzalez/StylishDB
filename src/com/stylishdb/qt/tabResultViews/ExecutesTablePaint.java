@@ -12,22 +12,24 @@ import java.util.List;
  */
 public class ExecutesTablePaint {
 
-    private QTableWidget table;
-    private List<String[]> datosConsulta;
+    private final QTableWidget table;
+    private final List<String[]> datosConsulta;
+    private boolean pintando;
     
     public ExecutesTablePaint(QTableWidget table,
             List<String[]> datosConsulta) {
         this.table = table;
         this.datosConsulta = datosConsulta;
     }
- 
+    
     public void iniciarPintado() {
+        pintando = true;
         
         bloquearSenales();
         QThread qThread = new QThread(new Runnable() {
             @Override
             public void run() {
-                for(int numFila = 0; numFila < datosConsulta.size(); numFila++) {
+                for(int numFila = 0; numFila < datosConsulta.size() && pintando; numFila++) {
                     final String[] datosFila = datosConsulta.get(numFila);
                     final int numFilaFinal = numFila;
                     QApplication.invokeAndWait(new Runnable() {
@@ -41,13 +43,19 @@ public class ExecutesTablePaint {
                 QApplication.invokeLater(new Runnable() {
                     @Override
                     public void run() {
-                       table.resizeColumnsToContents();
-                       desbloquearSenales();
+                        if(pintando) {
+                            table.resizeColumnsToContents();
+                            desbloquearSenales();
+                        }
                     }
                 });
             }
         });
         qThread.start();        
+    }
+    
+    public synchronized void pararPintado() {
+        pintando = false;
     }
     
     private void bloquearSenales() {
@@ -80,8 +88,10 @@ public class ExecutesTablePaint {
             numColumna++;
             QTableWidgetItem columnaFilaWidget = new QTableWidgetItem(datoFila);
             
-            table.setItem(numFila, numColumna, columnaFilaWidget);
+            if(pintando) {
+                table.setItem(numFila, numColumna, columnaFilaWidget);
+            }
         }
     }
-    
+
 }
