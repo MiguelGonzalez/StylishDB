@@ -13,7 +13,7 @@ public class TabQueryExecute extends QWidget {
     
     private QVBoxLayout widgetLayout;
     private QTabWidget pestanasTiposVistas;
-    private CTabQueryExecute controlador;
+    private final CTabQueryExecute controlador;
     
     public TabQueryExecute(CTabQueryExecute controlador) {
         this.controlador = controlador;
@@ -21,7 +21,7 @@ public class TabQueryExecute extends QWidget {
         crearComponentesInterfaz();
         posicionarComponentesInterfaz();
     }
-    
+     
     public void liberarControlador() {
         controlador.liberarWidget();
     }

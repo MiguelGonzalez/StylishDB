@@ -27,7 +27,7 @@ public class CTabQueryExecute extends Controller {
         
         pintarComponentes();
     }
-    
+        
     private void crearControladores() {
         controladorVistaDatosConsulta = new CTabExecutes();
         controladorVistaDatosTabla = new CTabRowsInformation();
@@ -78,5 +78,9 @@ public class CTabQueryExecute extends Controller {
         
         pestanaResultado.dispose();
         pestanaResultado = null;
+        
+        try {
+            finalize();
+        } catch (Throwable ex) {}
     }
 }
