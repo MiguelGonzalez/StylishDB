@@ -6,6 +6,8 @@ import com.trolltech.qt.gui.QVBoxLayout;
 import com.trolltech.qt.gui.QWidget;
 import com.stylishdb.db.domain.ResultExecutes;
 import com.stylishdb.qt.tabResultViews.controllers.CTabExecutes;
+import com.trolltech.qt.core.Qt;
+import com.trolltech.qt.gui.QAbstractItemView;
 
 /**
  *
@@ -25,12 +27,13 @@ public class TabExecutes extends QWidget {
         
         posicionarComponentesInterfaz();
     }
-    
+        
     private void crearComponentesInterfaz() {
         textConsultaSQL = new QLineEdit();
         textConsultaSQL.setReadOnly(true);
         textConsultaSQL.setTextMargins(3, 6, 3, 6);
-        tablaResultadoConsulta = new QTableWidget();
+        
+        tablaResultadoConsulta = new QTableWidgetCopyEnhancement();
     }
     
     private void posicionarComponentesInterfaz() {

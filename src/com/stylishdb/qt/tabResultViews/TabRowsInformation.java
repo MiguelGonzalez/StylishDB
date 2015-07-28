@@ -30,9 +30,9 @@ public class TabRowsInformation extends QWidget {
     }
     
     private void crearComponentesInterfaz() {
-        tablaDatosTabla = new QTableWidget();
+        tablaDatosTabla = new QTableWidgetCopyEnhancement();
     }
-
+    
     private void posicionarComponentesInterfaz() {
         QVBoxLayout ventanaLayout = new QVBoxLayout();
         
@@ -42,7 +42,7 @@ public class TabRowsInformation extends QWidget {
         
         setLayout(ventanaLayout);
     }
-    
+        
     private QGridLayout getLayoutDatosTabla() {
         QGridLayout datosGridConsulta = new QGridLayout();
         
@@ -50,7 +50,7 @@ public class TabRowsInformation extends QWidget {
         
         return datosGridConsulta;
     }
-    
+        
     public void pintarDatosTabla(ResultExecutes resultadoConsulta) {
         List<ColumnDatas> datosFilas = resultadoConsulta.datosColumnas;
         
