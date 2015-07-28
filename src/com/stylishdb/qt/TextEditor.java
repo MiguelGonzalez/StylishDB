@@ -20,7 +20,6 @@ import java.util.UUID;
  */
 public class TextEditor extends QPlainTextEdit {
     
-    private final int NUM_CARACTERES_MAX_PEGAR = 10000;
     private final int NUM_SPACES_INDENT = 4;
     private UUID uuid;
     private CEditor controlador;
@@ -131,7 +130,7 @@ public class TextEditor extends QPlainTextEdit {
     }
     
     @Override
-    protected void keyPressEvent(QKeyEvent event) {
+    protected void keyPressEvent(QKeyEvent event) {        
         if(suprimirRehacerNativo(event)) {
             return;
         }
@@ -164,8 +163,7 @@ public class TextEditor extends QPlainTextEdit {
             indentarIzquierda();
             return;
         }
-        
-        
+                
         super.keyPressEvent(event);
     }
     
@@ -253,17 +251,8 @@ public class TextEditor extends QPlainTextEdit {
     private void pegarTexto() {
         String clipboardText = QApplication.clipboard().text(
                 QClipboard.Mode.Clipboard);
-        /*if(clipboardText.length() > NUM_CARACTERES_MAX_PEGAR) {
-            clipboardText = clipboardText.substring(
-                    0,
-                    NUM_CARACTERES_MAX_PEGAR
-            );
-        }*/
         
         pegarTexto(clipboardText);
-       
-        /*
-        verticalScrollBar().valueChanged.connect(controlador, "scrollBarCambiado()");*/
     }
     
     private void indentarDerecha() {
